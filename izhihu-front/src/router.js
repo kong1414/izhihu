@@ -25,15 +25,15 @@ export default new Router({
       name: 'home',
       component: () => import('./views/Home.vue'),
       children: [
-        // {
-        //   path: '/home/index',
-        //   menuName: '首页',
-        //   component: () => import('./views/Home.vue')
-        // },
+        {
+          path: '/home/index',
+          menuName: 'index',
+          component: () => import('./views/index/Index.vue')
+        },
         {
           path: '/home/topic',
           menuName: 'topic',
-          component: () => import('./views/topic/topic.vue')
+          component: () => import('./views/topic/Topic.vue')
         }
       ]
     }

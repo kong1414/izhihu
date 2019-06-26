@@ -1,4 +1,3 @@
-首页右侧写回答写文章写想法
 <template>
   <div>
     123
@@ -7,17 +6,19 @@
 
 <script>
 export default {
-  name: 'asideWrite',
+  name: '写名字一般是文件名',
   data () {
     return {
 
     }
   },
   methods: {
-
+    
   }
 }
 </script>
 
 <style lang="scss">
+
 </style>
+

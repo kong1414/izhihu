@@ -2,42 +2,48 @@
   <el-container class="home">
     <el-header height="52px">
       <div class="header-content">
-        <img class="logo" src="../assets/img/logo-izhihu.png" alt="izhihu" height="40px">
+        <img class="logo"
+             src="../assets/img/logo-izhihu.png"
+             alt="izhihu"
+             height="40px">
         <div class="menu">
-          <el-menu 
-            :default-active="activeIndex"
-            class="el-menu-top"
-            mode="horizontal"
-            text-color="#8590a6"
-            @select="handleSelect"
-            default-active="/home/index"
-            router>
+          <el-menu :default-active="activeIndex"
+                   class="el-menu-top"
+                   mode="horizontal"
+                   text-color="#8590a6"
+                   @select="handleSelect"
+                   default-active="/home/index"
+                   router>
             <el-menu-item index="/home/index">首页</el-menu-item>
             <el-menu-item index="/home/discovery">发现</el-menu-item>
             <el-menu-item index="/home/topic">话题</el-menu-item>
           </el-menu>
         </div>
-        
+
         <div class="top-search">
-          <el-input
-            size="small"
-            v-model="search" 
-            class="input" 
-            placeholder="请输入内容"
-            suffix-icon="el-icon-search">
+          <el-input size="small"
+                    v-model="input"
+                    class="input"
+                    placeholder="请输入内容"
+                    suffix-icon="el-icon-search">
           </el-input>
-          <el-button type="primary" size="small" @click="handleAsk">提问</el-button>
-          
+          <el-button type="primary"
+                     size="small"
+                     @click="handleAsk">提问</el-button>
+
         </div>
         <div class="more">
           <span>
-            <i class="el-icon-message-solid" style="margin-right: 30px;"></i>
-            <i class="el-icon-chat-line-round" style="margin-right: 30px;"></i>
+            <i class="el-icon-message-solid"
+               style="margin-right: 30px;"></i>
+            <i class="el-icon-chat-line-round"
+               style="margin-right: 30px;"></i>
             <el-dropdown>
               <span class="el-dropdown-link userinfo-inner">
                 <!-- {{this.$store.state.user.username}} -->
                 <span class="username">kong1414</span>
-                <i style="padding-left:5px" class="el-icon-caret-bottom"></i>
+                <i style="padding-left:5px"
+                   class="el-icon-caret-bottom"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="changePasswords">修改密码</el-dropdown-item>
@@ -47,12 +53,12 @@
           </span>
         </div>
       </div>
-      
+
     </el-header>
-    
+
     <el-container class="main">
       <transition name="el-fade-in">
-        <router-view/>
+        <router-view />
       </transition>
       <!-- <el-main>
         Main
@@ -146,7 +152,6 @@ export default {
         span {
           i {
             font-size: 25px;
-            
           }
         }
         .userinfo-inner {
@@ -159,7 +164,6 @@ export default {
         }
       }
     }
-    
   }
   .main {
     width: 1100px;
@@ -167,4 +171,3 @@ export default {
   }
 }
 </style>
-
