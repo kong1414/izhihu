@@ -43,7 +43,7 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://120.78.136.84:3306/izhihu?useSSL=false"
                         userId="izhihu"
-                        password="ABCabc-123"/>
+                        password="*****"/>
 
         <!-- 类型转换 -->
         <!--<javaTypeResolver>-->

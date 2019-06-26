@@ -20,4 +20,8 @@ public class SuccessVO<T> extends ResultVO<T> {
         super(HttpCodeEnum.REQUEST_SUCCESS.getCode(), data, resultMessage);
     }
 
+    public SuccessVO(T data) {
+        super(HttpCodeEnum.REQUEST_SUCCESS.getCode(), data, "成功");
+    }
+
 }

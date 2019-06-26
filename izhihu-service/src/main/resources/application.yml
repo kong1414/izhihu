@@ -11,7 +11,7 @@ spring:
   datasource:
     url: jdbc:mysql://120.78.136.84:3306/izhihu?useSSL=false&characterEncoding=utf8
     username: izhihu
-    password: ABCabc-123
+    password: MrgMp9zIelTmD7/bRcHc0qQRcbgYBKo61vdLVX/blbZsi/CX1BEAQlnIMtSCDIyIaNEI8wEhbP3Ak4sIAZ9yCg==
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
@@ -48,6 +48,10 @@ spring:
         enabled: true
         login-username: admin
         login-password: admin
+      connection-properties: config.decrypt=true;config.decrypt.key=${public-key}
+
+publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBANn6yufQlGATT2hRInHMqZIbSm7EWbw20DaY4FUPimEyfxxSRcBI2NEiNzwT2ub0D+mkE9ivY0py4j0reQudmccCAwEAAQ==
+
 devtools:
   restart:
     enabled: true
@@ -73,9 +77,9 @@ swagger:
   title: zhihu
   description: zhihu
   version: 1.0
-  terms-of-service-url: http://www.javastack.cn/
+  terms-of-service-url: http://www.izhihu.cn/
   base-package: cn.edu.xmut.izhihu
   contact:
-    name: Javastack
-    url: http://www.javastack.cn/
-    email: admin@javastack.cn
+    name: izhihu
+    url: http://www.izhihu.cn/
+    email: null

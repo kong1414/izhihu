@@ -28,6 +28,7 @@ public class SessionFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
+        chain.doFilter(httpRequest, response);
 
 /*
         // System.out.println("执行过滤操作。。。");
