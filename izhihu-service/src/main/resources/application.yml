@@ -1,0 +1,81 @@
+server:
+  port: 8090
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  thymeleaf:
+    mode: HTML
+    encoding: UTF-8
+#    content-type: text/html
+    cache: false
+  datasource:
+    url: jdbc:mysql://120.78.136.84:3306/izhihu?useSSL=false&characterEncoding=utf8
+    username: izhihu
+    password: ABCabc-123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 8 #初始化连接大小
+      min-idle: 5 #最小空闲连接数
+      max-active: 30 #最大连接数
+      query-timeout: 6000 #查询超时时间
+      transaction-query-timeout: 6000 #事务查询超时时间
+      remove-abandoned-timeout: 1800 #关闭空闲连接超时时间
+      web-stat-filter:
+        enabled: true
+        exclusions: /druid/*,*.js,*.gif,*.jpg,*.png,*.css,*.ico,
+      filter:
+        stat:
+          enabled: true
+          db-type: mysql # 打印慢sql
+          log-slow-sql: true # 超过200毫秒即为慢sql
+        wall:
+          enabled: true
+          db-type: mysql
+          log-violation: true # 对认定的攻击sql进行日志输出
+          throw-exception: true # 对认定的攻击sql抛出异常
+          config:
+            alter-table-allow: false # 是否允许下述操作
+            truncate-allow: false
+            drop-table-allow: false
+            update-where-none-check: true
+            metadata-allow: true # metadata会暴露数据的表结构 应该为false比较安全
+        config:
+          enabled: true
+        log4j:
+          connection-log-enabled: true
+      stat-view-servlet:
+        enabled: true
+        login-username: admin
+        login-password: admin
+devtools:
+  restart:
+    enabled: true
+#    是否支持热部署
+
+# 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  #  mapper-locations: classpath*:mapper/*Mapper.xml
+
+  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: cn.edu.xmut.izhihu.pojo.entity
+# 注意：对应实体类的路径
+
+#pagehelper 分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+swagger:
+  title: zhihu
+  description: zhihu
+  version: 1.0
+  terms-of-service-url: http://www.javastack.cn/
+  base-package: cn.edu.xmut.izhihu
+  contact:
+    name: Javastack
+    url: http://www.javastack.cn/
+    email: admin@javastack.cn

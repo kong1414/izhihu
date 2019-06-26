@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>i知乎</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <!-- 引入组件库 -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<div id="app">
+  <el-button @click="visible = true">Button</el-button>
+  <el-dialog :visible.sync="visible" title="Hello world">
+    <p>Try Element</p>
+  </el-dialog>
+  <el-input v-model="input" placeholder="请输入内容"></el-input>
+  <h1>{{input}}</h1>
+</div>
+</body>
+<script>
+  new Vue({
+    el: '#app',
+    data: function () {
+      return {
+        message: 'Hello world',
+        visible: false,
+        input: ''
+      }
+    },
+    methods: {
+      show: function () {
+        alert("run...")
+      }
+    }
+  })
+</script>
+</html>
