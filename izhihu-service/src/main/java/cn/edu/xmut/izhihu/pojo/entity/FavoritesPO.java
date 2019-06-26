@@ -1,10 +1,10 @@
 package cn.edu.xmut.izhihu.pojo.entity;
 
-import java.util.Date;
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "favorites")
-public class Favorites {
+public class FavoritesPO {
     /**
      * 收藏夹Id
      */

@@ -1,10 +1,10 @@
 package cn.edu.xmut.izhihu.pojo.entity;
 
-import java.util.Date;
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "dynamic")
-public class Dynamic {
+public class DynamicPO {
     /**
      * 个人动态表id
      */

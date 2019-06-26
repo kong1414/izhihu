@@ -1,10 +1,10 @@
 package cn.edu.xmut.izhihu.pojo.entity;
 
-import java.util.Date;
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "topic")
-public class Topic {
+public class TopicPO {
     /**
      * 话题id
      */

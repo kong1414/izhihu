@@ -1,10 +1,10 @@
 package cn.edu.xmut.izhihu.pojo.entity;
 
-import java.util.Date;
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "private_message")
-public class PrivateMessage {
+public class PrivateMessagePO {
     /**
      * 私信Id
      */

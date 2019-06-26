@@ -1,11 +1,10 @@
 package cn.edu.xmut.izhihu.pojo.entity;
 
-import java.util.Date;
 import javax.persistence.*;
-import javax.persistence.Column;
+import java.util.Date;
 
 @Table(name = "agree_oppose")
-public class AgreeOppose {
+public class AgreeOpposePO {
     /**
      * 赞同反对表id
      */

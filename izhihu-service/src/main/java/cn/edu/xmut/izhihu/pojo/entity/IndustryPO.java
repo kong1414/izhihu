@@ -1,29 +1,53 @@
 package cn.edu.xmut.izhihu.pojo.entity;
 
-import java.util.Date;
 import javax.persistence.*;
+import java.util.Date;
 
-@Table(name = "industry_class")
-public class IndustryClass {
+@Table(name = "industry")
+public class IndustryPO {
+    /**
+     * 行业id
+     */
+    @Id
+    @Column(name = "indu_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
+    private Integer induId;
+
     /**
      * 行业类别id
      */
-    @Id
     @Column(name = "indu_class_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
     private Integer induClassId;
 
     /**
-     * 行业类别名称
+     * 行业名称
      */
-    @Column(name = "indu_class_name")
-    private String induClassName;
+    @Column(name = "indu_name")
+    private String induName;
 
     /**
      * 创建时间
      */
     @Column(name = "create_time")
     private Date createTime;
+
+    /**
+     * 获取行业id
+     *
+     * @return indu_id - 行业id
+     */
+    public Integer getInduId() {
+        return induId;
+    }
+
+    /**
+     * 设置行业id
+     *
+     * @param induId 行业id
+     */
+    public void setInduId(Integer induId) {
+        this.induId = induId;
+    }
 
     /**
      * 获取行业类别id
@@ -44,21 +68,21 @@ public class IndustryClass {
     }
 
     /**
-     * 获取行业类别名称
+     * 获取行业名称
      *
-     * @return indu_class_name - 行业类别名称
+     * @return indu_name - 行业名称
      */
-    public String getInduClassName() {
-        return induClassName;
+    public String getInduName() {
+        return induName;
     }
 
     /**
-     * 设置行业类别名称
+     * 设置行业名称
      *
-     * @param induClassName 行业类别名称
+     * @param induName 行业名称
      */
-    public void setInduClassName(String induClassName) {
-        this.induClassName = induClassName == null ? null : induClassName.trim();
+    public void setInduName(String induName) {
+        this.induName = induName == null ? null : induName.trim();
     }
 
     /**

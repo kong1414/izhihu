@@ -1,12 +1,12 @@
 package cn.edu.xmut.izhihu.pojo.entity;
 
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Table(name = "article")
-public class ArticleDO {
+public class ArticlePO {
     /**
      * 回答文章想法id
      */

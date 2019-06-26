@@ -1,8 +1,6 @@
 package cn.edu.xmut.izhihu.filter;
 
-import cn.edu.xmut.izhihu.pojo.vo.HttpCodeEnum;
 import cn.edu.xmut.izhihu.service.UserService;
-import org.apache.tomcat.util.http.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.*;
@@ -10,16 +8,13 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * @Author: QiuGuanLin
- * @Description: 过滤器测试
- * @Date: 0:28 2018/9/25
+ * @Description: 过滤器
+ * @Date: 0:28 2019/6/26
  */
-@WebFilter(filterName = "myFilter", urlPatterns = "/*")
+@WebFilter(filterName = "loginFilter", urlPatterns = "/*")
 public class SessionFilter implements Filter {
 
     @Autowired
