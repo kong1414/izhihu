@@ -1,0 +1,247 @@
+@import './variable.scss';
+#app,
+html,
+body,
+.container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#app {
+  // app基础样式
+  font-family: 'Microsoft YaHei', '微软雅黑', 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: left;
+  color: $color-text;
+  background: $color-background;
+}
+
+.font_cont {
+  // 文本超出省略号
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.font16 {
+  // 16号字体
+  font-size: $font-size-medium-x;
+}
+
+.main-color {
+  // 主颜色
+  color: $color-text-ll;
+}
+
+.grey-color {
+  // 灰色
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.warning {
+  // 警告颜色
+  color: $color-warning;
+}
+
+.success {
+  // 成功颜色
+  color: $color-success;
+}
+
+.danger {
+  // 危险颜色
+  color: $color-error;
+}
+
+.tree-folder {
+  // 全局文件夹图标
+  background-image: url("../../assets/img/icon-folder.png");
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.tree-file {
+  // 全局文件图标
+  background-image: url("../../assets/img/icon-file.png");
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.flex-between {
+  // flex布局
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-box {
+  // flex 居中
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.gadge {
+  // 小红点
+  display: inline-block;
+  width: 20px;
+  height: 16px;
+  line-height: 16px;
+  margin: 0 2px;
+  font-size: 12px;
+  vertical-align: middle;
+  text-align: center;
+  background-color: #f56c6c;
+  border-radius: 8px;
+  color: #fff;
+}
+
+.el-progress-bar {
+  // Progress 进度条修改样式
+  padding-right: 60px;
+  margin-right: -65px;
+}
+
+.base-box {
+  // 基础布局
+  min-height: 65vh;
+  overflow-y: auto;
+  margin: 24px;
+  margin-bottom: 100px;
+  padding: 24px;
+  border-radius: 5px;
+  background: $color-background;
+  .header {
+    // 基础头部布局
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+  .base-breadcumb {
+    // 基本面包屑
+    padding: 10px 0;
+    .active {
+      .el-breadcrumb__inner {
+        color: $color-text-ll;
+      }
+      .el-breadcrumb__separator {
+        color: $color-text-ll;
+      }
+    }
+  }
+  .page-box {
+    // 基础分页
+    text-align: right;
+    margin: 10px 5px 0 0;
+  }
+}
+
+.base-container {
+  .header {
+    background: #fff;
+    padding: 16px 32px;
+    h1 {
+      color: rgba(0,0,0,.85);
+      font-size: 20px;
+      font-weight: 500;
+      margin-top: 15px;
+    }
+  }
+  .main {
+    min-height: 500px;
+    margin: 20px;
+    padding: 20px;
+    background: #fff;
+  }
+}
+
+.el-dialog {
+  // 基础弹窗
+  .el-dialog__header {
+    border-bottom: 1px solid $color-border;
+  }
+  .el-dialog__body {
+    margin: 0;
+    padding: 0;
+    .content {
+      padding: 22px 22px 0 22px;
+      .el-form-item {
+        margin-right: 22px;
+      }
+      .el-select {
+        width: 100%;
+      }
+    }
+    .footer {
+      padding: 10px 20px;
+      text-align: right;
+      border-top: 1px solid $color-border;
+    }
+  }
+}
+
+.radio-group-noborder {
+  // 单选模式
+  .el-radio-button:first-child .el-radio-button__inner {
+    border: 0;
+  }
+  .el-radio-button__inner {
+    padding: 4px 10px;
+    border: 0;
+  }
+  .el-radio-button__orig-radio:checked+.el-radio-button__inner {
+    color: $color-text-ll;
+    background-color: $color-background;
+    border-color: $color-background;
+    box-shadow: none;
+  }
+}
+
+.my-table {
+  margin: 10px 0;
+  .el-table__header-wrapper {
+    // 表头
+    .el-table__header {
+      display: table-header-group;
+      vertical-align: middle;
+      border-color: inherit;
+      background-color: $color-highlight-background;
+      .has-gutter {
+        tr {
+          height: 56px;
+          th {
+            background: $color-highlight-background;
+            color: $color-text-d;
+          }
+        }
+      }
+    }
+  }
+}
+
+.my-line {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0px 3px;
+  width: 1px;
+  height: 14px;
+  background-color: $color-border;
+}
+
+.my-tree {
+  margin-top: 5px;
+  .el-tree-node__content {
+    height: 40px;
+  }
+  .el-tree-node.is-current > .el-tree-node__content {
+    color: $color-text-ll;
+    background-color: #e6f7ff;
+    border-right: 3px solid #1890ff;
+  }
+}
