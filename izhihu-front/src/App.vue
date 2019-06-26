@@ -11,3 +11,8 @@ export default {
   name: 'app'
 }
 </script>
+<style lang="scss">
+#app {
+  min-width: 1100px;
+}
+</style>

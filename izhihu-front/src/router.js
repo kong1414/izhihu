@@ -15,10 +15,27 @@ export default new Router({
       name: 'login',
       component: () => import('./views/Login-fork.vue')
     },
+    // {
+    //   path: '/home',
+    //   name: 'home',
+    //   component: () => import('./views/Home.vue')
+    // },
     {
       path: '/home',
       name: 'home',
-      component: () => import('./views/Home.vue')
+      component: () => import('./views/Home.vue'),
+      children: [
+        // {
+        //   path: '/home/index',
+        //   menuName: '首页',
+        //   component: () => import('./views/Home.vue')
+        // },
+        {
+          path: '/home/topic',
+          menuName: 'topic',
+          component: () => import('./views/topic/topic.vue')
+        }
+      ]
     }
   ]
 })
