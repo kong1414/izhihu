@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Table(name = "column")
-public class ColumnPO {
+public class ColumnDO {
     /**
      * 专栏id
      */

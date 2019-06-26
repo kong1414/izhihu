@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Table(name = "private_message")
-public class PrivateMessagePO {
+public class PrivateMessageDO {
     /**
      * 私信Id
      */

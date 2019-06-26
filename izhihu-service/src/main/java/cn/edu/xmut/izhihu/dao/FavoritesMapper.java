@@ -1,6 +1,6 @@
 package cn.edu.xmut.izhihu.dao;
 
-import cn.edu.xmut.izhihu.pojo.entity.FavoritesPO;
+import cn.edu.xmut.izhihu.pojo.entity.FavoritesDO;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -11,5 +11,5 @@ import tk.mybatis.mapper.common.Mapper;
  * @Version: 1.0
  */
 @Repository
-public interface FavoritesMapper extends Mapper<FavoritesPO> {
+public interface FavoritesMapper extends Mapper<FavoritesDO> {
 }

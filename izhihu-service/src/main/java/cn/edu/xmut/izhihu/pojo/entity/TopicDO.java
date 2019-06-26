@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Table(name = "topic")
-public class TopicPO {
+public class TopicDO {
     /**
      * 话题id
      */

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Table(name = "dynamic")
-public class DynamicPO {
+public class DynamicDO {
     /**
      * 个人动态表id
      */

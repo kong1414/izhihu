@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Table(name = "agree_oppose")
-public class AgreeOpposePO {
+public class AgreeOpposeDO {
     /**
      * 赞同反对表id
      */

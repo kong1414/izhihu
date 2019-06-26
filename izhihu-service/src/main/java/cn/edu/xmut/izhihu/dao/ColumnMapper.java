@@ -1,6 +1,6 @@
 package cn.edu.xmut.izhihu.dao;
 
-import cn.edu.xmut.izhihu.pojo.entity.ColumnPO;
+import cn.edu.xmut.izhihu.pojo.entity.ColumnDO;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -11,5 +11,5 @@ import tk.mybatis.mapper.common.Mapper;
  * @Version: 1.0
  */
 @Repository
-public interface ColumnMapper extends Mapper<ColumnPO> {
+public interface ColumnMapper extends Mapper<ColumnDO> {
 }

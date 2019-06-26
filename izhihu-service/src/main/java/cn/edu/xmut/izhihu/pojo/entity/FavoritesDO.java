@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Table(name = "favorites")
-public class FavoritesPO {
+public class FavoritesDO {
     /**
      * 收藏夹Id
      */

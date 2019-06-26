@@ -1,6 +1,6 @@
 package cn.edu.xmut.izhihu.dao;
 
-import cn.edu.xmut.izhihu.pojo.entity.TopicPO;
+import cn.edu.xmut.izhihu.pojo.entity.TopicDO;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -11,5 +11,5 @@ import tk.mybatis.mapper.common.Mapper;
  * @Version: 1.0
  */
 @Repository
-public interface TopicMapper extends Mapper<TopicPO> {
+public interface TopicMapper extends Mapper<TopicDO> {
 }

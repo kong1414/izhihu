@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 @Table(name = "question")
-public class QuestionPO {
+public class QuestionDO {
     /**
      * 问题id
      */

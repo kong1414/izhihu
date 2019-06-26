@@ -6,7 +6,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Table(name = "inviter")
-public class InviterPO {
+public class InviterDO {
     /**
      * 问题Id
      */

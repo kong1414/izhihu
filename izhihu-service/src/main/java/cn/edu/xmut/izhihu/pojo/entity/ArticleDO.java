@@ -6,7 +6,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Table(name = "article")
-public class ArticlePO {
+public class ArticleDO {
     /**
      * 回答文章想法id
      */
