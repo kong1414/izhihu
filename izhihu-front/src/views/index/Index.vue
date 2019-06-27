@@ -14,21 +14,24 @@
           </el-tab-pane>
         </el-tabs>
       </el-card>
-      
       </el-main>
     <el-aside width="300px" style="background-color:green;min-height:200px">
       Aside
       <aside-write></aside-write>
+      底部
+      <aside-footer></aside-footer>
     </el-aside>
   </el-container>
 </template>
 
 <script>
 import AsideWrite from '../../components/aside/AsideWrite.vue'
+import AsideFooter from '../../components/aside/AsideFooter.vue'
 export default {
   name: 'index',
   components: {
-    AsideWrite
+    AsideWrite,
+    AsideFooter
   },
   data () {
     return {
