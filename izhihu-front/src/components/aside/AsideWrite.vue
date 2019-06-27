@@ -59,6 +59,7 @@ export default {
 
 <style lang="scss">
 .aside-write {
+  margin-top: 20px;
   .write-card {
     text-align: center;
     .el-card__body {

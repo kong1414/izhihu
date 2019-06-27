@@ -16,10 +16,8 @@
       </el-card>
       </el-main>
     <el-aside width="300px" style="background-color:green;min-height:200px">
-      Aside
       <aside-write></aside-write>
       <aside-category></aside-category>
-      底部
       <aside-footer></aside-footer>
     </el-aside>
   </el-container>
