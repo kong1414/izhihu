@@ -60,7 +60,7 @@ export default {
           height: 56px;
           line-height: 56px;
         }
-        .is-active {
+        .el-tabs__item + .is-active {
           font-weight: 500;
           color: #0084ff;
           font-size: 16px;
