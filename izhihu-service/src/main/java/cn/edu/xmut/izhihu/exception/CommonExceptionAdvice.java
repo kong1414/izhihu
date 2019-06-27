@@ -1,5 +1,7 @@
 package cn.edu.xmut.izhihu.exception;
 
+import cn.edu.xmut.izhihu.pojo.vo.HttpCodeEnum;
+import cn.edu.xmut.izhihu.pojo.vo.ResultVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
@@ -40,9 +42,10 @@ public class CommonExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public String handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
+    public ResultVO handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
         logger.error("缺少请求参数", e);
-        return "缺少请求参数";
+        // return "缺少请求参数";
+        return new ResultVO(HttpCodeEnum.REQUEST_FAIL.getCode(),null,"缺少请求参数");
     }
 
     /**
@@ -60,14 +63,18 @@ public class CommonExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public String handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ResultVO handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         logger.error("参数验证失败", e);
         BindingResult result = e.getBindingResult();
         FieldError error = result.getFieldError();
         String field = error.getField();
         String code = error.getDefaultMessage();
         String message = String.format("%s:%s", field, code);
-        return "参数验证失败=" + message;
+
+        ResultVO resultvo = new ResultVO(HttpCodeEnum.REQUEST_FAIL.getCode(), null, "参数验证失败" + message);
+        return resultvo;
+        // return "参数验证失败=" + message;
+
     }
 
     /**
@@ -91,12 +98,14 @@ public class CommonExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
-    public String handleServiceException(ConstraintViolationException e) {
+    public ResultVO handleServiceException(ConstraintViolationException e) {
         logger.error("参数验证失败", e);
         Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
         ConstraintViolation<?> violation = violations.iterator().next();
         String message = violation.getMessage();
-        return "参数验证失败" + message;
+        ResultVO resultvo = new ResultVO(HttpCodeEnum.REQUEST_FAIL.getCode(), null, "参数验证失败" + message);
+        // return "参数验证失败" + message;
+        return resultvo;
     }
 
     /**
