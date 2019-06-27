@@ -93,7 +93,7 @@ export default {
     color: #1e7dca;
   }
   .button-color-chat{
-    color: #426cf3;
+    color: #0a3fec;
   }
 }
 }
