@@ -12,25 +12,25 @@
         </div>
         <div>
           <el-button type="text">
-            <i class="el-icon-files"/>
+            <i class="el-icon-question"/>
             <span>我关注的问题</span>
           </el-button>
         </div>
         <div>
           <el-button type="text">
-            <i class="el-icon-time"/>
+            <i class="el-icon-plus"/>
             <span>我的邀请</span>
           </el-button>
         </div>
         <div>
           <el-button type="text">
-            <i class="el-icon-time"/>
+            <i class="el-icon-tickets"/>
             <span>站务中心</span>
           </el-button>
         </div>
         <div>
           <el-button type="text">
-            <i class="el-icon-time"/>
+            <i class="el-icon-s-management"/>
             <span>版权服务中心</span>
           </el-button>
         </div>
