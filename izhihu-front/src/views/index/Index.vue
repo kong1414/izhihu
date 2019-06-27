@@ -16,7 +16,7 @@
       </el-card>
       
       </el-main>
-    <el-aside width="300px" style="background-color:green;height:200px">
+    <el-aside width="300px" style="background-color:green;min-height:200px">
       Aside
       <aside-write></aside-write>
     </el-aside>
