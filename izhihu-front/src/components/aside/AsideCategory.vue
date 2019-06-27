@@ -1,35 +1,35 @@
 <template>
 <!-- 首页右侧第二栏 -->
 <div class="aside-category">
-  <el-card class="category-card" style="mag">
+  <el-card class="category-card">
     <el-row>
       <el-col :span="8">
         <el-button type="text" class="category-button">
-          <i class="el-icon-s-promotion"/>
+          <i class="el-icon-s-promotion button-color-live"/>
           <p class="categoryLabel">live</p>
         </el-button>
       </el-col>
       <el-col :span="8">
         <el-button type="text" class="category-button">
-          <i class="el-icon-notebook-1"/>
+          <i class="el-icon-notebook-1 button-color-book"/>
           <p class="categoryLabel">书店</p>
         </el-button>
       </el-col>
       <el-col :span="8">
         <el-button type="text" class="category-button">
-          <i class="el-icon-bangzhu"/>
+          <i class="el-icon-bangzhu button-color-table"/>
           <p class="categoryLabel">圆桌</p>
         </el-button>
       </el-col>
       <el-col :span="8">
         <el-button type="text" class="category-button">
-          <i class="el-icon-edit"/>
+          <i class="el-icon-edit button-color-edit"/>
           <p class="categoryLabel">专栏</p>
         </el-button>
       </el-col>
       <el-col :span="8">
         <el-button type="text" class="category-button">
-          <i class="el-icon-chat-line-round"/>
+          <i class="el-icon-chat-line-round button-color-chat"/>
           <p class="categoryLabel">收费咨询</p>
         </el-button>
       </el-col>
@@ -79,6 +79,21 @@ export default {
   .categoryLabel {
       font-size: 15px;
       color: #8590a6;
+  }
+  .button-color-live{
+    color: #ffcf00;
+  }
+  .button-color-book{
+    color: #43d480;
+  }
+  .button-color-table{
+    color: #0084ff6c;
+  }
+  .button-color-edit{
+    color: #1e7dca;
+  }
+  .button-color-chat{
+    color: #426cf3;
   }
 }
 }
