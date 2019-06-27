@@ -29,7 +29,7 @@
             <i class="el-icon-time"/>
             <span>我的稍后答</span>
           </el-button>
-        </div>   
+        </div>
         <div>
           <el-button type="text">
             <i class="el-icon-files"/>
