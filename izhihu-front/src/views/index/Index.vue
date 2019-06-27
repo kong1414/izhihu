@@ -18,6 +18,7 @@
     <el-aside width="300px" style="background-color:green;min-height:200px">
       Aside
       <aside-write></aside-write>
+      <aside-category></aside-category>
       底部
       <aside-footer></aside-footer>
     </el-aside>
@@ -26,11 +27,13 @@
 
 <script>
 import AsideWrite from '../../components/aside/AsideWrite.vue'
+import AsideCategory from '../../components/aside/AsideCategory.vue'
 import AsideFooter from '../../components/aside/AsideFooter.vue'
 export default {
   name: 'index',
   components: {
     AsideWrite,
+    AsideCategory,
     AsideFooter
   },
   data () {
