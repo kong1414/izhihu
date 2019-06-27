@@ -10,7 +10,7 @@
             关注
           </el-tab-pane>
           <el-tab-pane label="热榜" name="third">
-            热榜
+            <hot-list></hot-list>
           </el-tab-pane>
         </el-tabs>
       </el-card>
@@ -29,12 +29,14 @@
 import AsideWrite from '../../components/aside/AsideWrite.vue'
 import AsideCategory from '../../components/aside/AsideCategory.vue'
 import AsideFooter from '../../components/aside/AsideFooter.vue'
+import HotList from '../../components/index/HotList'
 export default {
   name: 'index',
   components: {
     AsideWrite,
     AsideCategory,
-    AsideFooter
+    AsideFooter,
+    HotList,
   },
   data () {
     return {
@@ -53,7 +55,7 @@ export default {
     .el-card {
       .el-tabs {
         padding-top: 0px;
-        width: 200px;
+        
         .el-tabs__item {
           font-weight: 500;
           font-size: 16px;
