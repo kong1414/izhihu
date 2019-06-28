@@ -32,6 +32,11 @@ export default new Router({
           component: () => import('./views/index/Index.vue')
         },
         {
+          path: '/home/discovery',
+          menuName: 'discovery',
+          component: () => import('./views/discovery/Discovery.vue')
+        },
+        {
           path: '/home/topic',
           menuName: 'topic',
           component: () => import('./views/topic/Topic.vue')

@@ -45,7 +45,9 @@ export default {
     }
   },
   methods: {
+    handleClick () {
 
+    }
   }
 }
 </script>
@@ -55,8 +57,7 @@ export default {
   .el-main {
     .index-crad {
       .el-tabs {
-        padding-top: 0px;
-        
+        padding-top: 0px;        
         .el-tabs__item {
           font-weight: 500;
           font-size: 16px;
