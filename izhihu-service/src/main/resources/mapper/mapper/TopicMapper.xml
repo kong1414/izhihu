@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.xmut.izhihu.dao.test.TopicMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.xmut.izhihu.pojo.entity.Topic">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="topic_id" jdbcType="VARCHAR" property="topicId"/>
+        <result column="topic_name" jdbcType="VARCHAR" property="topicName"/>
+        <result column="topic_desc" jdbcType="VARCHAR" property="topicDesc"/>
+        <result column="topic_father_id" jdbcType="VARCHAR" property="topicFatherId"/>
+        <result column="photo_url" jdbcType="VARCHAR" property="photoUrl"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+</mapper>
