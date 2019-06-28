@@ -95,10 +95,10 @@
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--            <generatedKey column="id" sqlStatement="MySql"/>-->
 <!--        </table>-->
-        <table tableName="favorites">
-            <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="favorites_id" sqlStatement="MySql"/>
-        </table>
+        <!--        <table tableName="favorites">-->
+        <!--            <property name="useActualColumnNames" value="false"/>-->
+        <!--            <generatedKey column="favorites_id" sqlStatement="MySql"/>-->
+        <!--        </table>-->
 <!--        <table tableName="host_list">-->
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--            <generatedKey column="id" sqlStatement="MySql"/>-->
@@ -134,7 +134,10 @@
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--            <generatedKey column="user_id" sqlStatement="MySql"/>-->
 <!--        </table>-->
-
+        <table tableName="hot_list">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="id" sqlStatement="MySql"/>
+        </table>
     </context>
 
 </generatorConfiguration>

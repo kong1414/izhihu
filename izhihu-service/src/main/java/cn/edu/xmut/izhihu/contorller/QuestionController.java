@@ -1,8 +1,7 @@
 package cn.edu.xmut.izhihu.contorller;
 
-import cn.edu.xmut.izhihu.pojo.request.QuestionRequest;
-import cn.edu.xmut.izhihu.pojo.vo.ResultVO;
-import cn.edu.xmut.izhihu.pojo.vo.SuccessVO;
+import cn.edu.xmut.izhihu.pojo.common.ResultVO;
+import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

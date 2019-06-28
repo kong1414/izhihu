@@ -1,5 +1,6 @@
 package cn.edu.xmut.izhihu.contorller;
 
+import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -10,4 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class UserController {
+
+    public ResultVO login() {
+        return null;
+    }
 }

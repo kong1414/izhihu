@@ -1,4 +1,4 @@
-package cn.edu.xmut.izhihu.pojo.vo;
+package cn.edu.xmut.izhihu.pojo.common;
 
 /**
  * @Description:
