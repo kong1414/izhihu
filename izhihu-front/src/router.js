@@ -40,6 +40,11 @@ export default new Router({
           path: '/home/topic',
           menuName: 'topic',
           component: () => import('./views/topic/Topic.vue')
+        },
+        {
+          path: '/home/collection',
+          menuName: 'collection',
+          component: () => import('./views/personal/Collection.vue')
         }
       ]
     }

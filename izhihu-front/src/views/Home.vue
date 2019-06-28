@@ -17,6 +17,7 @@
             <el-menu-item index="/home/index">首页</el-menu-item>
             <el-menu-item index="/home/discovery">发现</el-menu-item>
             <el-menu-item index="/home/topic">话题</el-menu-item>
+            <el-menu-item v-if="false" index="/home/collection">收藏</el-menu-item>
           </el-menu>
         </div>
 
