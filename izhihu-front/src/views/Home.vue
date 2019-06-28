@@ -57,9 +57,7 @@
     </el-header>
 
     <el-container class="main">
-      <transition name="el-fade-in">
-        <router-view />
-      </transition>
+      <router-view />
       <!-- <el-main>
         Main
         </el-main>
