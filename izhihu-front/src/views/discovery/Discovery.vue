@@ -31,7 +31,7 @@ export default {
   },
   data () {
     return {
-      activeName: 'today'
+      activeName: 'today',
     }
   },
   methods: {

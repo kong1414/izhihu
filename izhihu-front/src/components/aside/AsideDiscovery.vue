@@ -20,7 +20,9 @@ export default {
     AsideFooter
   },
   data () {
-
+    return {
+      a: ''
+    }
   },
   methods: {
 
@@ -28,6 +30,16 @@ export default {
 }
 </script>
 <style lang="scss">
+.aside-discovery {
+  .hot-table {
 
+  }
+  .hot-topic {
+
+  }
+  .hot-collect {
+    
+  }
+}
 </style>
 
