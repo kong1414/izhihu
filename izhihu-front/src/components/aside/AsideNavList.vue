@@ -1,9 +1,84 @@
-首页右下角
-我的收藏
-我关注的问题
-9
-我的邀请
-258
-我的余额
-我的礼券
-站务中心
+<template>
+  <!-- 首页右侧第三栏 -->
+  <div class="aside-navlist">
+    <el-card class="navlist-card">
+      <el-row>
+      <div class="list">
+        <div>
+          <el-button type="text">
+            <i class="el-icon-star-off"/>
+            <span>我的收藏</span>
+          </el-button>
+        </div>
+        <div>
+          <el-button type="text">
+            <i class="el-icon-question"/>
+            <span>我关注的问题</span>
+          </el-button>
+        </div>
+        <div>
+          <el-button type="text">
+            <i class="el-icon-plus"/>
+            <span>我的邀请</span>
+          </el-button>
+        </div>
+        <div>
+          <el-button type="text">
+            <i class="el-icon-tickets"/>
+            <span>站务中心</span>
+          </el-button>
+        </div>
+        <div>
+          <el-button type="text">
+            <i class="el-icon-s-management"/>
+            <span>版权服务中心</span>
+          </el-button>
+        </div>
+      </div>
+      </el-row>
+    </el-card>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'asideNavlist',
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+
+    }
+  }
+</script>
+
+<style lang="scss">
+.aside-navlist {
+  margin-top: 20px;
+  .navlist-card {
+    text-align: center;
+    .el-card__body {
+      padding: 15px;
+    }
+    .navlist-button {
+      text-align: center;
+      i {
+        margin: 6px;
+        font-size: 30px;
+      }
+    }
+    .el-divider {
+      margin: 5px 0;
+    }
+    .list {
+      margin-left: 10px;
+      text-align: left;
+      span {
+        color: #76839b;
+      }
+    }
+  }
+}
+</style>

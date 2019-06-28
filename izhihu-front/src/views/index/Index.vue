@@ -18,6 +18,7 @@
     <el-aside width="300px" style="background-color:green;min-height:200px">
       <aside-write></aside-write>
       <aside-category></aside-category>
+      <aside-nav-list></aside-nav-list>
       <aside-footer></aside-footer>
     </el-aside>
   </el-container>
@@ -28,6 +29,7 @@ import AsideWrite from '../../components/aside/AsideWrite.vue'
 import AsideCategory from '../../components/aside/AsideCategory.vue'
 import AsideFooter from '../../components/aside/AsideFooter.vue'
 import HotList from '../../components/index/HotList'
+import AsideNavList from '../../components/aside/AsideNavList.vue'
 export default {
   name: 'index',
   components: {
@@ -35,6 +37,7 @@ export default {
     AsideCategory,
     AsideFooter,
     HotList,
+    AsideNavList
   },
   data () {
     return {

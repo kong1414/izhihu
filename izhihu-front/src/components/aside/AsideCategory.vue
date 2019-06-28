@@ -29,7 +29,7 @@
       </el-col>
       <el-col :span="8">
         <el-button type="text" class="category-button">
-          <i class="el-icon-chat-line-round button-color-chat"/>
+          <i class="el-icon-chat-dot-round button-color-chat"/>
           <p class="categoryLabel">收费咨询</p>
         </el-button>
       </el-col>
@@ -93,7 +93,7 @@ export default {
     color: #1e7dca;
   }
   .button-color-chat{
-    color: #426cf3;
+    color: #0a3fec;
   }
 }
 }
