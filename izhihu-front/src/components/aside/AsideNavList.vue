@@ -78,6 +78,13 @@ export default {
       span {
         color: #76839b;
       }
+      i{
+        font-size: 17px;
+      }
+      div:hover
+      {
+        background: #f6f6f6;
+      }
     }
   }
 }
