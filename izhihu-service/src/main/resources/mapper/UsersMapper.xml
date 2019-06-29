@@ -23,4 +23,25 @@
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
     <result column="user_modified" jdbcType="VARCHAR" property="userModified"/>
   </resultMap>
+
+  <update id="updateTokenDisabled">
+    update user
+    <set>
+      token = null,
+      token_take_effect_time = null,
+      token_age = null
+    </set>
+    <where>
+      user_id = #{id}
+    </where>
+  </update>
+
+  <select id="checkRepeat" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select
+        count(*)
+        from user
+        where
+          phone = concat('%',#{account},'%') or
+          email = concat('%',#{account},'%')
+    </select>
 </mapper>
