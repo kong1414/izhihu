@@ -16,9 +16,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/comment")
 public class CommentController {
 
-    @ApiOperation("发现页的热门专栏")
-    @RequestMapping(value = "/hotColumn", method = RequestMethod.POST)
-    public ResultVO hotColumn() {
+    @ApiOperation("列出文章的评论")
+    @RequestMapping(value = "/listByArticle", method = RequestMethod.POST)
+    public ResultVO listByArticle(String articleId) {
+        return null;
+    }
+
+    @ApiOperation("列出问题的评论")
+    @RequestMapping(value = "/listByQuestion", method = RequestMethod.POST)
+    public ResultVO listByQuestion(String questionId) {
+        return null;
+    }
+
+    @ApiOperation("进行评论")
+    @RequestMapping(value = "/remark", method = RequestMethod.POST)
+    public ResultVO remark() {
+        return null;
+    }
+
+    @ApiOperation("删除评论(只能删除自己的评论)")
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public ResultVO delete(String userId, String commentId) {
         return null;
     }
 }

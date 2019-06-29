@@ -66,4 +66,10 @@ public class ArticleController {
         return null;
     }
 
+    @ApiOperation("某用户的所有文章")
+    @RequestMapping(value = "/listByUser", method = RequestMethod.POST)
+    public ResultVO list(String userId) {
+        return null;
+    }
+
 }
