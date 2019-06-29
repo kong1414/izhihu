@@ -47,9 +47,19 @@ export default new Router({
           component: () => import('./views/topic/Topic.vue')
         },
         {
-          path: '/home/collection',
-          menuName: 'collection',
-          component: () => import('./views/personal/Collection.vue')
+          path: '/home/topicDetail',
+          menuName: 'topicDetail',
+          component: () => import('./views/topic/TopicDetail.vue')
+        },
+        {
+          path: '/home/favorite',
+          menuName: 'favorite',
+          component: () => import('./views/personal/Favorite.vue')
+        },
+        {
+          path: '/home/favoriteDetail',
+          menuName: 'favoriteDetail',
+          component: () => import('./views/personal/FavoriteDetail.vue')
         }
       ]
     }

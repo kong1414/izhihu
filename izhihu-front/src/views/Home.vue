@@ -12,7 +12,6 @@
                    mode="horizontal"
                    text-color="#8590a6"
                    @select="handleSelect"
-                   default-active="/home/index"
                    router>
             <el-menu-item index="/home/index">首页</el-menu-item>
             <el-menu-item index="/home/discovery">发现</el-menu-item>
