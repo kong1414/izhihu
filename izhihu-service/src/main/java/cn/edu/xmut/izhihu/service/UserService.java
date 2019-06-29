@@ -1,6 +1,7 @@
 package cn.edu.xmut.izhihu.service;
 
-import org.springframework.stereotype.Service;
+import cn.edu.xmut.izhihu.pojo.bo.LoginResultBO;
+import cn.edu.xmut.izhihu.pojo.request.LoginRequest;
 
 /**
  * @Description:
@@ -9,4 +10,13 @@ import org.springframework.stereotype.Service;
  * @Version: 1.0
  */
 public interface UserService {
+
+
+    /**
+     * 登录操作
+     *
+     * @param loginRequest
+     * @return
+     */
+    LoginResultBO login(LoginRequest loginRequest);
 }
