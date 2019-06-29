@@ -1,5 +1,5 @@
 <template>
-  <div class="login-page">
+  <div class="register-page">
     <div class="content">
       <el-card class="login-card"
                :body-style="{ padding: '0px' }">
@@ -9,7 +9,7 @@
                alt="izhihu"
                width="200">
           <div class="logo-text">
-            登录知乎，发现更多可信赖的解答
+            注册知乎，发现更多可信赖的解答
           </div>
         </div>
         <el-form ref="AccountFrom"
@@ -26,12 +26,12 @@
           </el-form-item>
           <el-form-item prop="password">
             <el-input v-model="login.password"
-            prefix-icon="el-icon-user-solid"
+                      prefix-icon="el-icon-user-solid"
                       type="password"
                       placeholder="密码"
                       auto-complete="off"
                       show-password
-                      @keyup.enter.native="handleLogin"></el-input>
+                      @keyup.enter.native="handleRegister"></el-input>
           </el-form-item>
           <div class="other">
             <el-button type="text"
@@ -42,16 +42,16 @@
           <el-form-item>
             <el-button type="primary"
                        class="login-button"
-                       @click="handleLogin"
-                       v-loading.fullscreen.lock="fullscreenLoading">登录</el-button>
+                       @click="handleRegister"
+                       v-loading.fullscreen.lock="fullscreenLoading">注册</el-button>
           </el-form-item>
 
         </el-form>
 
         <div class="footer">
-          没有账号？<el-button type="text"
+          已有账号？<el-button type="text"
                      class="reg"
-                     @click="toRegister">注册</el-button>
+                     @click="toLogin">登录</el-button>
         </div>
       </el-card>
 
@@ -73,16 +73,37 @@ export default {
 
   },
   data () {
+    var checkAccount = (rule, value, callback) => {
+      const phoneReg = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/
+      const emailReg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
+      if (!value) {
+        return callback(new Error('手机号或邮箱不能为空'));
+      }
+      setTimeout(() => {
+        if (phoneReg.test(value)) {
+          this.regType = 'phone'
+          callback()
+        } else if (emailReg.test(value)) {
+          this.regType = 'email'
+          callback()
+        } else {
+          return callback(new Error('手机号或邮箱格式不正确'));
+        }
+      }, 500)
+    }
+
     return {
       login: {
         account: '',
         password: ''
       },
       fullscreenLoading: false,
+      regType: 'phone',
       rules: {
         account: [
-          { required: true, message: '请输入邮箱或者手机号' }
-          // { validator: validaePass }
+          // { required: true, message: '请输入邮箱或者手机号' },
+          // { type: 'email', required: true, message: '邮箱地址不正确' },
+          { validator: checkAccount, trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入密码' },
@@ -96,37 +117,23 @@ export default {
       'saveUser',
       'saveToken'
     ]),
-    handleLogin () {
-      this.fullscreenLoading = true
+    handleRegister () {
       let params = {
         account: this.login.account,
         password: md5(this.login.password + this.login.password),
+        type: this.regType
       }
-      reqLogin(params).then(res => {
-        console.info(res)
-        if(res.resultCode === ERR_OK) {
-          this.$message({
-            message: '登录成功！',
-            type: 'success'
-          })
-          this.saveUser(res.data)
-          this.saveToken(res.data.token)
-          this.fullscreenLoading = false
-          this.$router.push({ path: '/home/index' })
-        } else {
-          this.fullscreenLoading = false
-        }
-      })
+      console.info('注册还没做')
     },
-    toRegister () {
-      this.$router.push({ path: '/register' })
+    toLogin () {
+      this.$router.push({ path: '/login' })
     },
   }
 }
 </script>
 
 <style lang="scss">
-.login-page {
+.register-page {
   background-color: #b8e5f8;
   width: 100%;
   height: 100%;
@@ -176,7 +183,7 @@ export default {
           width: 350px;
           color: #fff;
           margin-top: 25px;
-          .el-button--primary{
+          .el-button--primary {
             background-color: #0084ff;
           }
         }
