@@ -51,7 +51,15 @@ public class UserServiceImpl implements UserService {
         LoginResultBO result = new LoginResultBO();
         boolean isSuccess = false;
 
-        UserDO user = userMapper.getUserDOByAccount(loginRequest.getAccount());
+
+        Example example = new Example(UserDO.class);
+        example.createCriteria()
+                .orEqualTo("phone", loginRequest.getAccount())
+                .orEqualTo("email", loginRequest.getAccount());
+
+        UserDO user = userMapper.selectOneByExample(example);
+
+
         if (user == null) {
             result.setSuccess(isSuccess);
             result.setMsg("用户不存在");
@@ -97,7 +105,7 @@ public class UserServiceImpl implements UserService {
     /**
      * 用户登出操作
      *
-     * @param id
+     * @param userId
      * @param token
      * @return
      * @throws SecurityException

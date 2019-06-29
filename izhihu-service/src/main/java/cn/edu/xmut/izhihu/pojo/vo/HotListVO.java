@@ -1,12 +1,20 @@
-package cn.edu.xmut.izhihu.pojo.entity;
+package cn.edu.xmut.izhihu.pojo.vo;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+/**
+ * @Description:
+ * @Author: qiuguanlin
+ * @Date: 2019-06-29 23:07
+ * @Version: 1.0
+ */
 @Data
-@Table(name = "hot_list")
-public class HotList {
+public class HotListVO {
     /**
      * 热榜id
      */
@@ -26,6 +34,12 @@ public class HotList {
     private String contentId;
 
     /**
+     * 内容
+     */
+    @Column(name = "content_id")
+    private String content;
+
+    /**
      * 热度
      */
     @Column(name = "hot_num")
@@ -36,5 +50,4 @@ public class HotList {
      */
     @Column(name = "category_type")
     private Integer categoryType;
-
 }

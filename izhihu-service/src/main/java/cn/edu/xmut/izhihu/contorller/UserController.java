@@ -36,7 +36,7 @@ public class UserController {
         if (res.isSuccess()) {
             result = new ResultVO<UserVO>(HttpCodeEnum.REQUEST_SUCCESS.getCode(), res.getUserVO(), "登陆成功");
         } else {
-            result = new ResultVO<UserVO>(HttpCodeEnum.REQUEST_FAIL.getCode(), res.getUserVO(), "账户或密码错误");
+            result = new ResultVO<UserVO>(HttpCodeEnum.REQUEST_FAIL.getCode(), null, "账户或密码错误");
         }
         return result;
     }
