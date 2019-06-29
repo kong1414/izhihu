@@ -11,7 +11,7 @@ public class ColumnDO {
     @Id
     @Column(name = "column_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
-    private Integer columnId;
+    private String columnId;
 
     /**
      * 专栏名称
@@ -46,7 +46,7 @@ public class ColumnDO {
      *
      * @return column_id - 专栏id
      */
-    public Integer getColumnId() {
+    public String getColumnId() {
         return columnId;
     }
 
@@ -55,8 +55,8 @@ public class ColumnDO {
      *
      * @param columnId 专栏id
      */
-    public void setColumnId(Integer columnId) {
-        this.columnId = columnId;
+    public void setColumnId(String columnId) {
+        this.columnId = columnId == null ? null : columnId.trim();
     }
 
     /**

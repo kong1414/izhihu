@@ -98,8 +98,9 @@ export default {
 
 <style lang="scss">
 .home {
-  background-color: #f6f6f6;
   width: 100%;
+  min-width: 1100px;
+  background-color: #f6f6f6;
   height: 100%;
   .el-header {
     background-color: #ffffff;

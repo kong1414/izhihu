@@ -1,7 +1,7 @@
 package cn.edu.xmut.izhihu.exception;
 
-import cn.edu.xmut.izhihu.pojo.vo.HttpCodeEnum;
-import cn.edu.xmut.izhihu.pojo.vo.ResultVO;
+import cn.edu.xmut.izhihu.pojo.common.HttpCodeEnum;
+import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;

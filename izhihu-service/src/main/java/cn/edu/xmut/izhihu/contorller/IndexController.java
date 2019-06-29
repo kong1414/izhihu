@@ -1,13 +1,7 @@
 package cn.edu.xmut.izhihu.contorller;
 
-import cn.edu.xmut.izhihu.dao.AgreeOpposeMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @Description: 测试controller
@@ -18,12 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class IndexController {
 
-    @Autowired
-    private AgreeOpposeMapper agreeOpposeMapper;
 
     @RequestMapping("/helloworld")
     public String helloworld() {
-        agreeOpposeMapper.selectAll();
+        // agreeOpposeMapper.selectAll();
         return "helloworld";
     }
 

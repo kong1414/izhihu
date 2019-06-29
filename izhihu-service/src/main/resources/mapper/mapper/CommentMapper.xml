@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.xmut.izhihu.dao.test.CommentMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.xmut.izhihu.pojo.entity.Comment">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="comment_id" jdbcType="VARCHAR" property="commentId"/>
+        <result column="is_reply" jdbcType="INTEGER" property="isReply"/>
+        <result column="reply_id" jdbcType="INTEGER" property="replyId"/>
+        <result column="commentator_id" jdbcType="INTEGER" property="commentatorId"/>
+        <result column="comment_content" jdbcType="VARCHAR" property="commentContent"/>
+        <result column="praise_num" jdbcType="INTEGER" property="praiseNum"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="del" jdbcType="INTEGER" property="del"/>
+    </resultMap>
+</mapper>

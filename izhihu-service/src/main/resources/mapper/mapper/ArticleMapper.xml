@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.xmut.izhihu.dao.test.ArticleMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.xmut.izhihu.pojo.entity.Article">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="article_id" jdbcType="VARCHAR" property="articleId"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="ques_id" jdbcType="VARCHAR" property="quesId"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="photo_url" jdbcType="VARCHAR" property="photoUrl"/>
+        <result column="author_id" jdbcType="VARCHAR" property="authorId"/>
+        <result column="anonymity" jdbcType="INTEGER" property="anonymity"/>
+        <result column="comment_num" jdbcType="INTEGER" property="commentNum"/>
+        <result column="report_num" jdbcType="INTEGER" property="reportNum"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="del" jdbcType="INTEGER" property="del"/>
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+    </resultMap>
+</mapper>

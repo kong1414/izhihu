@@ -1,6 +1,6 @@
 package cn.edu.xmut.izhihu.exception;
 
-import cn.edu.xmut.izhihu.pojo.vo.HttpCodeEnum;
+import cn.edu.xmut.izhihu.pojo.common.HttpCodeEnum;
 
 /**
  * 业务异常

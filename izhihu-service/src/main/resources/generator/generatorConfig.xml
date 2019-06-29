@@ -43,7 +43,7 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://120.78.136.84:3306/izhihu?useSSL=false"
                         userId="izhihu"
-                        password="*****"/>
+                        password="****"/>
 
         <!-- 类型转换 -->
         <!--<javaTypeResolver>-->
@@ -71,7 +71,7 @@
 <!--        <table tableName="dictionary">-->
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--            &lt;!&ndash; 数据库表主键 &ndash;&gt;-->
-<!--            <generatedKey column="id" sqlStatement="MySql"/>-->
+        <!--            <generatedKey column="pk_id" sqlStatement="MySql"/>-->
 <!--        </table>-->
 
 <!--        <table tableName="agree_oppose">-->
@@ -82,7 +82,10 @@
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--            <generatedKey column="article_id" sqlStatement="MySql"/>-->
 <!--        </table>-->
-
+        <!--        <table tableName="attention">-->
+        <!--            <property name="useActualColumnNames" value="false"/>-->
+        <!--            <generatedKey column="id" sqlStatement="MySql"/>-->
+        <!--        </table>-->
 <!--        <table tableName="column">-->
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--            <generatedKey column="column_id" sqlStatement="MySql"/>-->
@@ -95,24 +98,17 @@
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--            <generatedKey column="id" sqlStatement="MySql"/>-->
 <!--        </table>-->
-        <table tableName="favorites">
-            <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="favorites_id" sqlStatement="MySql"/>
-        </table>
-<!--        <table tableName="host_list">-->
+        <!--        <table tableName="favorite">-->
 <!--            <property name="useActualColumnNames" value="false"/>-->
-<!--            <generatedKey column="id" sqlStatement="MySql"/>-->
+        <!--            <generatedKey column="favorite_id" sqlStatement="MySql"/>-->
 <!--        </table>-->
-<!--        <table tableName="industry">-->
+        <!--        <table tableName="hot_list">-->
 <!--            <property name="useActualColumnNames" value="false"/>-->
-<!--            <generatedKey column="indu_id" sqlStatement="MySql"/>-->
-<!--        </table>-->
-<!--        <table tableName="industry_class">-->
-<!--            <property name="useActualColumnNames" value="false"/>-->
-<!--            <generatedKey column="indu_class_id" sqlStatement="MySql"/>-->
+        <!--            <generatedKey column="id" sqlStatement="MySql"/>-->
 <!--        </table>-->
 <!--        <table tableName="inviter">-->
 <!--            <property name="useActualColumnNames" value="false"/>-->
+        <!--            <generatedKey column="id" sqlStatement="MySql"/>-->
 <!--        </table>-->
 <!--        <table tableName="private_message">-->
 <!--            <property name="useActualColumnNames" value="false"/>-->
@@ -122,9 +118,9 @@
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--            <generatedKey column="ques_id" sqlStatement="MySql"/>-->
 <!--        </table>-->
-<!--        <table tableName="report_id">-->
+        <!--        <table tableName="report">-->
 <!--            <property name="useActualColumnNames" value="false"/>-->
-<!--            <generatedKey column="report_id" sqlStatement="MySql"/>-->
+        <!--            <generatedKey column="id" sqlStatement="MySql"/>-->
 <!--        </table>-->
 <!--        <table tableName="topic">-->
 <!--            <property name="useActualColumnNames" value="false"/>-->
@@ -134,7 +130,10 @@
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--            <generatedKey column="user_id" sqlStatement="MySql"/>-->
 <!--        </table>-->
-
+        <!--        <table tableName="users_info">-->
+        <!--            <property name="useActualColumnNames" value="false"/>-->
+        <!--            <generatedKey column="user_id" sqlStatement="MySql"/>-->
+        <!--        </table>-->
     </context>
 
 </generatorConfiguration>
