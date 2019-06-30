@@ -48,7 +48,7 @@
                    class="el-icon-caret-bottom"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="toPersonal">个人信息</el-dropdown-item>
+                <el-dropdown-item @click.native="toPersonal">我的主页</el-dropdown-item>
                 <el-dropdown-item @click.native="changePasswords">修改密码</el-dropdown-item>
                 <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>
               </el-dropdown-menu>

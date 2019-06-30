@@ -46,7 +46,7 @@ public class FollowController {
     }
 
     @ApiOperation("取消态度（取消点赞和不赞同）")
-    @RequestMapping(value = "/like", method = RequestMethod.POST)
+    @RequestMapping(value = "/cancelLike", method = RequestMethod.POST)
     public ResultVO cancelLike(String userId, String contentId) {
         return followService.cancelLike(userId, contentId);
     }
