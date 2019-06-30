@@ -2,6 +2,7 @@ package cn.edu.xmut.izhihu.contorller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @Description: 测试controller
@@ -12,14 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 
-
-    @RequestMapping("/helloworld")
-    public String helloworld() {
-        // agreeOpposeMapper.selectAll();
-        return "helloworld";
-    }
-
-    @RequestMapping("/")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
         return "index";
     }

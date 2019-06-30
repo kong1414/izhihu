@@ -28,7 +28,6 @@ public class ArticleController {
         return null;
     }
 
-
     @ApiOperation("首页的关注内容")
     @RequestMapping(value = "/attention", method = RequestMethod.POST)
     public ResultVO attention(@RequestParam(required = true) String userId) {
@@ -52,7 +51,6 @@ public class ArticleController {
     public ResultVO monthHot() {
         return null;
     }
-
 
     @ApiOperation("写回答，发文章，写想法(回答问题)")
     @RequestMapping(value = "/create", method = RequestMethod.POST)

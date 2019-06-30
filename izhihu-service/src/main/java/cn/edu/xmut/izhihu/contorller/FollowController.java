@@ -31,6 +31,7 @@ public class FollowController {
     @ApiOperation("点赞")
     @RequestMapping(value = "/like", method = RequestMethod.POST)
     public ResultVO like(String userId, String contentId) {
+
         return null;
     }
 

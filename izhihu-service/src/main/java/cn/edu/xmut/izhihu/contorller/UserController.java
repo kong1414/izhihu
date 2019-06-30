@@ -48,7 +48,7 @@ public class UserController {
      * @param req
      * @return
      */
-    @RequestMapping(value = "/logout")
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public ResultVO<Object> logout(@RequestParam String userId, HttpServletRequest req) {
         ResultVO<Object> result = null;
         try {
