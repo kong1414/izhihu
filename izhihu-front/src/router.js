@@ -60,6 +60,11 @@ export default new Router({
           path: '/home/favoriteDetail',
           menuName: 'favoriteDetail',
           component: () => import('./views/personal/FavoriteDetail.vue')
+        },
+        {
+          path: '/home/people/:user',
+          menuName: 'people',
+          component: () => import('./views/personal/People.vue')
         }
       ]
     }
