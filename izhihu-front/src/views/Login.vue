@@ -103,7 +103,7 @@ export default {
         password: md5(this.login.password + this.login.password),
       }
       reqLogin(params).then(res => {
-        console.info(res)
+        // console.info(res)
         if(res.resultCode === ERR_OK) {
           this.$message({
             message: '登录成功！',

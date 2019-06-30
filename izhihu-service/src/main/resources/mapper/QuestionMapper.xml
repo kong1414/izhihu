@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.xmut.izhihu.dao.QuestionMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.xmut.izhihu.pojo.entity.Question">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="ques_id" jdbcType="VARCHAR" property="quesId"/>
+        <result column="questioner_id" jdbcType="VARCHAR" property="questionerId"/>
+        <result column="ques_name" jdbcType="VARCHAR" property="quesName"/>
+        <result column="photo_url" jdbcType="VARCHAR" property="photoUrl"/>
+        <result column="answer_num" jdbcType="INTEGER" property="answerNum"/>
+        <result column="attention_num" jdbcType="INTEGER" property="attentionNum"/>
+        <result column="browse_num" jdbcType="INTEGER" property="browseNum"/>
+        <result column="anonymity" jdbcType="INTEGER" property="anonymity"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="del" jdbcType="INTEGER" property="del"/>
+        <result column="ques_describe" jdbcType="LONGVARCHAR" property="quesDescribe"/>
+    </resultMap>
+</mapper>

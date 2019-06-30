@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.xmut.izhihu.dao.FavoriteMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.xmut.izhihu.pojo.entity.Favorite">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="favorite_id" jdbcType="VARCHAR" property="favoriteId"/>
+        <result column="favorite_name" jdbcType="VARCHAR" property="favoriteName"/>
+        <result column="describe" jdbcType="VARCHAR" property="describe"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="is_public" jdbcType="INTEGER" property="isPublic"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+</mapper>

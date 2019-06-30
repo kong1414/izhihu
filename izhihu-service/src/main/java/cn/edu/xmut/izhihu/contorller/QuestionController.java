@@ -18,6 +18,6 @@ public class QuestionController {
     // @RequestMapping(name = "/create", method = RequestMethod.POST)
     // public ResultVO createQuestion(@RequestBody @Valid QuestionRequest record) {
     //
-    //     return new SuccessVO(record);
+    //     return new SuccessVO();
     // }
 }

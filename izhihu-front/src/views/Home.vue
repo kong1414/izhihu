@@ -12,7 +12,6 @@
                    mode="horizontal"
                    text-color="#8590a6"
                    @select="handleSelect"
-                   default-active="/home/index"
                    router>
             <el-menu-item index="/home/index">首页</el-menu-item>
             <el-menu-item index="/home/discovery">发现</el-menu-item>
@@ -41,12 +40,15 @@
                style="margin-right: 30px;"></i>
             <el-dropdown>
               <span class="el-dropdown-link userinfo-inner">
-                <!-- {{this.$store.state.user.username}} -->
-                <span class="username">kong1414</span>
+                <span class="username">
+                  <!-- {{this.$store.state.user.name}} -->
+                  {{user.name}}
+                </span>
                 <i style="padding-left:5px"
                    class="el-icon-caret-bottom"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item @click.native="toPersonal">我的主页</el-dropdown-item>
                 <el-dropdown-item @click.native="changePasswords">修改密码</el-dropdown-item>
                 <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>
               </el-dropdown-menu>
@@ -70,26 +72,36 @@
 </template>
 
 <script>
+import md5 from 'js-md5'
 // @ is an alias to /src
 export default {
   name: 'home',
   data () {
     return {
+      user: {
+        name: '未登录'
+      },
       activeIndex: '1',
       input: '',
     }
   },
+  mounted () {
+    this.user = this.$store.state.user
+  },
   methods: {
-    handleSelect (key, keyPath) {
+    handleSelect (key, keyPath) { // 暂时没用
       console.log(key, keyPath);
     },
-    handleAsk () {
+    handleAsk () { // 提问
       console.info('123')
     },
-    changePasswords () {
+    changePasswords () { // 修改密码
 
     },
-    logout () {
+    logout () { // 退出登录
+
+    },
+    toPersonal () { // 跳转到个人主页
 
     }
   }

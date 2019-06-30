@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.xmut.izhihu.dao.DictionaryMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.xmut.izhihu.pojo.entity.Dictionary">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="pk_id" jdbcType="INTEGER" property="pkId"/>
+        <result column="fk_parent" jdbcType="INTEGER" property="fkParent"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="tag" jdbcType="VARCHAR" property="tag"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="level" jdbcType="INTEGER" property="level"/>
+        <result column="category" jdbcType="VARCHAR" property="category"/>
+        <result column="allow_child" jdbcType="BIT" property="allowChild"/>
+    </resultMap>
+</mapper>
