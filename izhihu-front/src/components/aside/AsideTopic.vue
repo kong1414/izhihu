@@ -13,7 +13,7 @@
           <div class="img"></div>
           <el-button type="text" class="btn-topic-name" >{{'话题'}}</el-button>
           <el-button type="text" icon="el-icon-plus" class="btn-attention" v-if="!o.isFollow" @click="o.isFollow=!o.isFollow">关注</el-button>
-          <el-button type="text" icon="el-icon-plus" class="btn-attention" v-if="o.isFollow" @click="o.isFollow=!o.isFollow">已关注</el-button>
+          <el-button type="text"  class="btn-attention" v-if="o.isFollow" @click="o.isFollow=!o.isFollow">已关注</el-button>
         </div>
       </el-card>
   </el-aside>
