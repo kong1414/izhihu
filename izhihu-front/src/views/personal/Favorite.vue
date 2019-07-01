@@ -12,12 +12,15 @@
         </el-tabs>
       </el-card>
     </el-main>
+    
     <el-aside width="300px" style="background-color:#ecf5ff;min-height:200px">
       <aside-collection></aside-collection>
     </el-aside>
   </el-container>
+
 </template>
 <script>
+import { reqGetHotTopic } from '../../api/topic.js'
 import AsideCollection from '../../components/aside/AsideCollection'
 export default {
   name: 'collection',
@@ -31,7 +34,11 @@ export default {
   },
   methods: {
     handleClick () {
-
+      reqGetHotTopic().then(res => {
+        if (res.resultCode == 200) {
+          console.info(res.data)
+        }
+      })
     }
   }
 }
