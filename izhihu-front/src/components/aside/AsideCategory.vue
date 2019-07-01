@@ -6,7 +6,7 @@
       <el-col :span="8">
         <el-button type="text" class="category-button button-color-live">
           <i class="el-icon-s-promotion"/>
-          <p class="categoryLabel">live</p>
+          <p class="categoryLabel">Live</p>
         </el-button>
       </el-col>
       <el-col :span="8">
