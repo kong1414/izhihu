@@ -92,8 +92,7 @@ export default {
       div {
         padding-left: 20px;
       }
-      div:hover
-      {
+      div:hover{
         background: #f6f6f6;
         span{color: #7abce7;}
       }
