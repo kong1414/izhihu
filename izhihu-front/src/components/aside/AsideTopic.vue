@@ -9,11 +9,11 @@
         <span>其他人关注的话题</span>
         <el-button type="text" style=" padding: 3px 0" icon="el-icon-refresh" class="change" >换一换</el-button>
         </div>
-        <div v-for="o in 6" :key="o" class="text-item">
+        <div v-for="o in list" :key="o" class="text-item">
           <div class="img"></div>
           <el-button type="text" class="btn-topic-name" >{{'话题'}}</el-button>
-          <el-button type="text" icon="el-icon-plus" class="btn-attention" >关注</el-button>
-          <!-- <el-button @click="changeattention"  class="btn-attention">已关注</el-button> -->
+          <el-button type="text" icon="el-icon-plus" class="btn-attention" v-if="!o.isFollow" @click="o.isFollow=!o.isFollow">关注</el-button>
+          <el-button type="text" icon="el-icon-plus" class="btn-attention" v-if="o.isFollow" @click="o.isFollow=!o.isFollow">已关注</el-button>
         </div>
       </el-card>
   </el-aside>
@@ -27,6 +27,14 @@ export default {
   },
   data () {
     return {
+      list: [
+        {'isFollow': false},
+        {'isFollow': false},
+        {'isFollow': false},
+        {'isFollow': false},
+        {'isFollow': false},
+        {'isFollow': false}
+      ]
     }
   },
   computed: {
