@@ -4,7 +4,13 @@
       <el-card class="recommend-crad">
         <div slot="header">
           <i class="el-icon-s-unfold"></i>
-          <span>编辑推荐</span>
+          <span class="left">编辑推荐</span>
+          <span class="right">
+            更多推荐
+            <i class="el-icon-d-arrow-right"></i>
+          </span>
+          
+          
         </div>
       </el-card>
       <el-card class="today-hot">
@@ -47,8 +53,12 @@ export default {
 .discovery-container {
   .recommend-crad {
     min-height: 400px;
-    span{
+    .left{
       padding-left: 5px;
+    }
+    .right{
+      float:right;
+      
     }
   }
   .today-hot {
