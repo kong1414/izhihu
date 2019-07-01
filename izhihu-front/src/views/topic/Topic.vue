@@ -14,7 +14,7 @@
         </div>
       </el-card>
     </el-main>
-    <el-aside width="280px" style="min-height:200px">
+    <el-aside width="300px" style="min-height:200px">
       <aside-topic></aside-topic>
     </el-aside>
   </el-container>
