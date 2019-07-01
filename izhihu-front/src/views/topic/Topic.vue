@@ -14,21 +14,35 @@
         </div>
       </el-card>
     </el-main>
-    <el-aside width="300px" style="background-color:#ecf5ff;min-height:200px">
-      <aside-discovery></aside-discovery>
+    <el-aside width="280px" style="min-height:200px">
+      <aside-topic></aside-topic>
     </el-aside>
   </el-container>
 </template>
 
 <script>
+import AsideTopic from '../../components/aside/AsideTopic'
 export default {
+  name: 'topic',
+  components: {
+    AsideTopic
+  },
+  data () {
+
+    return {
+
+    }
+  },
+  methods: {
+
+  }
 }
 </script>
 
 <style lang="scss">
 .topic-container {
-  .att-topic-crad {
-  }
+   .att-topic-crad {
+   }
   .topic-item {
     margin-top: 20px;
   }
