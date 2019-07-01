@@ -60,7 +60,7 @@ export default {
   .navlist-card {
     text-align: center;
     .el-card__body {
-      padding: 15px;
+      padding: 10px 0px;
     }
     .navlist-button {
       text-align: center;
@@ -73,13 +73,15 @@ export default {
       margin: 5px 0;
     }
     .list {
-      margin-left: 10px;
       text-align: left;
       span {
         color: #76839b;
       }
       i{
         font-size: 17px;
+      }
+      div {
+        padding-left: 20px;
       }
       div:hover
       {
