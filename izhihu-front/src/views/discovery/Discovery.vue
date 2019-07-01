@@ -3,7 +3,8 @@
     <el-main>
       <el-card class="recommend-crad">
         <div slot="header">
-          编辑推荐
+          <i class="el-icon-s-unfold"></i>
+          <span>编辑推荐</span>
         </div>
       </el-card>
       <el-card class="today-hot">
@@ -46,11 +47,14 @@ export default {
 .discovery-container {
   .recommend-crad {
     min-height: 400px;
+    span{
+      padding-left: 5px;
+    }
   }
   .today-hot {
     margin-top: 20px;
-
   }
+ 
 }
 </style>
 

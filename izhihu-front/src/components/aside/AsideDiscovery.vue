@@ -4,9 +4,11 @@
 
     </el-card>
     <el-card class="hot-topic">
-
+    <div slot="header">
+          热门话题
+    </div>
     </el-card>
-    <el-card class="hot-collect">
+    <el-card class="hot-collect"> 
 
     </el-card>
     <aside-footer></aside-footer>
@@ -20,9 +22,11 @@ export default {
     AsideFooter
   },
   data () {
-    return {
-      a: ''
-    }
+    list [
+      {message:'topName'},
+      {message:'topName'},
+      {message:'topName'}
+    ]
   },
   methods: {
 
