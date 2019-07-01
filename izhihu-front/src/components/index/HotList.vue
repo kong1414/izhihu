@@ -14,21 +14,18 @@
         <el-radio-button label="4">时尚</el-radio-button>
         <el-radio-button label="5">影视</el-radio-button>
       </el-radio-group>
-    </div>
-    <div class="hot-list-content">
-      <div v-for="i in [1]"
-           :key="i"
-           class="item">
-        asd
-
-      </div>
+      <article-item></article-item>
     </div>
   </div>
 </template>
 
 <script>
+import ArticleItem from '../index/ArticleItem'
 export default {
   name: 'HotList',
+  components: {
+    ArticleItem
+  },
   data () {
     return {
       // 类别（0全部1科学2数码3体育4时尚5影视）
