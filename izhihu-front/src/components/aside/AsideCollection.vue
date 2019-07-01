@@ -64,6 +64,7 @@ export default {
 </script>
 <style lang="scss">
 .aside-colletcion {
+  margin-top: 20px;
   .colletcion-card {  
     margin-top: 10px;
     text-align: center;
