@@ -7,9 +7,9 @@
       <el-card class="aside-attention" :body-style="{ padding: '0px' }">
         <div slot="header" class="clearfix">
         <span>其他人关注的话题</span>
-        <el-button style="margin-left:80px; padding: 3px 0" type="text" class="change">换一换</el-button>
+        <el-button style="margin-left:70px; padding: 3px 0" type="text" class="change">换一换</el-button>
         </div>
-        <div v-for="o in 4" :key="o" class="text item">
+        <div v-for="o in 6" :key="o" class="text item">
         {{'列表内容 ' + o }}
         </div>
       </el-card>
@@ -65,7 +65,9 @@ export default {
     .aside-attention{
       margin-top: 18px;
       .clearfix{
-        margin-left: 0px;
+        font-weight:bold;
+        font-size:15px;
+        font-family:宋体;
       }
     }
   }
