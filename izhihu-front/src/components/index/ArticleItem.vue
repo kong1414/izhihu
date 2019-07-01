@@ -11,8 +11,8 @@
       </el-col>
       <el-col :span="16">
         <div class="content">
-          <a class="title">标题.....................</a>
-          <p class="abs">摘要....................</p>
+          <a class="tit">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题</a>
+          <p class="abs">摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要</p>
           <a href="">点赞</a>
         </div>
       </el-col>
@@ -53,11 +53,21 @@ export default {
   .content{
     background:blue;
     height: 160px;
-    .title{
+    .tit{
       font-size: 30px;
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
     .abs{
       font-size: 20px;
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
   }
   .photo{

@@ -1,11 +1,16 @@
 package cn.edu.xmut.izhihu.contorller;
 
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
+import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
+import cn.edu.xmut.izhihu.pojo.vo.HotTopicVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Description: 话题 controller
@@ -20,7 +25,19 @@ public class TopicController {
     @ApiOperation("发现页的热门话题")
     @RequestMapping(value = "/hotTopic", method = RequestMethod.POST)
     public ResultVO hotTopic() {
-        return null;
+        //TODO：假数据
+
+        List<HotTopicVO> list = new ArrayList<>();
+        HotTopicVO a = new HotTopicVO();
+        a.setTopicId("12314124124");
+        a.setTopicName("美食");
+        a.setPhotoUrl("http://b-ssl.duitang.com/uploads/item/201510/08/20151008192345_uPC5U.jpeg");
+        a.setAttNum(200);
+        list.add(a);
+        list.add(a);
+        list.add(a);
+
+        return new SuccessVO(list);
     }
 
     @ApiOperation("新增话题")
