@@ -59,19 +59,19 @@
             </div>
             <el-dialog title="创建新收藏夹" :visible.sync="dialogFormVisible">
               <el-form :model="form">
-                <el-form-item label="标题" :label-width="formLabelWidth" style="margin-top:20px;">
-                  <el-input v-model="form.name" autocomplete="off" placeholder="最多输入20字" style="width:240px;margin-left:37px;"></el-input>
+                <el-form-item label="标题" :label-width="formLabelWidth" style="margin-top:20px;margin-left:50px;">
+                  <el-input v-model="form.name" id="inTitle" autocomplete="off" placeholder="最多输入20字" style="width:400px;margin-left:37px;"></el-input>
                 </el-form-item>
-                <el-form-item label="描述(可选)" :label-width="formLabelWidth">
-                  <el-input v-model="form.detail" autocomplete="off" placeholder="最多输入20字" style="width:240px;"></el-input>
+                <el-form-item label="描述(可选)" :label-width="formLabelWidth" style="margin-left:50px;">
+                  <el-input v-model="form.detail" id="inDetail" autocomplete="off" placeholder="最多输入20字" style="width:400px;"></el-input>
                 </el-form-item>
-                <div>
+                <div style="margin-left:50px;">
                   <el-radio v-model="radioOC" label="1">
                     <span style="font-size:15px;font-weight:bold;">公开</span>
                     <span style="font-size:13px;margin-left:5px;">收藏夹关注者 > 0 时不能设置为私密</span>
                   </el-radio>
                 </div>
-                <div>
+                <div style="margin-left:50px;">
                   <el-radio v-model="radioOC" label="2" style="margin-top:10px;" >
                     <span style="font-size:15px;font-weight:bold;">私密</span>
                     <span style="font-size:13px;margin-left:5px;">只有你可以查看这个收藏夹</span>
