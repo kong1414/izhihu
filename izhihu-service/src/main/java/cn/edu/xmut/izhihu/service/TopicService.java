@@ -76,4 +76,12 @@ public interface TopicService {
      */
     ResultVO create(Topic topic);
 
+    /**
+     * 获取 某个topic详情
+     *
+     * @param topicId
+     * @return
+     */
+    Topic getTopicOne(String topicId);
+
 }

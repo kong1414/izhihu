@@ -131,5 +131,16 @@ public class TopicServiceImpl implements TopicService {
         return new SuccessVO();
     }
 
+    /**
+     * 获取 某个topic详情
+     *
+     * @param topicId
+     * @return
+     */
+    @Override
+    public Topic getTopicOne(String topicId) {
+        return topicMapper.selectByPrimaryKey(topicId);
+    }
+
 
 }
