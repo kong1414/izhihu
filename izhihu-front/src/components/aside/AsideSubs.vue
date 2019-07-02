@@ -14,6 +14,15 @@
       </div>
     </div>
   </el-card>
+  <el-card class="F-S-card">
+    <div>
+      <div>
+        <div class="dis">父话题</div>
+        <div></div>
+      </div>
+      <div></div>
+    </div>
+  </el-card>
 </div>
 </template>
 
@@ -34,6 +43,13 @@ export default {
 <style lang="scss">
 .aside-subs {
   margin-top: 20px;
+  .F-S-card{
+    margin-top: 15px;
+    .dis{
+      font-weight: bold;
+      font-size: 15px;
+    }
+  }
   .subs-card {
     text-align: center;
     .el-card__body {
@@ -61,6 +77,7 @@ export default {
         font-size: 18px;
         color: #1a1a1a;
         font-weight: 600;
+        margin-top: 3px;
       }
     }
     .queNum{
@@ -74,6 +91,7 @@ export default {
         font-size: 18px;
         color: #1a1a1a;
         font-weight: 600;
+        margin-top: 3px;
       }
     }
 }
