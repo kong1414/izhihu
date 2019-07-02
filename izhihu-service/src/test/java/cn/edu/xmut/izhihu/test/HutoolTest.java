@@ -18,5 +18,10 @@ public class HutoolTest {
     @Test
     public void fun() {
         System.out.println(IdUtil.randomUUID());
+        System.out.println(IdUtil.randomUUID());
+        System.out.println(IdUtil.randomUUID());
+        System.out.println(IdUtil.randomUUID());
+        System.out.println(IdUtil.randomUUID());
+
     }
 }
