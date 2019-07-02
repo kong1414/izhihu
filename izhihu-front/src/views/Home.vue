@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import md5 from 'js-md5'
+// import md5 from 'js-md5'
 // @ is an alias to /src
 export default {
   name: 'home',

@@ -63,9 +63,9 @@
 </template>
 
 <script>
-import { reqLogin, reqQueryAccount } from '../api/login.js'
-import { ERR_OK } from '../api/config.js'
-import md5 from 'js-md5'
+// import { reqLogin } from '../api/login.js'
+// import { ERR_OK } from '../api/config.js'
+// import md5 from 'js-md5'
 import { mapActions } from 'vuex'
 export default {
   name: 'login',
@@ -118,11 +118,11 @@ export default {
       'saveToken'
     ]),
     handleRegister () {
-      let params = {
-        account: this.login.account,
-        password: md5(this.login.password + this.login.password),
-        type: this.regType
-      }
+      // let params = {
+      //   account: this.login.account,
+      //   password: md5(this.login.password + this.login.password),
+      //   type: this.regType
+      // }
       console.info('注册还没做')
     },
     toLogin () {

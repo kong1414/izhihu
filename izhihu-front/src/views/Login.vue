@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { reqLogin, reqQueryAccount } from '../api/login.js'
+import { reqLogin } from '../api/login.js'
 import { ERR_OK } from '../api/config.js'
 import md5 from 'js-md5'
 import { mapActions } from 'vuex'

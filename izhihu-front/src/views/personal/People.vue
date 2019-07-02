@@ -118,8 +118,7 @@
         <aside-footer></aside-footer>
       </el-aside>
     </el-container>
-    
-    
+
     <el-dialog title="编辑个人资料"
                :visible.sync="userInfodialogVisible"
                width="600px"

@@ -77,7 +77,7 @@ export default {
         width: 45px; height: 45px;
       }
       .nameNum{
-        // width: 100px; 
+        // width: 100px;
         height: 45px;
         .name{
           display: flex;

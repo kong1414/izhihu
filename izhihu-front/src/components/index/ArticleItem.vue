@@ -7,7 +7,7 @@
       <div class="content">
         <h2 class="title" :title="item.title"  @click="dialogVisible = true">{{item.title}}</h2>
         <p class="excerpt" :title="item.title"  @click="dialogVisible = true">{{item.excerpt}}</p>
-      
+
         <div class="button-content">
           <span class="heat">{{item.heat}}万热度</span>
           <el-button type="text" class="share">{{item.share}}</el-button>

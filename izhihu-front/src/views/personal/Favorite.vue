@@ -54,7 +54,7 @@ export default {
   methods: {
     handleClick () {
       reqGetHotTopic().then(res => {
-        if (res.resultCode == 200) {
+        if (res.resultCode === 200) {
           console.info(res.data)
         }
       })
