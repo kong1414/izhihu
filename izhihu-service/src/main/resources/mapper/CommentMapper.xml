@@ -9,7 +9,7 @@
         <result column="comment_id" jdbcType="VARCHAR" property="commentId"/>
         <result column="is_reply" jdbcType="INTEGER" property="isReply"/>
         <result column="reply_id" jdbcType="INTEGER" property="replyId"/>
-        <result column="commentator_id" jdbcType="INTEGER" property="commentatorId"/>
+        <result column="commentator_id" jdbcType="VARCHAR" property="commentatorId"/>
         <result column="comment_content" jdbcType="VARCHAR" property="commentContent"/>
         <result column="praise_num" jdbcType="INTEGER" property="praiseNum"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>

@@ -1,13 +1,11 @@
 package cn.edu.xmut.izhihu.contorller;
 
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
+import cn.edu.xmut.izhihu.pojo.request.ArticleRequest;
 import cn.edu.xmut.izhihu.service.ArticleService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Description:
@@ -52,10 +50,10 @@ public class ArticleController {
         return null;
     }
 
-    @ApiOperation("写回答，发文章，写想法(回答问题)")
+    @ApiOperation("发文章，写想法")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ResultVO create() {
-        return null;
+    public ResultVO create(@RequestBody ArticleRequest record) {
+        return articleService.create(record);
     }
 
     @ApiOperation("删除 回答文章想法")

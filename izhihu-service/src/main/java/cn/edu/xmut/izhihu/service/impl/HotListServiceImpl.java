@@ -31,6 +31,8 @@ public class HotListServiceImpl implements HotListService {
     @Override
     public ResultVO list(int categoryType) {
         List<HotListVO> res = hotListMapper.listByCategoryType(categoryType);
+
+
         return new SuccessVO(res);
     }
 }

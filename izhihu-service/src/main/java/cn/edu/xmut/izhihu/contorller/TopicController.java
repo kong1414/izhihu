@@ -2,12 +2,12 @@ package cn.edu.xmut.izhihu.contorller;
 
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
+import cn.edu.xmut.izhihu.pojo.entity.Topic;
 import cn.edu.xmut.izhihu.pojo.vo.HotTopicVO;
+import cn.edu.xmut.izhihu.service.TopicService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/topic")
 public class TopicController {
+
+    @Autowired
+    private TopicService topicService;
+
 
     @ApiOperation("发现页的热门话题")
     @RequestMapping(value = "/hotTopic", method = RequestMethod.POST)
@@ -42,49 +46,58 @@ public class TopicController {
 
     @ApiOperation("新增话题")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ResultVO create() {
-        return null;
+    public ResultVO create(@RequestBody Topic topic) {
+        return topicService.create(topic);
     }
 
     @ApiOperation("编辑话题")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ResultVO update() {
+    public ResultVO update(@RequestBody Topic record) {
+        topicService.update(record);
         return null;
     }
 
     @ApiOperation("删除话题(有子话题时不可删)")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public ResultVO delete() {
-        return null;
+    public ResultVO delete(@RequestParam(required = true) String topicId) {
+        return topicService.delete(topicId);
     }
 
     @ApiOperation("删除话题(有子话题时可删，强制删除)")
     @RequestMapping(value = "/forceDelete", method = RequestMethod.POST)
-    public ResultVO forceDelete(String id) {
-        return null;
+    public ResultVO forceDelete(@RequestParam(required = true) String topicId) {
+        return topicService.forceDelete(topicId);
     }
 
-    @ApiOperation("关联话题（父子关系）")
+    @ApiOperation("关联话题（父子关系）第一个参数子id，第二个参数父id")
     @RequestMapping(value = "/relevance", method = RequestMethod.POST)
-    public ResultVO relevance(String id, String id2) {
-        return null;
+    public ResultVO relevance(@RequestParam(required = true) String id,
+                              @RequestParam(required = true) String fId) {
+        topicService.relevanceTopic(id, fId);
+        return new SuccessVO();
     }
 
     @ApiOperation("已关注话题")
     @RequestMapping(value = "/attedTopic", method = RequestMethod.POST)
-    public ResultVO attedTopic(String userId) {
-        return null;
+    public ResultVO attedTopic(@RequestParam(required = true) String userId) {
+        return new SuccessVO(topicService.getAttedTopic(userId));
     }
 
     @ApiOperation("某话题下的热门文章")
     @RequestMapping(value = "/topicArticle", method = RequestMethod.POST)
-    public ResultVO topicArticle(String topicId) {
-        return null;
+    public ResultVO topicArticle(@RequestParam(required = true) String topicId) {
+        return new SuccessVO(topicService.getTopicArticle(topicId));
     }
 
-    @ApiOperation("随机10个话题（话题页其他人关注的话题）")
+    @ApiOperation("随机5个话题（话题页其他人关注的话题）")
     @RequestMapping(value = "/topicRandom", method = RequestMethod.POST)
-    public ResultVO topicArticle(@RequestParam(defaultValue = "10") int num) {
-        return null;
+    public ResultVO topicRandom(@RequestParam(defaultValue = "5") int num) {
+        return new SuccessVO(topicService.getTopicRandom(5));
+    }
+
+    @ApiOperation("查看话题详情")
+    @RequestMapping(value = "/topicDetial", method = RequestMethod.POST)
+    public ResultVO topicDetial(@RequestParam(required = true) String topicId) {
+        return new SuccessVO(topicService.getTopicOne(topicId));
     }
 }

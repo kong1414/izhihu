@@ -7,10 +7,13 @@
       <el-card class="aside-attention" :body-style="{ padding: '0px' }">
         <div slot="header" class="clearfix">
         <span>其他人关注的话题</span>
-        <el-button style="margin-left:70px; padding: 3px 0" type="text" class="change">换一换</el-button>
+        <el-button type="text" style=" padding: 3px 0" icon="el-icon-refresh" class="change" >换一换</el-button>
         </div>
-        <div v-for="o in 6" :key="o" class="text item">
-        {{'列表内容 ' + o }}
+        <div v-for="o in list" :key="o" class="text-item">
+          <div class="img"></div>
+          <el-button type="text" class="btn-topic-name" >{{'话题'}}</el-button>
+          <el-button type="text" icon="el-icon-plus" class="btn-attention" v-if="!o.isFollow" @click="o.isFollow=!o.isFollow">关注</el-button>
+          <el-button type="text"  class="btn-attention" v-if="o.isFollow" @click="o.isFollow=!o.isFollow">已关注</el-button>
         </div>
       </el-card>
   </el-aside>
@@ -24,6 +27,14 @@ export default {
   },
   data () {
     return {
+      list: [
+        {'isFollow': false},
+        {'isFollow': false},
+        {'isFollow': false},
+        {'isFollow': false},
+        {'isFollow': false},
+        {'isFollow': false}
+      ]
     }
   },
   computed: {
@@ -48,27 +59,44 @@ export default {
       .btn-Topic-square{ 
       }
       .btn-find{
-      height: auto;
-      width: 100%;
-      display: inline-block;
-      color: #5488b4;
-      cursor: pointer;
-      font-size: 13px;
-      color: #5488b4;
-      float: left;
-      margin: 10px auto 0;
+        height: auto;
+        width: 100%;
+        display: inline-block;
+        color: #5488b4;
+        cursor: pointer;
+        font-size: 13px;
+        color: #5488b4;
+        float: left;
+        margin: 10px auto 0;
       }
       .btn-find:hover{
-      color: #345570;
+        color: #345570;
       }
     }
     .aside-attention{
       margin-top: 18px;
+      width: 280px;
       .clearfix{
-        font-weight:bold;
-        font-size:15px;
-        font-family:宋体;
       }
+      .change{
+        margin-left:62px;
+      }
+      .text-item{
+        margin-top: 12px;
+        .img{
+          float: left;
+          margin-left: 10px;
+          width: 40px;
+          height: 40px;
+          background-color: #000;
+        }
+        .btn-topic-name{
+          margin-left: 16px;
+        }
+        .btn-attention{
+          margin-left: 110px;
+        }
+      } 
     }
   }
 </style>
