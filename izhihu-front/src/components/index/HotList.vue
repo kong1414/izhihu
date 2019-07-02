@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { reqGetHostList } from '../../api/home'
 import ArticleItem from '../index/ArticleItem'
 export default {
   name: 'HotList',
@@ -33,18 +34,22 @@ export default {
     }
   },
   created () {
-    this._loadData()
+    // this._loadData()
   },
   methods: {
     _loadData() {
-      // 初始化发送请求
+      let params = {
+        categoryType: this.category
+      }
+      reqGetHostList(params).then(res => {
+        if (res.resultCode == 200) {
+          console.info(res)
+        }
+      })
     },
     handleChange (v) {
       console.log(v)
-      let params = {
-        type: this.category
-      }
-      // 发送请求
+      this._loadData()
     }
   }
 }
