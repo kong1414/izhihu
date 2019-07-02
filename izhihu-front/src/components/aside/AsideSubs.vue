@@ -14,6 +14,26 @@
       </div>
     </div>
   </el-card>
+  <el-card class="F-S-card">
+    <div>
+      <div>
+        <div class="Ftitle">父话题</div>
+        <div>
+          <el-button type="text">
+            <el-tag class="Ftag">{{Ftop}}</el-tag>
+          </el-button>
+        </div>
+      </div>
+      <div>
+        <div class="Ftitle" style="margin-top:20px;">子话题</div>
+        <div style="width:250px;margin-left:-7px;">
+          <el-button type="text" v-for="Sontop in Sontops" :key="Sontop" style="margin-left: 10px;">
+            <el-tag class="Ftag">{{Sontop.topic}}</el-tag>
+          </el-button>
+        </div>
+      </div>
+    </div>
+  </el-card>
 </div>
 </template>
 
@@ -23,7 +43,16 @@ export default {
   data () {
     return {
       subNum:'26361',
-      queNum:'31231'
+      queNum:'31231',
+      Ftop:'教育',
+      Sontops:[
+        {topic:'高考志愿'},
+        {topic:'高考的高超技巧'},
+        {topic:'理工'},
+        {topic:'高考志愿123'},
+        {topic:'高考的高超技巧1'},
+        {topic:'理工123'}
+      ]
     }
   },
   methods: {
@@ -34,6 +63,24 @@ export default {
 <style lang="scss">
 .aside-subs {
   margin-top: 20px;
+  .F-S-card{
+    margin-top: 15px;
+    .Ftitle{
+      font-weight: bold;
+      font-size: 15px;
+      margin-bottom:10px;
+    }
+    .Ftag{
+      font-size:14px;
+      border-radius: 20px;
+      margin-top: -10px;
+      color: #0084ff;
+      background: #0084ff1a;
+    }
+    el-buttion{
+      margin-left: 0px;
+    }
+  }
   .subs-card {
     text-align: center;
     .el-card__body {
@@ -61,6 +108,7 @@ export default {
         font-size: 18px;
         color: #1a1a1a;
         font-weight: 600;
+        margin-top: 3px;
       }
     }
     .queNum{
@@ -74,6 +122,7 @@ export default {
         font-size: 18px;
         color: #1a1a1a;
         font-weight: 600;
+        margin-top: 3px;
       }
     }
 }

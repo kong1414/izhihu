@@ -12,8 +12,10 @@
         <div v-for="o in list" :key="o" class="text-item">
           <img class="img" src="" alt=""/>
           <el-button type="text" class="btn-topic-name" >{{'话题'}}</el-button>
-          <el-button type="text" icon="el-icon-plus" class="btn-attention" v-if="!o.isFollow" @click="o.isFollow=!o.isFollow">关注</el-button>
-          <el-button type="text"  class="btn-attention" v-if="o.isFollow" @click="o.isFollow=!o.isFollow">已关注</el-button>
+          <el-button type="text" icon="el-icon-plus" class="btn-attention" 
+          v-if="!o.isFollow" @click="o.isFollow=!o.isFollow">关注</el-button>
+          <el-button type="text"  class="btn-attention" 
+          v-if="o.isFollow" @click="o.isFollow=!o.isFollow">已关注</el-button>
         </div>
       </el-card>
   </el-aside>
@@ -51,7 +53,7 @@ export default {
       text-decoration: none;
       height: 145px;
       width: 280px;
-      border: 1px solid rgba(70, 130, 180, 0.41);
+      // border: 1px solid rgba(70, 130, 180, 0.41);
       padding: 13px;
       border-radius: 4px;
       text-align: center;
@@ -88,7 +90,6 @@ export default {
           margin-left: 10px;
           width: 40px;
           height: 40px;
-          background-color: #000;
         }
         .btn-topic-name{
           margin-left: 16px;

@@ -2,11 +2,13 @@ package cn.edu.xmut.izhihu.service.impl;
 
 import cn.edu.xmut.izhihu.dao.ArticleMapper;
 import cn.edu.xmut.izhihu.dao.QuestionMapper;
+import cn.edu.xmut.izhihu.dao.TopicContentMapper;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
 import cn.edu.xmut.izhihu.pojo.common.Type;
 import cn.edu.xmut.izhihu.pojo.entity.Article;
 import cn.edu.xmut.izhihu.pojo.entity.Question;
+import cn.edu.xmut.izhihu.pojo.entity.TopicContent;
 import cn.edu.xmut.izhihu.pojo.request.AnswerRequest;
 import cn.edu.xmut.izhihu.pojo.request.QuestionRequest;
 import cn.edu.xmut.izhihu.service.QuestionService;
@@ -14,6 +16,8 @@ import cn.hutool.core.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @Description:
@@ -31,6 +35,9 @@ public class QuestionServiceImpl implements QuestionService {
     @Autowired
     private ArticleMapper articleMapper;
 
+    @Autowired
+    private TopicContentMapper topicContentMapper;
+
     /**
      * 创建一个问题
      *
@@ -40,12 +47,27 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public synchronized ResultVO create(QuestionRequest record) {
         Question ques = new Question();
-        ques.setQuesId(IdUtil.randomUUID());
+        String id = IdUtil.randomUUID();
+        ques.setQuesId(id);
         ques.setQuestionerId(record.getQuestionerId());
         ques.setQuesName(record.getQuesName());
         ques.setQuesDescribe(record.getQuesDescribe());
         ques.setAnonymity(record.getAnonymity());
         questionMapper.insert(ques);
+
+        if (record.getTopicList().size() <= 0) {
+            return new SuccessVO();
+        }
+        List<String> topicList = record.getTopicList();
+        for (int i = 0; i < topicList.size(); i++) {
+            //内部不锁定，效率最高，但在多线程要考虑并发操作的问题。
+            String topicId = topicList.get(i);
+            TopicContent tc = new TopicContent();
+            tc.setTopicId(topicId);
+            tc.setContentId(id);
+            tc.setType(Type.QUESTION.getCode());
+            topicContentMapper.insert(tc);
+        }
         return new SuccessVO();
     }
 

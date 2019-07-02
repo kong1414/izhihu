@@ -19,5 +19,11 @@ public interface QuestionService {
      */
     ResultVO create(QuestionRequest record);
 
+    /**
+     * 回答问题
+     *
+     * @param record
+     * @return
+     */
     ResultVO answer(AnswerRequest record);
 }

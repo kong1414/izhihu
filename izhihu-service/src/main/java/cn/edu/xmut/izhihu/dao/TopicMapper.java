@@ -38,6 +38,13 @@ public interface TopicMapper extends Mapper<Topic> {
      */
     public List<Topic> getAttedTopic(@Param("userId") String userId);
 
-
+    /**
+     * 模糊搜索根据关键字
+     *
+     * @param keyword
+     * @return
+     */
+    @Select("select * from topic where topic_name LIKE '%#{keyword}%'")
+    List<Topic> find(String keyword);
 
 }
