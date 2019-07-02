@@ -12,7 +12,8 @@
           </el-button>
       </div>
       <div v-for="i in list" :key="i" class="topiclist">
-        <div class="img" :src="photoUrl"></div>
+        <!-- <div class="img" :src="photoUrl"></div> -->
+        <el-avatar class="img" shape="square" :fit="cover" :src="i.photoUrl"></el-avatar>
         <div class="nameNum" >
           <el-button class="name" type="text">{{i.topicName}}</el-button>
           <span class="number">{{i.attNum}}</span>
@@ -42,7 +43,7 @@ export default {
   methods: {
     _loadData () {
       reqGetHotTopic().then(res => {
-        if (res.resultCode === 200) {
+        if (res.resultCode == 200) {
           console.info(res.data)
           this.list = res.data
         }
