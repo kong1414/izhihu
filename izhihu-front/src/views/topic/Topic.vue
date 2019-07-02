@@ -3,8 +3,22 @@
     <el-main>
       <el-card class="att-topic-crad">
         <div slot="header">
-          已关注的话题动态
-          共关注了xx个话题
+          <span>已关注的话题动态</span>
+          <span style="float:right">共关注了{{i}}个话题</span>
+        </div>
+        <div class="label">
+            <div v-for="i in labelcount" :key="i">
+                <div class="tag-group">
+                  <el-tag
+                  v-for="item in items"
+                  :key="item.label"
+                  :type="item.type"
+                  
+                  >
+                  {{ item.label }}
+                   </el-tag>
+                </div>
+            </div>
         </div>
       </el-card>
       <el-card class="topic-item">
@@ -28,9 +42,12 @@ export default {
     AsideTopic
   },
   data () {
-
     return {
-
+      items: [
+          { type: '', label: '标签一' },
+      ],
+      i:'3000',
+      labelcount:31
     }
   },
   methods: {
@@ -41,10 +58,18 @@ export default {
 
 <style lang="scss">
 .topic-container {
-   .att-topic-crad {
-   }
+  .att-topic-crad {
+  }
   .topic-item {
-    margin-top: 20px;
+    margin-top: 15px;
+  }
+  .label{
+    
+    .tag-group{
+      float: left;
+      margin-left: 12px;
+      margin-bottom: 10px;
+    }
   }
 }
 
