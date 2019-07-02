@@ -1,7 +1,6 @@
 package cn.edu.xmut.izhihu.contorller;
 
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
-import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
 import cn.edu.xmut.izhihu.pojo.request.AnswerRequest;
 import cn.edu.xmut.izhihu.pojo.request.QuestionRequest;
 import cn.edu.xmut.izhihu.service.QuestionService;
@@ -27,15 +26,14 @@ public class QuestionController {
     private QuestionService questionService;
 
     @ApiOperation("创建问题")
-    @RequestMapping(name = "/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResultVO createQuestion(@RequestBody QuestionRequest record) {
-        return new SuccessVO(questionService.create(record));
+        return questionService.create(record);
     }
 
     @ApiOperation("回答问题")
-    @RequestMapping(name = "/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/answer", method = RequestMethod.POST)
     public ResultVO answerQuestion(@RequestBody AnswerRequest record) {
-
-        return new SuccessVO(questionService.answer(record));
+        return questionService.answer(record);
     }
 }

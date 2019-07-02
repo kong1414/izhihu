@@ -44,4 +44,27 @@
           phone = concat('%',#{account},'%') or
           email = concat('%',#{account},'%')
     </select>
+
+  <select id="getUserInfo" resultType="java.util.HashMap">
+    SELECT
+users.user_id,
+users.`name`,
+users.photo_url,
+users_info.user_id AS user_id_0,
+users_info.gender,
+users_info.autograph,
+users_info.introduce,
+users_info.industry,
+users_info.personality_url,
+users_info.company,
+users_info.position,
+users_info.school,
+users_info.major
+FROM
+users
+JOIN users_info
+ON users.user_id = users_info.user_id
+WHERE
+izhihu.users.user_id = #{userId}
+  </select>
 </mapper>

@@ -9,8 +9,7 @@
              width="1100px">
         <div class="content">
           <el-image class="avatar"
-                    :src="avatarPhotoUrl"
-                    :fit="fit">
+                    :src="avatarPhotoUrl">
           </el-image>
           <div class="introduce">
             <p>
@@ -27,8 +26,11 @@
             </p> -->
           </div>
           <div class="operation">
-            <el-button size="medium" icon="el-icon-plus" type="primary">关注</el-button>
-            <el-button size="medium" icon="el-icon-chat-round">发私信</el-button>
+            <el-button size="medium"
+                       icon="el-icon-plus"
+                       type="primary">关注</el-button>
+            <el-button size="medium"
+                       icon="el-icon-chat-round">发私信</el-button>
           </div>
         </div>
 
@@ -47,7 +49,9 @@
 </template>
 
 <script>
+import { reqUserInfo } from '../../api/home'
 import AsideFooter from '../../components/aside/AsideFooter'
+
 export default {
   name: 'people',
   components: {
@@ -55,14 +59,25 @@ export default {
   },
   data () {
     return {
-      avatarPhotoUrl: 'http://img5q.duitang.com/uploads/item/201506/20/20150620081746_mPa3S.jpeg',
+      userId: this.$route.params.userid,
+      avatarPhotoUrl: 'http://img3.imgtn.bdimg.com/it/u=4259300811,497831842&fm=26&gp=0.jpg',
     }
   },
-  mounted () {
-    console.info('userid', this.$route.params.user)
+  created () {
+    console.info('userid')
+    this._loadData(this.userId)
   },
   methods: {
-
+    _loadData (userId) {
+      let params = {
+        userId: userId
+      }
+      reqUserInfo(params).then(res => {
+        if (res.resultCode === 200) {
+          console.info(res.data)
+        }
+      })
+    }
   }
 }
 </script>

@@ -58,4 +58,17 @@ public class UserController {
         }
         return result;
     }
+
+
+    /**
+     * 获得个人信息个人主页
+     *
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/people", method = RequestMethod.POST)
+    public ResultVO people(@RequestParam String userId) {
+        return userService.getUserInfo(userId);
+    }
+
 }
