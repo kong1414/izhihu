@@ -12,9 +12,9 @@
         <div v-for="o in list" :key="o" class="text-item">
           <img class="img" src="" alt=""/>
           <el-button type="text" class="btn-topic-name" >{{'话题'}}</el-button>
-          <el-button type="text" icon="el-icon-plus" class="btn-attention" 
+          <el-button type="text" icon="el-icon-plus" class="btn-attention"
           v-if="!o.isFollow" @click="o.isFollow=!o.isFollow">关注</el-button>
-          <el-button type="text"  class="btn-attention" 
+          <el-button type="text"  class="btn-attention"
           v-if="o.isFollow" @click="o.isFollow=!o.isFollow">已关注</el-button>
         </div>
       </el-card>
@@ -30,12 +30,12 @@ export default {
   data () {
     return {
       list: [
-        {'isFollow': false},
-        {'isFollow': false},
-        {'isFollow': false},
-        {'isFollow': false},
-        {'isFollow': false},
-        {'isFollow': false}
+        { 'isFollow': false },
+        { 'isFollow': false },
+        { 'isFollow': false },
+        { 'isFollow': false },
+        { 'isFollow': false },
+        { 'isFollow': false }
       ]
     }
   },
@@ -58,7 +58,7 @@ export default {
       border-radius: 4px;
       text-align: center;
       background-color: #eff6fA;
-      .btn-Topic-square{ 
+      .btn-Topic-square{
       }
       .btn-find{
         height: auto;
@@ -97,7 +97,7 @@ export default {
         .btn-attention{
           margin-left: 110px;
         }
-      } 
+      }
     }
   }
 </style>

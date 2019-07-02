@@ -100,11 +100,11 @@ export default {
       this.fullscreenLoading = true
       let params = {
         account: this.login.account,
-        password: md5(this.login.password + this.login.password),
+        password: md5(this.login.password + this.login.password)
       }
       reqLogin(params).then(res => {
         // console.info(res)
-        if(res.resultCode === ERR_OK) {
+        if (res.resultCode === ERR_OK) {
           this.$message({
             message: '登录成功！',
             type: 'success'
@@ -120,7 +120,7 @@ export default {
     },
     toRegister () {
       this.$router.push({ path: '/register' })
-    },
+    }
   }
 }
 </script>
@@ -209,5 +209,3 @@ export default {
   }
 }
 </style>
-
-

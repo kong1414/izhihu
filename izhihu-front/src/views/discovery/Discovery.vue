@@ -40,21 +40,21 @@
 import AsideDiscovery from '../../components/aside/AsideDiscovery'
 import RecommendItem from '../../components/index/RecommendItem'
 export default {
-  name: "discovery",
+  name: 'discovery',
   components: {
     AsideDiscovery,
     RecommendItem
   },
   data () {
     return {
-      activeName: 'today',
+      activeName: 'today'
     }
   },
   methods: {
     handleClick () {
 
     }
-  },
+  }
 }
 </script>
 
@@ -74,7 +74,6 @@ export default {
   .today-hot {
     margin-top: 20px;
   }
- 
+
 }
 </style>
-

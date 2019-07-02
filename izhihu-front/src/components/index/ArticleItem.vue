@@ -34,8 +34,8 @@ export default {
     }
   },
   methods: {
-    doSubmit (){
-      console.log(1);
+    doSubmit () {
+      console.log(1)
     }
   }
 }
@@ -100,7 +100,6 @@ export default {
       }
     }
   }
-  
+
 }
 </style>
-

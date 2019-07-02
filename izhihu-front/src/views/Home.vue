@@ -16,7 +16,8 @@
             <el-menu-item index="/home/index">首页</el-menu-item>
             <el-menu-item index="/home/discovery">发现</el-menu-item>
             <el-menu-item index="/home/topic">话题</el-menu-item>
-            <el-menu-item v-if="false" index="/home/collection">收藏</el-menu-item>
+            <el-menu-item v-if="false"
+                          index="/home/collection">收藏</el-menu-item>
           </el-menu>
         </div>
 
@@ -82,7 +83,7 @@ export default {
         name: '未登录'
       },
       activeIndex: '1',
-      input: '',
+      input: ''
     }
   },
   mounted () {
@@ -90,7 +91,7 @@ export default {
   },
   methods: {
     handleSelect (key, keyPath) { // 暂时没用
-      console.log(key, keyPath);
+      console.log(key, keyPath)
     },
     handleAsk () { // 提问
       console.info('123')
@@ -102,7 +103,10 @@ export default {
 
     },
     toPersonal () { // 跳转到个人主页
-
+      if (this.$store.state.user === null) {
+        this.$router.push({ path: '/login' })
+      }
+      this.$router.push({ path: '/home/people/' + this.$store.state.user.userId })
     }
   }
 }

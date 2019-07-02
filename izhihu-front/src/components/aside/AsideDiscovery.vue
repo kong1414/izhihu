@@ -18,7 +18,6 @@
       </div>
     </el-card>
 
-
     <aside-footer></aside-footer>
   </div>
 </template>
@@ -32,19 +31,18 @@ export default {
   },
   data () {
     return {
-      list: [],
+      list: []
     }
   },
   created () {
     this._loadData()
   },
   methods: {
-    _loadData() {
+    _loadData () {
       reqGetHotTopic().then(res => {
-        if (res.resultCode ===200) {
+        if (res.resultCode === 200) {
           console.info(res.data)
           this.list = res.data
-
         }
       })
     }
@@ -69,7 +67,7 @@ export default {
       }
     }
     .topiclist{
-      
+
       margin: 10px 10px;
       .img{
         background-color: chartreuse;
@@ -86,4 +84,3 @@ export default {
   }
 }
 </style>
-

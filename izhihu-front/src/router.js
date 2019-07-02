@@ -62,7 +62,7 @@ export default new Router({
           component: () => import('./views/personal/FavoriteDetail.vue')
         },
         {
-          path: '/home/people/:user',
+          path: '/home/people/:userid',
           menuName: 'people',
           component: () => import('./views/personal/People.vue')
         }

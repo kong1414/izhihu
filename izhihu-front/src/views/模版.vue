@@ -13,7 +13,7 @@ export default {
     }
   },
   methods: {
-    
+
   }
 }
 </script>
@@ -21,4 +21,3 @@ export default {
 <style lang="scss">
 
 </style>
-

@@ -14,7 +14,7 @@
         <el-button  type="text"><i class="el-icon-star-on"/>收藏</el-button>
         <el-button  type="text"><i class="el-icon-warning"/>举报</el-button>
       </div>
-      
+
     </div>
   </div>
 </template>
@@ -37,7 +37,7 @@ export default {
     }
   },
   methods: {
-    
+
   }
 }
 </script>
@@ -48,7 +48,7 @@ export default {
   // background-color: aquamarine;
   // height: 170px;
   padding: 10px 0;
-  border-bottom: 1px solid #F0F2F7; 
+  border-bottom: 1px solid #F0F2F7;
   h1 {
     font-size: 18px;
     font-weight: 600;
@@ -82,4 +82,3 @@ export default {
   }
 }
 </style>
-

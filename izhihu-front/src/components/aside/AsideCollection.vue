@@ -92,48 +92,48 @@
 
 <script>
 export default {
-  name: 'asideCollection' ,
+  name: 'asideCollection',
   methods: {
-      // 弹窗备选方法，只是不知道怎么改成两个输入框.....
-      // open() {
-      //   this.$prompt('标题', '创建新收藏夹', {
-      //     confirmButtonText: '确定',
-      //     cancelButtonText: '取消',
-      //     // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-      //     // inputErrorMessage: '收藏夹名称不正确'
-      //   }).then(({ value }) => {
-      //     this.$message({
-      //       type: 'success',
-      //       message: '你创建的收藏夹是: ' + value
-      //     });
-      //   }).catch(() => {
-      //     this.$message({
-      //       type: 'info',
-      //       message: '取消输入'
-      //     });       
-      //   });
-      // }
+    // 弹窗备选方法，只是不知道怎么改成两个输入框.....
+    // open() {
+    //   this.$prompt('标题', '创建新收藏夹', {
+    //     confirmButtonText: '确定',
+    //     cancelButtonText: '取消',
+    //     // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+    //     // inputErrorMessage: '收藏夹名称不正确'
+    //   }).then(({ value }) => {
+    //     this.$message({
+    //       type: 'success',
+    //       message: '你创建的收藏夹是: ' + value
+    //     });
+    //   }).catch(() => {
+    //     this.$message({
+    //       type: 'info',
+    //       message: '取消输入'
+    //     });
+    //   });
+    // }
   },
-  data(){
-    return{
+  data () {
+    return {
       dialogFormVisible: false,
       form: {
-          name: '',
-          detail: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
+        name: '',
+        detail: '',
+        delivery: false,
+        type: [],
+        resource: '',
+        desc: ''
       },
       radioOC: '1'
-    };
-  } 
+    }
+  }
 }
 </script>
 <style lang="scss">
 .aside-colletcion {
   margin-top: 20px;
-  .colletcion-card {  
+  .colletcion-card {
     margin-top: 10px;
     text-align: center;
     .el-card__body {
@@ -182,4 +182,3 @@ export default {
   }
 }
 </style>
-

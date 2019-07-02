@@ -38,20 +38,20 @@ export default {
   data () {
     return {
       items: [
-          { id: 1, type: '', label: '游戏', isSelect: false },
-          { id: 2, type: '', label: '投资', isSelect: false },
-          { id: 3, type: '', label: '亏钱', isSelect: false },
-          { id: 4, type: '', label: '摄影', isSelect: false },
-          { id: 5, type: '', label: '美食', isSelect: false },
-          { id: 6, type: '', label: '篮球', isSelect: false },
-          { id: 7, type: '', label: '旅游', isSelect: false },
-          { id: 8, type: '', label: '物理', isSelect: false },
-          { id: 9, type: '', label: '数学', isSelect: false },
-          { id: 10, type: '', label: '时尚', isSelect: false },
-          { id: 11, type: '', label: '计算机', isSelect: false }
+        { id: 1, type: '', label: '游戏', isSelect: false },
+        { id: 2, type: '', label: '投资', isSelect: false },
+        { id: 3, type: '', label: '亏钱', isSelect: false },
+        { id: 4, type: '', label: '摄影', isSelect: false },
+        { id: 5, type: '', label: '美食', isSelect: false },
+        { id: 6, type: '', label: '篮球', isSelect: false },
+        { id: 7, type: '', label: '旅游', isSelect: false },
+        { id: 8, type: '', label: '物理', isSelect: false },
+        { id: 9, type: '', label: '数学', isSelect: false },
+        { id: 10, type: '', label: '时尚', isSelect: false },
+        { id: 11, type: '', label: '计算机', isSelect: false }
       ],
-      i:'3000',
-      labelcount:31,
+      i: '3000',
+      labelcount: 31,
       isFollow: false,
       nowType: ''
     }
@@ -61,7 +61,7 @@ export default {
       for (let i of this.items) {
         i.isSelect = false
         if (i.id === data) {
-          i.isSelect = true;
+          i.isSelect = true
         }
       }
     }

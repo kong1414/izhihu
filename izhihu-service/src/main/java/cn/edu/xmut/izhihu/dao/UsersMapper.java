@@ -28,5 +28,5 @@ public interface UsersMapper extends Mapper<UserDO> {
      */
     Integer checkRepeat(@Param("account") String account);
 
-    List<Map<String, Object>> getUserInfo(@Param("userId") String userId);
+    Map<String,Object> userInfo(@Param("userId") String userId);
 }

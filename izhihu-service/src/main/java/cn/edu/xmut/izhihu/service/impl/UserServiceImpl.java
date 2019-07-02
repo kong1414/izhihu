@@ -199,7 +199,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public ResultVO getUserInfo(String userId) {
-        List<Map<String, Object>> res = userMapper.getUserInfo(userId);
+        Map<String, Object> res = userMapper.userInfo(userId);
         return new SuccessVO(res);
     }
 

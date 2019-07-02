@@ -37,12 +37,12 @@ export default {
     // this._loadData()
   },
   methods: {
-    _loadData() {
+    _loadData () {
       let params = {
         categoryType: this.category
       }
       reqGetHostList(params).then(res => {
-        if (res.resultCode == 200) {
+        if (res.resultCode === 200) {
           console.info(res)
         }
       })
@@ -58,4 +58,3 @@ export default {
 <style lang="scss">
 
 </style>
-

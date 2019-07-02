@@ -10,17 +10,17 @@ export default {
   props: ['list'],
   data () {
     return {
-        selectStyle: [
-            {'background': '#259'},
-            {'border-color': '#259'},
-            {'color': '#fff'},
-        ]
+      selectStyle: [
+        { 'background': '#259' },
+        { 'border-color': '#259' },
+        { 'color': '#fff' }
+      ]
     }
   },
   methods: {
-      selectLabel () {
-          this.$emit("selectLabel",this.list.id)
-      }
+    selectLabel () {
+      this.$emit('selectLabel', this.list.id)
+    }
   }
 }
 </script>
