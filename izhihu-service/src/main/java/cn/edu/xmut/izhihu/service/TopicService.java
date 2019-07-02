@@ -84,4 +84,28 @@ public interface TopicService {
      */
     Topic getTopicOne(String topicId);
 
+    /**
+     * 获取话题的父话题
+     *
+     * @param topicId
+     * @return
+     */
+    Topic getTopicFather(String topicId);
+
+    /**
+     * 获取话题的子话题
+     *
+     * @param topicId
+     * @return
+     */
+    List<Topic> getTopicChild(String topicId);
+
+    /**
+     * 模糊搜索话题
+     *
+     * @param keyword
+     * @return
+     */
+    List<Topic> find(String keyword);
+
 }

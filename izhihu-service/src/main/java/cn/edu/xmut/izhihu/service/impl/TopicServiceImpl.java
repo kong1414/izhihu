@@ -142,5 +142,46 @@ public class TopicServiceImpl implements TopicService {
         return topicMapper.selectByPrimaryKey(topicId);
     }
 
+    /**
+     * 获取话题的父话题
+     *
+     * @param topicId
+     * @return
+     */
+    @Override
+    public Topic getTopicFather(String topicId) {
+        Topic topic = topicMapper.selectByPrimaryKey(topicId);
+        return topic;
+    }
+
+    /**
+     * 获取话题的子话题 列表
+     *
+     * @param topicId
+     * @return
+     */
+    @Override
+    public List<Topic> getTopicChild(String topicId) {
+        Topic topic = new Topic();
+        topic.setTopicFatherId(topicId);
+        List<Topic> res = topicMapper.select(topic);
+        return res;
+    }
+
+    /**
+     * 模糊搜索话题
+     *
+     * @param keyword
+     * @return
+     */
+    @Override
+    public List<Topic> find(String keyword) {
+        if ("".equals(keyword)) {
+            return topicMapper.selectAll();
+        }
+        List<Topic> res = topicMapper.find(keyword);
+        return res;
+    }
+
 
 }

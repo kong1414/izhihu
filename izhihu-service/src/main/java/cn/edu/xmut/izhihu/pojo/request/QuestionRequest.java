@@ -28,7 +28,7 @@ public class QuestionRequest {
     /**
      * 关联的话题
      */
-    private List<String> topicId;
+    private List<String> TopicList;
 
     /**
      * 匿名（1是/0否）

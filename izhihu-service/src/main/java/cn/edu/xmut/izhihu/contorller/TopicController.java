@@ -53,8 +53,7 @@ public class TopicController {
     @ApiOperation("编辑话题")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ResultVO update(@RequestBody Topic record) {
-        topicService.update(record);
-        return null;
+        return topicService.update(record);
     }
 
     @ApiOperation("删除话题(有子话题时不可删)")
@@ -69,7 +68,7 @@ public class TopicController {
         return topicService.forceDelete(topicId);
     }
 
-    @ApiOperation("关联话题（父子关系）第一个参数子id，第二个参数父id")
+    @ApiOperation("话题关联话题（父子关系）第一个参数子id，第二个参数父id")
     @RequestMapping(value = "/relevance", method = RequestMethod.POST)
     public ResultVO relevance(@RequestParam(required = true) String id,
                               @RequestParam(required = true) String fId) {
@@ -99,5 +98,23 @@ public class TopicController {
     @RequestMapping(value = "/topicDetial", method = RequestMethod.POST)
     public ResultVO topicDetial(@RequestParam(required = true) String topicId) {
         return new SuccessVO(topicService.getTopicOne(topicId));
+    }
+
+    @ApiOperation("获取话题的父话题")
+    @RequestMapping(value = "/topicFather", method = RequestMethod.POST)
+    public ResultVO topicFather(@RequestParam(required = true) String topicId) {
+        return new SuccessVO(topicService.getTopicFather(topicId));
+    }
+
+    @ApiOperation("获取话题的子话题列表")
+    @RequestMapping(value = "/topicChild", method = RequestMethod.POST)
+    public ResultVO topicChild(@RequestParam(required = true) String topicId) {
+        return new SuccessVO(topicService.getTopicChild(topicId));
+    }
+
+    @ApiOperation("模糊搜索话题")
+    @RequestMapping(value = "/find", method = RequestMethod.POST)
+    public ResultVO find(@RequestParam(defaultValue = "") String keyword) {
+        return new SuccessVO(topicService.find(keyword));
     }
 }

@@ -19,4 +19,5 @@ public interface ArticleService {
      */
     ResultVO create(ArticleRequest record);
 
+
 }
