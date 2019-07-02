@@ -15,6 +15,16 @@
             <span>{{topDet}}</span>
           </div>
         </div>  
+          <el-button type="primary" class="subsBut" v-if="!isFollow" @click="isFollow=!isFollow">
+            <span>关注话题</span>
+          </el-button>
+          <el-button type="info" class="subsBut2" v-if="isFollow" @click="isFollow=!isFollow">
+            取消关注
+          </el-button>
+          <el-button type="text" class="shareBut">
+            <i class="el-icon-s-promotion"/>
+            <span>分享</span>
+          </el-button>
       </el-card>
       <el-card class="secCard">
         <div slot="header" class="clearfix">
@@ -27,23 +37,24 @@
       </el-card>
     </el-main>
     <el-aside width="300px" style="background-color:#ecf5ff;min-height:200px">
-      <aside-collection></aside-collection>
+      <aside-Subs></aside-Subs>
       <aside-Footer></aside-Footer>
     </el-aside>
   </el-container>
 </template>
 <script>
 import AsideFooter from '../../components/aside/AsideFooter'
-import AsideCollection from '../../components/aside/AsideCollection'
+import AsideSubs from '../../components/aside/AsideSubs'
 export default {
   name: 'topicDetail',
   components: {
-    AsideFooter,
-    AsideCollection
+    AsideSubs,
+    AsideFooter
   },
   data () {
     return {
       url:'',
+      isFollow: false,
       topName:'高考',
       topDet:'普通高等学校招生全国统一考试，简称“高考”，是中华人民共和国（不包括香港特别行政区、澳门特别行政区和台湾省）合'
     }
@@ -81,6 +92,25 @@ export default {
       font-size: 15px;
       color: #646464;
       height: 50px;
+    }
+    .subsBut{
+      margin-top: 30px;
+      width: 100px;
+      height: 40px;
+      background: #0084ff;
+    }
+    .subsBut2{
+      margin-top: 30px;
+      width: 100px;
+      height: 40px;
+    }
+    .shareBut{
+      color: #8590a6;
+      font-size: 14px;
+      margin-left: 20px;
+      i{
+        font-size: 18px;
+      }
     }
   }
 
