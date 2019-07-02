@@ -43,7 +43,7 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://120.78.136.84:3306/izhihu?useSSL=false"
                         userId="izhihu"
-                        password="ABCabc-123"/>
+                        password="****"/>
 
         <!-- 类型转换 -->
         <!--<javaTypeResolver>-->
@@ -126,9 +126,13 @@
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--            <generatedKey column="topic_id" sqlStatement="MySql"/>-->
 <!--        </table>-->
-        <table tableName="users">
+        <!--        <table tableName="users">-->
+        <!--            <property name="useActualColumnNames" value="false"/>-->
+        <!--            <generatedKey column="user_id" sqlStatement="MySql"/>-->
+        <!--        </table>-->
+        <table tableName="topic_content">
             <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="user_id" sqlStatement="MySql"/>
+            <generatedKey column="id" sqlStatement="MySql"/>
         </table>
         <!--        <table tableName="users_info">-->
         <!--            <property name="useActualColumnNames" value="false"/>-->
