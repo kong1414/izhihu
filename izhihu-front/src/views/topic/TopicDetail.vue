@@ -44,12 +44,19 @@
           <div class="disDetque">{{disDet.queDet}}</div>
           <div class="ope">
             <span>
-              <el-button class="apprBut">
+              <el-button class="apprBut" v-if="!apprButView" @click="apprButView=!apprButView">
                 <i class="el-icon-caret-top"></i>
                 <span>赞同 {{disDet.apprN}}</span>
               </el-button>
-              <el-button class="oppBut">
+              <el-button class="apprBut" style="background:#0084ff;width:120px;" v-if="apprButView" @click="apprButView=!apprButView">
+                <i class="el-icon-caret-top" style="color:white;"></i>
+                <span style="color:white;">已赞同  {{disDet.apprN+1}}</span>
+              </el-button>
+              <el-button class="oppBut" v-if="!oppButView" @click="oppButView=!oppButView">
                 <i class="el-icon-caret-bottom"></i>
+              </el-button>
+              <el-button class="oppBut" style="background:#0084ff;" v-if="oppButView" @click="oppButView=!oppButView">
+                <i class="el-icon-caret-bottom" style="color:white;"></i>
               </el-button>
             </span>
             <el-button type="text" class="shareBut">
@@ -92,6 +99,8 @@ export default {
     return {
       url: '',
       isFollow: false,
+      apprButView:false,
+      oppButView:false,
       topName: '高考',
       topDet: '普通高等学校招生全国统一考试（The National College Entrance Examination），简称“高考”，是中华人民共和国（不包括香港特别行政区、澳门特别行政区和台湾省）合格的高中毕业生或具有同等学历的考生参加的选拔性考试。 2018年8月，北京市新高考方案公布。',
       disDets: [
