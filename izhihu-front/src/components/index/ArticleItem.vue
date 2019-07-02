@@ -1,29 +1,18 @@
 <template>
-  <div class="item-content">
-    <el-row>
-      <el-col :span="2">
-        <div class="id">
-          <el-button type="text">
-            <p>1</p>
-            <i class="el-icon-star-on"/>
-          </el-button>
+  <div>
+    <div class="item-content" v-for="item in list" :key="item">
+      <div class="index">
+        <div class="hot">{{item.id}}</div>
+      </div>
+      <div class="content">
+        <h2 class="title">{{item.title}}</h2>
+        <p class="excerpt">{{item.excerpt}}</p>
+        <div class="button-content">
+          <span class="heat">{{item.heat}}万热度</span>
+          <el-button type="text" class="share">{{item.share}}</el-button>
         </div>
-      </el-col>
-      <el-col :span="16">
-        <div class="content">
-          <a class="tit">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题</a>
-          <p class="abs">摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要</p>
-          <a href="">点赞</a>
-        </div>
-      </el-col>
-      <el-col :span="6">
-        <div class="photo">
-          <el-image
-          style="width: 177px; height: 160px"
-          :src="url"></el-image>
-        </div>
-      </el-col>
-    </el-row>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -32,7 +21,16 @@ export default {
   name: 'ArticleItem',
   data () {
     return {
-    url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+      url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+      list: [
+        {
+          id: '1',
+          title: '为什么有很多人说百度全面降低了中国的互联网的良好体验?',
+          excerpt: '今天说说不定华盛顿还会的文化啊是的话安徽的哈手动阿森纳大很多快乐按时扩大和阿斯顿你阿瑟东阿瑟东今天说说不定华盛顿还会的文化啊是的话安徽的哈手动阿森纳大很多快乐按时扩大和阿斯顿你阿瑟东阿瑟东',
+          heat: '123',
+          share: '分享'
+        }
+      ]
     }
   },
   methods: {
@@ -43,37 +41,62 @@ export default {
 
 <style lang="scss">
 .item-content{
-  background: aqua;
-  height: 160px;
-  .id{
-    background:black;
-    text-align: center; 
-    height: 160px;
+  border-bottom: rgb(221, 213, 213) 1px solid;
+  color: #000;
+  display: flex;
+  font-size: 15px;
+  width: 718px;
+  height: 137px;
+  background: #fff;
+  padding: 16px 16px 16px 0;
+  .index{
+    text-align: center;
+    width: 57px;
+    .hot{
+      color: #ff9607;
+      line-height: 1.6;
+      font-size: 18px;
+      font-weight: 600;
+    }
   }
   .content{
-    background:blue;
-    height: 160px;
-    .tit{
-      font-size: 30px;
+    width: 651px;
+    height: 105px;
+    .title{
+      font-size: 18px;
+      line-height: 28px;
+      max-height: 56px;
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      font-weight: 600;
+    }
+    .excerpt{
+      color: #444;
+      line-height: 25px;
+      margin-top: 0px;
+      min-height: 25px;
       display: -webkit-box;
       text-overflow: ellipsis;
       overflow: hidden;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
     }
-    .abs{
-      font-size: 20px;
-      display: -webkit-box;
-      text-overflow: ellipsis;
+    .button-content{
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1;
+      flex: 1 1;
       overflow: hidden;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
+      color: #8590a6;
+      .share{
+        margin-left: 20px;
+        color: #8590a6;
+      }
     }
   }
-  .photo{
-    background:chartreuse;
-    height: 160px;
-  }
+  
 }
 </style>
 

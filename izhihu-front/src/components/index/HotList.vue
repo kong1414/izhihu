@@ -14,8 +14,8 @@
         <el-radio-button label="4">时尚</el-radio-button>
         <el-radio-button label="5">影视</el-radio-button>
       </el-radio-group>
-      <article-item></article-item>
     </div>
+    <article-item></article-item>
   </div>
 </template>
 
@@ -51,13 +51,6 @@ export default {
 </script>
 
 <style lang="scss">
-.hot-list {
-  height: 1000px;
-  // background-color: black;
-  .button {
-    padding: 5px;
-    border-bottom: 2px solid #e4e7ed;
-  }
-}
+
 </style>
 
