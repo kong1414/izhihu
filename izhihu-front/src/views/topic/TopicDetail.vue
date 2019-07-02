@@ -4,12 +4,17 @@
     <el-main class="topDet">
       <el-card>
         <el-image
-          style="width: 100px; height: 100px;"
+          style="width: 100px; height: 100px;float:left;"
           :src="url"
           ></el-image>
-        
+        <div class="firCard">
+          <div class="firCardName">
             <span>{{topName}}</span>
-          
+          </div>
+          <div class="firCardDet">
+            <span>{{topDet}}</span>
+          </div>
+        </div>  
       </el-card>
       <el-card class="secCard">
         <div slot="header" class="clearfix">
@@ -40,7 +45,7 @@ export default {
     return {
       url:'',
       topName:'高考',
-      topDet:''
+      topDet:'普通高等学校招生全国统一考试，简称“高考”，是中华人民共和国（不包括香港特别行政区、澳门特别行政区和台湾省）合'
     }
   },
   methods: {
@@ -59,6 +64,23 @@ export default {
     .dis{
       font-weight: bold;
       font-size: 20px;
+    }
+    .firCard{
+      width: 580px;
+      height: 100px;
+      float:left;
+      margin-left:30px;
+    }
+    .firCardName{
+      font-weight: bold;
+      font-size: 25px;
+      height: 30px;
+    }
+    .firCardDet{
+      margin-top: 10px;
+      font-size: 15px;
+      color: #646464;
+      height: 50px;
     }
   }
 
