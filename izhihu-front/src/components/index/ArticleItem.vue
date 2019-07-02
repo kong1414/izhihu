@@ -5,8 +5,8 @@
         <div class="hot">{{item.id}}</div>
       </div>
       <div class="content">
-        <h2 class="title">{{item.title}}</h2>
-        <p class="excerpt">{{item.excerpt}}</p>
+        <h2 class="title" :title="item.title" @click="doSubmit">{{item.title}}</h2>
+        <p class="excerpt" :title="item.title" @click="doSubmit">{{item.excerpt}}</p>
         <div class="button-content">
           <span class="heat">{{item.heat}}万热度</span>
           <el-button type="text" class="share">{{item.share}}</el-button>
@@ -34,7 +34,9 @@ export default {
     }
   },
   methods: {
-    
+    doSubmit (){
+      console.log(1);
+    }
   }
 }
 </script>
@@ -72,6 +74,7 @@ export default {
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
       font-weight: 600;
+      cursor:pointer;
     }
     .excerpt{
       color: #444;
@@ -83,6 +86,7 @@ export default {
       overflow: hidden;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
+      cursor:pointer;
     }
     .button-content{
       -webkit-box-flex: 1;
