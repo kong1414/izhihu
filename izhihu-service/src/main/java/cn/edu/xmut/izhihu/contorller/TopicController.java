@@ -92,12 +92,12 @@ public class TopicController {
     @ApiOperation("随机5个话题（话题页其他人关注的话题）")
     @RequestMapping(value = "/topicRandom", method = RequestMethod.POST)
     public ResultVO topicRandom(@RequestParam(defaultValue = "5") int num) {
-        return new SuccessVO<>(topicService.getTopicRandom(5));
+        return new SuccessVO(topicService.getTopicRandom(5));
     }
 
     @ApiOperation("查看话题详情")
     @RequestMapping(value = "/topicDetial", method = RequestMethod.POST)
-    public ResultVO topicDetial(@RequestParam(required = true) String userId) {
-        return new SuccessVO(topicService.getTopicOne(userId));
+    public ResultVO topicDetial(@RequestParam(required = true) String topicId) {
+        return new SuccessVO(topicService.getTopicOne(topicId));
     }
 }
