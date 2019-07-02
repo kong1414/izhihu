@@ -16,6 +16,12 @@
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="今日最热" name="today">
             今日最热
+            <recommend-item title="5G的到来会造成编程语言大灭绝进而JS一统应用前端吗?"
+                            content="5G的到来会造成编程语言大灭绝进而JS一统应用前端吗?"
+                            articleId="123123"
+                            quesId="123123"
+                            type=1
+                            heatNum=123 />
           </el-tab-pane>
           <el-tab-pane label="关注" name="month">
             本月最热
@@ -32,10 +38,12 @@
 </template>
 <script>
 import AsideDiscovery from '../../components/aside/AsideDiscovery'
+import RecommendItem from '../../components/index/RecommendItem'
 export default {
   name: "discovery",
   components: {
-    AsideDiscovery
+    AsideDiscovery,
+    RecommendItem
   },
   data () {
     return {
