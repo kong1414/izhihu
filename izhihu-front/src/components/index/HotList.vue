@@ -14,12 +14,13 @@
         <el-radio-button label="4">时尚</el-radio-button>
         <el-radio-button label="5">影视</el-radio-button>
       </el-radio-group>
-      <article-item></article-item>
     </div>
+    <article-item></article-item>
   </div>
 </template>
 
 <script>
+import { reqGetHostList } from '../../api/home'
 import ArticleItem from '../index/ArticleItem'
 export default {
   name: 'HotList',
@@ -33,31 +34,28 @@ export default {
     }
   },
   created () {
-    this._loadData()
+    // this._loadData()
   },
   methods: {
     _loadData() {
-      // 初始化发送请求
+      let params = {
+        categoryType: this.category
+      }
+      reqGetHostList(params).then(res => {
+        if (res.resultCode == 200) {
+          console.info(res)
+        }
+      })
     },
     handleChange (v) {
       console.log(v)
-      let params = {
-        type: this.category
-      }
-      // 发送请求
+      this._loadData()
     }
   }
 }
 </script>
 
 <style lang="scss">
-.hot-list {
-  height: 1000px;
-  // background-color: black;
-  .button {
-    padding: 5px;
-    border-bottom: 2px solid #e4e7ed;
-  }
-}
+
 </style>
 

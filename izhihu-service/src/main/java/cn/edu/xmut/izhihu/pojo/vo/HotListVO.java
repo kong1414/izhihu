@@ -28,6 +28,17 @@ public class HotListVO {
     private Integer type;
 
     /**
+     * title
+     */
+    private String title;
+
+    /**
+     * quesId
+     */
+    private String quesId;
+
+
+    /**
      * 内容id
      */
     @Column(name = "content_id")

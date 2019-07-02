@@ -1,5 +1,9 @@
 package cn.edu.xmut.izhihu.service;
 
+import cn.edu.xmut.izhihu.pojo.common.ResultVO;
+import cn.edu.xmut.izhihu.pojo.request.AnswerRequest;
+import cn.edu.xmut.izhihu.pojo.request.QuestionRequest;
+
 /**
  * @Description:
  * @Author: qiuguanlin
@@ -7,4 +11,19 @@ package cn.edu.xmut.izhihu.service;
  * @Version: 1.0
  */
 public interface QuestionService {
+    /**
+     * 创建一个问题
+     *
+     * @param record
+     * @return
+     */
+    ResultVO create(QuestionRequest record);
+
+    /**
+     * 回答问题
+     *
+     * @param record
+     * @return
+     */
+    ResultVO answer(AnswerRequest record);
 }
