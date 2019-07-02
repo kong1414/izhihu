@@ -13,8 +13,10 @@
       </div>
       <div v-for="i in list" :key="i" class="topiclist">
         <div class="img" :src="photoUrl"></div>
-        <el-button class="name" type="text">{{i.topicName}}</el-button>
-        <span class="number">{{i.attNum}}</span>
+        <div class="nameNum" >
+          <el-button class="name" type="text">{{i.topicName}}</el-button>
+          <span class="number">{{i.attNum}}</span>
+        </div>
       </div>
     </el-card>
 
@@ -67,15 +69,28 @@ export default {
       }
     }
     .topiclist{
+      margin: 15px 10px;
 
-      margin: 10px 10px;
       .img{
-        background-color: chartreuse;
-        width: 50px; height: 50px;
+        background-color: blanchedalmond;
+        float: left;
+        width: 45px; height: 45px;
       }
-      .name{
-        color:#303133;
-        padding:0px 0px;
+      .nameNum{
+        // width: 100px; 
+        height: 45px;
+        .name{
+          display: flex;
+          height: 22px;
+          margin-left: 55px;
+          padding:0px;
+        }
+        .number{
+          display: flex;
+          height: 22px;
+          margin-left: 55px;
+          padding:0px;
+        }
       }
     }
   }
