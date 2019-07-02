@@ -1,7 +1,7 @@
 <template>
   <el-container class="index">
     <el-main>
-      <el-card class="index-crad">
+      <el-card class="index-crad" :body-style="{ padding: '0px 20px 20px' }">
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="推荐" name="first">
             推荐
