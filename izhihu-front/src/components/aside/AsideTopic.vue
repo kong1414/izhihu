@@ -53,7 +53,7 @@ export default {
       text-decoration: none;
       height: 145px;
       width: 280px;
-      border: 1px solid rgba(70, 130, 180, 0.41);
+      // border: 1px solid rgba(70, 130, 180, 0.41);
       padding: 13px;
       border-radius: 4px;
       text-align: center;
