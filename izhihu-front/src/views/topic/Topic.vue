@@ -62,7 +62,7 @@ export default {
       labelcount: 31,
       isFollow: false,
       topName: '高考',
-      topDet: '普通高等学校招生全国统一考试（The National College Entrance Examination），简称“高考”，是中华人民共和国（不包括香港特别行政区、澳门特别行政区和台湾省）合格的高中毕业生或具有同等学历的考生参加的选拔性考试。 2018年8月，北京市新高考方案公布。',
+      topDet: '普通高等学校招生全国统一考试（The National College Entrance Examination），简称“高考”，是中华人民共和国（不包括香港特别行政区、澳门特别行政区和台湾省）合格的高中毕业生或具有同等学历的考生参加的选拔性考试。 2018年8月，北京市新高考方案公布。'
     }
   },
   methods: {
@@ -112,9 +112,14 @@ export default {
         float:right;
       }
     }
-    .firCardName{
-      font-size: 30px;
-      font-weight:bold; 
+    .introduction{
+      .firCardName{
+        font-size: 28px;
+        font-weight:bold;
+      }
+      .firCardDet{
+        text-indent:50;
+      }
     }
   }
 }
