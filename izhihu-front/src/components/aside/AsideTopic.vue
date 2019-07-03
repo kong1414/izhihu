@@ -9,13 +9,13 @@
         <span>其他人关注的话题</span>
         <el-button type="text" style=" padding: 3px 0" @click="_loadData()" icon="el-icon-refresh" class="change" >换一换</el-button>
         </div>
-        <div v-for="o in list" :key="o" class="text-item">
-          <el-avatar class="img" shape="square" :src="o.photoUrl"></el-avatar>
-          <el-button type="text" class="btn-topic-name" >{{o.topicName}}</el-button>
+        <div v-for="i in list" :key="i" class="text-item">
+          <el-avatar class="img" shape="square" :src="i.photoUrl"></el-avatar>
+          <el-button type="text" class="btn-topic-name" >{{i.topicName}}</el-button>
           <el-button type="text" icon="el-icon-plus" class="btn-attention"
-          v-if="!o.isFollow" @click="o.isFollow=!o.isFollow">关注</el-button>
+          v-if="i.isFollow"  @click="isAttention(i)">关注</el-button>
           <el-button type="text"  class="btn-attention"
-          v-if="o.isFollow" @click="o.isFollow=!o.isFollow">已关注</el-button>
+          v-if="!i.isFollow" @click="isAttention(i)">已关注</el-button>
         </div>
       </el-card>
   </el-aside>
@@ -31,11 +31,11 @@ export default {
   data () {
     return {
       list: [
-        { 'isFollow': false },
-        { 'isFollow': false },
-        { 'isFollow': false },
-        { 'isFollow': false },
-        { 'isFollow': false }
+        // { 'isFollow': false },
+        // { 'isFollow': false },
+        // { 'isFollow': false },
+        // { 'isFollow': false },
+        // { 'isFollow': false }
       ]
     }
   },
@@ -43,14 +43,23 @@ export default {
     this._loadData()
   },
   methods: {
-     _loadData () {
+    _loadData () {
       reqGetAsideTopic().then(res => {
-        if (res.resultCode == 200) {
+        if (res.resultCode === 200) {
           console.info(res.data)
           this.list = res.data
-
+          this.list.forEach(i=> {
+            console.info(i)
+            i['isFollow'] = true
+          })
+          console.info(this.list)
         }
       })
+    },
+    isAttention(i){
+      console.log(i.isFollow);
+      i.isFollow=!i.isFollow;
+      console.info(i.isFollow);
     }
   }
 }
