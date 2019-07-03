@@ -9,8 +9,8 @@
         <p class="excerpt" :title="item.title"  @click="dialogVisible = true">{{item.excerpt}}</p>
 
         <div class="button-content">
-          <span class="heat">{{item.heat}}万热度</span>
-          <el-button type="text" class="share">{{item.share}}</el-button>
+          <i class="el-icon-trophy">{{item.heat}}万热度</i>
+          <i class="el-icon-s-promotion">{{item.share}}</i>
         </div>
       </div>
       <el-dialog
@@ -111,9 +111,10 @@ export default {
       flex: 1 1;
       overflow: hidden;
       color: #8590a6;
-      .share{
+      .el-icon-s-promotion{
         margin-left: 20px;
         color: #8590a6;
+        cursor:pointer;
       }
     }
   }
