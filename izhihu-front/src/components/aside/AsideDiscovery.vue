@@ -16,7 +16,7 @@
         <el-avatar class="img" shape="square" :fit="cover" :src="i.photoUrl"></el-avatar>
         <div class="nameNum" >
           <el-button class="name" type="text">{{i.topicName}}</el-button>
-          <span class="number">{{i.attNum}}</span>
+          <span class="number">{{i.attNum}} 人关注</span>
         </div>
       </div>
     </el-card>
@@ -91,6 +91,7 @@ export default {
           height: 22px;
           margin-left: 55px;
           padding:0px;
+          color:#999;
         }
       }
     }
