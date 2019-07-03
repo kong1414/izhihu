@@ -38,24 +38,51 @@
 </template>
 
 <script>
+import { reqGetFathTop } from '../../api/topicFS'
+import { reqGetSonTop } from '../../api/topicFS'
 export default {
   name: 'asideSubs',
+  props:{
+    topicId: String
+  },
   data () {
     return {
       subNum: '26361',
       queNum: '31231',
-      Ftop: '教育',
-      Sontops: [
-        { topic: '高考志愿' },
-        { topic: '高考的高超技巧' },
-        { topic: '理工' },
-        { topic: '高考志愿123' },
-        { topic: '高考的高超技巧1' },
-        { topic: '理工123' }
-      ]
+      // Ftop: '教育',
+      // Sontops: [
+      //   { topic: '高考志愿' },
+      //   { topic: '高考的高超技巧' },
+      //   { topic: '理工' },
+      //   { topic: '高考志愿123' },
+      //   { topic: '高考的高超技巧1' },
+      //   { topic: '理工123' }
+      // ]
+      Ftop:'',
+      SonTops:[]
     }
   },
+  created(){
+    this._loadData()
+  },
   methods: {
+    _loadData(){
+      let params = topicId
+      reqGetFathTop(params).then(res => {
+        if (res.resultCode === 200) {
+          console.info(res.data)
+          this.Ftop = res.data
+          console.info(this.Ftop)
+        }
+      })
+      // reqGetSonTop(params).then(res => {
+      //   if (res.resultCode === 200) {
+      //     console.info(res.data)
+      //     this.SonTops = res.data
+      //     console.info(this.SonTops)
+      //   }
+      // })
+    }
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-<!-- 收藏夹页，对于某个收藏夹而言的页面 -->
+<!-- 话题详情页-->
   <el-container class="topicDetail-container">
     <el-main class="topDet">
       <el-card>
@@ -9,7 +9,7 @@
           ></el-image>
         <div class="firCard">
           <div class="firCardName">
-            <span>{{topName}}</span>
+            <span>{{topName}}{{topicId}}</span>
           </div>
           <div class="firCardDet">
             <span>{{topDet}}</span>
@@ -41,22 +41,11 @@
                        :authorDet = "disDet.authorDet"
                        :queDet = "disDet.queDet"
           />
-          <!-- <el-dialog
-            :title="disDet.queName"
-            :visible.sync="dialogVisible"
-            width="600px">
-            <div class="dialog-body">
-              <span>{{disDet.queDet}}</span>
-            </div>
-            <span slot="footer" class="dialog-footer">
-              <el-button type="primary" @click="dialogVisible = false">关 闭</el-button>
-            </span>
-          </el-dialog> -->
         </div>
       </el-card>
     </el-main>
     <el-aside width="300px" style="background-color:#ecf5ff;min-height:200px">
-      <aside-Subs></aside-Subs>
+      <aside-Subs :topicId = "topicId"></aside-Subs>
       <aside-Footer></aside-Footer>
     </el-aside>
   </el-container>
@@ -184,8 +173,7 @@ export default {
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-line-clamp: 3; //行数
-      -webkit-box-orient: vertical;
-      
+      -webkit-box-orient: vertical;      
     }
     .ope{
       margin-top: 8px;
