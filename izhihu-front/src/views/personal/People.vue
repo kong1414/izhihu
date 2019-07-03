@@ -52,7 +52,6 @@
             </el-form>
           </div>
           <div class="operation">
-
             <el-button v-if="this.userId===this.$store.state.user.userId"
                        size="medium"
                        type="primary"
@@ -72,49 +71,55 @@
     </el-header>
     <el-container class="people-content">
       <el-main class="people-main">
-        <el-tabs v-model="activeName"
-                 @tab-click="handleClick">
-          <el-tab-pane label="动态"
-                       name="dynamic">
-            <recommend-item title="5G的到来会造成编程语言大灭绝进而JS一统应用前端吗?"
-                            content="5G的到来会造成编程语言大灭绝进而JS一统应用前端吗?"
-                            articleId="123123"
-                            quesId="123123"
-                            type=1
-                            heatNum=123 />
-          </el-tab-pane>
-          <el-tab-pane label="回答"
-                       name="answer">
-            关注
-          </el-tab-pane>
-          <el-tab-pane label="提问"
-                       name="question">
-            关注
-          </el-tab-pane>
-          <el-tab-pane label="文章"
-                       name="article">
-            关注
-          </el-tab-pane>
-          <el-tab-pane label="专栏"
-                       name="column">
-            关注
-          </el-tab-pane>
-          <el-tab-pane label="想法"
-                       name="idea">
-            关注
-          </el-tab-pane>
-          <el-tab-pane label="收藏"
-                       name="favorite">
-            关注
-          </el-tab-pane>
-          <el-tab-pane label="关注"
-                       name="att">
-            关注
-          </el-tab-pane>
-        </el-tabs>
+        <el-card>
+          <el-tabs v-model="activeName"
+                   @tab-click="handleClick">
+            <el-tab-pane label="动态"
+                        name="dynamic">
+              <recommend-item title="5G的到来会造成编程语言大灭绝进而JS一统应用前端吗?"
+                              content="5G的到来会造成编程语言大灭绝进而JS一统应用前端吗?"
+                              articleId="123123"
+                              quesId="123123"
+                              type=1
+                              heatNum=123 />
+            </el-tab-pane>
+            <el-tab-pane label="回答"
+                        name="answer">
+              关注
+            </el-tab-pane>
+            <el-tab-pane label="提问"
+                        name="question">
+              关注
+            </el-tab-pane>
+            <el-tab-pane label="文章"
+                        name="article">
+              关注
+            </el-tab-pane>
+            <el-tab-pane label="专栏"
+                        name="column">
+              关注
+            </el-tab-pane>
+            <el-tab-pane label="想法"
+                        name="idea">
+              关注
+            </el-tab-pane>
+            <el-tab-pane label="收藏"
+                        name="favorite">
+              关注
+            </el-tab-pane>
+            <el-tab-pane label="关注"
+                        name="att">
+              关注
+            </el-tab-pane>
+          </el-tabs>
+        </el-card>
+        
       </el-main>
       <el-aside class="people-aside">
         aside
+        <el-card>
+
+        </el-card>
         <aside-footer></aside-footer>
       </el-aside>
     </el-container>
@@ -152,11 +157,12 @@
 <script>
 import { reqUserInfo } from '../../api/home'
 import AsideFooter from '../../components/aside/AsideFooter'
-
+import recommendItem from '../../components/index/RecommendItem'
 export default {
   name: 'people',
   components: {
-    AsideFooter
+    AsideFooter,
+    recommendItem
   },
   data () {
     return {

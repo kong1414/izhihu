@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: 'contentItem',
+  name: 'recommendItem',
   props: {
     title: String,
     content: String,

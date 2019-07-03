@@ -16,10 +16,8 @@ public interface TopicMapper extends Mapper<Topic> {
     /**
      * 随机获取num个话题
      *
-     * @param num
      * @return
      */
-    @Select("SELECT * FROM topic ORDER BY rand() limit #{num}")
     public List<Topic> getTopicRandom(@Param("num") int num);
 
     /**
