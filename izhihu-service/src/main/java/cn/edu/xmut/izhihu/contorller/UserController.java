@@ -4,6 +4,7 @@ import cn.edu.xmut.izhihu.pojo.bo.LoginResultBO;
 import cn.edu.xmut.izhihu.pojo.common.HttpCodeEnum;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.request.LoginRequest;
+import cn.edu.xmut.izhihu.pojo.request.RegisterRequest;
 import cn.edu.xmut.izhihu.pojo.vo.UserVO;
 import cn.edu.xmut.izhihu.service.UserService;
 import cn.edu.xmut.izhihu.util.Gloal;
@@ -69,6 +70,17 @@ public class UserController {
     @RequestMapping(value = "/people", method = RequestMethod.POST)
     public ResultVO people(@RequestParam String userId) {
         return userService.getUserInfo(userId);
+    }
+
+    /**
+     * 注册
+     *
+     * @param record
+     * @return
+     */
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResultVO register(@RequestBody RegisterRequest record) {
+        return userService.register(record);
     }
 
 }

@@ -4,6 +4,7 @@ import cn.edu.xmut.izhihu.pojo.bo.LoginResultBO;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.entity.UserDO;
 import cn.edu.xmut.izhihu.pojo.request.LoginRequest;
+import cn.edu.xmut.izhihu.pojo.request.RegisterRequest;
 
 /**
  * @Description:
@@ -57,4 +58,12 @@ public interface UserService {
      * @return
      */
     ResultVO getUserInfo(String userId);
+
+    /**
+     * 注册用户
+     *
+     * @param record
+     * @return
+     */
+    ResultVO register(RegisterRequest record);
 }

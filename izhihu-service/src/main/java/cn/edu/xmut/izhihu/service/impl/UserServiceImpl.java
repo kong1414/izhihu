@@ -7,19 +7,25 @@ import cn.edu.xmut.izhihu.pojo.common.HttpCodeEnum;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
 import cn.edu.xmut.izhihu.pojo.entity.UserDO;
+import cn.edu.xmut.izhihu.pojo.entity.UsersInfo;
 import cn.edu.xmut.izhihu.pojo.request.LoginRequest;
+import cn.edu.xmut.izhihu.pojo.request.RegisterRequest;
 import cn.edu.xmut.izhihu.pojo.vo.UserVO;
 import cn.edu.xmut.izhihu.service.UserService;
 import cn.edu.xmut.izhihu.util.Gloal;
 import cn.edu.xmut.izhihu.util.JWTUtil;
 import cn.edu.xmut.izhihu.util.MapBeanUtil;
+import cn.hutool.core.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @Description:
@@ -201,6 +207,34 @@ public class UserServiceImpl implements UserService {
     public ResultVO getUserInfo(String userId) {
         Map<String, Object> res = userMapper.userInfo(userId);
         return new SuccessVO(res);
+    }
+
+    /**
+     * 注册用户
+     *
+     * @param record
+     * @return
+     */
+    @Override
+    public synchronized ResultVO register(RegisterRequest record) {
+        String id = IdUtil.randomUUID();
+
+        UserDO userDO = new UserDO();
+        userDO.setUserId(id);
+
+        if ("email".equals(record.getType())) { // 邮箱注册
+            userDO.setEmail(record.getEmail());
+        } else if ("phone".equals(record.getType())) { // 手机注册
+            userDO.setPhone(record.getPhone());
+        }
+        userDO.setPassword(record.getPassword());
+        userMapper.insertSelective(userDO);
+
+        UsersInfo usersInfo = new UsersInfo();
+        usersInfo.setUserId(id);
+        usersInfoMapper.insertSelective(usersInfo);
+
+        return new SuccessVO();
     }
 
 }
