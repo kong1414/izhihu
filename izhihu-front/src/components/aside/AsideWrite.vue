@@ -39,12 +39,13 @@
       </div>
     </el-card>
     <el-dialog
-      class="writerIndex"
       title="写想法"
       :visible.sync="writerDialogVisible"
       width="540px"
       center>
-      <span>需要注意的是内容是默认不居中的</span>
+      <div class="ideaContent">
+        <span>需要注意的是内容是默认不居中的</span>
+      </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="writerDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="writerDialogVisible = false">确 定</el-button>
@@ -94,6 +95,9 @@ export default {
         color: #76839b;
       }
     }
+  }
+  .ideaContent{
+    height: 400px;
   }
 }
 </style>
