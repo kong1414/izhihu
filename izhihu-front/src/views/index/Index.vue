@@ -7,7 +7,7 @@
                  @tab-click="handleClick">
           <el-tab-pane label="推荐"
                        name="first">
-            <recommend-item title="5G的到来会造成编程语言大灭绝进而JS一统应用前端吗?"
+            <recommend-item title=5G的到来会造成编程语言大灭绝进而JS一统应用前端吗?
                             content="5G的到来会造成编程语言大灭绝进而JS一统应用前端吗?"
                             articleId="123123"
                             quesId="123123"

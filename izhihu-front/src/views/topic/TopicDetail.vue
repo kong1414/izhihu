@@ -31,16 +31,7 @@
           <span class="dis">讨论</span>
           <el-button class="moreCon" type="text">更多内容</el-button>
         </div>
-        <div v-for="disDet in disDets" :key="disDet" class="text item">
-          <answer-item  :attiStat = "disDet.attiStat" 
-                        :apprN = "disDet.apprN"
-                        :evalN = "disDet.evalN"
-                        :queName = "disDet.queName"
-                        :author = "disDet.author"
-                        :authorDet = "disDet.authorDet"
-                        :queDet = "disDet.queDet">
-            </answer-item>
-        </div>
+        <answer-item></answer-item>
       </el-card>
     </el-main>
     <el-aside width="300px" style="background-color:#ecf5ff;min-height:200px">
@@ -87,7 +78,7 @@ export default {
     .secCard{
       margin-top: 20px;
       .moreCon{
-        float: right; 
+        float: right;
         padding: 3px 0px;
       }
     }
