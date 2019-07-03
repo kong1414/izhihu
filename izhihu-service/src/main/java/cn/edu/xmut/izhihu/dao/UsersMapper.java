@@ -5,6 +5,9 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.util.List;
+import java.util.Map;
+
 @Repository("UsersDAO")
 public interface UsersMapper extends Mapper<UserDO> {
 
@@ -24,4 +27,6 @@ public interface UsersMapper extends Mapper<UserDO> {
      * @return
      */
     Integer checkRepeat(@Param("account") String account);
+
+    Map<String,Object> userInfo(@Param("userId") String userId);
 }

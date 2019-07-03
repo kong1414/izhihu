@@ -42,16 +42,16 @@ export default {
   name: 'asideSubs',
   data () {
     return {
-      subNum:'26361',
-      queNum:'31231',
-      Ftop:'教育',
-      Sontops:[
-        {topic:'高考志愿'},
-        {topic:'高考的高超技巧'},
-        {topic:'理工'},
-        {topic:'高考志愿123'},
-        {topic:'高考的高超技巧1'},
-        {topic:'理工123'}
+      subNum: '26361',
+      queNum: '31231',
+      Ftop: '教育',
+      Sontops: [
+        { topic: '高考志愿' },
+        { topic: '高考的高超技巧' },
+        { topic: '理工' },
+        { topic: '高考志愿123' },
+        { topic: '高考的高超技巧1' },
+        { topic: '理工123' }
       ]
     }
   },

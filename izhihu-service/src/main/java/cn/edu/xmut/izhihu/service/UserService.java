@@ -49,4 +49,12 @@ public interface UserService {
      * @return
      */
     ResultVO<Object> refreshToken(String userId);
+
+    /**
+     * 获取个人信息
+     *
+     * @param userId
+     * @return
+     */
+    ResultVO getUserInfo(String userId);
 }

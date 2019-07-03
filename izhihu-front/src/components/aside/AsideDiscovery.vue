@@ -12,12 +12,14 @@
           </el-button>
       </div>
       <div v-for="i in list" :key="i" class="topiclist">
-        <div class="img" :src="photoUrl"></div>
-        <el-button class="name" type="text">{{i.topicName}}</el-button>
-        <span class="number">{{i.attNum}}</span>
+        <!-- <div class="img" :src="photoUrl"></div> -->
+        <el-avatar class="img" shape="square" :fit="cover" :src="i.photoUrl"></el-avatar>
+        <div class="nameNum" >
+          <el-button class="name" type="text">{{i.topicName}}</el-button>
+          <span class="number">{{i.attNum}}</span>
+        </div>
       </div>
     </el-card>
-
 
     <aside-footer></aside-footer>
   </div>
@@ -32,19 +34,18 @@ export default {
   },
   data () {
     return {
-      list: [],
+      list: []
     }
   },
   created () {
     this._loadData()
   },
   methods: {
-    _loadData() {
+    _loadData () {
       reqGetHotTopic().then(res => {
-        if (res.resultCode ===200) {
+        if (res.resultCode == 200) {
           console.info(res.data)
           this.list = res.data
-
         }
       })
     }
@@ -69,15 +70,28 @@ export default {
       }
     }
     .topiclist{
-      
-      margin: 10px 10px;
+      margin: 15px 10px;
+
       .img{
-        background-color: chartreuse;
-        width: 50px; height: 50px;
+        background-color: blanchedalmond;
+        float: left;
+        width: 45px; height: 45px;
       }
-      .name{
-        color:#303133;
-        padding:0px 0px;
+      .nameNum{
+        // width: 100px;
+        height: 45px;
+        .name{
+          display: flex;
+          height: 22px;
+          margin-left: 55px;
+          padding:0px;
+        }
+        .number{
+          display: flex;
+          height: 22px;
+          margin-left: 55px;
+          padding:0px;
+        }
       }
     }
   }
@@ -86,4 +100,3 @@ export default {
   }
 }
 </style>
-

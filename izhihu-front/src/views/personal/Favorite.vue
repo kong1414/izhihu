@@ -41,20 +41,20 @@ export default {
   data () {
     return {
       activeName: 'att-collection',
-      subCollections:[
-        {sname:"搞机",author:"港真",content:"1",subs:"2"},
-        {sname:"穿搭",author:"快乐",content:"3",subs:"4"}
+      subCollections: [
+        { sname: '搞机', author: '港真', content: '1', subs: '2' },
+        { sname: '穿搭', author: '快乐', content: '3', subs: '4' }
       ],
-      creaCollections:[
-        {cname:'学习',content:'5',subs:'10'},
-        {cname:'运动',content:'10',subs:'5'}
+      creaCollections: [
+        { cname: '学习', content: '5', subs: '10' },
+        { cname: '运动', content: '10', subs: '5' }
       ]
     }
   },
   methods: {
     handleClick () {
       reqGetHotTopic().then(res => {
-        if (res.resultCode == 200) {
+        if (res.resultCode === 200) {
           console.info(res.data)
         }
       })
@@ -81,5 +81,3 @@ export default {
   }
 }
 </style>
-
-

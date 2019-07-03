@@ -5,6 +5,7 @@ import cn.edu.xmut.izhihu.dao.UsersMapper;
 import cn.edu.xmut.izhihu.pojo.bo.LoginResultBO;
 import cn.edu.xmut.izhihu.pojo.common.HttpCodeEnum;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
+import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
 import cn.edu.xmut.izhihu.pojo.entity.UserDO;
 import cn.edu.xmut.izhihu.pojo.request.LoginRequest;
 import cn.edu.xmut.izhihu.pojo.vo.UserVO;
@@ -18,10 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Description:
@@ -191,6 +189,18 @@ public class UserServiceImpl implements UserService {
         } else {
             return new ResultVO(HttpCodeEnum.SYSTEM_ERROR.getCode(), null, "系统异常，请联系管理员");
         }
+    }
+
+    /**
+     * 获取个人信息
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public ResultVO getUserInfo(String userId) {
+        Map<String, Object> res = userMapper.userInfo(userId);
+        return new SuccessVO(res);
     }
 
 }

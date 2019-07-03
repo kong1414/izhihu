@@ -33,7 +33,7 @@ export default {
 <style lang="scss">
 .favorite-container {
   .favorite-card {
-    
+
   }
 }
 </style>

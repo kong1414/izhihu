@@ -50,8 +50,8 @@ export default {
   },
   methods: {
 
-    }
   }
+}
 </script>
 
 <style lang="scss">

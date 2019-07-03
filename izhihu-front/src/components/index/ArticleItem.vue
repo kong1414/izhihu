@@ -1,17 +1,30 @@
 <template>
   <div>
-    <div class="item-content" v-for="item in list" :key="item">
+    <div class="item-content" v-for="item in list" :key="item.id">
       <div class="index">
         <div class="hot">{{item.id}}</div>
       </div>
       <div class="content">
-        <h2 class="title" :title="item.title" @click="doSubmit">{{item.title}}</h2>
-        <p class="excerpt" :title="item.title" @click="doSubmit">{{item.excerpt}}</p>
+        <h2 class="title" :title="item.title"  @click="dialogVisible = true">{{item.title}}</h2>
+        <p class="excerpt" :title="item.title"  @click="dialogVisible = true">{{item.excerpt}}</p>
+
         <div class="button-content">
           <span class="heat">{{item.heat}}万热度</span>
           <el-button type="text" class="share">{{item.share}}</el-button>
         </div>
       </div>
+      <el-dialog
+        :title="item.title"
+        :visible.sync="dialogVisible"
+        width="600px"
+        :before-close="handleClose">
+        <div class="dialog-body">
+          <span>{{item.excerpt}}</span>
+        </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="dialogVisible = false">关 闭</el-button>
+        </span>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -21,6 +34,7 @@ export default {
   name: 'ArticleItem',
   data () {
     return {
+      dialogVisible: false,
       url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
       list: [
         {
@@ -34,8 +48,8 @@ export default {
     }
   },
   methods: {
-    doSubmit (){
-      console.log(1);
+    doSubmit () {
+      console.log(1)
     }
   }
 }
@@ -51,6 +65,9 @@ export default {
   height: 137px;
   background: #fff;
   padding: 16px 16px 16px 0;
+  .dialog-body{
+    padding: 20px;
+  }
   .index{
     text-align: center;
     width: 57px;
@@ -100,7 +117,6 @@ export default {
       }
     }
   }
-  
+
 }
 </style>
-

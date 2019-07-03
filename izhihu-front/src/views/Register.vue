@@ -63,9 +63,9 @@
 </template>
 
 <script>
-import { reqLogin, reqQueryAccount } from '../api/login.js'
-import { ERR_OK } from '../api/config.js'
-import md5 from 'js-md5'
+// import { reqLogin } from '../api/login.js'
+// import { ERR_OK } from '../api/config.js'
+// import md5 from 'js-md5'
 import { mapActions } from 'vuex'
 export default {
   name: 'login',
@@ -77,7 +77,7 @@ export default {
       const phoneReg = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/
       const emailReg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
       if (!value) {
-        return callback(new Error('手机号或邮箱不能为空'));
+        return callback(new Error('手机号或邮箱不能为空'))
       }
       setTimeout(() => {
         if (phoneReg.test(value)) {
@@ -87,7 +87,7 @@ export default {
           this.regType = 'email'
           callback()
         } else {
-          return callback(new Error('手机号或邮箱格式不正确'));
+          return callback(new Error('手机号或邮箱格式不正确'))
         }
       }, 500)
     }
@@ -118,16 +118,16 @@ export default {
       'saveToken'
     ]),
     handleRegister () {
-      let params = {
-        account: this.login.account,
-        password: md5(this.login.password + this.login.password),
-        type: this.regType
-      }
+      // let params = {
+      //   account: this.login.account,
+      //   password: md5(this.login.password + this.login.password),
+      //   type: this.regType
+      // }
       console.info('注册还没做')
     },
     toLogin () {
       this.$router.push({ path: '/login' })
-    },
+    }
   }
 }
 </script>
@@ -216,5 +216,3 @@ export default {
   }
 }
 </style>
-
-
