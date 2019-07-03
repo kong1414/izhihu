@@ -32,53 +32,14 @@
           <el-button class="moreCon" type="text">更多内容</el-button>
         </div>
         <div v-for="disDet in disDets" :key="disDet" class="text item">
-          <el-button type="text">
-            <div class="disDetName">{{disDet.queName}}</div>
-          </el-button>
-          <div style="margin-top:10px;">
-            <el-image
-              class="avaImag"
-              :src="disDet.topName"
-              ></el-image>
-            <span class="disDetAuthor">{{disDet.author}}</span>
-            <span style="font-size:14px;">,    {{disDet.authorDet}}</span>
-          </div>
-          <div class="disDetque">{{disDet.queDet}}</div>
-          <div class="ope">
-            <span>
-              <el-button class="apprBut" v-if="disDet.attiStat!=1" @click="disDet.attiStat=1">
-                <i class="el-icon-caret-top"></i>
-                <span>赞同 {{disDet.apprN}}</span>
-              </el-button>
-              <el-button class="apprBut" style="background:#0084ff;" v-if="disDet.attiStat==1" @click="disDet.attiStat=0;apprAddN();">
-                <i class="el-icon-caret-top" style="color:white;"></i>
-                <span style="color:white;">已赞同  {{disDet.apprN}}</span>
-              </el-button>
-              <el-button class="oppBut" v-if="disDet.attiStat!=2" @click="disDet.attiStat=2">
-                <i class="el-icon-caret-bottom"></i>
-              </el-button>
-              <el-button class="oppBut" style="background:#0084ff;" v-if="disDet.attiStat==2" @click="disDet.attiStat=0">
-                <i class="el-icon-caret-bottom" style="color:white;"></i>
-              </el-button>
-            </span>
-            <el-button type="text" class="shareBut">
-              <i class="el-icon-chat-line-round shareI"/>
-              <span>{{disDet.evalN}}   条评论</span>
-            </el-button>
-            <el-button type="text" class="shareBut">
-              <i class="el-icon-s-promotion shareI"/>
-              <span>分享</span>
-            </el-button>
-            <el-button type="text" class="shareBut">
-              <i class="el-icon-star-on shareI"/>
-              <span>收藏</span>
-            </el-button>
-            <el-button type="text" class="shareBut">
-              <i class="el-icon-s-flag shareI"/>
-              <span>感谢</span>
-            </el-button>
-          </div>
-          <el-divider></el-divider>
+          <answer-item  :attiStat = "disDet.attiStat" 
+                        :apprN = "disDet.apprN"
+                        :evalN = "disDet.evalN"
+                        :queName = "disDet.queName"
+                        :author = "disDet.author"
+                        :authorDet = "disDet.authorDet"
+                        :queDet = "disDet.queDet">
+            </answer-item>
         </div>
       </el-card>
     </el-main>
@@ -91,10 +52,12 @@
 <script>
 import AsideFooter from '../../components/aside/AsideFooter'
 import AsideSubs from '../../components/aside/AsideSubs'
+import AnswerItem from '../../components/index/AnswerItem'
 export default {
   name: 'topicDetail',
   components: {
     AsideSubs,
+    AnswerItem,
     AsideFooter
   },
   data () {
