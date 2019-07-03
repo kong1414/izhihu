@@ -18,6 +18,9 @@
           <el-button type="text"  class="btn-att" v-if="!isFollow" @click="isFollow=!isFollow">已关注</el-button>
         </div>
         <hr style="margin-top:20px; border:1px solid #CCCCCC; width:100%;">
+        <div class="introduction">
+          
+        </div>
       </el-card>
     </el-main>
     <el-aside width="300px" style="min-height:200px">
@@ -53,7 +56,6 @@ export default {
       i: '3000',
       labelcount: 31,
       isFollow: false,
-      nowType: ''
     }
   },
   methods: {
