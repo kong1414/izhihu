@@ -62,4 +62,7 @@ WHERE
 users.user_id = #{userId}
 
     </select>
+    <select id="getTopicRandom" resultMap="BaseResultMap">
+        SELECT * FROM topic ORDER BY rand() LIMIT #{num}
+    </select>
 </mapper>
