@@ -32,7 +32,8 @@
           <el-button class="moreCon" type="text">更多内容</el-button>
         </div>
         <div v-for="disDet in disDets" :key="disDet"  class="text item">
-          <answer-item :attiStat = "disDet.attiStat"
+          <answer-item :topicid = "topicId"
+                       :attiStat = "disDet.attiStat"
                        :apprN = "disDet.apprN"
                        :evalN = "disDet.evalN"
                        :queName = "disDet.queName"
@@ -40,6 +41,17 @@
                        :authorDet = "disDet.authorDet"
                        :queDet = "disDet.queDet"
           />
+          <!-- <el-dialog
+            :title="disDet.queName"
+            :visible.sync="dialogVisible"
+            width="600px">
+            <div class="dialog-body">
+              <span>{{disDet.queDet}}</span>
+            </div>
+            <span slot="footer" class="dialog-footer">
+              <el-button type="primary" @click="dialogVisible = false">关 闭</el-button>
+            </span>
+          </el-dialog> -->
         </div>
       </el-card>
     </el-main>
@@ -62,6 +74,7 @@ export default {
   },
   data () {
     return {
+      topicId: this.$route.params.topicid,
       url: '',
       isFollow: false,
       apprButView:false,
