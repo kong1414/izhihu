@@ -16,8 +16,7 @@
       <el-dialog
         :title="item.title"
         :visible.sync="dialogVisible"
-        width="600px"
-        :before-close="handleClose">
+        width="600px">
         <div class="dialog-body">
           <span>{{item.excerpt}}</span>
         </div>
@@ -48,9 +47,7 @@ export default {
     }
   },
   methods: {
-    doSubmit () {
-      console.log(1)
-    }
+    
   }
 }
 </script>
