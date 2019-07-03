@@ -4,9 +4,9 @@ import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.service.FollowService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * @Description: 关注点赞相关的controller
@@ -23,14 +23,18 @@ public class FollowController {
 
     @ApiOperation("关注")
     @RequestMapping(value = "/inFollow", method = RequestMethod.POST)
-    public ResultVO infollow(String userId, String contentId, int type) {
-        return followService.infollow(userId, contentId, type);
+    public ResultVO infollow(@RequestBody Map<String, Object> record) {
+
+        return followService.infollow(
+                (String) record.get("userId"),
+                (String) record.get("contentId"),
+                (Integer) record.get("type"));
     }
 
     @ApiOperation("取消关注")
     @RequestMapping(value = "/unFollow", method = RequestMethod.POST)
-    public ResultVO unfollow(String userId, String contentId) {
-        return followService.unfollow(userId, contentId);
+    public ResultVO unfollow(@RequestBody Map<String, String> record) {
+        return followService.unfollow(record.get("userId"), record.get("contentId"));
     }
 
     @ApiOperation("点赞")
