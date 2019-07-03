@@ -44,7 +44,13 @@
       width="540px"
       center>
       <div class="ideaContent">
-        <span>需要注意的是内容是默认不居中的</span>
+        <el-input
+          class="inputIdea"
+          type="textarea"
+          :rows="16"
+          placeholder="请输入内容"
+          v-model="textarea">
+        </el-input>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="writerDialogVisible = false">取 消</el-button>
@@ -59,7 +65,8 @@ export default {
   name: 'asideWrite',
   data () {
     return {
-      writerDialogVisible: false
+      writerDialogVisible: false,
+      textarea: ''
     }
   },
   methods: {
@@ -98,6 +105,10 @@ export default {
   }
   .ideaContent{
     height: 400px;
+    .inputIdea{
+      font-size: 16px;
+      padding: 5px;
+    }
   }
 }
 </style>
