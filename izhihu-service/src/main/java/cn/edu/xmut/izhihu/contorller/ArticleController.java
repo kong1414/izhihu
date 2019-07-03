@@ -28,7 +28,7 @@ public class ArticleController {
 
     @ApiOperation("首页的关注内容")
     @RequestMapping(value = "/attention", method = RequestMethod.POST)
-    public ResultVO attention(@RequestParam(required = true) String userId) {
+    public ResultVO attention(@RequestParam String userId) {
         return null;
     }
 

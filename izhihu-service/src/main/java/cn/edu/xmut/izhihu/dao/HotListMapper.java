@@ -18,4 +18,11 @@ public interface HotListMapper extends Mapper<HotList> {
      * @return
      */
     public List<HotListVO> listByCategoryType(@Param("categoryType") int categoryType);
+
+    /**
+     * 查询全部热榜
+     *
+     * @return
+     */
+    public List<HotListVO> listAll();
 }

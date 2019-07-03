@@ -41,4 +41,21 @@
         hot_list.category_type = #{categoryType}
         LIMIT 10
     </select>
+    <select id="listAll" resultMap="HotListResultMap">
+        SELECT
+        article.content,
+        hot_list.id,
+        article.ques_id,
+        article.title,
+        hot_list.type,
+        hot_list.content_id,
+        hot_list.hot_num,
+        hot_list.category_type
+        FROM
+        hot_list
+        JOIN article
+        ON hot_list.content_id = article.article_id
+        WHERE
+        LIMIT 10
+    </select>
 </mapper>
