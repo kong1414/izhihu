@@ -4,7 +4,7 @@
     <el-main class="topDet">
       <el-card>
         <el-image
-          style="width: 100px; height: 100px;float:left;"
+          class="topImag"
           :src="url"
           ></el-image>
         <div class="firCard">
@@ -29,7 +29,7 @@
       <el-card class="secCard">
         <div slot="header" class="clearfix">
           <span class="dis">讨论</span>
-          <el-button style="float: right; padding: 3px 0" type="text">更多内容</el-button>
+          <el-button class="moreCon" type="text">更多内容</el-button>
         </div>
         <div v-for="disDet in disDets" :key="disDet" class="text item">
           <el-button type="text">
@@ -37,7 +37,7 @@
           </el-button>
           <div style="margin-top:10px;">
             <el-image
-              style="float:left;width:24px;height:24px;"
+              class="avaImag"
               :src="disDet.topName"
               ></el-image>
             <span class="disDetAuthor">{{disDet.author}}</span>
@@ -50,7 +50,7 @@
                 <i class="el-icon-caret-top"></i>
                 <span>赞同 {{disDet.apprN}}</span>
               </el-button>
-              <el-button class="apprBut" style="background:#0084ff;width:120px;" v-if="disDet.attiStat==1" @click="disDet.attiStat=0;apprAddN();">
+              <el-button class="apprBut" style="background:#0084ff;" v-if="disDet.attiStat==1" @click="disDet.attiStat=0;apprAddN();">
                 <i class="el-icon-caret-top" style="color:white;"></i>
                 <span style="color:white;">已赞同  {{disDet.apprN}}</span>
               </el-button>
@@ -114,16 +114,7 @@ export default {
   },
   methods: {
     handleClick () {
-    },
-    apprAddN:function(){
-      this.disDet.apprN += 1;
     }
-    // 多出的来的文字变省略号，没调试好
-    // showDet(){
-    //   str = topDet;
-    //   subStr = str.subStr(0,90);
-    //   topDet = 'subStr' + (str.length > 90 ? '...' : '');
-    // }
   }
 }
 </script>
@@ -132,6 +123,15 @@ export default {
   .topDet{
     .secCard{
       margin-top: 20px;
+      .moreCon{
+        float: right; 
+        padding: 3px 0px;
+      }
+    }
+    .topImag{
+      width: 100px; 
+      height: 100px;
+      float:left;
     }
     .dis{
       font-weight: bold;
@@ -152,11 +152,13 @@ export default {
       margin-top: 10px;
       font-size: 15px;
       color: #646464;
-      height: 60px;
+      height: 50px;
+      line-height: 1.6;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2; //行数
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 10;
-      overflow:hidden;
-      text-overflow:ellipsis;
     }
     .subsBut{
       margin-top: 30px;
@@ -201,6 +203,12 @@ export default {
       color: #1a1a1a;
       overflow: hidden;
       max-height: 100px;
+      line-height: 1.6;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3; //行数
+      -webkit-box-orient: vertical;
       
     }
     .ope{
@@ -238,6 +246,11 @@ export default {
 
   .item {
     margin-bottom: 18px;
+    .avaImag{
+      float:left;
+      width:24px;
+      height:24px;
+    }
   }
 
   .clearfix:before,
