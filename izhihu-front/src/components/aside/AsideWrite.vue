@@ -47,7 +47,7 @@
         <el-input
           class="inputIdea"
           type="textarea"
-          :rows="16"
+          :autosize="{ minRows: 10, maxRows: 10}"
           placeholder="请输入内容"
           v-model="textarea">
         </el-input>
@@ -104,10 +104,9 @@ export default {
     }
   }
   .ideaContent{
-    height: 400px;
     .inputIdea{
       font-size: 16px;
-      padding: 5px;
+      padding: 20px 20px 0px 20px;
     }
   }
 }
