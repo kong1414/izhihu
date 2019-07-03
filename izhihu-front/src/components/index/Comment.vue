@@ -14,7 +14,15 @@ export default {
     }
   },
   methods: {
-
+    handleComment () {
+      let params = {
+        commentId: '',
+        isReply: '',
+        replyId: '',
+        commentatorId: '',
+        commentContent: '',
+      }
+    }
   }
 }
 </script>

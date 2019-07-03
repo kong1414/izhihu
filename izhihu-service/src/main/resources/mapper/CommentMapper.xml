@@ -16,4 +16,27 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="del" jdbcType="INTEGER" property="del"/>
     </resultMap>
+
+    <select id="findByContentId" resultType="cn.edu.xmut.izhihu.pojo.vo.CommentVO">
+        SELECT
+        `comment`.id,
+        `comment`.comment_id,
+        `comment`.is_reply,
+        `comment`.reply_id,
+        `comment`.commentator_id,
+        users.`name`,
+        `comment`.comment_content,
+        `comment`.praise_num,
+        `comment`.create_time
+        FROM
+        `comment`
+        JOIN users
+        ON `comment`.commentator_id = users.user_id
+        WHERE
+        izhihu.`comment`.del = 0
+        and
+        `comment`.comment_id = #{contentId}
+        ORDER BY
+`comment`.create_time ASC
+    </select>
 </mapper>
