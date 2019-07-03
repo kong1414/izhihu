@@ -47,7 +47,7 @@ export default new Router({
           component: () => import('./views/topic/Topic.vue')
         },
         {
-          path: '/home/topicDetail',
+          path: '/home/topicDetail/:topicid',
           menuName: 'topicDetail',
           component: () => import('./views/topic/TopicDetail.vue')
         },
