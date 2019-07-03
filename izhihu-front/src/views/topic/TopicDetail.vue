@@ -31,7 +31,16 @@
           <span class="dis">讨论</span>
           <el-button class="moreCon" type="text">更多内容</el-button>
         </div>
-        <answer-item></answer-item>
+        <div v-for="disDet in disDets" :key="disDet"  class="text item">
+          <answer-item :attiStat = "disDet.attiStat"
+                       :apprN = "disDet.apprN"
+                       :evalN = "disDet.evalN"
+                       :queName = "disDet.queName"
+                       :author = "disDet.author"
+                       :authorDet = "disDet.authorDet"
+                       :queDet = "disDet.queDet"
+          />
+        </div>
       </el-card>
     </el-main>
     <el-aside width="300px" style="background-color:#ecf5ff;min-height:200px">

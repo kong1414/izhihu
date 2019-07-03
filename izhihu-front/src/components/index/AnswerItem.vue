@@ -1,61 +1,68 @@
 <template>
   <!-- 回答内容的组件 -->
   <div>
-    <div v-for="disDet in disDets" :key="disDet"  class="text item">
-      <el-button type="text">
-              <div class="disDetName">{{disDet.queName}}</div>
-            </el-button>
-            <div style="margin-top:10px;">
-              <el-image
-                class="avaImag"
-                :src="topName"
-                ></el-image>
-              <span class="disDetAuthor">{{disDet.author}}</span>
-              <span style="font-size:14px;">,    {{disDet.authorDet}}</span>
-            </div>
-            <div class="disDetque">{{disDet.queDet}}</div>
-            <div class="ope">
-              <span>
-                <el-button class="apprBut" v-if="disDet.attiStat!=1" @click="disDet.attiStat=1">
-                  <i class="el-icon-caret-top"></i>
-                  <span>赞同 {{disDet.apprN}}</span>
-                </el-button>
-                <el-button class="apprBut" style="background:#0084ff;width:120px;" v-if="disDet.attiStat==1" @click="disDet.attiStat=0;">
-                  <i class="el-icon-caret-top" style="color:white;"></i>
-                  <span style="color:white;">已赞同  {{disDet.apprN}}</span>
-                </el-button>
-                <el-button class="oppBut" v-if="disDet.attiStat!=2" @click="disDet.attiStat=2">
-                  <i class="el-icon-caret-bottom"></i>
-                </el-button>
-                <el-button class="oppBut" style="background:#0084ff;" v-if="disDet.attiStat==2" @click="disDet.attiStat=0">
-                  <i class="el-icon-caret-bottom" style="color:white;"></i>
-                </el-button>
-              </span>
-              <el-button type="text" class="shareBut">
-                <i class="el-icon-chat-line-round shareI"/>
-                <span>{{disDet.evalN}}   条评论</span>
-              </el-button>
-              <el-button type="text" class="shareBut">
-                <i class="el-icon-s-promotion shareI"/>
-                <span>分享</span>
-              </el-button>
-              <el-button type="text" class="shareBut">
-                <i class="el-icon-star-on shareI"/>
-                <span>收藏</span>
-              </el-button>
-              <el-button type="text" class="shareBut">
-                <i class="el-icon-s-flag shareI"/>
-                <span>感谢</span>
-              </el-button>
-            </div>
-            <el-divider></el-divider>
+    <el-button type="text">
+      <div class="disDetName">{{queName}}</div>
+    </el-button>
+    <div style="margin-top:10px;">
+      <el-image
+        class="avaImag"
+        :src="topName"
+        ></el-image>
+      <span class="disDetAuthor">{{author}}</span>
+      <span style="font-size:14px;">,    {{authorDet}}</span>
     </div>
+    <div class="disDetque">{{queDet}}</div>
+    <div class="ope">
+      <span>
+        <el-button class="apprBut" v-if="attiStat!=1" @click="attiStat=1">
+          <i class="el-icon-caret-top"></i>
+          <span>赞同 {{apprN}}</span>
+        </el-button>
+        <el-button class="apprBut" style="background:#0084ff;width:120px;" v-if="attiStat==1" @click="attiStat=0;">
+          <i class="el-icon-caret-top" style="color:white;"></i>
+          <span style="color:white;">已赞同  {{apprN}}</span>
+        </el-button>
+        <el-button class="oppBut" v-if="attiStat!=2" @click="attiStat=2">
+          <i class="el-icon-caret-bottom"></i>
+        </el-button>
+        <el-button class="oppBut" style="background:#0084ff;" v-if="attiStat==2" @click="attiStat=0">
+          <i class="el-icon-caret-bottom" style="color:white;"></i>
+        </el-button>
+      </span>
+      <el-button type="text" class="shareBut">
+        <i class="el-icon-chat-line-round shareI"/>
+        <span>{{evalN}}   条评论</span>
+      </el-button>
+      <el-button type="text" class="shareBut">
+        <i class="el-icon-s-promotion shareI"/>
+        <span>分享</span>
+      </el-button>
+      <el-button type="text" class="shareBut">
+        <i class="el-icon-star-on shareI"/>
+        <span>收藏</span>
+      </el-button>
+      <el-button type="text" class="shareBut">
+        <i class="el-icon-s-flag shareI"/>
+        <span>感谢</span>
+      </el-button>
+    </div>
+    <el-divider></el-divider>
   </div>
 </template>
 
 <script>
 export default {
   name: 'AnswerItem',
+  props:{
+    attiStat: String,
+    apprN: String,
+    evalN: String,
+    queName: String,
+    author: String,
+    authorDet: String,
+    queDet: String
+  },
   components: {
   },
   data () {
