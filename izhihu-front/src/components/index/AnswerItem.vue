@@ -66,7 +66,7 @@
 export default {
   name: 'AnswerItem',
   props:{
-    // topicId: String,
+    topicId: String,
     attiStat: String,
     apprN: String,
     evalN: String,
@@ -117,8 +117,7 @@ export default {
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-line-clamp: 3; //行数
-      -webkit-box-orient: vertical;
-      
+      -webkit-box-orient: vertical；      
     }
     .ope{
       margin-top: 8px;
