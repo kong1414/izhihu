@@ -53,8 +53,8 @@
         </el-input>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="writerDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="writerDialogVisible = false">确 定</el-button>
+        <el-button @click="emptyWriteIdea">取 消</el-button>
+        <el-button type="primary" @click="emptyWriteIdea">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -72,6 +72,10 @@ export default {
   methods: {
     handleWriteAnswer () { // 处理写回答
 
+    },
+    emptyWriteIdea (){
+      this.textarea='';
+      this.writerDialogVisible = false;
     }
   }
 }
