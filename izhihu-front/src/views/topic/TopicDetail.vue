@@ -36,10 +36,10 @@
             <div class="disDetName">{{disDet.queName}}</div>
           </el-button>
           <div style="margin-top:10px;">
-          <el-image
-            style="float:left;width:24px;height:24px;"
-            :src="disDet.topName"
-            ></el-image>
+            <el-image
+              style="float:left;width:24px;height:24px;"
+              :src="disDet.topName"
+              ></el-image>
             <span class="disDetAuthor">{{disDet.author}}</span>
             <span style="font-size:14px;">,    {{disDet.authorDet}}</span>
           </div>
