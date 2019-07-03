@@ -7,7 +7,7 @@
       <el-card class="aside-attention" :body-style="{ padding: '0px' }">
         <div slot="header" class="clearfix">
         <span>其他人关注的话题</span>
-        <el-button type="text" style=" padding: 3px 0" icon="el-icon-refresh" class="change" >换一换</el-button>
+        <el-button type="text" style=" padding: 3px 0" @click="_loadData()" icon="el-icon-refresh" class="change" >换一换</el-button>
         </div>
         <div v-for="o in list" :key="o" class="text-item">
           <el-avatar class="img" shape="square" :src="o.photoUrl"></el-avatar>
