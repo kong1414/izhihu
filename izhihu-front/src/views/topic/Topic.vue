@@ -18,6 +18,14 @@
           <el-button type="text"  class="btn-att" v-if="!isFollow" @click="isFollow=!isFollow">已关注</el-button>
         </div>
         <hr style="margin-top:20px; border:1px solid #CCCCCC; width:100%;">
+        <div class="introduction">
+          <div class="firCardName">
+            <span>{{topName}}</span>
+          </div>
+          <div class="firCardDet">
+            <span>{{topDet}}</span>
+          </div>
+        </div>
       </el-card>
     </el-main>
     <el-aside width="300px" style="min-height:200px">
@@ -38,9 +46,9 @@ export default {
   data () {
     return {
       items: [
-        { id: 1, type: '', label: '游戏', isSelect: false },
-        { id: 2, type: '', label: '投资', isSelect: false },
-        { id: 3, type: '', label: '亏钱', isSelect: false },
+        { id: 1, type: '', label: '高考', isSelect: false },
+        { id: 2, type: '', label: '游戏', isSelect: false },
+        { id: 3, type: '', label: '理财', isSelect: false },
         { id: 4, type: '', label: '摄影', isSelect: false },
         { id: 5, type: '', label: '美食', isSelect: false },
         { id: 6, type: '', label: '篮球', isSelect: false },
@@ -53,7 +61,8 @@ export default {
       i: '3000',
       labelcount: 31,
       isFollow: false,
-      nowType: ''
+      topName: '高考',
+      topDet: '普通高等学校招生全国统一考试（The National College Entrance Examination），简称“高考”，是中华人民共和国（不包括香港特别行政区、澳门特别行政区和台湾省）合格的高中毕业生或具有同等学历的考生参加的选拔性考试。 2018年8月，北京市新高考方案公布。',
     }
   },
   methods: {
@@ -71,8 +80,8 @@ export default {
 
 <style lang="scss">
 .topic-container {
-  .att-topic-crad {
-  }
+  // .att-topic-crad {
+  // }
   .topic-item {
     margin-top: 15px;
   }
@@ -102,6 +111,10 @@ export default {
         margin-top: 8px;
         float:right;
       }
+    }
+    .firCardName{
+      font-size: 30px;
+      font-weight:bold; 
     }
   }
 }

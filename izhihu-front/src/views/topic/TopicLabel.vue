@@ -1,4 +1,5 @@
 <template>
+<!-- 话题页 已关注标签栏 -->
   <div id="topicLabel" @click="selectLabel" :style="list.isSelect?selectStyle:none">
     {{ list.label }}
   </div>

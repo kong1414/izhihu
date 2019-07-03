@@ -9,15 +9,14 @@
         <p class="excerpt" :title="item.title"  @click="dialogVisible = true">{{item.excerpt}}</p>
 
         <div class="button-content">
-          <span class="heat">{{item.heat}}万热度</span>
-          <el-button type="text" class="share">{{item.share}}</el-button>
+          <i class="el-icon-trophy">{{item.heat}}万热度</i>
+          <i class="el-icon-s-promotion">{{item.share}}</i>
         </div>
       </div>
       <el-dialog
         :title="item.title"
         :visible.sync="dialogVisible"
-        width="600px"
-        :before-close="handleClose">
+        width="600px">
         <div class="dialog-body">
           <span>{{item.excerpt}}</span>
         </div>
@@ -48,9 +47,7 @@ export default {
     }
   },
   methods: {
-    doSubmit () {
-      console.log(1)
-    }
+    
   }
 }
 </script>
@@ -111,9 +108,10 @@ export default {
       flex: 1 1;
       overflow: hidden;
       color: #8590a6;
-      .share{
+      .el-icon-s-promotion{
         margin-left: 20px;
         color: #8590a6;
+        cursor:pointer;
       }
     }
   }

@@ -58,8 +58,6 @@ export default {
       border-radius: 4px;
       text-align: center;
       background-color: #eff6fA;
-      .btn-Topic-square{
-      }
       .btn-find{
         height: auto;
         width: 100%;
@@ -68,7 +66,7 @@ export default {
         cursor: pointer;
         font-size: 13px;
         color: #5488b4;
-        float: left;
+        //float: left;
         margin: 10px auto 0;
       }
       .btn-find:hover{
@@ -78,8 +76,8 @@ export default {
     .aside-attention{
       margin-top: 18px;
       width: 280px;
-      .clearfix{
-      }
+      //.clearfix{
+      //}
       .change{
         margin-left:62px;
       }
@@ -88,8 +86,8 @@ export default {
         .img{
           float: left;
           margin-left: 10px;
-          width: 40px;
-          height: 40px;
+          width: 45px;
+          height: 45px;
         }
         .btn-topic-name{
           margin-left: 16px;
