@@ -46,7 +46,7 @@ public class ArticleServiceImpl implements ArticleService {
         article.setContent(record.getContent());
         article.setType(record.getType());
 
-        articleMapper.insert(article);
+        articleMapper.insertSelective(article);
         if (record.getTopicList().size() <= 0) {
             return new SuccessVO();
         }
@@ -58,7 +58,7 @@ public class ArticleServiceImpl implements ArticleService {
             tc.setTopicId(topicId);
             tc.setContentId(id);
             tc.setType(record.getType());
-            topicContentMapper.insert(tc);
+            topicContentMapper.insertSelective(tc);
         }
 
         return new SuccessVO();

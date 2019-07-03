@@ -128,7 +128,7 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public ResultVO create(Topic topic) {
         topic.setTopicId(IdUtil.randomUUID());
-        topicMapper.insert(topic);
+        topicMapper.insertSelective(topic);
         return new SuccessVO();
     }
 

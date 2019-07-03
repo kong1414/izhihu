@@ -107,7 +107,7 @@ public class FollowServiceImpl implements FollowService {
         record.setUserId(userId);
         record.setArticleId(contentId);
         record.setAgrOpp(1);
-        agreeOpposeMapper.insert(record);
+        agreeOpposeMapper.insertSelective(record);
         return new SuccessVO("点赞成功");
     }
 
@@ -127,7 +127,7 @@ public class FollowServiceImpl implements FollowService {
         record.setUserId(userId);
         record.setArticleId(contentId);
         record.setAgrOpp(0);
-        agreeOpposeMapper.insert(record);
+        agreeOpposeMapper.insertSelective(record);
         return new SuccessVO("不赞成成功");
     }
 

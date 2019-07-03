@@ -53,7 +53,7 @@ public class QuestionServiceImpl implements QuestionService {
         ques.setQuesName(record.getQuesName());
         ques.setQuesDescribe(record.getQuesDescribe());
         ques.setAnonymity(record.getAnonymity());
-        questionMapper.insert(ques);
+        questionMapper.insertSelective(ques);
 
         if (record.getTopicList().size() <= 0) {
             return new SuccessVO();
@@ -66,7 +66,7 @@ public class QuestionServiceImpl implements QuestionService {
             tc.setTopicId(topicId);
             tc.setContentId(id);
             tc.setType(Type.QUESTION.getCode());
-            topicContentMapper.insert(tc);
+            topicContentMapper.insertSelective(tc);
         }
         return new SuccessVO();
     }
@@ -90,7 +90,7 @@ public class QuestionServiceImpl implements QuestionService {
         article.setQuesId(record.getQuesId());
         article.setTitle(question.getQuesName());
 
-        articleMapper.insert(article);
+        articleMapper.insertSelective(article);
 
         return new SuccessVO();
     }
