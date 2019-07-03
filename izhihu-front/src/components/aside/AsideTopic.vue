@@ -10,8 +10,8 @@
         <el-button type="text" style=" padding: 3px 0" icon="el-icon-refresh" class="change" >换一换</el-button>
         </div>
         <div v-for="o in list" :key="o" class="text-item">
-          <img class="img" src="" alt=""/>
-          <el-button type="text" class="btn-topic-name" >{{'话题'}}</el-button>
+          <el-avatar class="img" shape="square" :src="o.photoUrl"></el-avatar>
+          <el-button type="text" class="btn-topic-name" >{{o.topicName}}</el-button>
           <el-button type="text" icon="el-icon-plus" class="btn-attention"
           v-if="!o.isFollow" @click="o.isFollow=!o.isFollow">关注</el-button>
           <el-button type="text"  class="btn-attention"
@@ -21,10 +21,11 @@
   </el-aside>
 </template>
 
+
 <script>
+import { reqGetAsideTopic } from '../../api/topic'
 export default {
   name: 'asidetopic',
-  el: '#test',
   components: {
   },
   data () {
@@ -34,14 +35,23 @@ export default {
         { 'isFollow': false },
         { 'isFollow': false },
         { 'isFollow': false },
-        { 'isFollow': false },
         { 'isFollow': false }
       ]
     }
   },
-  computed: {
+  created () {
+    this._loadData()
   },
   methods: {
+     _loadData () {
+      reqGetAsideTopic().then(res => {
+        if (res.resultCode == 200) {
+          console.info(res.data)
+          this.list = res.data
+
+        }
+      })
+    }
   }
 }
 </script>
@@ -88,6 +98,7 @@ export default {
           margin-left: 10px;
           width: 45px;
           height: 45px;
+          background-color: blanchedalmond;
         }
         .btn-topic-name{
           margin-left: 16px;
