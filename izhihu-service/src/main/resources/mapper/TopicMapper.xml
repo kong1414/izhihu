@@ -60,7 +60,8 @@ JOIN topic
 ON attention.att_id = topic.topic_id
 WHERE
 users.user_id = #{userId}
-
+and
+izhihu.attention.type = 5
     </select>
     <select id="getTopicRandom" resultMap="BaseResultMap">
         SELECT * FROM topic ORDER BY rand() LIMIT #{num}

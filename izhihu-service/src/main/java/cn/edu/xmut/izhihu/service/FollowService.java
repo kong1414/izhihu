@@ -82,5 +82,4 @@ public interface FollowService {
      * @return
      */
     public Boolean checkUnLike(String userId, String contentId);
-
 }

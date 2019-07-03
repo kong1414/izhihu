@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.List;
+
 /**
  * @Description:
  * @Author: qiuguanlin
@@ -43,7 +45,7 @@ public class FollowServiceImpl implements FollowService {
         record.setUserId(userId);
         record.setAttId(contentId);
         record.setType(type);
-        attentionMapper.insert(record);
+        attentionMapper.insertSelective(record);
         return new SuccessVO("已关注");
     }
 
@@ -59,12 +61,10 @@ public class FollowServiceImpl implements FollowService {
         if (!this.checkFollow(userId, contentId)) {
             return new SuccessVO("尚未关注");
         }
-        Example example = new Example(Attention.class);
-        example.createCriteria()
-                .andEqualTo("userId", userId)
-                .andEqualTo("attId", contentId);
-
-        attentionMapper.deleteByExample(example);
+        Attention att = new Attention();
+        att.setUserId(userId);
+        att.setAttId(contentId);
+        attentionMapper.delete(att);
 
         return new SuccessVO("已取消关注");
     }
@@ -83,8 +83,8 @@ public class FollowServiceImpl implements FollowService {
                 .andEqualTo("userId", userId)
                 .andEqualTo("attId", contentId);
 
-        Attention record = attentionMapper.selectOneByExample(example);
-        if (record != null) {
+        List<Attention> record = attentionMapper.selectByExample(example);
+        if (record.size() > 0) {
             return true;
         } else {
             return false;
