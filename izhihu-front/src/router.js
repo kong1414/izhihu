@@ -65,6 +65,11 @@ export default new Router({
           path: '/home/people/:userid',
           menuName: 'people',
           component: () => import('./views/personal/People.vue')
+        },
+        {
+          path: '/home/question/:quesid',
+          menuName: 'question',
+          component: () => import('./views/personal/Question.vue')
         }
       ]
     }
