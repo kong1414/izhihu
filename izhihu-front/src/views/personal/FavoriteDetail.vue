@@ -7,11 +7,23 @@
     <el-aside width="300px" style="background-color:#ecf5ff;min-height:200px">
       <el-card class="creator" :body-style="{ padding: '10px 0px 10px 20px' }">
         <div>
-          <span>关于创建者</span>
+          <span style="font-weight:bold; font-size:15px; ">关于创建者</span>
         </div>
         <div class="creator-message">
           <el-avatar class="img" shape="square" :fit="cover" :src="photoUrl"></el-avatar>
           <el-button type="text" class="btn-creator-name">昵称</el-button>
+        </div>
+      </el-card>
+      <el-card class="favorite-status" :body-style="{ padding: '10px 0px 5px 20px'}">
+        <div>
+          <span style="font-weight:bold; font-size:15px; ">收藏夹状态</span>
+        </div>
+        <div class="time">
+          <span style="font-size:12px; ">最近活动于 09:14</span>
+        </div>
+        <div class="count-attention">
+          <el-button type="text">0</el-button>
+          <span style="font-size:12px; "> 人关注了该收藏夹</span>
         </div>
       </el-card>
       <aside-collection></aside-collection>
@@ -57,6 +69,13 @@ export default {
       }
     }
   }
-  
+  .favorite-status{
+     margin-top: 10px;
+     .time{
+       margin-top:14px; 
+     }
+    //  .count-attention{  
+    //  }
+  }
 }
 </style>
