@@ -17,7 +17,7 @@
         <result column="del" jdbcType="INTEGER" property="del"/>
     </resultMap>
 
-    <select id="findByContentId" resultType="cn.edu.xmut.izhihu.pojo.vo.CommentVO">
+    <select id="findByContentId" resultType="java.util.HashMap">
         SELECT
         `comment`.id,
         `comment`.comment_id,

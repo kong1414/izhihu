@@ -10,8 +10,8 @@
             <i class="el-icon-d-arrow-right"></i>
           </el-button>
       </div>  
-      <div v-for="i in list" :key="i" class="topiclist">
-        <el-avatar class="img" shape="square" :fit="cover" :src="i.photoUrl"></el-avatar>
+      <div v-for="i in list" :key="i.id" class="topiclist">
+        <el-avatar class="img" shape="square" fit="cover" :src="i.photoUrl"></el-avatar>
         <div class="nameNum" >
           <el-button class="name" type="text">{{i.topicName}}</el-button>
           <span class="number">{{i.attNum}} 人关注</span>
@@ -28,7 +28,7 @@
         </el-button>
       </div>
 
-      <div v-for="k in cllist" :key="k" class="cllist">
+      <div v-for="k in cllist" :key="k.id" class="cllist">
         <el-button class="clbodyname" type="text">{{k.clName}}</el-button>
         <span class="clNumCon">{{k.clnum}} 人关注  •  {{k.clcont}} 条内容</span>
       </div>
@@ -52,8 +52,8 @@ export default {
       list: [],
       cllist: [
         { clName: '吃很重要', clnum:'100', clcont:'123'},
-        { clName: '吃很重要', clnum:'100', clcont:'123'},
-        { clName: '吃很重要', clnum:'100', clcont:'123'}
+        { clName: '吃非常重要', clnum:'100', clcont:'123'},
+        { clName: '吃超级无敌重要', clnum:'100', clcont:'123'}
       ],
       
     }
@@ -76,6 +76,7 @@ export default {
 <style lang="scss">
 .aside-discovery {
   .hot-topic {
+    margin-top:10px;
     padding: 0px;
     .topHeader{
       margin: -10px;
@@ -113,7 +114,7 @@ export default {
     }
   }
   .hot-collect {
-    
+    margin-top:10px;
     .cl-topHeader{
       margin: -10px;
       

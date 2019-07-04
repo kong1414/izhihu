@@ -42,7 +42,6 @@ public interface TopicMapper extends Mapper<Topic> {
      * @param keyword
      * @return
      */
-    @Select("select * from topic where topic_name LIKE '%#{keyword}%'")
-    List<Topic> find(String keyword);
+    List<Topic> find(@Param("keyword") String keyword);
 
 }

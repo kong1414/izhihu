@@ -1,16 +1,16 @@
 <template>
 <!-- 评论组件 -->
-  <div>
-    123
+  <div class="comment-Main">
+    wqeqweqweqwe
   </div>
+  
 </template>
 
 <script>
 export default {
-  name: 'comment',
+  name: 'commentItem',
   data () {
     return {
-
     }
   },
   methods: {
@@ -22,11 +22,12 @@ export default {
         commentatorId: '',
         commentContent: '',
       }
-    }
+    } 
   }
 }
 </script>
 
 <style lang="scss">
-
+.comment-Main {
+}
 </style>

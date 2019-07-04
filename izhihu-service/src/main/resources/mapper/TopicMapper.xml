@@ -63,7 +63,12 @@ users.user_id = #{userId}
 and
 izhihu.attention.type = 5
     </select>
+
     <select id="getTopicRandom" resultMap="BaseResultMap">
         SELECT * FROM topic ORDER BY rand() LIMIT #{num}
+    </select>
+
+    <select id="find" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from topic where topic_name LIKE concat('%',#{keyword},'%');
     </select>
 </mapper>
