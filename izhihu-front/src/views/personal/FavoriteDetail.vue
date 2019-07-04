@@ -5,6 +5,15 @@
 
     </el-main>
     <el-aside width="300px" style="background-color:#ecf5ff;min-height:200px">
+      <el-card class="creator" :body-style="{ padding: '10px 0px 10px 20px' }">
+        <div>
+          <span>关于创建者</span>
+        </div>
+        <div class="creator-message">
+          <el-avatar class="img" shape="square" :fit="cover" :src="photoUrl"></el-avatar>
+          <el-button type="text" class="btn-creator-name">昵称</el-button>
+        </div>
+      </el-card>
       <aside-collection></aside-collection>
       <aside-Footer></aside-Footer>
     </el-aside>
@@ -32,8 +41,22 @@ export default {
 </script>
 <style lang="scss">
 .favorite-container {
-  .favorite-card {
-
+  .creator{
+    .creator-message{
+      padding: 10px 0px 0px 6px;
+      margin-bottom: 65px;
+      .img {
+          float: left;
+          width: 60px; 
+          height: 60px;
+      }
+      .btn-creator-name{
+          float: left;
+          margin-left: 16px;
+          padding-top: 20px;
+      }
+    }
   }
+  
 }
 </style>
