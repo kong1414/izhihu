@@ -46,6 +46,7 @@ export default {
 
 <style lang="scss">
 .aside-footer {
+  margin-top: 20px;
   padding: 8px;
   color: #8590a6;
   span {

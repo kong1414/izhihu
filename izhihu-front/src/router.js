@@ -75,6 +75,11 @@ export default new Router({
           path: '/home/editarticle',
           menuName: 'editarticle',
           component: () => import('./components/index/Editarticle.vue')
+        },
+        {
+          path: '/home/editquestion',
+          menuName: 'editquestion',
+          component: () => import('./components/index/Editquestion.vue')
         }
       ]
     }

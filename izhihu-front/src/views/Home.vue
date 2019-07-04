@@ -94,7 +94,7 @@ export default {
       console.log(key, keyPath)
     },
     handleAsk () { // 提问
-      console.info('123')
+      this.$router.push({ path:'/home/editquestion'  });
     },
     changePasswords () { // 修改密码
 
@@ -164,7 +164,7 @@ export default {
         margin-left: 100px;
         vertical-align: top;
         margin-top: 13px;
-        float: right;
+        //float: right;
         span {
           i {
             font-size: 25px;
