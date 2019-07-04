@@ -70,6 +70,11 @@ export default new Router({
           path: '/home/question/:quesid',
           menuName: 'question',
           component: () => import('./views/personal/Question.vue')
+        },
+        {
+          path: '/home/editarticle',
+          menuName: 'editarticle',
+          component: () => import('./components/index/Editarticle.vue')
         }
       ]
     }

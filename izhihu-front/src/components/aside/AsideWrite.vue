@@ -10,7 +10,7 @@
           </el-button>
         </el-col>
         <el-col :span="8">
-          <el-button type="text" class="write-button">
+          <el-button type="text" @click="toWriteArticle" class="write-button">
             <i class="el-icon-edit-outline"/>
             <p>写文章</p>
           </el-button>
@@ -98,8 +98,8 @@ export default {
     }
   },
   methods: {
-    handleWriteAnswer () { // 处理写回答 废除
-
+    toWriteArticle () { // 跳转写文章页面
+      this.$router.push({ path:'/home/editarticle'  });
     },
     emptyWriteIdea (){ // 取消
       this.textarea='';
