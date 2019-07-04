@@ -123,6 +123,15 @@ export default {
     onEditorChange () {//内容改变事件
     },
     handleUp () {
+      if (this.texttitle == '') {
+        this.$message("标题不能为空")
+        return
+      }
+      if (this.content == '') {
+        this.$message("内容不能为空")
+        return
+      }
+
       // console.info()
       let params = {
         anonymity: Number(this.radio),
@@ -136,7 +145,7 @@ export default {
       console.info(params)
       reqCreateArticle(params).then(res => {
         if (res.resultCode == 200) {
-          this.$message(res.resultMessage)
+          this.$message("发布成功")
           this.$router.go(-1)
         }
       })
