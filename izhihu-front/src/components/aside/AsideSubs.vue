@@ -27,7 +27,7 @@
       <div>
         <div class="Ftitle" style="margin-top:20px;">子话题</div>
         <div style="width:250px;margin-left:-7px;">
-          <el-button type="text" v-for="Sontop in SonTops" :key="Sontop" style="margin-left: 10px;">
+          <el-button type="text" v-for="Sontop in SonTops" :key="Sontop.topicId" style="margin-left: 10px;">
             <el-tag class="Ftag">{{Sontop.topicName}}</el-tag>
           </el-button>
         </div>

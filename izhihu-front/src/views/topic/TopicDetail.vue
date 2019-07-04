@@ -31,7 +31,7 @@
           <span class="dis">讨论</span>
           <el-button class="moreCon" type="text">更多内容</el-button>
         </div>
-        <div v-for="disDet in disDets" :key="disDet"  class="text item">
+        <div v-for="disDet in disDets" :key="disDet.topicId"  class="text item">
           <answer-item :topicid = "topicId"
                        :attiStat = "disDet.attiStat"
                        :apprN = "disDet.apprN"
