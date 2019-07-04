@@ -1,6 +1,6 @@
 <template>
   <div class="aside-discovery">
-    
+    <aside-hotcolumn></aside-hotcolumn>
 
     <el-card class="hot-topic" :body-style="{ padding: '0px' }">
       <div slot="header" class="topHeader">
@@ -9,7 +9,7 @@
             更多话题
             <i class="el-icon-d-arrow-right"></i>
           </el-button>
-      </div>
+      </div>  
       <div v-for="i in list" :key="i" class="topiclist">
         <el-avatar class="img" shape="square" :fit="cover" :src="i.photoUrl"></el-avatar>
         <div class="nameNum" >
@@ -39,20 +39,23 @@
 </template>
 <script>
 import { reqGetHotTopic } from '../../api/topic'
+import AsideHotcolumn from '../../components/aside/AsideHotColumn'
 import AsideFooter from '../../components/aside/AsideFooter'
 export default {
   name: 'asideDiscovery',
   components: {
-    AsideFooter
+    AsideFooter,
+    AsideHotcolumn
   },
   data () {
     return {
       list: [],
       cllist: [
-        {clName:'吃很重要',clnum:'100',clcont:'123'},
-        {clName:'吃很重要',clnum:'100',clcont:'123'},
-        {clName:'吃很重要',clnum:'100',clcont:'123'}
-      ]
+        { clName: '吃很重要', clnum:'100', clcont:'123'},
+        { clName: '吃很重要', clnum:'100', clcont:'123'},
+        { clName: '吃很重要', clnum:'100', clcont:'123'}
+      ],
+      
     }
   },
   created () {
@@ -61,7 +64,7 @@ export default {
   methods: {
     _loadData () {
       reqGetHotTopic().then(res => {
-        if (res.resultCode == 200) {
+        if (res.resultCode === 200) {
           console.info(res.data)
           this.list = res.data
         }
@@ -73,7 +76,7 @@ export default {
 <style lang="scss">
 .aside-discovery {
   .hot-topic {
-    padding: 0px, 0px, 0px, 0px;
+    padding: 0px;
     .topHeader{
       margin: -10px;
       .topicRight{
