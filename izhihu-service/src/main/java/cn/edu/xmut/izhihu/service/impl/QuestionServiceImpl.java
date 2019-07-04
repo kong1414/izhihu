@@ -95,5 +95,17 @@ public class QuestionServiceImpl implements QuestionService {
         return new SuccessVO();
     }
 
+    /**
+     * 根据问题id返回问题信息
+     *
+     * @param quesId
+     * @return
+     */
+    @Override
+    public ResultVO findById(String quesId) {
+        Question question = questionMapper.selectByPrimaryKey(quesId);
+        return new SuccessVO(question);
+    }
+
 
 }

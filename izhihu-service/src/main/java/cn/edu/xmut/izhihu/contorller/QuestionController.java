@@ -6,10 +6,7 @@ import cn.edu.xmut.izhihu.pojo.request.QuestionRequest;
 import cn.edu.xmut.izhihu.service.QuestionService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Description: 问题Controller
@@ -35,5 +32,10 @@ public class QuestionController {
     @RequestMapping(value = "/answer", method = RequestMethod.POST)
     public ResultVO answerQuestion(@RequestBody AnswerRequest record) {
         return questionService.answer(record);
+    }
+
+    @PostMapping("/findById")
+    public ResultVO findById(@RequestParam String quesId) {
+        return null;
     }
 }

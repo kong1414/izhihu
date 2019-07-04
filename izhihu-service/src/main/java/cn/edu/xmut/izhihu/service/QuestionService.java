@@ -26,4 +26,12 @@ public interface QuestionService {
      * @return
      */
     ResultVO answer(AnswerRequest record);
+
+    /**
+     * 根据问题id返回问题信息
+     *
+     * @param quesId
+     * @return
+     */
+    ResultVO findById(String quesId);
 }
