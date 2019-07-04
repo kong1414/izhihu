@@ -10,7 +10,8 @@
           <span>收藏夹描述</span>
         </div>
         <div class="favorite-function">
-          <el-button type="text" class="function">
+          <el-button type="text" class="function"
+           @click="editor = true">
             <i class="el-icon-edit"/>
             <span>编辑</span>
           </el-button>
@@ -49,7 +50,33 @@
       <aside-collection></aside-collection>
       <aside-Footer></aside-Footer>
     </el-aside>
-  </el-container>
+    <el-dialog title="编辑收藏夹" width="600px;" :visible.sync="editor">
+      <el-form :model="form">
+        <el-form-item label="标题"  style="margin-top:20px;margin-left:70px;">
+          <el-input v-model="form.name" id="inTitle" autocomplete="off" placeholder="最多输入20字" style="width:440px;margin-left:40px;"></el-input>
+        </el-form-item>
+        <el-form-item label="描述"  style="margin-left:70px;">
+          <el-input v-model="form.detail" id="inDetail" autocomplete="off" placeholder="最多输入20字" style="width:440px;margin-left:40px;"></el-input>
+        </el-form-item>
+        <div class="choiArea" >
+          <el-radio v-model="radioOC" label="1">
+            <span class="choiFont" >公开</span>
+            <span class="detailFont">收藏夹关注者 > 0 时不能设置为私密</span>
+          </el-radio>
+        </div>
+        <div class="choiArea">
+          <el-radio v-model="radioOC" label="2">
+            <span class="choiFont">私密</span>
+            <span class="detailFont">只有你可以查看这个收藏夹</span>
+          </el-radio>
+        </div>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="editor = false">取 消</el-button>
+        <el-button type="primary" @click="editor = false">确 定</el-button>
+      </div>
+    </el-dialog>
+  </el-container> 
 </template>
 <script>
 import AsideFooter from '../../components/aside/AsideFooter'
@@ -62,6 +89,16 @@ export default {
   },
   data () {
     return {
+      editor: false,
+      form: {
+        name: '',
+        detail: '',
+        delivery: false,
+        type: [],
+        resource: '',
+        desc: ''
+      },
+      radioOC: '1'
     }
   },
   methods: {
@@ -111,5 +148,17 @@ export default {
     //  .count-attention{  
     //  }
   }
+  .choiFont{
+      font-size:15px;
+      font-weight:bold;
+    }
+    .detailFont{
+      font-size:13px;
+      margin-left:5px;
+    }
+    .choiArea{
+      margin-top:10px;
+      margin-left: 110px;
+    }
 }
 </style>
