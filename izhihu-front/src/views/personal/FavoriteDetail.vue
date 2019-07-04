@@ -200,7 +200,7 @@ export default {
   }
   .choiArea {
     margin-top: 10px;
-    margin-left: 260px;
+    margin-left: 60px;
   }
 }
 </style>

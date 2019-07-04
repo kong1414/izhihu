@@ -57,32 +57,46 @@
                 <el-button type="text" @click="dialogFormVisible = true">+创建收藏夹</el-button>
               </div>
             </div>
-            <el-dialog title="创建新收藏夹" width="600px;" :visible.sync="dialogFormVisible">
-              <el-form :model="form">
-                <el-form-item label="标题"  style="margin-top:20px;margin-left:130px;">
-                  <el-input v-model="form.name" id="inTitle" autocomplete="off" placeholder="最多输入20字" style="width:500px;margin-left:37px;"></el-input>
-                </el-form-item>
-                <el-form-item label="描述(可选)"  style="margin-left:130px;">
-                  <el-input v-model="form.detail" id="inDetail" autocomplete="off" placeholder="最多输入20字" style="width:500px;"></el-input>
-                </el-form-item>
-                <div class="choiArea">
-                  <el-radio v-model="radioOC" label="1">
-                    <span class="choiFont">公开</span>
-                    <span class="detailFont">收藏夹关注者 > 0 时不能设置为私密</span>
-                  </el-radio>
-                </div>
-                <div class="choiArea">
-                  <el-radio v-model="radioOC" label="2">
-                    <span class="choiFont">私密</span>
-                    <span class="detailFont">只有你可以查看这个收藏夹</span>
-                  </el-radio>
-                </div>
-              </el-form>
-              <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-              </div>
-            </el-dialog>
+            <el-dialog title="创建收藏夹"
+               width="600px"
+               :visible.sync="dialogFormVisible">
+            <el-form :model="form"
+               label-width="60px"
+               style="width:100%;padding:20px;">
+            <el-form-item label="标题" style="margin-left:-50px;">
+              <el-input v-model="form.name"
+                  id="inTitle"
+                  autocomplete="off"
+                  placeholder="最多输入20字"></el-input>
+            </el-form-item>
+            <el-form-item label="描述" style="margin-left:-50px;">
+              <el-input v-model="form.detail"
+                  id="inDetail"
+                  autocomplete="off"
+                  placeholder="最多输入20字"></el-input>
+            </el-form-item>
+            <div class="choiArea">
+              <el-radio v-model="radioOC"
+                    label="1">
+            <span class="choiFont">公开</span>
+            <span class="detailFont">收藏夹关注者 > 0 时不能设置为私密</span>
+              </el-radio>
+            </div>
+            <div class="choiArea">
+              <el-radio v-model="radioOC"
+                    label="2">
+            <span class="choiFont">私密</span>
+            <span class="detailFont">只有你可以查看这个收藏夹</span>
+              </el-radio>
+            </div>
+          </el-form>
+          <div slot="footer"
+            class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary"
+                    @click="dialogFormVisible = false">确 定</el-button>
+          </div>
+        </el-dialog>
           </div>
         </div>
       </el-row>
@@ -177,7 +191,7 @@ export default {
     }
     .choiArea{
       margin-top:10px;
-      margin-left: 240px;
+      margin-left: 50px;
     }
   }
 }
