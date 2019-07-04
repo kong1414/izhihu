@@ -1,9 +1,8 @@
 <template>
   <div class="aside-discovery">
-    <!-- <el-card class="hot-table">
-    </el-card> -->
+    
 
-    <el-card class="hot-topic " :body-style="{ padding: '0px' }">
+    <el-card class="hot-topic" :body-style="{ padding: '0px' }">
       <div slot="header" class="topHeader">
           <span class="topicLeft">热门话题</span>
           <el-button type="text" class="topicRight">
@@ -12,12 +11,26 @@
           </el-button>
       </div>
       <div v-for="i in list" :key="i" class="topiclist">
-        <!-- <div class="img" :src="photoUrl"></div> -->
         <el-avatar class="img" shape="square" :fit="cover" :src="i.photoUrl"></el-avatar>
         <div class="nameNum" >
           <el-button class="name" type="text">{{i.topicName}}</el-button>
           <span class="number">{{i.attNum}} 人关注</span>
         </div>
+      </div>
+    </el-card>
+
+    <el-card class="hot-collect" :body-style="{ padding: '0px' }">
+      <div slot="header" class="cl-topHeader">
+        <span class="cl-topicLeft">热门收藏</span>
+        <el-button type="text" class="cl-topicRight">
+          换一换
+          <i class="el-icon-refresh"></i>
+        </el-button>
+      </div>
+
+      <div v-for="k in cllist" :key="k" class="cllist">
+        <el-button class="clbodyname" type="text">{{k.clName}}</el-button>
+        <span class="clNumCon">{{k.clnum}} 人关注  •  {{k.clcont}} 条内容</span>
       </div>
     </el-card>
 
@@ -34,7 +47,12 @@ export default {
   },
   data () {
     return {
-      list: []
+      list: [],
+      cllist: [
+        {clName:'吃很重要',clnum:'100',clcont:'123'},
+        {clName:'吃很重要',clnum:'100',clcont:'123'},
+        {clName:'吃很重要',clnum:'100',clcont:'123'}
+      ]
     }
   },
   created () {
@@ -54,15 +72,10 @@ export default {
 </script>
 <style lang="scss">
 .aside-discovery {
-  .hot-table {
-  }
   .hot-topic {
     padding: 0px, 0px, 0px, 0px;
     .topHeader{
       margin: -10px;
-      .topicLeft{
-        font-weight:bold;
-      }
       .topicRight{
         float:right;
         padding:3px 0px;
@@ -97,7 +110,26 @@ export default {
     }
   }
   .hot-collect {
-    background-color: green;
+    
+    .cl-topHeader{
+      margin: -10px;
+      
+      .cl-topicRight{
+        float:right;
+        padding:3px 0px;
+        color:rgb(133, 144, 166);
+      }
+    }
+    .cllist{
+      margin:5px 10px;
+        .clbodyname{
+          display: flex;          
+        }
+        .clNumCon{
+          color:#999;
+        }
+    }
   }
+
 }
 </style>
