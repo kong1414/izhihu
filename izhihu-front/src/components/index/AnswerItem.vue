@@ -42,7 +42,9 @@
         </el-button>
       </span>
       <el-button type="text"
-                 class="shareBut">
+                 class="shareBut"
+                 @click="commentVisible = true">
+        <!-- <comment :commentVisible = "commentVisible"/> -->
         <i class="el-icon-chat-line-round shareI" />
         <span>{{evalN}} 条评论</span>
       </el-button>
@@ -63,6 +65,7 @@
       </el-button>
     </div>
     <el-divider></el-divider>
+    <!-- 问题答案内容 -->
     <el-dialog :title="queName"
                :visible.sync="dialogVisible"
                width="600px">
@@ -75,12 +78,29 @@
                    @click="dialogVisible = false">关 闭</el-button>
       </span>
     </el-dialog>
+    <!-- 评论内容 -->
+    <el-dialog :title="evalN+'条评论'"
+               :visible.sync="commentVisible"
+               width="800px">
+      <div class="dialog-body">
+        <comment-item></comment-item>
+      </div>
+      <span slot="footer"
+            class="dialog-footer">
+        <el-button type="primary"
+                   @click="commentVisible = false">关 闭</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import CommentItem from './Comment'
 export default {
   name: 'AnswerItem',
+  components: {
+    CommentItem
+  },
   props: {
     topicId: String,
     attiStat: String,
@@ -100,7 +120,8 @@ export default {
         { attiStat: '1', apprN: '123', evalN: '123', queName: '当你知道高考成绩以后的感受？', author: 'Seddie', authorDet: '教育领域优秀答题者', queDet: '知乎处女答！高考前一天晚上，我在背古诗词的时候突然感到空虚寂寞冷。于是，我就把我爸妈喊来玩汉字听写游戏，我报他俩写。我报宠爱的“宠”，我妈写了个“庞”，我爸嘲笑她。我妈放出狂言：要是他写对了我就把纸吃了。我爸写对，我妈遂吃纸。我报暧昧的“暧”，我爸写了个“暖”，我妈嘲笑他。我爸放出狂言：要是她写对了我就把纸吃了。我妈写对，我爸遂吃纸。于是这天晚上，我爸妈一边嚼着纸屑一边互骂对方不是中国人，房间内外充满了快活的空气。' },
         { attiStat: '2', apprN: '234', evalN: '311', queName: '高考完的那个晚上你去干嘛了？', author: 'Chen Wen', authorDet: '一个在修飞机，其实想开飞机的老司机', queDet: '典型的拉不出屎还要怪到地心引力。短短的几句问题描述，我来告诉你都有哪些槽点。1、兼容并包北大的兼容并包是什么？指的是任何思想都可以在这里碰撞，不是说任何人都可以在园子里嘚瑟。你有思想，哪怕今天在扫地，明天说不定也能和大师们坐而论道；你没思想，就算今天堂而皇之地坐在教学楼里，说不定明天就被扫地出门。这才叫兼容并包，实现它的前提是平等。所以，一个高考“状元”从北大退学，恰恰证明北大坚持了传统，不以高考成绩考察学生，高考状元也没有特权，真正做到了兼容并包。2、天才如果按照IQ140的标准，那么主人公很可能是天才，这没什么说的。但是你要知道，IQ140在人群中的概率比上清华北大还要高，也就不难知道，这样的天才在北大绝对不稀奇。如果换一个标准，以人才作为人间之才，那么天才指的就是此才只应天上有。一个地级市状元，再考是省状元，这也远远达不到“天选之才”的程度。全国每年几百个市状元，大几十个省状元，是必然会出现的一个群体。' }
       ],
-      dialogVisible: false
+      dialogVisible : false,
+      commentVisible: false
     }
   },
   methods: {
