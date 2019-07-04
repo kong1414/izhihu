@@ -57,12 +57,12 @@
                 <el-button type="text" @click="dialogFormVisible = true">+创建收藏夹</el-button>
               </div>
             </div>
-            <el-dialog title="创建新收藏夹" :visible.sync="dialogFormVisible">
+            <el-dialog title="创建新收藏夹" width="600px;" :visible.sync="dialogFormVisible">
               <el-form :model="form">
-                <el-form-item label="标题"  style="margin-top:20px;margin-left:50px;">
+                <el-form-item label="标题"  style="margin-top:20px;margin-left:12px;">
                   <el-input v-model="form.name" id="inTitle" autocomplete="off" placeholder="最多输入20字" style="width:400px;margin-left:37px;"></el-input>
                 </el-form-item>
-                <el-form-item label="描述(可选)"  style="margin-left:50px;">
+                <el-form-item label="描述(可选)"  style="margin-left:12px;">
                   <el-input v-model="form.detail" id="inDetail" autocomplete="off" placeholder="最多输入20字" style="width:400px;"></el-input>
                 </el-form-item>
                 <div class="choiArea">
@@ -134,7 +134,7 @@ export default {
 .aside-colletcion {
   margin-top: 20px;
   .colletcion-card {
-    margin-top: 10px;
+    margin-top: 20px;
     text-align: center;
     .el-card__body {
       padding: 10px 0px;
