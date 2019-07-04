@@ -1,40 +1,35 @@
 <template>
   <el-aside class="aside-topic">
     <el-card class="aside-top">
-      <el-button type="primary"
-                 class="btn-Topic-square">进入话题广场</el-button>
-      <el-button type="text"
-                 class="btn-find">来这里发现更多有趣话题</el-button>
+      <el-button type="primary" class="btn-Topic-square">进入话题广场</el-button>
+      <el-button type="text" class="btn-find">来这里发现更多有趣话题</el-button>
     </el-card>
-    <el-card class="aside-attention"
-             :body-style="{ padding: '0px 0px 20px 5px' }">
-      <div slot="header"
-           class="clearfix">
+    <el-card class="aside-attention" :body-style="{ padding: '0px 0px 20px 5px' }">
+      <div slot="header" class="clearfix">
         <span>其他人关注的话题</span>
-        <el-button type="text"
-                   style=" padding: 3px 0"
-                   @click="_loadData()"
-                   icon="el-icon-refresh"
-                   class="change">换一换</el-button>
+        <el-button
+          type="text"
+          style=" padding: 3px 0"
+          @click="_loadData()"
+          icon="el-icon-refresh"
+          class="change"
+        >换一换</el-button>
       </div>
-      <div v-for="i in list"
-           :key="i.topicId"
-           class="text-item">
-        <el-avatar class="img"
-                   shape="square"
-                   :src="i.photoUrl"></el-avatar>
-        <el-button type="text"
-                   @click="toTopicDetail(i.topicId)"
-                   class="btn-topic-name">{{i.topicName}}</el-button>
-        <el-button type="text"
-                   icon="el-icon-plus"
-                   class="btn-attention"
-                   v-if="!i.isFollow"
-                   @click="handleFollow(i)">关注</el-button>
-        <el-button type="text"
-                   class="btn-attention"
-                   v-else
-                   @click="handleFollow(i)">已关注</el-button>
+      <div v-for="i in list" :key="i.topicId" class="text-item">
+        <el-avatar class="img" shape="square" :src="i.photoUrl"></el-avatar>
+        <el-button
+          type="text"
+          @click="toTopicDetail(i.topicId)"
+          class="btn-topic-name"
+        >{{i.topicName}}</el-button>
+        <el-button
+          type="text"
+          icon="el-icon-plus"
+          class="btn-attention"
+          v-if="!i.isFollow"
+          @click="handleFollow(i)"
+        >关注</el-button>
+        <el-button type="text" class="btn-attention" v-else @click="handleFollow(i)">已关注</el-button>
       </div>
     </el-card>
   </el-aside>
@@ -42,66 +37,68 @@
 
 
 <script>
-import { reqGetAsideTopic } from '../../api/topic'
-import {reqUnFollow , reqInFollow} from '../../api/follow'
+import { reqGetAsideTopic } from "../../api/topic";
+import { reqUnFollow, reqInFollow } from "../../api/follow";
 export default {
-  name: 'asidetopic',
-  components: {
-  },
-  data () {
+  name: "asidetopic",
+  components: {},
+  data() {
     return {
-      list: [
-      ]
-    }
+      list: []
+    };
   },
-  created () {
-    this._loadData()
+  created() {
+    this._loadData();
   },
   methods: {
-    _loadData () {
+    _loadData() {
       reqGetAsideTopic().then(res => {
         if (res.resultCode === 200) {
-          res.data.forEach(element => { // 增加一个属性isfollow
-            element.isFollow = false
-          })
-          this.list = res.data
+          res.data.forEach(element => {
+            // 增加一个属性isfollow
+            element.isFollow = false;
+          });
+          this.list = res.data;
         }
-      })
+      });
     },
-    handleFollow (obj) { // 点击可以取消关注和关注他
-      console.info(obj)
-      if (obj.isFollow == true) { // 取消关注进这里
+    handleFollow(obj) {
+      // 点击可以取消关注和关注他
+      console.info(obj);
+      if (obj.isFollow == true) {
+        // 取消关注进这里
         let params = {
           contentId: obj.topicId,
           userId: this.$store.state.user.userId
-        }
+        };
         reqUnFollow(params).then(res => {
           if (res.resultCode == 200) {
-            this.$message(res.resultMessage)
-            obj.isFollow = false
+            this.$message(res.resultMessage);
+            obj.isFollow = false;
           }
-        })
-      } else { // 重新关注进这里
-        console.info('重新关注进这里')
+        });
+      } else {
+        // 重新关注进这里
+        console.info("重新关注进这里");
         let params = {
           contentId: obj.topicId,
           userId: this.$store.state.user.userId,
           type: 5
-        }
+        };
         reqInFollow(params).then(res => {
           if (res.resultCode == 200) {
-            this.$message(res.resultMessage)
-            obj.isFollow = true
+            this.$message(res.resultMessage);
+            obj.isFollow = true;
           }
-        })
+        });
       }
-      console.info(obj)
+      console.info(obj);
     },
-    toTopicDetail (id) {
-      this.$router.push({ path: '/home/topicDetail/' + id })
+    toTopicDetail(id) {
+      this.$router.push({ path: "/home/topicDetail/" + id });
     }
   }
-}
+};
 </script>
 
 <style lang="scss">

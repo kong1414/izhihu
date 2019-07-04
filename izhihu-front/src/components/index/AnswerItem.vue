@@ -93,6 +93,7 @@
                        v-if="comStat!=1"
                        @click="comStat=1"
                        style="margin-left: 0px;"
+                       size="mini"
                        type="text">
               <i class="el-icon-caret-top"></i>
               <span>{{apprN}}</span>
@@ -117,19 +118,20 @@
             </el-button>
             <el-button class="shareBut"
                        v-if="comStat==2"
+                       size="mini"
                        @click="comStat=0"
                        type="text">
               <i class="el-icon-caret-bottom"></i>
               <span>取消踩</span>
             </el-button>
             <el-button type="text"
-            size="mini"
+                       size="mini"
                        class="shareBut">
               <i class="el-icon-s-comment" />
               <span>回复</span>
             </el-button>
             <el-button type="text"
-            size="mini"
+                        size="mini"
                        class="shareBut">
               <i class="el-icon-warning" />
               <span>举报</span>
@@ -326,6 +328,7 @@ export default {
     .el-divider--horizontal {
       margin: 0px;
       margin-bottom: 15px;
+      margin-top:10px;
     }
     .mydivider {
       .el-divider--horizontal {
