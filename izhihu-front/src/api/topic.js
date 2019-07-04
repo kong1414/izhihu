@@ -23,3 +23,7 @@ export const reqTopicDetial = params => { // 获得话题详情
 export const reqTopicCreate = params => { // 新增话题
   return axios.post(`${BASE_URL}/topic/create`, params).then(res => res.data)
 }
+
+export const reqFindTopic = params => { // 模糊搜索话题
+  return axios.post(`${BASE_URL}/topic/find?` + params).then(res => res.data)
+}

@@ -125,9 +125,6 @@ export default {
         anonymity: 0,
         title: this.$store.state.user.name
       }
-
-
-      
     },
     handleClose (tag) {
       this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);

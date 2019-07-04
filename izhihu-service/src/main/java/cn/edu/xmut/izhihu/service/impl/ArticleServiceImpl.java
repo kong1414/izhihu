@@ -11,6 +11,7 @@ import cn.edu.xmut.izhihu.service.ArticleService;
 import cn.hutool.core.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import java.util.List;
  * @Version: 1.0
  */
 @Service
+@Transactional
 public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
@@ -45,8 +47,8 @@ public class ArticleServiceImpl implements ArticleService {
         article.setAuthorId(record.getUserId());
         article.setContent(record.getContent());
         article.setType(record.getType());
-
-        articleMapper.insert(article);
+        article.setAnonymity(record.getAnonymity());
+        articleMapper.insertSelective(article);
         if (record.getTopicList().size() <= 0) {
             return new SuccessVO();
         }
@@ -61,7 +63,7 @@ public class ArticleServiceImpl implements ArticleService {
             topicContentMapper.insert(tc);
         }
 
-        return new SuccessVO();
+        return new SuccessVO("发布成功");
     }
 
 
