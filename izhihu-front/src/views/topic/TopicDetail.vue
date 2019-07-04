@@ -9,9 +9,9 @@
           ></el-image>
         <div class="firCard">
           <div class="firCardName">
-            <span>{{topName}}{{topicId}}</span>
+            <span>{{topName}}</span>
           </div>
-          <div class="firCardDet">
+          <div class="firCardDet" @click="dialogVisible = true">
             <span>{{topDet}}</span>
           </div>
         </div>
@@ -31,7 +31,7 @@
           <span class="dis">讨论</span>
           <el-button class="moreCon" type="text">更多内容</el-button>
         </div>
-        <div v-for="disDet in disDets" :key="disDet"  class="text item">
+        <div v-for="disDet in disDets" :key="disDet.topicId"  class="text item">
           <answer-item :topicid = "topicId"
                        :attiStat = "disDet.attiStat"
                        :apprN = "disDet.apprN"
@@ -48,6 +48,18 @@
       <aside-Subs :topicId = "topicId"></aside-Subs>
       <aside-Footer></aside-Footer>
     </el-aside>
+    <el-dialog :title="topName"
+               :visible.sync="dialogVisible"
+               width="600px">
+      <div class="dialog-body">
+        <span>{{topDet}}</span>
+      </div>
+      <span slot="footer"
+            class="dialog-footer">
+        <el-button type="primary"
+                   @click="dialogVisible = false">关 闭</el-button>
+      </span>
+    </el-dialog>
   </el-container>
 </template>
 <script>
@@ -68,6 +80,7 @@ export default {
       isFollow: false,
       apprButView:false,
       oppButView:false,
+      dialogVisible: false,
       topName: '高考',
       topDet: '普通高等学校招生全国统一考试（The National College Entrance Examination），简称“高考”，是中华人民共和国（不包括香港特别行政区、澳门特别行政区和台湾省）合格的高中毕业生或具有同等学历的考生参加的选拔性考试。 2018年8月，北京市新高考方案公布。',
       disDets: [
@@ -215,6 +228,12 @@ export default {
       width:24px;
       height:24px;
     }
+  }
+
+  .dialog-body {
+    padding: 22px;
+    margin-top: -5px;
+    font-size: 15px;
   }
 
   .clearfix:before,
