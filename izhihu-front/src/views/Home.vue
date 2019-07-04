@@ -5,7 +5,8 @@
         <img class="logo"
              src="../assets/img/logo-izhihu.png"
              alt="izhihu"
-             height="40px">
+             height="40px"
+             @click="toHome">
         <div class="menu">
           <el-menu :default-active="activeIndex"
                    class="el-menu-top"
@@ -90,11 +91,15 @@ export default {
     this.user = this.$store.state.user
   },
   methods: {
+    toHome () {
+      // this.activeIndex = '/home/index'
+      // this.$router.push({ path:'/home/index' });
+    },
     handleSelect (key, keyPath) { // 暂时没用
       console.log(key, keyPath)
     },
     handleAsk () { // 提问
-      this.$router.push({ path:'/home/editquestion'  });
+      this.$router.push({ path:'/home/editquestion'});
     },
     changePasswords () { // 修改密码
 
@@ -125,6 +130,7 @@ export default {
       margin: 0 auto;
       .logo {
         vertical-align: super;
+        cursor: pointer;
       }
       .menu {
         display: inline-block;
