@@ -88,7 +88,7 @@ import { reqTopicCreate } from '../../api/topic'
 import { reqCreateQuestion } from '../../api/question.js'
 
 export default {
-  name: 'editarticle',
+  name: 'editQuestion',
   data () {
     return {
       texttitle: '',

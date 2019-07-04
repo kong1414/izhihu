@@ -36,6 +36,7 @@ public class QuestionController {
 
     @PostMapping("/findById")
     public ResultVO findById(@RequestParam String quesId) {
-        return null;
+
+        return questionService.findById(quesId);
     }
 }

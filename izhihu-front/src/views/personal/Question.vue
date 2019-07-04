@@ -4,15 +4,15 @@
       <el-card class="question-header-card">
         <div class="quesTopic">
           <span class="title">相关话题：</span>
-          <el-tag v-for="i in topicList" :key="i">
+          <el-tag v-for="i in topicList" :key="i.topicName">
             {{i.topicName}}
             </el-tag>
         </div>
         <div class="quesName">
-          {{quesName}}
+          {{quesInfo.quesName}}
         </div>
         <div class="quesdesc">
-          {{quesdesc}}
+          <div v-html="quesInfo.quesDescribe"></div>
         </div>
         <div class="button-group">
           <el-button type="primary" size="mini">关注问题</el-button>
@@ -32,7 +32,7 @@
             全部回答
           </div>
           <div>
-            <answer-item></answer-item>
+            <!-- <answer-item></answer-item> -->
           </div>
         </el-card>
       </el-main>
@@ -41,11 +41,11 @@
           <el-row>
             <el-col :span="12">
               <div class="att-title">关注者</div>
-              <div class="att-title-N">{{attNum}}</div>
+              <div class="att-title-N">{{quesInfo.attentionNum}}</div>
             </el-col>
             <el-col :span="12">
               <div class="att-title" >浏览量</div>
-              <div class="att-title-N">0</div>
+              <div class="att-title-N">{{quesInfo.browseNum}}</div>
             </el-col>
           </el-row>
         </el-card>
@@ -61,6 +61,7 @@
 import AnswerItem from '../../components/index/AnswerItem'
 import AsideFooter from '../../components/aside/AsideFooter'
 import AsideDiscovery from '../../components/aside/AsideDiscovery'
+import { reqFindQuestionById } from '../../api/question'
 export default {
   name: 'question',
   components: {
@@ -68,16 +69,44 @@ export default {
     AnswerItem,
     AsideDiscovery
   },
+  
   data () {
     return {
-      quesName: '怎样才能见到小罗伯特唐尼？',
-      quesdesc: '现在很多人已经不会在饥寒交迫中死去了，古人有很多追求永生，现在的小说也体现出了对永生的憧憬，生存是生物的第一需求，乃是人类本性，但我问，在文本分类任务中，fastText（浅层网络）往往能取得和深度网络相媲美的精度，却在训练时间上比深度网络快许多数量级。在标准的多核CPU上， 能够训练10亿词级别语料库的词向量在10分钟之内，能够分类有着30万多类别的50多万句子在1分钟之内。', 
+      quesId: this.$route.params.quesid,
+      quesInfo: {
+        anonymity: 0,
+        answerNum: 0,
+        attentionNum: 0,
+        browseNum: 0,
+        createTime: "2019-07-05T00:53:35.000+0000",
+        del: 0,
+        photoUrl: "",
+        quesDescribe: "",
+        quesId: "",
+        quesName: "",
+        questionerId: "",
+        updateTime: "",
+      },
       topicList: [{topicName: '123'}],
-      attNum: 0,
     }
   },
+  created () {
+    this._loadData()
+  },
   methods: {
-
+    _loadData () {
+      let params = 'quesId=' + this.$route.params.quesid
+      reqFindQuestionById(params).then(res => {
+        if (res.resultCode == 200) {
+          this.quesInfo = res.data
+          console.info(123,this.quesInfo)
+        }
+      })
+      // 查询作者
+      // TODO:
+      // 查询相关联话题
+      // TODO:
+    }
   }
 }
 </script>

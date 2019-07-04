@@ -3,6 +3,7 @@ package cn.edu.xmut.izhihu.service.impl;
 import cn.edu.xmut.izhihu.dao.ArticleMapper;
 import cn.edu.xmut.izhihu.dao.QuestionMapper;
 import cn.edu.xmut.izhihu.dao.TopicContentMapper;
+import cn.edu.xmut.izhihu.pojo.common.HttpCodeEnum;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
 import cn.edu.xmut.izhihu.pojo.common.Type;
@@ -68,7 +69,7 @@ public class QuestionServiceImpl implements QuestionService {
             tc.setType(Type.QUESTION.getCode());
             topicContentMapper.insert(tc);
         }
-        return new SuccessVO(id,"");
+        return new SuccessVO(id, "");
     }
 
     /**
@@ -102,8 +103,13 @@ public class QuestionServiceImpl implements QuestionService {
      * @return
      */
     @Override
-    public ResultVO findById(String quesId) {
+    public synchronized ResultVO findById(String quesId) {
         Question question = questionMapper.selectByPrimaryKey(quesId);
+        if (question == null) {
+            return new ResultVO(HttpCodeEnum.REQUEST_FAIL.getCode(), null, "问题id错误");
+        }
+        question.setBrowseNum(question.getBrowseNum() + 1);
+        questionMapper.updateByPrimaryKey(question);
         return new SuccessVO(question);
     }
 

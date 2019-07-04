@@ -15,7 +15,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      initial-size: 8 #初始化连接大小
+      initial-size: 5 #初始化连接大小
       min-idle: 5 #最小空闲连接数
       max-active: 30 #最大连接数
       query-timeout: 6000 #查询超时时间
