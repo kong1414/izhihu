@@ -2,9 +2,9 @@ package cn.edu.xmut.izhihu.service;
 
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.request.CommentRequest;
-import cn.edu.xmut.izhihu.pojo.vo.CommentVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:
@@ -20,7 +20,7 @@ public interface CommnetService {
      * @param contentId
      * @return
      */
-    List<CommentVO> find(String contentId);
+    List<Map<String, Object>> find(String contentId);
 
     /**
      * 进行评论

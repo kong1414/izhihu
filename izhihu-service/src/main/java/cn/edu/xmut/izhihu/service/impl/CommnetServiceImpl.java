@@ -6,12 +6,12 @@ import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
 import cn.edu.xmut.izhihu.pojo.entity.Comment;
 import cn.edu.xmut.izhihu.pojo.request.CommentRequest;
-import cn.edu.xmut.izhihu.pojo.vo.CommentVO;
 import cn.edu.xmut.izhihu.service.CommnetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:
@@ -32,7 +32,7 @@ public class CommnetServiceImpl implements CommnetService {
      * @return
      */
     @Override
-    public List<CommentVO> find(String contentId) {
+    public List<Map<String, Object>> find(String contentId) {
         return commentMapper.findByContentId(contentId);
     }
 

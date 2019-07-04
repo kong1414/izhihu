@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:
@@ -22,6 +23,8 @@ public class CommentMapperTest {
 
     @Test
     public void findByContentId() {
-        commentMapper.findByContentId("0c593ec4-feea-4751-99bd-bfee1434961e");
+
+        List<Map<String, Object>> list = commentMapper.findByContentId("0c593ec4-feea-4751-99bd-bfee1434961e");
+        System.out.println(list);
     }
 }
