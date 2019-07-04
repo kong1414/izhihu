@@ -1,5 +1,5 @@
 <template>
-   <!-- 我的收藏页 -->
+  <!-- 我的收藏页 -->
   <div class="aside-colletcion">
     <el-card class="colletcion-card">
       <el-row>
@@ -7,22 +7,22 @@
           <div class="above" style="margin-left:-20px;">
             <div>
               <el-button type="text">
-                <i class="el-icon-collection-tag"/>
+                <i class="el-icon-collection-tag" />
                 <span>我的收藏</span>
               </el-button>
             </div>
             <div>
               <el-button type="text">
-                <i class="el-icon-folder-checked"/>
+                <i class="el-icon-folder-checked" />
                 <span>我关注的问题</span>
               </el-button>
             </div>
-          <div>
-            <el-button type="text">
-              <i class="el-icon-document"/>
-              <span>邀请我回答的问题</span>
-            </el-button>
-          </div>
+            <div>
+              <el-button type="text">
+                <i class="el-icon-document" />
+                <span>邀请我回答的问题</span>
+              </el-button>
+            </div>
           </div>
         </div>
       </el-row>
@@ -33,13 +33,13 @@
           <div class="above" style="margin-left:-20px;">
             <div>
               <el-button type="text">
-                <i class="el-icon-s-home"/>
+                <i class="el-icon-s-home" />
                 <span>社区服务中心</span>
               </el-button>
             </div>
             <div>
               <el-button type="text">
-                <i class="el-icon-s-management"/>
+                <i class="el-icon-s-management" />
                 <span>版权服务中心</span>
               </el-button>
             </div>
@@ -57,46 +57,42 @@
                 <el-button type="text" @click="dialogFormVisible = true">+创建收藏夹</el-button>
               </div>
             </div>
-            <el-dialog title="创建收藏夹"
-               width="600px"
-               :visible.sync="dialogFormVisible">
-            <el-form :model="form"
-               label-width="60px"
-               style="width:100%;padding:20px;">
-            <el-form-item label="标题" style="margin-left:-50px;">
-              <el-input v-model="form.name"
-                  id="inTitle"
-                  autocomplete="off"
-                  placeholder="最多输入20字"></el-input>
-            </el-form-item>
-            <el-form-item label="描述" style="margin-left:-50px;">
-              <el-input v-model="form.detail"
-                  id="inDetail"
-                  autocomplete="off"
-                  placeholder="最多输入20字"></el-input>
-            </el-form-item>
-            <div class="choiArea">
-              <el-radio v-model="radioOC"
-                    label="1">
-            <span class="choiFont">公开</span>
-            <span class="detailFont">收藏夹关注者 > 0 时不能设置为私密</span>
-              </el-radio>
-            </div>
-            <div class="choiArea">
-              <el-radio v-model="radioOC"
-                    label="2">
-            <span class="choiFont">私密</span>
-            <span class="detailFont">只有你可以查看这个收藏夹</span>
-              </el-radio>
-            </div>
-          </el-form>
-          <div slot="footer"
-            class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary"
-                    @click="dialogFormVisible = false">确 定</el-button>
-          </div>
-        </el-dialog>
+            <el-dialog title="创建收藏夹" width="600px" :visible.sync="dialogFormVisible">
+              <el-form :model="form" label-width="60px" style="width:100%;padding:20px;">
+                <el-form-item label="标题" style="margin-left:-50px;">
+                  <el-input
+                    v-model="form.name"
+                    id="inTitle"
+                    autocomplete="off"
+                    placeholder="最多输入20字"
+                  ></el-input>
+                </el-form-item>
+                <el-form-item label="描述" style="margin-left:-50px;">
+                  <el-input
+                    v-model="form.detail"
+                    id="inDetail"
+                    autocomplete="off"
+                    placeholder="最多输入20字"
+                  ></el-input>
+                </el-form-item>
+                <div class="choiArea">
+                  <el-radio v-model="radioOC" label="1">
+                    <span class="choiFont">公开</span>
+                    <span class="detailFont">收藏夹关注者 > 0 时不能设置为私密</span>
+                  </el-radio>
+                </div>
+                <div class="choiArea">
+                  <el-radio v-model="radioOC" label="2">
+                    <span class="choiFont">私密</span>
+                    <span class="detailFont">只有你可以查看这个收藏夹</span>
+                  </el-radio>
+                </div>
+              </el-form>
+              <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+              </div>
+            </el-dialog>
           </div>
         </div>
       </el-row>
@@ -106,7 +102,7 @@
 
 <script>
 export default {
-  name: 'asideCollection',
+  name: "asideCollection",
   methods: {
     // 弹窗备选方法，只是不知道怎么改成两个输入框.....
     // open() {
@@ -128,21 +124,21 @@ export default {
     //   });
     // }
   },
-  data () {
+  data() {
     return {
       dialogFormVisible: false,
       form: {
-        name: '',
-        detail: '',
+        name: "",
+        detail: "",
         delivery: false,
         type: [],
-        resource: '',
-        desc: ''
+        resource: "",
+        desc: ""
       },
-      radioOC: '1'
-    }
+      radioOC: "1"
+    };
   }
-}
+};
 </script>
 <style lang="scss">
 .aside-colletcion {
@@ -168,29 +164,31 @@ export default {
       span {
         color: #76839b;
       }
-      i{
+      i {
         font-size: 17px;
       }
       div {
         padding-left: 20px;
       }
-      .above{
-        div:hover{
+      .above {
+        div:hover {
           background: #f6f6f6;
-          span{color: #7abce7;}
+          span {
+            color: #7abce7;
+          }
         }
       }
     }
-    .choiFont{
-      font-size:15px;
-      font-weight:bold;
+    .choiFont {
+      font-size: 15px;
+      font-weight: bold;
     }
-    .detailFont{
-      font-size:13px;
-      margin-left:5px;
+    .detailFont {
+      font-size: 13px;
+      margin-left: 5px;
     }
-    .choiArea{
-      margin-top:10px;
+    .choiArea {
+      margin-top: 10px;
       margin-left: 50px;
     }
   }

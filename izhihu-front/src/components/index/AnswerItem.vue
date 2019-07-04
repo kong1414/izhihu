@@ -142,13 +142,14 @@
         </div>
       </div>
       <span slot="footer">
-        <div style="margin-top: -15px;" v-if="!replayStat">
-          <el-input placeholder="请输入评论" v-model="input2">
+        <div style="margin-top: -5px;" v-if="!replayStat">
+          <el-input placeholder="请输入评论" v-model="input2" autocomplete="off">
             <el-button slot="append">发送</el-button>
           </el-input>
         </div>
         <div style="margin-top: -15px;" v-if="replayStat">
-          <el-input placeholder="回复" v-model="input2">
+          <el-button type="text" slot="append" style="float:left;margin-top:-30px;">回复{{replaycom}}:</el-button>
+          <el-input  placeholder="请输入评论" v-model="input2" autocomplete="off">
             <el-button slot="append">发送</el-button>
           </el-input>
         </div>
@@ -176,6 +177,7 @@ export default {
   },
   data() {
     return {
+      input2: "",
       comDets: [
         {
           create_time: "2019-07-02T13:49:03.000+0000",
