@@ -15,7 +15,7 @@
             <i class="el-icon-edit"/>
             <span>编辑</span>
           </el-button>
-          <el-button type="text" class="function">
+          <el-button type="text" class="function" @click="del">
             <i class="el-icon-delete"/>
             <span>删除</span>
           </el-button>
@@ -102,9 +102,25 @@ export default {
     }
   },
   methods: {
-    handleClick () {
-
-    }
+      del() {
+          this.$confirm('此操作将永久删除该收藏夹, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除'
+            });          
+          });
+        }
+    // handleClick () {
+    // }
   }
 }
 </script>
