@@ -35,7 +35,7 @@
 
 <script>
 export default {
-  name: 'editarticle',
+  name: 'editquestion',
   data () {
     return {
       texttitle : '',
