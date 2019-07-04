@@ -20,15 +20,15 @@
         <div class="Ftitle">父话题</div>
         <div>
           <el-button type="text">
-            <el-tag class="Ftag">{{Ftop}}</el-tag>
+            <el-tag class="Ftag">{{Ftop.topicName}}</el-tag>
           </el-button>
         </div>
       </div>
       <div>
         <div class="Ftitle" style="margin-top:20px;">子话题</div>
         <div style="width:250px;margin-left:-7px;">
-          <el-button type="text" v-for="Sontop in Sontops" :key="Sontop" style="margin-left: 10px;">
-            <el-tag class="Ftag">{{Sontop.topic}}</el-tag>
+          <el-button type="text" v-for="Sontop in SonTops" :key="Sontop" style="margin-left: 10px;">
+            <el-tag class="Ftag">{{Sontop.topicName}}</el-tag>
           </el-button>
         </div>
       </div>
@@ -67,7 +67,8 @@ export default {
   },
   methods: {
     _loadData(){
-      let params = topicId
+      let params = 'topicId=' + this.topicId
+      console.info(this.topicId)
       reqGetFathTop(params).then(res => {
         if (res.resultCode === 200) {
           console.info(res.data)
@@ -75,13 +76,13 @@ export default {
           console.info(this.Ftop)
         }
       })
-      // reqGetSonTop(params).then(res => {
-      //   if (res.resultCode === 200) {
-      //     console.info(res.data)
-      //     this.SonTops = res.data
-      //     console.info(this.SonTops)
-      //   }
-      // })
+      reqGetSonTop(params).then(res => {
+        if (res.resultCode === 200) {
+          console.info(res.data)
+          this.SonTops = res.data
+          console.info(this.SonTops)
+        }
+      })
     }
   }
 }

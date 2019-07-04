@@ -9,7 +9,7 @@
           ></el-image>
         <div class="firCard">
           <div class="firCardName">
-            <span>{{topName}}{{topicId}}</span>
+            <span>{{topName}}</span>
           </div>
           <div class="firCardDet">
             <span>{{topDet}}</span>
