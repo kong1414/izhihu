@@ -66,9 +66,9 @@ public class QuestionServiceImpl implements QuestionService {
             tc.setTopicId(topicId);
             tc.setContentId(id);
             tc.setType(Type.QUESTION.getCode());
-            topicContentMapper.insertSelective(tc);
+            topicContentMapper.insert(tc);
         }
-        return new SuccessVO();
+        return new SuccessVO(id,"");
     }
 
     /**

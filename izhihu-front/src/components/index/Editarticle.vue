@@ -1,66 +1,84 @@
 <template>
   <div class="editIndex">
-    <div class="head">
-      <span class="noname">匿名发布</span>
-      <el-radio v-model="radio"
-                label="0">否</el-radio>
-      <el-radio v-model="radio"
-                label="1">是</el-radio>
-    </div>
-    <div class="body">
-      <el-input class="titlearea"
-                resize="none"
-                type="textarea"
-                :autosize="{ minRows: 1, maxRows: 2}"
-                placeholder="请输入标题"
-                v-model="texttitle"
-                maxlength="50"
-                show-word-limit>
-      </el-input>
-      <div class="content">
-        <quill-editor v-model="content"
-                      ref="myTextEditor"
-                      :options="editorOption"
-                      @blur="onEditorBlur($event)"
-                      @focus="onEditorFocus($event)"
-                      @change="onEditorChange($event)">
-        </quill-editor>
+    <el-card style="width:800px;"
+             :body-style="{ padding: '0px 20px 20px' }">
+      <div slot="header">
+        写文章
       </div>
-    </div>
-    <div>
-      话题：
-      <el-select v-model="topicSelect"
-                 multiple
-                 filterable
-                 default-first-option
-                 remote
-                 reserve-keyword
-                 placeholder="请输入关键词"
-                 :remote-method="remoteMethod"
-                 :loading="loading">
-        <el-option v-for="item in options"
-                   :key="item.value"
-                   :label="item.label"
-                   :value="item.value">
-        </el-option>
-      </el-select>
-      <el-input style="width:100px;margin-left:10px;"
-                v-if="inputVisible"
-                v-model="inputValue"
-                ref="saveTagInput"
-                size="small"
-                @keyup.enter.native="handleInputConfirm"
-                @blur="handleInputConfirm">
-      </el-input>
-      <el-button v-else
-                 style="margin-left:10px"
-                 size="small"
-                 @click="showInput">+ New Tag</el-button>
-    </div>
-    <div class="footer">
-      <el-button class="push"
-                 @click="handleUp">发布</el-button>
-    </div>
+      <div class="head">
+        <div class="leftArea">
+          <el-button icon="el-icon-back"
+                     @click="returntoIndex"
+                     type="text">
+            <span>返回</span>
+          </el-button>
+        </div>
+        <div class="rightArea">
+          <span class="noname">匿名发布</span>
+          <el-radio v-model="radio"
+                    label="0">否</el-radio>
+          <el-radio v-model="radio"
+                    label="1">是</el-radio>
+        </div>
+
+      </div>
+      <div class="body">
+        <el-input class="titlearea"
+                  resize="none"
+                  type="textarea"
+                  :autosize="{ minRows: 1, maxRows: 2}"
+                  placeholder="请输入标题"
+                  v-model="texttitle"
+                  maxlength="50"
+                  show-word-limit>
+        </el-input>
+        <div class="content">
+          <quill-editor v-model="content"
+                        ref="myTextEditor"
+                        :options="editorOption"
+                        @blur="onEditorBlur($event)"
+                        @focus="onEditorFocus($event)"
+                        @change="onEditorChange($event)">
+          </quill-editor>
+        </div>
+      </div>
+      <div style="margin-top:20px;">
+        话题：
+        <el-select v-model="topicSelect"
+                   multiple
+                   filterable
+                   default-first-option
+                   remote
+                   reserve-keyword
+                   placeholder="请输入关键词"
+                   :remote-method="remoteMethod"
+                   :loading="loading">
+          <el-option v-for="item in options"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value">
+          </el-option>
+        </el-select>
+        <el-input style="width:100px;margin-left:10px;"
+                  v-if="inputVisible"
+                  v-model="inputValue"
+                  ref="saveTagInput"
+                  size="small"
+                  @keyup.enter.native="handleInputConfirm"
+                  @blur="handleInputConfirm">
+        </el-input>
+        <el-button v-else
+                   style="margin-left:10px"
+                   size="medium"
+                   @click="showInput">+ New Tag</el-button>
+      </div>
+      <div class="footer">
+        <el-button class="push"
+                   type="primary"
+                   @click="handleUp">发布</el-button>
+      </div>
+    </el-card>
+
   </div>
 </template>
 
@@ -107,6 +125,9 @@ export default {
           this.loading = false
         }
       })
+    },
+    returntoIndex () { //返回首页
+      this.$router.push({ path: '/home/index' });
     },
     remoteMethod (query) {
       if (query !== '') {
@@ -188,13 +209,19 @@ export default {
   margin: 2px auto 0;
   width: 660px;
   .head {
-    float: right;
+    .leftArea {
+      float: left;
+    }
+    .rightArea {
+      float: right;
+      line-height: 40px;
+    }
     .noname {
       margin-right: 20px;
     }
   }
   .body {
-    margin-top: 20px;
+    // margin-top: 20px;
     .titlearea {
       margin-top: 5px;
       margin-bottom: 5px;
