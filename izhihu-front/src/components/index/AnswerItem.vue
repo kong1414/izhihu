@@ -72,7 +72,11 @@
         <div v-for="comDet in comDets" :key="comDet.commentator_id" class="vforD">
           <div class="comName">
             {{comDet.name}}
-            <span v-if="comDet.is_reply!=0" @click="showReply(comDet.is_reply)" class="replyName">回复了{{replayname}}</span>
+            <span
+              v-if="comDet.is_reply!=0"
+              @click="showReply(comDet.is_reply)"
+              class="replyName"
+            >回复了{{replayname}}</span>
           </div>
           <div class="comContent">{{comDet.comment_content}}</div>
           <div class="comTime">{{comDet.create_time.substr(0,10)}}</div>
@@ -120,7 +124,12 @@
               <i class="el-icon-caret-bottom"></i>
               <span>取消踩</span>
             </el-button>
-            <el-button type="text" size="mini" class="shareBut" @click="replayStat = !replayStat;replayCom(comDet.id)">
+            <el-button
+              type="text"
+              size="mini"
+              class="shareBut"
+              @click="replayStat = !replayStat;replayCom(comDet.id)"
+            >
               <i class="el-icon-s-comment" />
               <span>回复</span>
             </el-button>
@@ -134,12 +143,11 @@
       </div>
       <span slot="footer">
         <div style="margin-top: -15px;" v-if="!replayStat">
-          
           <el-input placeholder="请输入评论" v-model="input2">
             <el-button slot="append">发送</el-button>
           </el-input>
         </div>
-        <div style="margin-top: -17px;" v-if="replayStat">
+        <div style="margin-top: -15px;" v-if="replayStat">
           <el-input placeholder="回复" v-model="input2">
             <el-button slot="append">发送</el-button>
           </el-input>
@@ -218,24 +226,24 @@ export default {
       dialogVisible: false,
       commentVisible: true,
       replayname: null,
-      replayStat:false,
+      replayStat: false,
       replaycom: null
     };
   },
   methods: {
     handleClick() {},
-    showReply(id){
+    showReply(id) {
       this.comDets.forEach(element => {
-        console.info(element)
-        if(element.id === id) this.replayname = element.name
-        console.info(this.replayname)
+        console.info(element);
+        if (element.id === id) this.replayname = element.name;
+        console.info(this.replayname);
       });
     },
-    replayCom(id){
+    replayCom(id) {
       this.comDets.forEach(element => {
-        console.info(element)
-        if(element.id === id) this.replaycom = element.name
-        console.info(this.replaycom)
+        console.info(element);
+        if (element.id === id) this.replaycom = element.name;
+        console.info(this.replaycom);
       });
     }
   }
@@ -312,7 +320,7 @@ export default {
     padding: 22px;
     margin-top: -5px;
     font-size: 15px;
-    .replyName{
+    .replyName {
       color: #8590a6;
       margin-left: 5px;
     }
@@ -346,7 +354,7 @@ export default {
       margin-bottom: 15px;
       margin-top: 10px;
     }
-    .comInput{
+    .comInput {
       width: 80%;
     }
   }
