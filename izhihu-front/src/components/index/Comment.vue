@@ -1,6 +1,6 @@
 <template>
 <!-- 评论组件 -->
-  <div class="comment-Main">
+  <div id="commentMain">
     wqeqweqweqwe
   </div>
   
@@ -8,7 +8,8 @@
 
 <script>
 export default {
-  name: 'commentItem',
+  name: 'commentMain',
+  el: 'commentMain',
   data () {
     return {
     }
@@ -28,6 +29,6 @@ export default {
 </script>
 
 <style lang="scss">
-.comment-Main {
+.commentMain {
 }
 </style>
