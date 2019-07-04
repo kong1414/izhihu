@@ -2,8 +2,26 @@
 <!-- 收藏夹页，对于某个收藏夹而言的页面 -->
   <el-container class="favorite-container">
     <el-main>
-      <el-card class="favorite">
-
+      <el-card class="favorite" :body-style="{ padding: '20px 0px 10px 20px' }">
+        <div>
+          <span style=" font-size:16px; ">收藏夹名称</span>
+        </div>
+        <div class="favorite-describe">
+          <span>收藏夹描述</span>
+        </div>
+        <div class="favorite-function">
+          <el-button type="text" class="function">
+            <i class="el-icon-edit"/>
+            <span>编辑</span>
+          </el-button>
+          <el-button type="text" class="function">
+            <i class="el-icon-delete"/>
+            <span>删除</span>
+          </el-button>
+        </div>
+      </el-card>
+      <el-card>
+        <span>暂无收藏内容</span>
       </el-card>
     </el-main>
     <el-aside width="300px" style="background-color:#ecf5ff;min-height:200px">
@@ -12,7 +30,7 @@
           <span style=" font-size:15px; ">关于创建者</span>
         </div>
         <div class="creator-message">
-          <el-avatar class="img" shape="square" :fit="cover" :src="photoUrl"></el-avatar>
+          <el-avatar class="img" shape="square" :src="photoUrl"></el-avatar>
           <el-button type="text" class="btn-creator-name">昵称</el-button>
         </div>
       </el-card>
@@ -55,6 +73,16 @@ export default {
 </script>
 <style lang="scss">
 .favorite-container {
+  .favorite{
+    .favorite-describe{
+      margin-top: 15px;
+    }
+    .function{
+      margin-top: 2px;
+      color: #76839b;
+      font-size: 15px;
+    }
+  }
   .creator{
     .creator-message{
       padding: 10px 0px 0px 6px;
