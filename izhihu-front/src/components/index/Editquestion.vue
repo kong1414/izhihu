@@ -1,9 +1,15 @@
 <template>
   <div class="editIndex">
-    <div class="head">
-      <span class="noname">匿名发布</span>
-      <el-radio v-model="radio" label="1">否</el-radio>
-      <el-radio v-model="radio" label="2">是</el-radio>
+    <div class="head">   
+        <el-button class="returnIndex" type="text">
+            <i class="el-icon-back"></i>
+            <span>返回</span>
+        </el-button>
+        <dir class="rightArea">
+            <span class="noname">匿名发布</span>
+        <el-radio v-model="radio" label="1">否</el-radio>
+        <el-radio v-model="radio" label="2">是</el-radio>
+        </dir>
     </div>
     <div class="body">
       <el-input
@@ -61,13 +67,19 @@ export default {
   margin: 2px auto 0;
   width: 660px;
   .head{
-    float:right;
-    .noname{
-      margin-right: 20px;
+    .rightArea{
+        float: right;
+        .noname{
+            margin-right: 20px;
+        }
+    }
+    .returnIndex{
+        float: left;
+        margin-top: 8px;
     }
   }
   .body{
-    margin-top: 20px;
+    margin-top: 5px;
     .titlearea{
       margin-top: 5px;
       margin-bottom: 5px;
