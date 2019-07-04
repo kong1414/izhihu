@@ -1,7 +1,7 @@
 <template>
   <div class="editIndex">
     <div class="head">   
-        <el-button class="returnIndex" type="text">
+        <el-button class="returnIndex" @click="returntoIndex" type="text">
             <i class="el-icon-back"></i>
             <span>返回</span>
         </el-button>
@@ -51,6 +51,9 @@ export default {
     }
   },
   methods: {
+    returntoIndex(){//返回首页
+        this.$router.push({ path:'/home/index'  });
+    },
     onEditorBlur(){//失去焦点事件
     },
     onEditorFocus(){//获得焦点事件
