@@ -6,7 +6,7 @@
     </el-button>
     <div style="margin-top:10px;">
       <el-image class="avaImag"
-                :src="topName"></el-image>
+                :src="null"></el-image>
       <span class="disDetAuthor">{{author}}</span>
       <span style="font-size:14px;">, {{authorDet}}</span>
     </div>

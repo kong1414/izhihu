@@ -55,7 +55,7 @@ public class CommnetServiceImpl implements CommnetService {
     }
 
     /**
-     * 进行评论
+     * 删除评论
      *
      * @param userId
      * @param id

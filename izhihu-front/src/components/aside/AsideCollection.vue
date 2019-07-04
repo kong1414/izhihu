@@ -59,10 +59,10 @@
             </div>
             <el-dialog title="创建新收藏夹" :visible.sync="dialogFormVisible">
               <el-form :model="form">
-                <el-form-item label="标题" :label-width="formLabelWidth" style="margin-top:20px;margin-left:50px;">
+                <el-form-item label="标题"  style="margin-top:20px;margin-left:50px;">
                   <el-input v-model="form.name" id="inTitle" autocomplete="off" placeholder="最多输入20字" style="width:400px;margin-left:37px;"></el-input>
                 </el-form-item>
-                <el-form-item label="描述(可选)" :label-width="formLabelWidth" style="margin-left:50px;">
+                <el-form-item label="描述(可选)"  style="margin-left:50px;">
                   <el-input v-model="form.detail" id="inDetail" autocomplete="off" placeholder="最多输入20字" style="width:400px;"></el-input>
                 </el-form-item>
                 <div class="choiArea">

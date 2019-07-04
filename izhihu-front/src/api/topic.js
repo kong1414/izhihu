@@ -19,3 +19,7 @@ export const reqAttedTopic = params => { // 获得已关注的话题
 export const reqTopicDetial = params => { // 获得话题详情
   return axios.post(`${BASE_URL}/topic/topicDetial?` + params).then(res => res.data)
 }
+
+export const reqTopicCreate = params => { // 新增话题
+  return axios.post(`${BASE_URL}/topic/create`, params).then(res => res.data)
+}

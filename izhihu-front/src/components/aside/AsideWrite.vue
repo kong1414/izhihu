@@ -52,30 +52,99 @@
           v-model="textarea">
         </el-input>
       </div>
+      <div style="margin-left:20px;">
+        话题
+        <el-tag
+        style="margin-left:10px;"
+          :key="tag"
+          v-for="tag in dynamicTags"
+          closable
+          :disable-transitions="false"
+          @close="handleClose(tag)">
+          {{tag}}
+        </el-tag>
+        <el-input
+          style="width:100px;margin-left:10px;"
+          v-if="inputVisible"
+          v-model="inputValue"
+          ref="saveTagInput"
+          size="small"
+          @keyup.enter.native="handleInputConfirm"
+          @blur="handleInputConfirm"
+        >
+        </el-input>
+        <el-button v-else style="margin-left:10px" size="small" @click="showInput">+ New Tag</el-button>
+      </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="emptyWriteIdea">取 消</el-button>
-        <el-button type="primary" @click="emptyWriteIdea">确 定</el-button>
+        <el-button type="primary" @click="writeIdea">确 定</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
+import {reqCreateArticle} from '../../api/article'
+import {reqTopicCreate} from '../../api/topic'
 export default {
   name: 'asideWrite',
   data () {
     return {
       writerDialogVisible: false,
-      textarea: ''
+      textarea: '',
+      dynamicTags: [], //关联的话题
+      inputVisible: false,
+      inputValue: '',
     }
   },
   methods: {
-    handleWriteAnswer () { // 处理写回答
+    handleWriteAnswer () { // 处理写回答 废除
 
     },
-    emptyWriteIdea (){
+    emptyWriteIdea (){ // 取消
       this.textarea='';
       this.writerDialogVisible = false;
+    },
+    writeIdea () {  // 确定发送
+      let topicList = []
+      console.info(this.dynamicTags)
+      this.dynamicTags.map(i => { // 处理话题
+        let params = {
+          topicName: i
+        }
+        reqTopicCreate(params).then(res=> {
+          if (res.resultCode == 200) {
+            console.info(res.data)
+            topicList.push(res.data)
+          }
+        })
+      })
+      let Aparams = {
+        userId: this.$store.state.user.userId,
+        type: 3,
+        anonymity: 0,
+        title: this.$store.state.user.name
+      }
+
+
+      
+    },
+    handleClose (tag) {
+      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+    },
+    handleInputConfirm () {
+      let inputValue = this.inputValue;
+        if (inputValue) {
+          this.dynamicTags.push(inputValue);
+        }
+        this.inputVisible = false;
+        this.inputValue = '';
+    },
+    showInput () {
+      this.inputVisible = true;
+      this.$nextTick(_ => {
+        this.$refs.saveTagInput.$refs.input.focus();
+      });
     }
   }
 }
