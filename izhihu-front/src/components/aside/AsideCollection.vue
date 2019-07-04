@@ -59,11 +59,11 @@
             </div>
             <el-dialog title="创建新收藏夹" width="600px;" :visible.sync="dialogFormVisible">
               <el-form :model="form">
-                <el-form-item label="标题"  style="margin-top:20px;margin-left:12px;">
-                  <el-input v-model="form.name" id="inTitle" autocomplete="off" placeholder="最多输入20字" style="width:400px;margin-left:37px;"></el-input>
+                <el-form-item label="标题"  style="margin-top:20px;margin-left:130px;">
+                  <el-input v-model="form.name" id="inTitle" autocomplete="off" placeholder="最多输入20字" style="width:500px;margin-left:37px;"></el-input>
                 </el-form-item>
-                <el-form-item label="描述(可选)"  style="margin-left:12px;">
-                  <el-input v-model="form.detail" id="inDetail" autocomplete="off" placeholder="最多输入20字" style="width:400px;"></el-input>
+                <el-form-item label="描述(可选)"  style="margin-left:130px;">
+                  <el-input v-model="form.detail" id="inDetail" autocomplete="off" placeholder="最多输入20字" style="width:500px;"></el-input>
                 </el-form-item>
                 <div class="choiArea">
                   <el-radio v-model="radioOC" label="1">
@@ -177,7 +177,7 @@ export default {
     }
     .choiArea{
       margin-top:10px;
-      margin-left: 50px;
+      margin-left: 240px;
     }
   }
 }
