@@ -5,145 +5,145 @@
       <div class="disDetName">{{queName}}</div>
     </el-button>
     <div style="margin-top:10px;">
-      <el-image class="avaImag"
-                :src="null"></el-image>
+      <el-image class="avaImag" :src="null"></el-image>
       <span class="disDetAuthor">{{author}}</span>
       <span style="font-size:14px;">, {{authorDet}}</span>
     </div>
-    <div class="disDetque"
-         @click=" dialogVisible = true">{{queDet}}</div>
+    <div class="disDetque" @click=" dialogVisible = true">{{queDet}}</div>
     <div class="ope">
       <span>
-        <el-button class="apprBut"
-                   v-if="attiStat!=1"
-                   @click="attiStat=1">
+        <el-button class="apprBut" v-if="attiStat!=1" @click="attiStat=1">
           <i class="el-icon-caret-top"></i>
           <span>赞同 {{apprN}}</span>
         </el-button>
-        <el-button class="apprBut"
-                   style="background:#0084ff;width:120px;"
-                   v-if="attiStat==1"
-                   @click="attiStat=0;">
-          <i class="el-icon-caret-top"
-             style="color:white;"></i>
+        <el-button
+          class="apprBut"
+          style="background:#0084ff;width:120px;"
+          v-if="attiStat==1"
+          @click="attiStat=0;"
+        >
+          <i class="el-icon-caret-top" style="color:white;"></i>
           <span style="color:white;">已赞同 {{apprN}}</span>
         </el-button>
-        <el-button class="oppBut"
-                   v-if="attiStat!=2"
-                   @click="attiStat=2">
+        <el-button class="oppBut" v-if="attiStat!=2" @click="attiStat=2">
           <i class="el-icon-caret-bottom"></i>
         </el-button>
-        <el-button class="oppBut"
-                   style="background:#0084ff;"
-                   v-if="attiStat==2"
-                   @click="attiStat=0">
-          <i class="el-icon-caret-bottom"
-             style="color:white;"></i>
+        <el-button
+          class="oppBut"
+          style="background:#0084ff;"
+          v-if="attiStat==2"
+          @click="attiStat=0"
+        >
+          <i class="el-icon-caret-bottom" style="color:white;"></i>
         </el-button>
       </span>
-      <el-button type="text"
-                 class="shareBut"
-                 @click="commentVisible = true">
+      <el-button type="text" class="shareBut" @click="commentVisible = true">
         <!-- <comment :commentVisible = "commentVisible"/> -->
         <i class="el-icon-chat-line-round shareI" />
         <span>{{evalN}} 条评论</span>
       </el-button>
-      <el-button type="text"
-                 class="shareBut">
+      <el-button type="text" class="shareBut">
         <i class="el-icon-s-promotion shareI" />
         <span>分享</span>
       </el-button>
-      <el-button type="text"
-                 class="shareBut">
+      <el-button type="text" class="shareBut">
         <i class="el-icon-star-on shareI" />
         <span>收藏</span>
       </el-button>
-      <el-button type="text"
-                 class="shareBut">
+      <el-button type="text" class="shareBut">
         <i class="el-icon-s-flag shareI" />
         <span>感谢</span>
       </el-button>
     </div>
     <el-divider></el-divider>
     <!-- 问题答案内容 -->
-    <el-dialog :title="queName"
-               :visible.sync="dialogVisible"
-               width="600px">
+    <el-dialog :title="queName" :visible.sync="dialogVisible" width="600px">
       <div class="dialog-body">
         <span>{{queDet}}</span>
       </div>
-      <span slot="footer"
-            class="dialog-footer">
-        <el-button type="primary"
-                   @click="dialogVisible = false">关 闭</el-button>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogVisible = false">关 闭</el-button>
       </span>
     </el-dialog>
     <!-- 评论内容 -->
-    <el-dialog :title="evalN+'条评论'"
-               :visible.sync="commentVisible"
-               width="600px">
+    <el-dialog :title="evalN+'条评论'" :visible.sync="commentVisible" width="600px">
       <div class="dialog-body">
         <!-- <CommetItem></CommetItem> -->
         <div v-for="comDet in comDets" :key="comDet.commentator_id" class="vforD">
-          <div class="comName">{{comDet.name}}</div>
+          <div class="comName">
+            {{comDet.name}}
+            <span v-if="comDet.is_reply!=0" @click="showReply(comDet.is_reply)" class="replyName">回复了{{replayname}}</span>
+          </div>
           <div class="comContent">{{comDet.comment_content}}</div>
-          <div class="comTime">{{comDet.create_time.substr(0,10)}}</div> 
+          <div class="comTime">{{comDet.create_time.substr(0,10)}}</div>
           <div>
-            <el-button class="shareBut"
-                       v-if="comStat!=1"
-                       @click="comStat=1"
-                       style="margin-left: 0px;"
-                       size="mini"
-                       type="text">
+            <el-button
+              class="shareBut"
+              v-if="comDet.stat!=1"
+              @click="comDet.stat=1"
+              style="margin-left: 0px;"
+              size="mini"
+              type="text"
+            >
               <i class="el-icon-caret-top"></i>
               <span>{{apprN}}</span>
             </el-button>
-            <el-button class="shareBut"
-                       size="mini"
-                       v-if="comStat==1"
-                       @click="comStat=0;"
-                       style="color: #0084ff;margin-left: 0px;"
-                       type="text">
+            <el-button
+              class="shareBut"
+              size="mini"
+              v-if="comDet.stat==1"
+              @click="comDet.stat=0;"
+              style="color: #0084ff;margin-left: 0px;"
+              type="text"
+            >
               <i class="el-icon-caret-top"></i>
               <span>{{apprN}}</span>
             </el-button>
-            <el-button class="shareBut"
-                       size="mini"
-                       v-if="comStat!=2"
-                       style="margin-left:10px;"
-                       @click="comStat=2"
-                       type="text">
+            <el-button
+              class="shareBut"
+              size="mini"
+              v-if="comDet.stat!=2"
+              style="margin-left:10px;"
+              @click="comDet.stat=2"
+              type="text"
+            >
               <i class="el-icon-caret-bottom"></i>
               <span>踩</span>
             </el-button>
-            <el-button class="shareBut"
-                       v-if="comStat==2"
-                       size="mini"
-                       @click="comStat=0"
-                       type="text">
+            <el-button
+              class="shareBut"
+              v-if="comDet.stat==2"
+              size="mini"
+              @click="comDet.stat=0"
+              type="text"
+            >
               <i class="el-icon-caret-bottom"></i>
               <span>取消踩</span>
             </el-button>
-            <el-button type="text"
-                       size="mini"
-                       class="shareBut">
+            <el-button type="text" size="mini" class="shareBut" @click="replayStat = !replayStat;replayCom(comDet.id)">
               <i class="el-icon-s-comment" />
               <span>回复</span>
             </el-button>
-            <el-button type="text"
-                        size="mini"
-                       class="shareBut">
+            <el-button type="text" size="mini" class="shareBut">
               <i class="el-icon-warning" />
               <span>举报</span>
             </el-button>
-            <el-divider class="mydivider" style="margin:0px 0px 0px 0px;"></el-divider>
+            <el-divider></el-divider>
           </div>
         </div>
       </div>
-      <span slot="footer"
-            class="dialog-footer">
-        <el-button type="primary"
-                   @click="commentVisible = false">关 闭</el-button>
+      <span slot="footer">
+        <div style="margin-top: -15px;" v-if="!replayStat">
+          
+          <el-input placeholder="请输入评论" v-model="input2">
+            <el-button slot="append">发送</el-button>
+          </el-input>
+        </div>
+        <div style="margin-top: -17px;" v-if="replayStat">
+          <el-input placeholder="回复" v-model="input2">
+            <el-button slot="append">发送</el-button>
+          </el-input>
+        </div>
       </span>
     </el-dialog>
   </div>
@@ -152,7 +152,7 @@
 <script>
 // import CommentItem from './Comment'
 export default {
-  name: 'AnswerItem',
+  name: "AnswerItem",
   components: {
     // CommentItem
   },
@@ -166,68 +166,80 @@ export default {
     authorDet: String,
     queDet: String
   },
-  components: {
-  },
-  data () {
+  data() {
     return {
-      disDets: [
-        { attiStat: '0', apprN: '100', evalN: '100', queName: '你是如何填写高考志愿的，为什么选择了所填报的学校和专业？', author: 'Yuhang', authorDet: '数学领域优秀答题者', queDet: '对这个问题感触还是很深，哈哈哈，因为我应该是知乎大佬们口中所说的“寒门子弟”，是家族里第一个过了一本线的大学生，所以没有人可以指导我，七年前的我，不知道知乎、没有微博、不知道什么微信公众号，直到大学第一天，我才有我自己的第一部手机，电脑也是为了填志愿而买的一部配置非常感人的老古董，偶尔百度百度。出分数之后，我是湖北省文科1022名，按名次来说，我可以填一个一般的985，然而，我们整个家族都不知道该怎么填志愿。正好一个远房亲戚的孩子也高考，刚过一本线，非常难填，要去市里面找一个什么大师去填志愿，我爸妈也是为数不多的一次为了我蹭人家的便车，连夜赶到他家做客尬聊，然后一起去“大师”家里问志愿怎么填，其实大师的逻辑非常之简单，看“录取分数波动”，其实后来我就知道这种方法很偏颇，应该要以“名次”为准，可是，当年，其实也没有什么更好的办法。' },
-        { attiStat: '1', apprN: '123', evalN: '123', queName: '当你知道高考成绩以后的感受？', author: 'Seddie', authorDet: '教育领域优秀答题者', queDet: '知乎处女答！高考前一天晚上，我在背古诗词的时候突然感到空虚寂寞冷。于是，我就把我爸妈喊来玩汉字听写游戏，我报他俩写。我报宠爱的“宠”，我妈写了个“庞”，我爸嘲笑她。我妈放出狂言：要是他写对了我就把纸吃了。我爸写对，我妈遂吃纸。我报暧昧的“暧”，我爸写了个“暖”，我妈嘲笑他。我爸放出狂言：要是她写对了我就把纸吃了。我妈写对，我爸遂吃纸。于是这天晚上，我爸妈一边嚼着纸屑一边互骂对方不是中国人，房间内外充满了快活的空气。' },
-        { attiStat: '2', apprN: '234', evalN: '311', queName: '高考完的那个晚上你去干嘛了？', author: 'Chen Wen', authorDet: '一个在修飞机，其实想开飞机的老司机', queDet: '典型的拉不出屎还要怪到地心引力。短短的几句问题描述，我来告诉你都有哪些槽点。1、兼容并包北大的兼容并包是什么？指的是任何思想都可以在这里碰撞，不是说任何人都可以在园子里嘚瑟。你有思想，哪怕今天在扫地，明天说不定也能和大师们坐而论道；你没思想，就算今天堂而皇之地坐在教学楼里，说不定明天就被扫地出门。这才叫兼容并包，实现它的前提是平等。所以，一个高考“状元”从北大退学，恰恰证明北大坚持了传统，不以高考成绩考察学生，高考状元也没有特权，真正做到了兼容并包。2、天才如果按照IQ140的标准，那么主人公很可能是天才，这没什么说的。但是你要知道，IQ140在人群中的概率比上清华北大还要高，也就不难知道，这样的天才在北大绝对不稀奇。如果换一个标准，以人才作为人间之才，那么天才指的就是此才只应天上有。一个地级市状元，再考是省状元，这也远远达不到“天选之才”的程度。全国每年几百个市状元，大几十个省状元，是必然会出现的一个群体。' }
-      ],
-      comStat:0,
-      comDets:[
+      comDets: [
         {
-          "create_time": "2019-07-02T13:49:03.000+0000",
-          "commentator_id": "c6c4cb00-9188-4722-9817-08b0c53aa182",
-          "praise_num": 0,
-          "name": "qwe",
-          "comment_content": "评论内容1",
-          "id": 1,
-          "comment_id": "0c593ec4-feea-4751-99bd-bfee1434961e",
-          "is_reply": 0
+          create_time: "2019-07-02T13:49:03.000+0000",
+          commentator_id: "c6c4cb00-9188-4722-9817-08b0c53aa182",
+          praise_num: 0,
+          name: "qwe",
+          comment_content: "评论内容1",
+          id: 1,
+          comment_id: "0c593ec4-feea-4751-99bd-bfee1434961e",
+          is_reply: 0,
+          stat: "0"
         },
         {
-          "create_time": "2019-07-02T13:49:44.000+0000",
-          "commentator_id": "c6c4cb00-9188-4722-9817-08b0c53aa182",
-          "praise_num": 0,
-          "name": "wer",
-          "comment_content": "评论内容2",
-          "id": 2,
-          "comment_id": "0c593ec4-feea-4751-99bd-bfee1434961e",
-          "is_reply": 0
+          create_time: "2019-07-02T13:49:44.000+0000",
+          commentator_id: "c6c4cb00-9188-4722-9817-08b0c53aa182",
+          praise_num: 0,
+          name: "wer",
+          comment_content: "评论内容2",
+          id: 2,
+          comment_id: "0c593ec4-feea-4751-99bd-bfee1434961e",
+          is_reply: 0,
+          stat: "1"
         },
         {
-          "reply_id": 1,
-          "create_time": "2019-07-02T13:50:40.000+0000",
-          "commentator_id": "c6c4cb00-9188-4722-9817-08b0c53aa182",
-          "praise_num": 0,
-          "name": "ert",
-          "comment_content": "测试回复内容1: 回复内容1",
-          "id": 3,
-          "comment_id": "0c593ec4-feea-4751-99bd-bfee1434961e",
-          "is_reply": 1
+          reply_id: 1,
+          create_time: "2019-07-02T13:50:40.000+0000",
+          commentator_id: "c6c4cb00-9188-4722-9817-08b0c53aa182",
+          praise_num: 0,
+          name: "ert",
+          comment_content: "测试回复内容1: 回复内容1",
+          id: 3,
+          comment_id: "0c593ec4-feea-4751-99bd-bfee1434961e",
+          is_reply: 1,
+          stat: "2"
         },
         {
-          "create_time": "2019-07-04T04:03:04.000+0000",
-          "commentator_id": "c6c4cb00-9188-4722-9817-08b0c53aa182",
-          "praise_num": 0,
-          "name": "rty",
-          "comment_content": "评论内容3",
-          "id": 4,
-          "comment_id": "0c593ec4-feea-4751-99bd-bfee1434961e",
-          "is_reply": 0
+          create_time: "2019-07-04T04:03:04.000+0000",
+          commentator_id: "c6c4cb00-9188-4722-9817-08b0c53aa182",
+          praise_num: 0,
+          name: "rty",
+          comment_content: "评论内容3",
+          id: 4,
+          comment_id: "0c593ec4-feea-4751-99bd-bfee1434961e",
+          is_reply: 0,
+          stat: "2"
         }
       ],
-      dialogVisible : false,
-      commentVisible: true
-    }
+      dialogVisible: false,
+      commentVisible: true,
+      replayname: null,
+      replayStat:false,
+      replaycom: null
+    };
   },
   methods: {
-    handleClick () {
+    handleClick() {},
+    showReply(id){
+      this.comDets.forEach(element => {
+        console.info(element)
+        if(element.id === id) this.replayname = element.name
+        console.info(this.replayname)
+      });
+    },
+    replayCom(id){
+      this.comDets.forEach(element => {
+        console.info(element)
+        if(element.id === id) this.replaycom = element.name
+        console.info(this.replaycom)
+      });
     }
   }
-}
+};
 </script>
 <style lang="scss">
 .myanswer-item {
@@ -300,24 +312,28 @@ export default {
     padding: 22px;
     margin-top: -5px;
     font-size: 15px;
-    .comName{
+    .replyName{
+      color: #8590a6;
+      margin-left: 5px;
+    }
+    .comName {
       font-weight: 500;
       line-height: 24px;
       color: #1a1a1a;
       // margin-left: -10px;
     }
-    .comContent{
+    .comContent {
       line-height: 1.6;
       margin-top: 5px;
       color: #1a1a1a;
     }
-    .comTime{
+    .comTime {
       font-size: 14px;
       color: #8590a6;
       margin-top: 5px;
-      float:right;
+      float: right;
     }
-    .shareBut{
+    .shareBut {
       font-size: 14px;
       color: #8590a6;
       text-align: center;
@@ -328,12 +344,10 @@ export default {
     .el-divider--horizontal {
       margin: 0px;
       margin-bottom: 15px;
-      margin-top:10px;
+      margin-top: 10px;
     }
-    .mydivider {
-      .el-divider--horizontal {
-        // margin 
-      }
+    .comInput{
+      width: 80%;
     }
   }
 }

@@ -73,19 +73,19 @@ export default {
   methods: {
     _loadData() {
       let params = "topicId=" + this.topicId;
-      console.info(this.topicId);
+      // console.info(this.topicId);
       reqGetFathTop(params).then(res => {
         if (res.resultCode === 200) {
-          console.info(res.data);
+          // console.info(res.data);
           this.Ftop = res.data;
-          console.info(this.Ftop);
+          //console.info(this.Ftop);
         }
       });
       reqGetSonTop(params).then(res => {
         if (res.resultCode === 200) {
-          console.info(res.data);
+          //console.info(res.data);
           this.SonTops = res.data;
-          console.info(this.SonTops);
+         //console.info(this.SonTops);
         }
       });
     }
