@@ -20,7 +20,7 @@
           </el-button>
         </div>
       </el-card>
-      <el-card>
+      <el-card class="favorite-content">
         <span>暂无收藏内容</span>
       </el-card>
     </el-main>
@@ -73,6 +73,7 @@ export default {
 </script>
 <style lang="scss">
 .favorite-container {
+  margin-top: 20px;
   .favorite{
     .favorite-describe{
       margin-top: 15px;
@@ -82,6 +83,9 @@ export default {
       color: #76839b;
       font-size: 15px;
     }
+  }
+  .favorite-content{
+      margin-top: 20px;
   }
   .creator{
     .creator-message{
@@ -100,7 +104,7 @@ export default {
     }
   }
   .favorite-status{
-     margin-top: 10px;
+     margin-top: 20px;
      .time{
        margin-top:14px; 
      }
