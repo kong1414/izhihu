@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="head">
     12312
   </div>
 </template>
@@ -19,5 +19,8 @@ export default {
 </script>
 
 <style lang="scss">
-
+.head{
+  width: 300px;
+  color: red;
+}
 </style>
