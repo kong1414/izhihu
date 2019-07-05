@@ -1,18 +1,18 @@
 <template>
   <div>
-    <div >
-      <el-breadcrumb>
-        <el-breadcrumb-item :to="{ path: '/' }"><i class="el-icon-house"/>图书管理</el-breadcrumb-item>
+    <div class="title">
+      <el-breadcrumb class="titleFont">
+        <el-breadcrumb-item :to="{ path: '/' }"><i class="el-icon-house"/>图书借阅</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="BookBorrow">
       <el-card>
         <div>
-          <div class="creaBook"><el-button>新增图书</el-button></div>
+          <!-- <div class="creaBook"><el-button>新增图书</el-button></div> -->
           <div class="searchBook">
             <div><span>图书名称:</span></div>
-            <div><el-input></el-input></div>
-            <div><el-button>查询</el-button></div>
+            <div><el-input placeholder="请输入图书室名称查询"></el-input></div>
+            <div><el-button type="primary">查询</el-button></div>
           </div>
         </div>
         <div>
@@ -20,30 +20,39 @@
             :data="tableData"
             style="width: 100%">
             <el-table-column
-              prop="date"
-              label="日期"
+              prop="bookName"
+              label="图书名称"
               width="180">
             </el-table-column>
             <el-table-column
-              prop="name"
-              label="姓名"
+              prop="published"
+              label="出版社"
               width="180">
             </el-table-column>
             <el-table-column
-              prop="address"
-              label="地址">
+              prop="author"
+              label="作者">
+            </el-table-column>
+            <el-table-column
+              prop="stoke"
+              label="库存">
+            </el-table-column>
+            <el-table-column
+              prop="opera"
+              label="操作">
             </el-table-column>
           </el-table>
         </div>
-        <div>
+        <div class="Pagination">
           <el-pagination
             background
             layout="prev, pager, next"
-            :total="1000">
+            :total="100">
           </el-pagination>
         </div>
       </el-card>
     </div>
+    <div class="footer">厦门理工学院版权所有</div>
   </div>
 </template>
 
@@ -53,21 +62,29 @@ export default {
   data () {
     return {
           tableData: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
+            bookName: '2016-05-02',
+            published: '王小虎',
+            author: '上海市普陀区金沙江路 1518 弄',
+            stoke:'123',
+            opera:'123'
+          },{
+            bookName: '2016-05-02',
+            published: '王小虎',
+            author: '上海市普陀区金沙江路 1518 弄',
+            stoke:'123',
+            opera:'123'
+          },{
+            bookName: '2016-05-02',
+            published: '王小虎',
+            author: '上海市普陀区金沙江路 1518 弄',
+            stoke:'123',
+            opera:'123'
+          },{
+            bookName: '2016-05-02',
+            published: '王小虎',
+            author: '上海市普陀区金沙江路 1518 弄',
+            stoke:'123',
+            opera:'123'
           }]
         }
       }
@@ -76,12 +93,26 @@ export default {
 
 <style lang="scss">
 .BookBorrow{
-  .creaBook{
-    float: left;
-  }
+  margin: 40px 0px;
   .searchBook{
-    float: right;
+     display: inline;
   }
+  .Pagination{
+    float:right;
+  }
+}
+.title{
+  background: white;
+  width: 1224px;
+  height: 40px;
+  margin: -20px -20px;
+  .titleFont{
+    padding-top: 13px;
+    padding-left: 10px;
+  }
+}
+.footer{
+  margin-left: 350px;
 }
   
 
