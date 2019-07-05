@@ -20,4 +20,43 @@
     where
     name like concat('%',#{keyword},'%')
   </select>
+    <select id="findRecordById" resultType="java.util.HashMap">
+        SELECT
+book.`name`,
+book.publisher,
+book.author,
+`user`.username,
+`user`.`name` AS name_0,
+record.create_time,
+record.return_time,
+record.user_id,
+record.book_id
+FROM
+record
+JOIN book
+ON record.book_id = book.id
+JOIN `user`
+ON record.user_id = `user`.id
+where user_id = #{userId}
+    </select>
+
+    <select id="findAllRecord" resultType="java.util.HashMap">
+        SELECT
+        book.`name`,
+        book.publisher,
+        book.author,
+        `user`.username,
+        `user`.`name` AS name_0,
+        record.create_time,
+        record.return_time,
+        record.user_id,
+        record.book_id
+        FROM
+        record
+        JOIN book
+        ON record.book_id = book.id
+        JOIN `user`
+        ON record.user_id = `user`.id
+        where book.`name` like concat('%',#{keyword},'%')
+    </select>
 </mapper>

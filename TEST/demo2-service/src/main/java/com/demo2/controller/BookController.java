@@ -6,12 +6,15 @@ import com.demo2.pojo.common.ResultVO;
 import com.demo2.pojo.common.SuccessVO;
 import com.demo2.pojo.entity.Book;
 import com.demo2.pojo.entity.Record;
+import com.demo2.pojo.request.BorrowRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/book")
+@Transactional
 public class BookController {
 
     @Autowired
@@ -32,7 +36,7 @@ public class BookController {
 
 
     @PostMapping("/list")
-    private ResultVO list(@RequestParam(defaultValue = "") String keyword) {
+    public ResultVO list(@RequestParam(defaultValue = "") String keyword) {
         if ("".equals(keyword)) {
             return new SuccessVO(bookMapper.selectAll());
         } else {
@@ -41,25 +45,22 @@ public class BookController {
     }
 
     @PostMapping("/create")
-    private ResultVO create(Book book) {
+    public ResultVO create(Book book) {
         bookMapper.insert(book);
         return new SuccessVO("新增成功");
     }
 
-    @PostMapping("/updata")
-    private ResultVO updata(Book book) {
+    @PostMapping("/update")
+    public ResultVO update(Book book) {
         bookMapper.updateByPrimaryKey(book);
         return new SuccessVO("更新成功");
     }
 
     @PostMapping("/del")
-    private ResultVO del(int id) {
-
+    public ResultVO del(int id) {
         Record record = new Record();
         record.setBookId(id);
-
         List<Record> list = recordMapper.select(record);
-
         if (list.size() > 0) {
             return new ResultVO(400, null, "有记录无法删除");
         }
@@ -68,4 +69,58 @@ public class BookController {
     }
 
 
+    @PostMapping("/borrow")
+    public synchronized ResultVO borrow(BorrowRequest record) {
+
+        Record rea = new Record();
+
+        rea.setBookId(record.getBookId());
+        rea.setUserId(record.getUserId());
+
+        List<Record> relist = recordMapper.select(rea);
+        if (relist.size() >= 0) {
+            return new ResultVO(400, null, "已借阅");
+        }
+
+
+        int bookid = record.getBookId();
+        Book book = bookMapper.selectByPrimaryKey(bookid);
+        if (book.getStock() <= 0) {
+            return new ResultVO(400, null, "库存不足");
+        }
+
+        book.setStock(book.getStock() - 1);
+        bookMapper.updateByPrimaryKey(book);
+
+
+        Record re = new Record();
+        re.setBookId(record.getBookId());
+        re.setUserId(record.getUserId());
+        recordMapper.insert(re);
+
+
+        return new SuccessVO("借阅成功");
+    }
+
+    @PostMapping("/rebook")
+    public ResultVO rebook(int id) {
+        Record red = recordMapper.selectByPrimaryKey(id);
+        red.setReturnTime(new Date());
+        recordMapper.updateByPrimaryKey(red);
+        return new SuccessVO("归还成功");
+    }
+
+    @PostMapping("/myRecordList")
+    public ResultVO recordList(@RequestParam("userId") int userId) {
+        return new SuccessVO(bookMapper.findRecordById(userId));
+    }
+
+    @PostMapping("/recordAllList")
+    public ResultVO RecordAllList(String keyword) {
+        if ("".equals(keyword)) {
+            return new SuccessVO(bookMapper.findAllRecord(keyword));
+        } else {
+            return new SuccessVO(bookMapper.findAllRecord(keyword));
+        }
+    }
 }
