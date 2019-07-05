@@ -10,10 +10,10 @@
                  :collapse="collapsed"
                  default-active="/home/index"
                  @open="handleOpen"
-                 @close="handleClose"
-                 background-color="#545c64"
-                 text-color="#fff"
-                 active-text-color="#ffd04b"
+                 @close="handleClose"s
+                 background-color="#ffffff"
+                 text-color="#000000"
+                 active-text-color="blue"
                  router>
           <el-menu-item index="/home/index">
             <i class="el-icon-document"></i>
