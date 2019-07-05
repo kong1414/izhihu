@@ -1,10 +1,12 @@
 <template>
-  
+  <dir>
+    123
+  </dir>
 </template>
 
 <script>
 export default {
-  
+  name: 'bookmanage'
 }
 </script>
 

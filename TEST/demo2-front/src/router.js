@@ -33,6 +33,11 @@ export default new Router({
           path: '/home/borrowhistory',
           name: 'BorrowHistory',
           component: () => import('./views/BorrowHistoryCard.vue')
+        },
+        {
+          path: '/home/bookmanage',
+          name: 'bookmanage',
+          component: () => import('./views/BookManage.vue')
         }
       ]
     },
