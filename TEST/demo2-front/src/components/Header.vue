@@ -1,6 +1,5 @@
 <template>
-  <div>
-    12312
+  <div class="headItem">
   </div>
 </template>
 
@@ -19,5 +18,10 @@ export default {
 </script>
 
 <style lang="scss">
-
+.headItem{
+  background-image:url('../img/HeadLogo.png');
+  height: 60px;
+  margin-left: -20px;
+  margin-right:-20px;
+}
 </style>

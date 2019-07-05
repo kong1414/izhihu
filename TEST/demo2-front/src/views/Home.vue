@@ -1,4 +1,3 @@
-@@ -1,60 +1,23 @@
 <template>
   <el-container class="home-container">
     <el-header height="60px"
@@ -7,22 +6,26 @@
     </el-header>
     <el-container>
       <el-aside width="200px">
-        <el-menu class="el-menu-vertical"
-                 :collapse="collapsed"
+        <el-menu :collapse="collapsed"
                  default-active="/home/index"
                  @open="handleOpen"
-                 @close="handleClose"s
+                 @close="handleClose"
                  background-color="#ffffff"
                  text-color="#000000"
                  active-text-color="blue"
                  router>
-          <el-menu-item index="/home/index">
-            <i class="el-icon-document"></i>
-            <span slot="title">首页</span>
+          <el-menu-item index="/home/index" class="menuItem">
+            <span>菜单项</span>
+            <span class="MENU">MENU</span>
+            <span style="float:right;">>></span>
           </el-menu-item>
-          <el-menu-item index="/home/index">
-            <i class="el-icon-document"></i>
-            <span slot="title">2</span>
+          <el-menu-item index="/home/index" class="menuItem">
+            <i class="el-icon-s-management"></i>
+            <span slot="title">图书借阅</span>
+          </el-menu-item>
+          <el-menu-item index="/home/index" class="menuItem">
+            <i class="el-icon-s-order"></i>
+            <span slot="title">我的借阅</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
@@ -32,12 +35,10 @@
     </el-container>
 
     <el-aside width="200px">
-      123
     </el-aside>
-    <el-main>
-      
+    <!-- <el-main>
       <router-view />
-    </el-main>
+    </el-main> -->
   </el-container>
 </template>
 
@@ -63,6 +64,20 @@ export default {
   }
   .main {
     background-color: bisque;
+    padding: 0;
+  }
+  .menuItem{
+    span{
+      color: black;
+    }
+    .MENU{
+      margin-left:10px;
+      color: #b5b6ba;
+      font-size: 13px;
+    }
+    i{
+      color: #b5b6ba;
+    }
   }
 }
 </style>
