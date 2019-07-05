@@ -128,7 +128,7 @@ export default {
 
     },
     logout () { // 退出登录
-      this.$router.push({ path:'/register'})
+      this.$router.push({ path:'/login'})
     },
     toPersonal () { // 跳转到个人主页
       if (this.$store.state.user === null) {
