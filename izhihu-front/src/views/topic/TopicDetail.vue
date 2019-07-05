@@ -27,6 +27,7 @@
           <el-button class="moreCon" type="text">更多内容</el-button>
         </div>
         <div v-for="disDet in disDets" :key="disDet.topicId" class="text item">
+          <!-- 给answerItem传值 -->
           <answer-item
             :topicid="topicId"
             :attiStat="disDet.attiStat"
@@ -132,6 +133,7 @@ export default {
           // console.info(res.data);
           this.disDets = res.data;
           this.disDets.forEach(element => {
+            // 给答案数据创一些新的值(点赞状态、评论数、点赞数)
             element.attiStat = 0;
             element.comment_num = 4;
             element.apprN = 201;

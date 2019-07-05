@@ -11,7 +11,7 @@
     <div class="disDetque" @click=" dialogVisible = true">{{queDet}}</div>
     <div class="ope">
       <span>
-        <el-button class="apprBut" v-if="attiStat!=1" @click="attiStat=1">
+        <el-button class="apprBut" v-if="attiStat!=1" @click="attiStat=1;apprNadd()">
           <i class="el-icon-caret-top"></i>
           <span>赞同 {{apprN}}</span>
         </el-button>
@@ -19,12 +19,12 @@
           class="apprBut"
           style="background:#0084ff;width:120px;"
           v-if="attiStat==1"
-          @click="attiStat=0;"
+          @click="attiStat=0;apprNsub()"
         >
           <i class="el-icon-caret-top" style="color:white;"></i>
           <span style="color:white;">已赞同 {{apprN}}</span>
         </el-button>
-        <el-button class="oppBut" v-if="attiStat!=2" @click="attiStat=2">
+        <el-button class="oppBut" v-if="attiStat!=2" @click="attiStat=2;apprNsub()">
           <i class="el-icon-caret-bottom"></i>
         </el-button>
         <el-button
@@ -79,31 +79,31 @@
             <el-button
               class="shareBut"
               v-if="comDet.stat!=1"
-              @click="comDet.stat=1"
+              @click="comDet.stat=1;praNadd(comDet)"
               style="margin-left: 0px;"
               size="mini"
               type="text"
             >
               <i class="el-icon-caret-top"></i>
-              <span>{{apprN}}</span>
+              <span>{{comDet.praise_num}}</span>
             </el-button>
             <el-button
               class="shareBut"
               size="mini"
               v-if="comDet.stat==1"
-              @click="comDet.stat=0;"
+              @click="comDet.stat=0;praNsub(comDet)"
               style="color: #0084ff;margin-left: 0px;"
               type="text"
             >
               <i class="el-icon-caret-top"></i>
-              <span>{{apprN}}</span>
+              <span>{{comDet.praise_num}}</span>
             </el-button>
             <el-button
               class="shareBut"
               size="mini"
               v-if="comDet.stat!=2"
               style="margin-left:10px;"
-              @click="comDet.stat=2"
+              @click="comDet.stat=2;praNsub(comDet)"
               type="text"
             >
               <i class="el-icon-caret-bottom"></i>
@@ -113,7 +113,7 @@
               class="shareBut"
               v-if="comDet.stat==2"
               size="mini"
-              @click="comDet.stat=0"
+              @click="comDet.stat=0;praNsub(comDet)"
               style="color: #0084ff;margin-left:10px;"
               type="text"
             >
@@ -164,9 +164,9 @@ export default {
   },
   props: {
     topicId: String,
-    attiStat: String,
-    apprN: String,
-    evalN: String,
+    attiStat: Number,
+    apprN: Number,
+    evalN: Number,
     queName: String,
     author: String,
     queDet: String
@@ -222,7 +222,7 @@ export default {
         // }
       ],
       dialogVisible: false,
-      commentVisible: true,
+      commentVisible: false,
       replayname: null,
       replayStat: false,
       replaycom: null
@@ -240,6 +240,7 @@ export default {
           console.info(res.data);
           res.data.forEach(element => {
             element.stat = 0;
+            element.praise_num = 100;
           });
           res.data.forEach(element => {
             if(element.is_reply!=0){
@@ -270,6 +271,18 @@ export default {
         if (element.id === id) this.replaycom = element.name;
         // console.info(this.replaycom);
       });
+    },
+    apprNadd(){
+      this.apprN ++;
+    },
+    apprNsub(){
+      this.apprN --;
+    },
+    praNadd(comDet){
+      comDet.praise_num ++;
+    },
+    praNsub(comDet){
+      comDet.praise_num --;
     }
   }
 };
