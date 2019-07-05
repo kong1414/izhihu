@@ -9,7 +9,7 @@
       <el-card>
         <!-- <div class="creaBook"><el-button>新增图书</el-button></div> -->
         <div class="createBook">
-          <el-button type="primary" class="createBut" @click="dialogFormVisible = true">新增图书</el-button>
+          <el-button type="primary" class="createBut">新增图书</el-button>
         </div>
         <div class="searchBook">
           <span>图书名称：</span>
@@ -34,7 +34,7 @@
           </el-table-column>
           <el-table-column prop="opera"
                            label="操作">
-                           <el-button type="text">编辑</el-button>
+                           <el-button type="text" @click="dialogFormVisible = true">编辑</el-button>
                             <el-divider direction="vertical"></el-divider>
                            <el-button type="text">删除</el-button>
           </el-table-column>
@@ -59,6 +59,7 @@
                 <el-form-item label="图书名称" >
                   <el-input
                     id="BookName"
+                    v.model= "tableData.name"
                     autocomplete="off"
                     style="width:300px;"
                     placeholder="请输入图书名称"
@@ -107,7 +108,7 @@ export default {
       input: '',
       tableData: [],
       currentPage4: 4,
-      dialogFormVisible: true
+      dialogFormVisible: false
     }
   },
   created () {
