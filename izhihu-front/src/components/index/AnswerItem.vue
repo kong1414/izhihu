@@ -72,7 +72,7 @@
         <div v-for="comDet in comDets" :key="comDet.commentator_id" class="vforD">
           <div class="comName">
             {{comDet.name}}
-            <span v-if="comDet.is_reply!=0" class="replyName">回复了{{replayname}}</span>
+            <span v-if="comDet.is_reply!=0" class="replyName">回复了   {{comDet.replayname}}</span>
           </div>
           <div class="comContent">{{comDet.comment_content}}</div>
           <div class="comTime">{{comDet.create_time.substr(0,10)}}</div>
@@ -242,6 +242,15 @@ export default {
           console.info(res.data);
           res.data.forEach(element => {
             element.stat = 0;
+          });
+          res.data.forEach(element => {
+            if(element.is_reply!=0){
+              res.data.forEach(element2 => {
+                if(element.is_reply === element2.id)
+                  element.replayname = element2.name;
+                  console.info(element2.replayname);
+              });
+            }
           });
           this.comDets = res.data;
           console.info(this.comDets);
