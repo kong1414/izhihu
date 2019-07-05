@@ -3,14 +3,17 @@ package cn.edu.xmut.izhihu.contorller;
 import cn.edu.xmut.izhihu.pojo.bo.LoginResultBO;
 import cn.edu.xmut.izhihu.pojo.common.HttpCodeEnum;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
+import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
 import cn.edu.xmut.izhihu.pojo.request.LoginRequest;
 import cn.edu.xmut.izhihu.pojo.request.RegisterRequest;
 import cn.edu.xmut.izhihu.pojo.vo.UserVO;
 import cn.edu.xmut.izhihu.service.UserService;
 import cn.edu.xmut.izhihu.util.Gloal;
+import cn.edu.xmut.izhihu.util.OSSClientUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,6 +29,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OSSClientUtil ossClientUtil;
 
     @ApiOperation("登录请求")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -81,6 +87,12 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResultVO register(@RequestBody RegisterRequest record) {
         return userService.register(record);
+    }
+
+    @PostMapping("/uploadImage")
+    public ResultVO uploadImage(@RequestParam("file") MultipartFile file) {
+        String imageUrl = ossClientUtil.checkImage(file);
+        return new SuccessVO(imageUrl, "");
     }
 
 }

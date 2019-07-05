@@ -34,6 +34,13 @@ public class QuestionController {
         return questionService.answer(record);
     }
 
+    /**
+     * 查询问题详情
+     *
+     * @param quesId
+     * @return
+     */
+    @ApiOperation("查询问题id")
     @PostMapping("/findById")
     public ResultVO findById(@RequestParam String quesId) {
 
