@@ -36,8 +36,26 @@
         </div>
         <div class="more">
           <span>
-            <i class="el-icon-message-solid"
-               style="margin-right: 30px;"></i>
+
+            <el-popover
+              placement="bottom"
+              width="300"
+              trigger="hover">
+              <el-tabs style="margin-left:15px; margin-right:15px;">
+                <el-tab-pane label="问答区"> 
+                  <div v-for="i in noticelist" :key="i.id">
+                    <el-button type="text">{{i.username}}</el-button>
+                    <span> 邀请你回答：</span>
+                    <el-button type="text">{{i.question}}</el-button>
+                  </div>
+                </el-tab-pane>
+                <el-tab-pane label="未开发"></el-tab-pane>
+                <el-tab-pane label="未开发"></el-tab-pane>
+              </el-tabs>
+              <i class="el-icon-message-solid" type="text"  style="margin-right: 30px; cursor: pointer;"
+                  slot="reference"></i>
+            </el-popover>
+
             <i class="el-icon-chat-line-round"
                style="margin-right: 30px;"></i>
             <el-dropdown>
@@ -84,7 +102,12 @@ export default {
         name: '未登录'
       },
       activeIndex: '1',
-      input: ''
+      input: '',
+      noticelist: [
+        { username: '路人甲', question: '午饭吃什么'},
+        { username: '路人乙', question: '晚饭吃什么'},
+        { username: '路人丙', question: '夜宵吃什么'}
+      ]
     }
   },
   mounted () {
