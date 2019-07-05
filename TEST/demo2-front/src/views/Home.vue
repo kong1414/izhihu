@@ -19,7 +19,7 @@
             <span class="MENU">MENU</span>
             <span style="float:right;">>></span>
           </el-menu-item>
-          <el-menu-item index="/home/index" class="menuItem">
+          <el-menu-item index="/home/bookborrow" class="menuItem">
             <i class="el-icon-s-management"></i>
             <span slot="title">图书借阅</span>
           </el-menu-item>
