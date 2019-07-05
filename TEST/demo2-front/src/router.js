@@ -23,6 +23,11 @@ export default new Router({
           path: '/home/index',
           name: 'index',
           component: () => import('./views/Index.vue')
+        },
+        {
+          path: '/home/bookborrow',
+          name: 'BookBorrow',
+          component: () => import('./views/BookBorrow.vue')
         }
       ]
     },
