@@ -1,9 +1,13 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <router-view />
-  </div>
+  <el-container class="home-container">
+    <el-aside width="200px">
+      123
+    </el-aside>
+    <el-main>
+      
+      <router-view />
+    </el-main>
+  </el-container>
 </template>
 
 <script>
