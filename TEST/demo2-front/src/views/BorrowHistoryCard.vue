@@ -55,7 +55,7 @@
 <script>
 import {reqMyRecordList} from '../api/home'
 export default {
-  name: 'BookBorrow',
+  name: 'BorrowHistoryCard',
   data () {
     return {
       input: '',

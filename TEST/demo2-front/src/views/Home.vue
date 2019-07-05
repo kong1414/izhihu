@@ -30,6 +30,14 @@
             <i class="el-icon-s-order"></i>
             <span slot="title">借阅历史</span>
           </el-menu-item>
+          <el-menu-item index="/home/bookborrow">
+            <i class="el-icon-s-management"></i>
+            <span slot="title">图书借阅</span>
+          </el-menu-item>
+          <el-menu-item index="/home/myborrow"  class="menuItem">
+            <i class="el-icon-s-order"></i>
+            <span slot="title">我的借阅</span>
+          </el-menu-item>
         </el-menu>
       </el-aside>
       <el-main class="main">
@@ -59,7 +67,7 @@ export default {
   height: 100%;
   width: 100%;
   .home-header {
-    background-color: aqua;
+    background-image:url('../img/HeadLogo.png');
   }
   .main {
     background-color: #eef5f9;

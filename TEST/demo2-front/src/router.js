@@ -38,6 +38,11 @@ export default new Router({
           path: '/home/bookmanage',
           name: 'bookmanage',
           component: () => import('./views/BookManage.vue')
+        },
+        {
+          path: '/home/myborrow',
+          name: 'myBorrow',
+          component: () => import('./views/myBorrow.vue')
         }
       ]
     },
