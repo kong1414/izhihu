@@ -130,7 +130,8 @@ export default {
 
 <style lang="scss">
 .login-page {
-  background-color: #087DDA;
+  background-image:url('../img/login.png');
+  //background-color: #087DDA;
   width: 100%;
   height: 100%;
   // background-image: url("../assets/img/zhihu-login-bg.png");
