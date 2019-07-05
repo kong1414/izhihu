@@ -4,9 +4,7 @@
       <el-card class="login-card"
                :body-style="{ padding: '0px' }">
         <div class="head">
-          <div class="logo-text">
-            后台管理系统
-          </div>
+          <img src="../img/loginTop.png" alt="" style="width: 360px; height: 180px">
         </div>
         <el-form ref="AccountFrom"
                  :model="login"
@@ -18,11 +16,11 @@
             <el-input v-model="login.account"
                       prefix-icon="el-icon-user"
                       clearable
-                      placeholder="手机号或邮箱"></el-input>
+                      placeholder="用户名"></el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input v-model="login.password"
-            prefix-icon="el-icon-user-solid"
+            prefix-icon="el-icon-lock"
                       type="password"
                       placeholder="密码"
                       auto-complete="off"
@@ -30,8 +28,15 @@
                       @keyup.enter.native="handleLogin"></el-input>
           </el-form-item>
           <div class="other">
-            <el-button type="text"
-                       class="phonelogin">手机验证码登录</el-button>
+            <el-select v-model="value" placeholder="我是管理员" style="width:130px;">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+
             <el-button type="text"
                        class="forget">忘记密码？</el-button>
           </div>
@@ -44,11 +49,6 @@
 
         </el-form>
 
-        <div class="footer">
-          没有账号？<el-button type="text"
-                     class="reg"
-                     @click="toRegister">注册</el-button>
-        </div>
       </el-card>
     </div>
   </div>
@@ -66,6 +66,16 @@ export default {
   },
   data () {
     return {
+      options: [{
+          value: '选项1',
+          label: '我是管理员'
+        }, {
+          value: '选项2',
+          label: '我是学生'
+        }],
+        value: '',
+      fits: 'fill',
+      url: '../img/loginTop.png',
       login: {
         account: '',
         password: ''
@@ -73,7 +83,7 @@ export default {
       fullscreenLoading: false,
       rules: {
         account: [
-          { required: true, message: '请输入邮箱或者手机号' }
+          { required: true, message: '请输入用户名' }
           // { validator: validaePass }
         ],
         password: [
@@ -131,8 +141,9 @@ export default {
     margin: 0 auto;
     width: 440px;
     .login-card {
-      background-color: #ffffff;
-      margin-top: 80px;
+      border:none;
+       background-color:Transparent;
+      margin-top: 210px;
       padding: 0;
       .head {
         text-align: center;
