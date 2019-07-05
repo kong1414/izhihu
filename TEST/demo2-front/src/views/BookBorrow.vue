@@ -9,6 +9,9 @@
       <el-card>
         <!-- <div class="creaBook"><el-button>新增图书</el-button></div> -->
         <div class="searchBook">
+          <span>图书名称：</span>
+          <el-input v-model="input" placeholder="输入图书名称查询" class="searchInput"></el-input>
+          <el-button type="primary" class="searchBut">搜索</el-button>
         </div>
         <el-table :data="tableData"
                   style="width: 100%">
@@ -33,8 +36,9 @@
         </el-table>
         <div class="Pagination">
           <el-pagination background
+                         :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
                          layout="prev, pager, next"
-                         :total="100">
+                         :total="50">
           </el-pagination>
         </div>
       </el-card>
@@ -79,6 +83,17 @@ export default {
   min-width: 1000px;
   margin: 20px 20px;
   .searchBook{
+    height: 40px;
+    .searchBut{
+      padding: 5px 10px;
+      margin-left: 10px;
+    }
+    .el-input__inner{
+      height: 25px;
+    }
+    .searchInput{
+      width: 250px;
+    }
   }
   .Pagination {
     float: right;
@@ -95,6 +110,7 @@ export default {
   }
 }
 .footer {
-  margin-left: 450px;
+  text-align: center;
+  margin-bottom: 10px;
 }
 </style>
