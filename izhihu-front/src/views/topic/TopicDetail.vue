@@ -6,10 +6,10 @@
         <el-image class="topImag" :src="url"></el-image>
         <div class="firCard">
           <div class="firCardName">
-            <span>{{topName}}</span>
+            <span>{{topDet.topicName}}</span>
           </div>
           <div class="firCardDet" @click="dialogVisible = true">
-            <span>{{topDet}}</span>
+            <span>{{topDet.topicDesc}}</span>
           </div>
         </div>
         <el-button type="primary" class="subsBut" v-if="!isFollow" @click="isFollow=!isFollow">
@@ -44,9 +44,9 @@
       <aside-Subs :topicId="topicId"></aside-Subs>
       <aside-Footer></aside-Footer>
     </el-aside>
-    <el-dialog :title="topName" :visible.sync="dialogVisible" width="600px">
+    <el-dialog :title="topDet.topicName" :visible.sync="dialogVisible" width="600px">
       <div class="dialog-body">
-        <span>{{topDet}}</span>
+        <span>{{topDet.topicDesc}}</span>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogVisible = false">关 闭</el-button>
@@ -58,6 +58,7 @@
 import AsideFooter from "../../components/aside/AsideFooter";
 import AsideSubs from "../../components/aside/AsideSubs";
 import AnswerItem from "../../components/index/AnswerItem";
+import { reqGetTopicDet } from "../../api/topicArticle";
 export default {
   name: "topicDetail",
   components: {
@@ -73,9 +74,10 @@ export default {
       apprButView: false,
       oppButView: false,
       dialogVisible: false,
-      topName: "高考",
-      topDet:
-        "普通高等学校招生全国统一考试（The National College Entrance Examination），简称“高考”，是中华人民共和国（不包括香港特别行政区、澳门特别行政区和台湾省）合格的高中毕业生或具有同等学历的考生参加的选拔性考试。 2018年8月，北京市新高考方案公布。",
+      topDet: "",
+      // topName: "高考",
+      // topDet:
+      //   "普通高等学校招生全国统一考试（The National College Entrance Examination），简称“高考”，是中华人民共和国（不包括香港特别行政区、澳门特别行政区和台湾省）合格的高中毕业生或具有同等学历的考生参加的选拔性考试。 2018年8月，北京市新高考方案公布。",
       disDets: [
         {
           attiStat: "0",
@@ -110,8 +112,22 @@ export default {
       ]
     };
   },
+  created() {
+    this._loadData();
+  },
   methods: {
-    handleClick() {}
+    handleClick() {},
+    _loadData() {
+      let params = "topicId=" + this.topicId;
+      // console.info(this.topicId);
+      reqGetTopicDet(params).then(res => {
+        if (res.resultCode === 200) {
+          // console.info(res.data);
+          this.topDet = res.data;
+          //console.info(this.Ftop);
+        }
+      });
+    }
   }
 };
 </script>

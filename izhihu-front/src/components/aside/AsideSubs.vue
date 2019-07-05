@@ -85,7 +85,7 @@ export default {
         if (res.resultCode === 200) {
           //console.info(res.data);
           this.SonTops = res.data;
-         //console.info(this.SonTops);
+          //console.info(this.SonTops);
         }
       });
     }
