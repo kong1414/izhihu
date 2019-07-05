@@ -30,7 +30,7 @@
       </el-card>
     </el-main>
     <el-aside width="300px"
-              style="background-color:#ecf5ff;min-height:200px">
+              style="min-height:200px">
       <el-card class="creator"
                :body-style="{ padding: '20px 0px 10px 20px' }">
         <div>
@@ -154,8 +154,9 @@ export default {
 .favorite-container {
   margin-top: 20px;
   .favorite {
+    margin-top: -20px;
     .favorite-describe {
-      margin-top: 15px;
+      margin-top: 10px;
     }
     .function {
       margin-top: 2px;
