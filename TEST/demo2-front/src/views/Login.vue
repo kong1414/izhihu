@@ -92,7 +92,8 @@ export default {
       this.fullscreenLoading = true
       let params = {
         account: this.login.account,
-        password: md5(this.login.password + this.login.password),
+        // password: md5(this.login.password + this.login.password),
+        password: this.login.password,
       }
       reqLogin(params).then(res => {
         // console.info(res)
@@ -102,7 +103,7 @@ export default {
             type: 'success'
           })
           this.saveUser(res.data)
-          this.saveToken(res.data.token)
+          // this.saveToken(res.data.token)
           this.fullscreenLoading = false
           this.$router.push({ path: '/home/index' })
         } else {

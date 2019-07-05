@@ -14,41 +14,7 @@ public class UserVO {
     /**
      * 用户id
      */
-    private String userId;
+    private int id;
+    private String username;
 
-    /**
-     * 邮箱
-     */
-    private String email;
-
-    /**
-     * 手机号
-     */
-    private String phone;
-
-    /**
-     * 姓名
-     */
-    private String name;
-
-    /**
-     * 头像url
-     */
-    private String photoUrl;
-
-    /**
-     * token
-     */
-    private String token;
-
-    public UserVO() {
-    }
-
-    public UserVO(String userId, String email, String phone, String name, String photoUrl) {
-        this.userId = userId;
-        this.email = email;
-        this.phone = phone;
-        this.name = name;
-        this.photoUrl = photoUrl;
-    }
 }
