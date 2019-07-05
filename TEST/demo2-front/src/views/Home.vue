@@ -21,11 +21,11 @@
           </el-menu-item>
           <el-menu-item index="/home/bookborrow" class="menuItem">
             <i class="el-icon-s-management"></i>
-            <span slot="title">图书借阅</span>
+            <span slot="title">图书管理</span>
           </el-menu-item>
-          <el-menu-item index="/home/index" class="menuItem">
+          <el-menu-item index="/home/borrowhistory/10001"  class="menuItem">
             <i class="el-icon-s-order"></i>
-            <span slot="title">我的借阅</span>
+            <span slot="title">借阅历史</span>
           </el-menu-item>
         </el-menu>
       </el-aside>

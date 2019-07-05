@@ -1,120 +1,126 @@
 <template>
   <div>
-    <div >
-      <el-breadcrumb>
-        <el-breadcrumb-item :to="{ path: '/' }"><i class="el-icon-house"/>借阅历史</el-breadcrumb-item>
+    <div class="title">
+      <el-breadcrumb class="titleFont">
+        <el-breadcrumb-item :to="{ path: '/' }"><i class="el-icon-house" />借阅历史</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-
-    <div class="BorrowHistory">
+    <div class="BookBorrow">
       <el-card>
-        <div>
-          <div class="searchBook">
-            <div><span>图书名称:</span></div>
-            <div><el-input></el-input></div>
-            <div><el-button>查询</el-button></div>
-          </div>
+        <!-- <div class="creaBook"><el-button>新增图书</el-button></div> -->
+        <div class="searchBook">
+          <span>图书名称：</span>
+          <el-input v-model="input" placeholder="输入图书名称查询" class="searchInput"></el-input>
+          <el-button type="primary" class="searchBut">搜索</el-button>
         </div>
-        <div>
-          <el-table
-            :data="tableData"
-            style="width: 100%">
-            <el-table-column
-              prop="bookname"
-              label="图书名称"
-              width="420">
-            </el-table-column>
-             <el-table-column
-              prop="address"
-              label="出版社"
-              width="250">
-            </el-table-column>
-            <el-table-column
-              prop="author"
-              label="作者"
-              width="190">
-            </el-table-column>
-            <el-table-column
-              prop="number"
-              label="借阅人学号"
-              width="230">
-            </el-table-column>
-            <el-table-column
-              prop="name"
-              label="借阅人姓名"
-              width="190">
-            </el-table-column>
-            <el-table-column
-              prop="borrowdate"
-              label="借阅时间"
-              width="200">
-            </el-table-column>
-            <el-table-column
-              prop="returndate"
-              label="归还时间"
-              width="200">
-            </el-table-column>
-
-          </el-table>
-        </div>
-        
-        <div>
-          <el-pagination
-            background
-            layout="prev, pager, next"
-            :total="1000">
+        <el-table :data="tableData"
+                  style="width: 100%">
+          <el-table-column prop="name"
+                           label="图书名称"
+                           width="180">
+          </el-table-column>
+          <el-table-column prop="publisher"
+                           label="出版社"
+                           width="180">
+          </el-table-column>
+          <el-table-column prop="author"
+                           label="作者">
+          </el-table-column>
+          <el-table-column prop="user_id"
+                           label="借阅人学号">
+          </el-table-column>
+          <el-table-column prop="name_0"
+                           label="借阅人姓名">
+          </el-table-column>
+          <el-table-column prop="create_time"
+                           label="借阅时间">
+          </el-table-column>
+          <el-table-column prop="return_time"
+                           label="归还时间">
+          </el-table-column>
+        </el-table>
+        <div class="Pagination">
+          <el-pagination background
+                         :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+                         layout="prev, pager, next"
+                         :total="50">
           </el-pagination>
         </div>
       </el-card>
     </div>
+    <div class="footer">Copyright ©2016-2019 厦门理工学院 版权所有</div>
   </div>
 </template>
 
 <script>
+import {reqMyRecordList} from '../api/home'
 export default {
-  name: 'BorrowHistory',
+  name: 'BookBorrow',
   data () {
     return {
-          tableData: [{
-            bookname: '图书名称1',
-            address: '出版社1',
-            author: '作者1',
-            number: '1607052130',
-            name: '王大大',
-            borrowdate: '2019-06-18',
-            returndate: '2020-06-18'
-          },
-          {
-            bookname: '图书名称1',
-            address: '出版社1',
-            author: '作者1',
-            number: '1607052130',
-            name: '王大大',
-            borrowdate: '2019-06-18',
-            returndate: '2020-06-18'
-          },
-          {
-            bookname: '图书名称1',
-            address: '出版社1',
-            author: '作者1',
-            number: '1607052130',
-            name: '王大大',
-            borrowdate: '2019-06-18',
-            returndate: '2020-06-18'
-          }
-          ]
-        }
-      }
+      input: '',
+      tableData: [],
+      userId: this.$route.params.userId,
     }
+  },
+  created () {
+    this._loadData()
+  },
+  methods: {
+    _loadData() {
+      let params = 'userId=' + this.userId
+      reqMyRecordList(params).then(res=>{
+        if (res.resultCode==200) {
+          console.info(res.data)
+          res.data.forEach(element => {
+            element.create_time = element.create_time.substr(0,10);
+            element.return_time = element.return_time.substr(0,10);
+          });
+          this.tableData = res.data
+        }
+      })
+    },
+    search () {
+      this._loadData()
+    }
+    
+  },
+}
 </script>
 
 <style lang="scss">
-.BorrowHistory{
-
+.BookBorrow {
+  min-width: 1000px;
+  margin: 20px 20px;
   .searchBook{
-    float: left;
+    height: 40px;
+    .searchBut{
+      padding: 5px 10px;
+      margin-left: 10px;
+    }
+    .el-input__inner{
+      height: 25px;
+    }
+    .searchInput{
+      width: 250px;
+    }
+  }
+  .Pagination {
+    float: right;
+    margin-top: 30px;
   }
 }
-  
-
+.title {
+  background: white;
+  width: 1223px;
+  height: 40px;
+  .titleFont {
+    padding-top: 13px;
+    padding-left: 10px;
+  }
+}
+.footer {
+  text-align: center;
+  margin-bottom: 10px;
+}
 </style>

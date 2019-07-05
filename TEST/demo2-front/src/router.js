@@ -30,7 +30,7 @@ export default new Router({
           component: () => import('./views/BookBorrow.vue')
         },
         {
-          path: '/home/borrowhistory',
+          path: '/home/borrowhistory/:userId',
           name: 'BorrowHistory',
           component: () => import('./views/BorrowHistoryCard.vue')
         },
