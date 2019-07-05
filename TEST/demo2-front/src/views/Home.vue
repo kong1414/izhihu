@@ -1,29 +1,32 @@
 <template>
   <el-container class="home-container">
-    <el-header height="60px"
-               class="header">
-      <header-item></header-item>
+    <el-header height="68px"
+               class="home-header">
+
     </el-header>
     <el-container>
       <el-aside width="200px">
         <el-menu :collapse="collapsed"
+                 class="menu"
                  default-active="/home/index"
                  @open="handleOpen"
                  @close="handleClose"
                  background-color="#ffffff"
                  text-color="#000000"
-                 active-text-color="blue"
                  router>
-          <el-menu-item index="/home/index" class="menuItem">
-            <span>菜单项</span>
-            <span class="MENU">MENU</span>
-            <span style="float:right;">>></span>
+          <el-menu-item>
+            <span slot="title">
+              <span style="font-size: 16px;color: #575a64;">菜单项</span>
+              <span class="MENU">MENU</span>
+            </span>
+            
+            <span style="float:right;font-size: 17px;color: #575a64;">>></span>
           </el-menu-item>
-          <el-menu-item index="/home/bookborrow" class="menuItem">
+          <el-menu-item index="/home/bookborrow">
             <i class="el-icon-s-management"></i>
             <span slot="title">图书借阅</span>
           </el-menu-item>
-          <el-menu-item index="/home/index" class="menuItem">
+          <el-menu-item index="/home/index">
             <i class="el-icon-s-order"></i>
             <span slot="title">我的借阅</span>
           </el-menu-item>
@@ -33,12 +36,6 @@
         <router-view />
       </el-main>
     </el-container>
-
-    <el-aside width="200px">
-    </el-aside>
-    <!-- <el-main>
-      <router-view />
-    </el-main> -->
   </el-container>
 </template>
 
@@ -59,24 +56,29 @@ export default {
 
 <style lang="scss">
 .home-container {
-  .header {
+  height: 100%;
+  width: 100%;
+  .home-header {
     background-color: aqua;
   }
   .main {
     background-color: #eef5f9;
     padding: 0;
   }
-  .menuItem{
-    span{
-      color: black;
+  .menu {
+    .el-menu-item {
+      .MENU {
+        margin-left:10px;
+        color: #b5b6ba;
+        font-size: 14px;
+        color: #a3a4a9;
+      }
+      i {
+        color: #b5b6ba;
+      }
     }
-    .MENU{
-      margin-left:10px;
-      color: #b5b6ba;
-      font-size: 13px;
-    }
-    i{
-      color: #b5b6ba;
+    .el-menu-item:hover {
+
     }
   }
 }
