@@ -7,9 +7,10 @@
              alt="背景图"
              width="1100px">
         <div class="content">
-          <el-image class="avatar"
+          <!-- <el-image class="avatar"
                     :src="userInfo.photo_url">
-          </el-image>
+          </el-image> -->
+          <img :src="userInfo.photo_url" class="avatar" />
           <div class="introduce">
             <span class="name">{{userInfo.name}}</span>
             <span class="autograph">{{userInfo.autograph}}</span>
@@ -45,7 +46,7 @@
               <el-form-item label="学校">
                 {{userInfo.school}}
               </el-form-item>
-              <el-form-item label="行业">
+              <el-form-item label="专业">
                 {{userInfo.major}}
               </el-form-item>
 
@@ -127,21 +128,56 @@
     <el-dialog title="编辑个人资料"
                :visible.sync="userInfodialogVisible"
                width="600px"
+               class="updata-dialog"
                :before-close="handleClose">
       <el-form label-width="80px"
                size="medium"
                class="update">
+        <el-upload
+          class="avatar-uploader"
+          action="https://jsonplaceholder.typicode.com/posts/"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload">
+          <img v-if="imageUrl" :src="imageUrl" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
         <el-form-item label="姓名">
           <el-input v-model="userInfo.name"></el-input>
         </el-form-item>
-
         <el-form-item label="性别">
-          <el-input v-model="userInfo.gender"></el-input>
+          <!-- <el-input v-model="userInfo.gender"></el-input> -->
+          <el-select v-model="userInfo.gender" placeholder="请选择">
+            <el-option label="未知" value="0"></el-option>
+            <el-option label="男" value="1"></el-option>
+            <el-option label="女" value="2"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="个性签名">
+          <el-input v-model="userInfo.autograph"></el-input>
+        </el-form-item>
+        <el-form-item label="个人简介">
+          <el-input v-model="userInfo.introduce"></el-input>
+        </el-form-item>
+        <el-form-item label="个性网址">
+          <el-input v-model="userInfo.personality_url"></el-input>
+        </el-form-item>
+        <el-form-item label="行业">
+          <el-input v-model="userInfo.industry"></el-input>
+        </el-form-item>
+        <el-form-item label="公司">
+          <el-input v-model="userInfo.company"></el-input>
+        </el-form-item>
+        <el-form-item label="职位">
+          <el-input v-model="userInfo.position"></el-input>
+        </el-form-item>
+        <el-form-item label="学校">
+          <el-input v-model="userInfo.school"></el-input>
+        </el-form-item>
+        <el-form-item label="专业">
+          <el-input v-model="userInfo.major"></el-input>
         </el-form-item>
 
-        <el-input v-model="userInfo.name"></el-input>
-        <el-input v-model="userInfo.name"></el-input>
-        <el-input v-model="userInfo.name"></el-input>
       </el-form>
 
       <span slot="footer"
@@ -182,7 +218,8 @@ export default {
         school: '', // 学校
         major: ''// 行业
       },
-      userInfodialogVisible: false
+      userInfodialogVisible: false,
+      imageUrl: ''
     }
   },
   created () {
@@ -200,6 +237,7 @@ export default {
       })
     },
     handleUpdate () { // 更新个人信息
+
       // 发送请求
       this.userInfodialogVisible = false
     },
@@ -208,6 +246,21 @@ export default {
     },
     handleClick () { // 下面的tabs
 
+    },
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw);
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === 'image/jpeg';
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG 格式!');
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!');
+      }
+      return isJPG && isLt2M;
     }
   }
 }
@@ -296,12 +349,46 @@ export default {
   }
   .people-content {
     .people-main {
+      padding-left: 0px;
     }
     .people-aside {
     }
   }
-  .update {
-
+  .updata-dialog {
+    padding: 20px;
+    .el-dialog__body {
+      padding: 20px;
+      .update {
+      
+      }
+      .avatar-uploader {
+        .el-upload {
+          border: 1px dashed #d9d9d9;
+          border-radius: 6px;
+          cursor: pointer;
+          position: relative;
+          overflow: hidden;
+        }
+        .el-upload:hover {
+          border-color: #409EFF;
+        }
+      }
+      .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+      }
+      .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+      }
+    }
+    
   }
+  
 }
 </style>
