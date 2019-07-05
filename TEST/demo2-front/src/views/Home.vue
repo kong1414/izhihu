@@ -63,7 +63,7 @@ export default {
     background-color: aqua;
   }
   .main {
-    background-color: bisque;
+    background-color: #eef5f9;
     padding: 0;
   }
   .menuItem{

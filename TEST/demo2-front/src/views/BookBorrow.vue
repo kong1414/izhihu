@@ -9,11 +9,6 @@
       <el-card>
         <!-- <div class="creaBook"><el-button>新增图书</el-button></div> -->
         <div class="searchBook">
-          图书名称:
-          <el-input placeholder="请输入图书室名称查询"
-                    style="width:200px;"
-                    v-model="input"></el-input>
-          <el-button type="primary" @click="search">查询</el-button>
         </div>
         <el-table :data="tableData"
                   style="width: 100%">
@@ -33,7 +28,7 @@
           </el-table-column>
           <el-table-column prop="opera"
                            label="操作">
-                           <el-button>更新</el-button>
+                           <el-button type="text">借阅</el-button>
           </el-table-column>
         </el-table>
         <div class="Pagination">
@@ -44,7 +39,7 @@
         </div>
       </el-card>
     </div>
-    <div class="footer">厦门理工学院版权所有</div>
+    <div class="footer">Copyright ©2016-2019 厦门理工学院 版权所有</div>
   </div>
 </template>
 
@@ -81,28 +76,19 @@ export default {
 
 <style lang="scss">
 .BookBorrow {
-  margin: 40px 0px;
   min-width: 1000px;
-  .searchBook {
-    margin-bottom: 20px;
-    div {
-      display: inline;
-      .el-input {
-        display: inline;
-        width: 200px;
-      }
-    }
+  margin: 20px 20px;
+  .searchBook{
   }
   .Pagination {
     float: right;
-    margin-top: 20px;
+    margin-top: 30px;
   }
 }
 .title {
   background: white;
   width: 1223px;
   height: 40px;
-  margin: -20px -20px;
   .titleFont {
     padding-top: 13px;
     padding-left: 10px;
