@@ -221,11 +221,12 @@ public class UserServiceImpl implements UserService {
 
         UserDO userDO = new UserDO();
         userDO.setUserId(id);
+        userDO.setName(record.getName());
 
         if ("email".equals(record.getType())) { // 邮箱注册
-            userDO.setEmail(record.getEmail());
+            userDO.setEmail(record.getAccount());
         } else if ("phone".equals(record.getType())) { // 手机注册
-            userDO.setPhone(record.getPhone());
+            userDO.setPhone(record.getAccount());
         }
         userDO.setPassword(record.getPassword());
         userMapper.insertSelective(userDO);

@@ -99,13 +99,13 @@ export default {
       console.log(key, keyPath)
     },
     handleAsk () { // 提问
-      this.$router.push({ path:'/home/editquestion'});
+      this.$router.push({ path:'/home/editquestion'})
     },
     changePasswords () { // 修改密码
 
     },
     logout () { // 退出登录
-
+      this.$router.push({ path:'/register'})
     },
     toPersonal () { // 跳转到个人主页
       if (this.$store.state.user === null) {

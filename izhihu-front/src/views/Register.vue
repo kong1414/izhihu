@@ -18,6 +18,12 @@
                  label-width="0px"
                  class="login-form"
                  status-icon>
+          <el-form-item prop="name">
+            <el-input v-model="login.name"
+                      prefix-icon="el-icon-s-custom"
+                      clearable=""
+                      placeholder="请输入姓名"/>
+          </el-form-item>
           <el-form-item prop="account">
             <el-input v-model="login.account"
                       prefix-icon="el-icon-user"
@@ -63,9 +69,9 @@
 </template>
 
 <script>
-// import { reqLogin } from '../api/login.js'
+import { reqRegister } from '../api/login.js'
 // import { ERR_OK } from '../api/config.js'
-// import md5 from 'js-md5'
+import md5 from 'js-md5'
 import { mapActions } from 'vuex'
 export default {
   name: 'login',
@@ -100,6 +106,10 @@ export default {
       fullscreenLoading: false,
       regType: 'phone',
       rules: {
+        name: [
+          {required: true, message: '请输入姓名'},
+          { min: 2, max: 20, message: '长度应该2到10字符之内', trigger: 'blur' }
+        ],
         account: [
           // { required: true, message: '请输入邮箱或者手机号' },
           // { type: 'email', required: true, message: '邮箱地址不正确' },
@@ -118,15 +128,45 @@ export default {
       'saveToken'
     ]),
     handleRegister () {
-      // let params = {
-      //   account: this.login.account,
-      //   password: md5(this.login.password + this.login.password),
-      //   type: this.regType
-      // }
-      console.info('注册还没做')
+      let type = this.handleRegType(this.login.account)
+      
+      if (!type) {
+        return
+      }
+      // console.info(type)
+      let params = {
+        name: this.login.name,
+        account: this.login.account,
+        password: md5(this.login.password + this.login.password),
+        type: this.regType
+      }
+      // console.info(params)
+      reqRegister(params).then(res => {
+        if (res.resultCode == 200) {
+          this.$message({
+            message: '注册成功，即将转到登录页面',
+            type: 'success'
+          })
+          this.toLogin()
+        }
+      })
+
     },
     toLogin () {
       this.$router.push({ path: '/login' })
+    },
+    handleRegType (value) {
+      const phoneReg = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/
+      const emailReg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
+       if (phoneReg.test(value)) {
+          return 'phone'
+        } else if (emailReg.test(value)) {
+          return 'email'
+        } else {
+          this.$message('账号不符合规范')
+          return null
+        }
+
     }
   }
 }

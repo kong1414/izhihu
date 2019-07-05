@@ -101,7 +101,7 @@ public class FollowServiceImpl implements FollowService {
     @Override
     public ResultVO like(String userId, String contentId) {
         if (this.checkLike(userId, contentId)) {
-            return new SuccessVO("已点赞");
+                return new SuccessVO("已点赞");
         }
         AgreeOppose record = new AgreeOppose();
         record.setUserId(userId);

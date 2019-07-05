@@ -15,7 +15,7 @@ export const reqcheckName = params => { // 检查用户名重复
 }
 
 export const reqRegister = params => { // 注册
-  return axios.post(`${BASE_URL}/user/register?`, params).then(res => res.data)
+  return axios.post(`${BASE_URL}/user/register`, params).then(res => res.data)
 }
 
 // 用户修改自己的密码
