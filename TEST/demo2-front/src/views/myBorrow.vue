@@ -5,7 +5,7 @@
         <el-breadcrumb-item :to="{ path: '/' }"><i class="el-icon-house" />我的借阅</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <div class="BookBorrow">
+    <div class="myBorrow">
       <el-card>
         <!-- <div class="creaBook"><el-button>新增图书</el-button></div> -->
         <div class="searchBook">
@@ -91,11 +91,12 @@ export default {
 </script>
 
 <style lang="scss">
-.BookBorrow {
+.myBorrow {
   min-width: 1000px;
   margin: 20px 20px;
   .searchBook{
     height: 40px;
+    float: left;
     .searchBut{
       padding: 5px 10px;
       margin-left: 10px;

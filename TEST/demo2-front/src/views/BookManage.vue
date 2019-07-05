@@ -5,7 +5,7 @@
         <el-breadcrumb-item :to="{ path: '/' }"><i class="el-icon-house" />图书管理</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <div class="BookBorrow">
+    <div class="BookManage">
       <el-card>
         <!-- <div class="creaBook"><el-button>新增图书</el-button></div> -->
         <div class="createBook">
@@ -133,7 +133,7 @@ export default {
 </script>
 
 <style lang="scss">
-.BookBorrow {
+.BookManage {
   min-width: 1000px;
   margin: 20px 20px;
   .createBook{

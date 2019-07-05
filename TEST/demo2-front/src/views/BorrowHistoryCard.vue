@@ -5,7 +5,7 @@
         <el-breadcrumb-item :to="{ path: '/' }"><i class="el-icon-house" />借阅历史</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <div class="BookBorrow">
+    <div class="BookHistory">
       <el-card>
         <!-- <div class="creaBook"><el-button>新增图书</el-button></div> -->
         <div class="searchBook">
@@ -93,7 +93,7 @@ export default {
 </script>
 
 <style lang="scss">
-.BookBorrow {
+.BookHistory {
   min-width: 1000px;
   margin: 20px 20px;
   .searchBook{
