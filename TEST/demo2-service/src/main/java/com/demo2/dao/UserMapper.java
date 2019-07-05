@@ -9,7 +9,6 @@ import tk.mybatis.mapper.common.Mapper;
 @Repository
 public interface UserMapper extends Mapper<User> {
 
-
     @Select("select * from user where username = #{name}")
     User findByName(@Param("name") String name);
 }

@@ -74,7 +74,17 @@
         <!--            <generatedKey column="pk_id" sqlStatement="MySql"/>-->
         <!--        </table>-->
 
-        <table tableName="user">
+        <!--        <table tableName="user">-->
+        <!--            <property name="useActualColumnNames" value="false"/>-->
+        <!--            <generatedKey column="id" sqlStatement="MySql"/>-->
+        <!--        </table>-->
+
+        <table tableName="book">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="id" sqlStatement="MySql"/>
+        </table>
+
+        <table tableName="record">
             <property name="useActualColumnNames" value="false"/>
             <generatedKey column="id" sqlStatement="MySql"/>
         </table>
