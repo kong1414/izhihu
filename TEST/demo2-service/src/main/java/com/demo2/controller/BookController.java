@@ -118,7 +118,7 @@ public class BookController {
     @PostMapping("/recordAllList")
     public ResultVO RecordAllList(String keyword) {
         if ("".equals(keyword)) {
-            return new SuccessVO(bookMapper.findAllRecord(keyword));
+            return new SuccessVO(bookMapper.selectAll());
         } else {
             return new SuccessVO(bookMapper.findAllRecord(keyword));
         }
