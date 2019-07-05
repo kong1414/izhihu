@@ -1,12 +1,12 @@
 <template>
-  <div class="head">
+  <div>
     12312
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Header',
+  name: 'header',
   data () {
     return {
 
@@ -19,8 +19,5 @@ export default {
 </script>
 
 <style lang="scss">
-.head{
-  width: 300px;
-  color: red;
-}
+
 </style>
