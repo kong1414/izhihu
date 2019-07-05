@@ -6,8 +6,7 @@
     </el-button>
     <div style="margin-top:10px;">
       <el-image class="avaImag" :src="null"></el-image>
-      <span class="disDetAuthor">{{author}}</span>
-      <span style="font-size:14px;">, {{authorDet}}</span>
+      <span class="disDetAuthor">{{author.substr(0,5)}}</span>
     </div>
     <div class="disDetque" @click=" dialogVisible = true">{{queDet}}</div>
     <div class="ope">
@@ -69,7 +68,7 @@
     <el-dialog :title="evalN+'条评论'" :visible.sync="commentVisible" width="600px">
       <div class="dialog-body">
         <!-- <CommetItem></CommetItem> -->
-        <div v-for="comDet in comDets" :key="comDet.commentator_id" class="vforD">
+        <div v-for="(comDet, index) in comDets" :key="index" class="vforD">
           <div class="comName">
             {{comDet.name}}
             <span v-if="comDet.is_reply!=0" class="replyName">回复了   {{comDet.replayname}}</span>
@@ -170,7 +169,6 @@ export default {
     evalN: String,
     queName: String,
     author: String,
-    authorDet: String,
     queDet: String
   },
   data() {
