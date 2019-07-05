@@ -9,7 +9,7 @@
       <el-card>
         <!-- <div class="creaBook"><el-button>新增图书</el-button></div> -->
         <div class="createBook">
-          <el-button type="primary" class="createBut">新增图书</el-button>
+          <el-button type="primary" class="createBut" @click="dialogFormVisible = true">新增图书</el-button>
         </div>
         <div class="searchBook">
           <span>图书名称：</span>
@@ -54,6 +54,47 @@
       </el-card>
     </div>
     <div class="footer">Copyright ©2016-2019 厦门理工学院 版权所有</div>
+    <el-dialog title="编辑图书" width="450px" :visible.sync="dialogFormVisible">
+              <el-form  label-width="80px" style="width:100%;padding:20px;">
+                <el-form-item label="图书名称" >
+                  <el-input
+                    id="BookName"
+                    autocomplete="off"
+                    style="width:300px;"
+                    placeholder="请输入图书名称"
+                  ></el-input>
+                </el-form-item>
+                <el-form-item label="出版社" >
+                  <el-input
+                    id="Publisher"
+                    autocomplete="off"
+                    style="width:300px;"
+                    placeholder="请输入出版社"
+                  ></el-input>
+                </el-form-item>
+                <el-form-item label="作者" >
+                  <el-input
+                    id="Author"
+                    autocomplete="off"
+                    style="width:300px;"
+                    placeholder="请输入作者"
+                  ></el-input>
+                </el-form-item>
+                <el-form-item label="库存" >
+                  <el-input
+                    id="Stock"
+                    autocomplete="off"
+                    style="width:300px;"
+                    placeholder="请输入库存"
+                  ></el-input>
+                </el-form-item><el-divider></el-divider>
+              </el-form>
+              
+              <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="dialogFormVisible = false">保 存</el-button>
+              </div>
+            </el-dialog>
   </div>
 </template>
 
@@ -65,7 +106,8 @@ export default {
     return {
       input: '',
       tableData: [],
-      currentPage4: 4
+      currentPage4: 4,
+      dialogFormVisible: true
     }
   },
   created () {
@@ -134,5 +176,8 @@ export default {
 .footer {
   text-align: center;
   margin-bottom: 10px;
+}
+.dialog-footer{
+  margin-top: -30px;
 }
 </style>
