@@ -98,9 +98,6 @@ export default {
   .searchBook{
      display: inline;
      margin-bottom: 20px;
-     div{
-       display: inline;
-     }
   }
   .Pagination{
     float:right;
