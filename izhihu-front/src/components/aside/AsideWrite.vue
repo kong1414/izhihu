@@ -4,20 +4,25 @@
     <el-card class="write-card">
       <el-row>
         <el-col :span="8">
-          <el-button type="text" class="write-button">
-            <i class="el-icon-s-order"/>
+          <el-button type="text"
+                     class="write-button">
+            <i class="el-icon-s-order" />
             <p>写回答</p>
           </el-button>
         </el-col>
         <el-col :span="8">
-          <el-button type="text" @click="toWriteArticle" class="write-button">
-            <i class="el-icon-edit-outline"/>
+          <el-button type="text"
+                     @click="toWriteArticle"
+                     class="write-button">
+            <i class="el-icon-edit-outline" />
             <p>写文章</p>
           </el-button>
         </el-col>
         <el-col :span="8">
-          <el-button type="text" @click="writerDialogVisible = true" class="write-button">
-            <i class="el-icon-paperclip"/>
+          <el-button type="text"
+                     @click="writerDialogVisible = true"
+                     class="write-button">
+            <i class="el-icon-paperclip" />
             <p>写想法</p>
           </el-button>
         </el-col>
@@ -26,122 +31,78 @@
       <div class="list">
         <div>
           <el-button type="text">
-            <i class="el-icon-time"/>
+            <i class="el-icon-time" />
             <span>我的稍后答</span>
           </el-button>
         </div>
         <div>
           <el-button type="text">
-            <i class="el-icon-files"/>
+            <i class="el-icon-files" />
             <span>我的草稿</span>
           </el-button>
         </div>
       </div>
     </el-card>
-    <el-dialog
-      title="写想法"
-      :visible.sync="writerDialogVisible"
-      width="540px"
-      center>
+    <el-dialog title="写想法"
+               :visible.sync="writerDialogVisible"
+               width="540px"
+               center>
       <div class="ideaContent">
-        <el-input
-          class="inputIdea"
-          type="textarea"
-          :autosize="{ minRows: 10, maxRows: 10}"
-          placeholder="请输入内容"
-          v-model="textarea">
+        <el-input class="inputIdea"
+                  type="textarea"
+                  :autosize="{ minRows: 10, maxRows: 10}"
+                  placeholder="请输入内容"
+                  v-model="textarea">
         </el-input>
       </div>
-      <div style="margin-left:20px;">
-        话题
-        <el-tag
-        style="margin-left:10px;"
-          :key="tag"
-          v-for="tag in dynamicTags"
-          closable
-          :disable-transitions="false"
-          @close="handleClose(tag)">
-          {{tag}}
-        </el-tag>
-        <el-input
-          style="width:100px;margin-left:10px;"
-          v-if="inputVisible"
-          v-model="inputValue"
-          ref="saveTagInput"
-          size="small"
-          @keyup.enter.native="handleInputConfirm"
-          @blur="handleInputConfirm"
-        >
-        </el-input>
-        <el-button v-else style="margin-left:10px" size="small" @click="showInput">+ New Tag</el-button>
-      </div>
-      <span slot="footer" class="dialog-footer">
+      <span slot="footer"
+            class="dialog-footer">
         <el-button @click="emptyWriteIdea">取 消</el-button>
-        <el-button type="primary" @click="writeIdea">确 定</el-button>
+        <el-button type="primary"
+                   @click="writeIdea">确 定</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import {reqCreateArticle} from '../../api/article'
-import {reqTopicCreate} from '../../api/topic'
+import { reqCreateArticle } from '../../api/article'
+import { reqTopicCreate } from '../../api/topic'
 export default {
   name: 'asideWrite',
   data () {
     return {
       writerDialogVisible: false,
       textarea: '',
-      dynamicTags: [], //关联的话题
-      inputVisible: false,
-      inputValue: '',
     }
   },
   methods: {
     toWriteArticle () { // 跳转写文章页面
-      this.$router.push({ path:'/home/editarticle'  });
+      this.$router.push({ path: '/home/editarticle' });
     },
-    emptyWriteIdea (){ // 取消
-      this.textarea='';
+    emptyWriteIdea () { // 取消
+      this.textarea = '';
       this.writerDialogVisible = false;
     },
     writeIdea () {  // 确定发送
-      let topicList = []
-      console.info(this.dynamicTags)
-      this.dynamicTags.map(i => { // 处理话题
-        let params = {
-          topicName: i
-        }
-        reqTopicCreate(params).then(res=> {
-          if (res.resultCode == 200) {
-            console.info(res.data)
-            topicList.push(res.data)
-          }
-        })
-      })
       let Aparams = {
         userId: this.$store.state.user.userId,
         type: 3,
         anonymity: 0,
-        title: this.$store.state.user.name
+        title: '我的想法',
+        content: this.textarea,
+        topicList: []
       }
-    },
-    handleClose (tag) {
-      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
-    },
-    handleInputConfirm () {
-      let inputValue = this.inputValue;
-        if (inputValue) {
-          this.dynamicTags.push(inputValue);
+
+      reqCreateArticle(Aparams).then(res => {
+        if (res.resultCode == 200) {
+          this.$message({
+            message: '发布成功',
+            type: 'success'
+          })
+          this.emptyWriteIdea()
         }
-        this.inputVisible = false;
-        this.inputValue = '';
-    },
-    showInput () {
-      this.inputVisible = true;
-      this.$nextTick(_ => {
-        this.$refs.saveTagInput.$refs.input.focus();
-      });
+      })
     }
   }
 }
@@ -173,8 +134,8 @@ export default {
       }
     }
   }
-  .ideaContent{
-    .inputIdea{
+  .ideaContent {
+    .inputIdea {
       font-size: 16px;
       padding: 20px 20px 0px 20px;
     }
