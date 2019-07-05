@@ -22,7 +22,7 @@
             
             <span style="float:right;font-size: 17px;color: #575a64;">>></span>
           </el-menu-item>
-          <el-menu-item index="/home/bookborrow">
+          <el-menu-item index="/home/bookmanage">
             <i class="el-icon-s-management"></i>
             <span slot="title">图书管理</span>
           </el-menu-item>

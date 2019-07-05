@@ -38,10 +38,15 @@
           </el-table-column>
         </el-table>
         <div class="Pagination">
-          <el-pagination background
-                         :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
-                         layout="prev, pager, next"
-                         :total="50">
+          <el-pagination
+                          @size-change="handleSizeChange"
+                          @current-change="handleCurrentChange"
+                          :current-page="currentPage4"
+                          :page-sizes="[10, 20, 30, 40]"
+                          :page-size="10"
+                          :data="tableData.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
+                          layout="total, sizes, prev, pager, next, jumper"
+                          :total="40">
           </el-pagination>
         </div>
       </el-card>
