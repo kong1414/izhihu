@@ -13,26 +13,27 @@
           <el-input placeholder="请输入图书室名称查询"
                     style="width:200px;"
                     v-model="input"></el-input>
-          <el-button type="primary">查询</el-button>
+          <el-button type="primary" @click="search">查询</el-button>
         </div>
         <el-table :data="tableData"
                   style="width: 100%">
-          <el-table-column prop="bookName"
+          <el-table-column prop="name"
                            label="图书名称"
                            width="180">
           </el-table-column>
-          <el-table-column prop="published"
+          <el-table-column prop="publisher"
                            label="出版社"
                            width="180">
           </el-table-column>
           <el-table-column prop="author"
                            label="作者">
           </el-table-column>
-          <el-table-column prop="stoke"
+          <el-table-column prop="stock"
                            label="库存">
           </el-table-column>
           <el-table-column prop="opera"
                            label="操作">
+                           <el-button>更新</el-button>
           </el-table-column>
         </el-table>
         <div class="Pagination">
@@ -48,44 +49,40 @@
 </template>
 
 <script>
+import {reqBookInfo} from '../api/home'
 export default {
   name: 'BookBorrow',
   data () {
     return {
       input: '',
-      tableData: [{
-        bookName: '2016-05-02',
-        published: '王小虎',
-        author: '上海市普陀区金沙江路 1518 弄',
-        stoke: '123',
-        opera: '123'
-      }, {
-        bookName: '2016-05-02',
-        published: '王小虎',
-        author: '上海市普陀区金沙江路 1518 弄',
-        stoke: '123',
-        opera: '123'
-      }, {
-        bookName: '2016-05-02',
-        published: '王小虎',
-        author: '上海市普陀区金沙江路 1518 弄',
-        stoke: '123',
-        opera: '123'
-      }, {
-        bookName: '2016-05-02',
-        published: '王小虎',
-        author: '上海市普陀区金沙江路 1518 弄',
-        stoke: '123',
-        opera: '123'
-      }]
+      tableData: []
     }
-  }
+  },
+  created () {
+    this._loadData()
+  },
+  methods: {
+    _loadData() {
+      let params = 'keyword=' + this.input
+      reqBookInfo(params).then(res=>{
+        if (res.resultCode==200) {
+          console.info(res.data)
+          this.tableData = res.data
+        }
+      })
+    },
+    search () {
+      this._loadData()
+    }
+    
+  },
 }
 </script>
 
 <style lang="scss">
 .BookBorrow {
   margin: 40px 0px;
+  min-width: 1000px;
   .searchBook {
     margin-bottom: 20px;
     div {
