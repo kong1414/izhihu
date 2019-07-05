@@ -11,7 +11,7 @@
           <!-- <div class="creaBook"><el-button>新增图书</el-button></div> -->
           <div class="searchBook">
             <div><span>图书名称:</span></div>
-            <div><el-input placeholder="请输入图书室名称查询"></el-input></div>
+            <div><el-input placeholder="请输入图书室名称查询" style="width:200px;" v-model="input"></el-input></div>
             <div><el-button type="primary">查询</el-button></div>
           </div>
         </div>
@@ -61,7 +61,8 @@ export default {
   name: 'BookBorrow',
   data () {
     return {
-          tableData: [{
+      input:'',
+      tableData: [{
             bookName: '2016-05-02',
             published: '王小虎',
             author: '上海市普陀区金沙江路 1518 弄',
@@ -96,14 +97,19 @@ export default {
   margin: 40px 0px;
   .searchBook{
      display: inline;
+     margin-bottom: 20px;
+     div{
+       display: inline;
+     }
   }
   .Pagination{
     float:right;
+    margin-top: 20px;
   }
 }
 .title{
   background: white;
-  width: 1224px;
+  width: 1223px;
   height: 40px;
   margin: -20px -20px;
   .titleFont{
@@ -112,7 +118,7 @@ export default {
   }
 }
 .footer{
-  margin-left: 350px;
+  margin-left: 450px;
 }
   
 
