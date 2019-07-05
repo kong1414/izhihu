@@ -22,7 +22,7 @@
         </el-tabs>
       </el-card>
     </el-main>
-    <el-aside width="300px" style="background-color:#ecf5ff;min-height:200px">
+    <el-aside width="300px" style="min-height:200px">
       <aside-collection></aside-collection>
     </el-aside>
   </el-container>
