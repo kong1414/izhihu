@@ -1,7 +1,7 @@
 <template>
   <div class="login-page">
     <div class="content">
-      <el-card class="login-card"
+      <div class="login-card"
                :body-style="{ padding: '0px' }">
         <div class="head">
           <img src="../img/loginTop.png" alt="" style="width: 360px; height: 180px">
@@ -49,7 +49,7 @@
 
         </el-form>
 
-      </el-card>
+      </div>
     </div>
   </div>
 </template>
@@ -130,7 +130,7 @@ export default {
 
 <style lang="scss">
 .login-page {
-  background-color: #b8e5f8;
+  background-color: #087DDA;
   width: 100%;
   height: 100%;
   // background-image: url("../assets/img/zhihu-login-bg.png");
