@@ -59,8 +59,7 @@ export default {
   data () {
     return {
       input: '',
-      tableData: [],
-      userId: this.$route.params.userId,
+      tableData: []
     }
   },
   created () {
@@ -68,7 +67,7 @@ export default {
   },
   methods: {
     _loadData() {
-      let params = 'userId=' + this.userId
+      let params = 'userId=10001'
       reqMyRecordList(params).then(res=>{
         if (res.resultCode==200) {
           console.info(res.data)

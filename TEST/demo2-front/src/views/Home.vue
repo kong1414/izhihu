@@ -23,7 +23,7 @@
             <i class="el-icon-s-management"></i>
             <span slot="title">图书管理</span>
           </el-menu-item>
-          <el-menu-item index="/home/borrowhistory/10001"  class="menuItem">
+          <el-menu-item index="/home/borrowhistory"  class="menuItem">
             <i class="el-icon-s-order"></i>
             <span slot="title">借阅历史</span>
           </el-menu-item>
