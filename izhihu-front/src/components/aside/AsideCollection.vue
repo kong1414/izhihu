@@ -59,7 +59,7 @@
             </div>
             <el-dialog title="创建收藏夹" width="600px" :visible.sync="dialogFormVisible">
               <el-form :model="form" label-width="60px" style="width:100%;padding:20px;">
-                <el-form-item label="标题" style="margin-left:-50px;">
+                <el-form-item label="标题" style="margin-left:-35px;">
                   <el-input
                     v-model="form.name"
                     id="inTitle"
@@ -67,7 +67,7 @@
                     placeholder="最多输入20字"
                   ></el-input>
                 </el-form-item>
-                <el-form-item label="描述" style="margin-left:-50px;">
+                <el-form-item label="描述" style="margin-left:-35px;">
                   <el-input
                     v-model="form.detail"
                     id="inDetail"

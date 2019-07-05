@@ -15,7 +15,7 @@
           class="change"
         >换一换</el-button>
       </div>
-      <div v-for="i in list" :key="i.topicId" class="text-item">
+      <div v-for="i in list" :key="i.topicId" class="text-item" >
         <el-avatar class="img" shape="square" :src="i.photoUrl"></el-avatar>
         <el-button
           type="text"
@@ -138,6 +138,7 @@ export default {
     }
     .text-item {
       margin-top: 12px;
+      width: 100%;
       .img {
         float: left;
         margin-left: 10px;
@@ -146,10 +147,11 @@ export default {
         background-color: blanchedalmond;
       }
       .btn-topic-name {
-        margin-left: 16px;
+        margin-left: 15px;
       }
       .btn-attention {
-        margin-left: 110px;
+        float:right;
+        margin-right: 20px;
       }
     }
   }
