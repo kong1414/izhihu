@@ -33,15 +33,19 @@ public class FavoriteController {
     @ApiOperation("某用户的收藏夹")
     @RequestMapping(value = "/myFavorite", method = RequestMethod.POST)
     public ResultVO myFavorite(@RequestParam("userId") String userId) {
-
         return favoriteService.myFavorite(userId);
     }
 
-    @ApiOperation("我关注的收藏夹")
+    @ApiOperation("我的全部收藏夹概况（收藏夹页）")
+    @RequestMapping(value = "/myFavoriteDetail", method = RequestMethod.POST)
+    public ResultVO myFavoriteDetail(@RequestParam("userId") String userId) {
+        return favoriteService.myFavoriteDetail(userId);
+    }
+
+    @ApiOperation("我关注的收藏夹（收藏夹页）")
     @RequestMapping(value = "/myAttFavorite", method = RequestMethod.POST)
     public ResultVO myAttFavorite(@RequestParam("userId") String userId) {
-
-        return favoriteService.myFavoriteDetail(userId);
+        return favoriteService.myAttFavorite(userId);
     }
 
     @ApiOperation("创建收藏夹")
@@ -77,4 +81,12 @@ public class FavoriteController {
     public ResultVO unCollect(@RequestBody CollectRequest record) {
         return favoriteService.unCollect(record.getFavoritesId(), record.getArticleId());
     }
+
+    @ApiOperation("收藏夹详情页的信息")
+    @RequestMapping(value = "/detail", method = RequestMethod.POST)
+    public ResultVO detail(@RequestParam String id) {
+        return favoriteService.detail(id);
+    }
+
+
 }

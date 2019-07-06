@@ -12,14 +12,17 @@ import cn.edu.xmut.izhihu.pojo.entity.FavoriteArticle;
 import cn.edu.xmut.izhihu.pojo.request.CreateFavoriteRequest;
 import cn.edu.xmut.izhihu.pojo.request.UpdateFavoriteRequest;
 import cn.edu.xmut.izhihu.pojo.vo.CollectDetailVO;
+import cn.edu.xmut.izhihu.pojo.vo.FavoriteDetailVO;
 import cn.edu.xmut.izhihu.pojo.vo.MyAttFavVO;
 import cn.edu.xmut.izhihu.service.FavoriteService;
+import cn.hutool.core.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:
@@ -94,9 +97,12 @@ public class FavoriteServiceImpl implements FavoriteService {
     public ResultVO myFavoriteDetail(String userId) {
         List<CollectDetailVO> res = new ArrayList();
 
-        Favorite favorite = new Favorite();
-        favorite.setUserId(userId);
-        List<Favorite> list = favoriteMapper.select(favorite);
+        Example example = new Example(Favorite.class);
+        example.createCriteria()
+                .andEqualTo("userId", userId);
+        List<Favorite> list = favoriteMapper.selectByExample(example);
+
+
 
         for (Favorite i : list) {
             CollectDetailVO record = new CollectDetailVO();
@@ -119,9 +125,10 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Override
     public ResultVO create(CreateFavoriteRequest record) {
         Favorite favorite = new Favorite();
+        favorite.setFavoriteId(IdUtil.randomUUID());
         favorite.setUserId(record.getUserId());
         favorite.setFavoriteName(record.getName());
-        favorite.setDescribe(record.getDescribe());
+        favorite.setDescribes(record.getDescribes());
         favorite.setIsPublic(record.getIsPublic());
         favoriteMapper.insertSelective(favorite);
         return new SuccessVO("创建成功");
@@ -138,7 +145,7 @@ public class FavoriteServiceImpl implements FavoriteService {
         Favorite favorite = new Favorite();
         favorite.setFavoriteId(record.getFavoriteId());
         favorite.setFavoriteName(record.getName());
-        favorite.setDescribe(record.getDescribe());
+        favorite.setDescribes(record.getDescribes());
         favorite.setIsPublic(record.getIsPublic());
         favoriteMapper.updateByPrimaryKeySelective(favorite);
         return new SuccessVO("更新成功");
@@ -200,6 +207,31 @@ public class FavoriteServiceImpl implements FavoriteService {
     public ResultVO unCollect(String favoritesId, String articleId) {
         favArtMapper.delCollect(favoritesId, articleId);
         return new SuccessVO("取消收藏成功");
+    }
+
+    /**
+     * 收藏夹详情页的信息
+     *
+     * @param favId
+     * @return
+     */
+    @Override
+    public ResultVO detail(String favId) {
+        FavoriteDetailVO res = new FavoriteDetailVO();
+
+        Favorite favorite = favoriteMapper.selectByPrimaryKey(favId);
+        res.setFavorite(favorite);
+
+        int attNum = favoriteMapper.countFavAtt(favId);
+        res.setAttNum(attNum);
+
+        String userName =favoriteMapper.getUserNameByFavId(favId);
+        res.setUserName(userName);
+
+        List<Map<String,Object>> list = favoriteMapper.getArticleByFav(favId);
+        res.setArticleList(list);
+
+        return new SuccessVO(res);
     }
 
 

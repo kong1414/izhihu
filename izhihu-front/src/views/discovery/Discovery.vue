@@ -1,7 +1,6 @@
 <template>
   <el-container class="discovery-container">
     <el-main>
-
       <el-card class="recommend-crad">
         <div slot="header">
           <i class="el-icon-s-unfold"></i>
@@ -41,11 +40,12 @@ export default {
   },
   data () {
     return {
+      userId: this.$store.state.user.userId,
       activeName: 'today'
     }
   },
   methods: {
-    handleClick () {
+    handleClick () { // 改变今日最热 和 本月最热
 
     }
   }

@@ -12,6 +12,6 @@ import lombok.Data;
 public class UpdateFavoriteRequest {
     private String favoriteId;
     private String name;
-    private String describe="暂无描述";
+    private String describes;
     private int isPublic;
 }

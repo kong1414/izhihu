@@ -7,7 +7,7 @@
         -->
         <id column="favorite_id" jdbcType="VARCHAR" property="favoriteId"/>
         <result column="favorite_name" jdbcType="VARCHAR" property="favoriteName"/>
-        <result column="describe" jdbcType="VARCHAR" property="describe"/>
+        <result column="describes" jdbcType="VARCHAR" property="describes"/>
         <result column="user_id" jdbcType="VARCHAR" property="userId"/>
         <result column="is_public" jdbcType="INTEGER" property="isPublic"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
@@ -32,12 +32,12 @@
     </select>
 
     <select id="getFavRandom" resultMap="BaseResultMap">
-        SELECT * FROM favorite ORDER BY rand() LIMIT #{num}
+        SELECT * FROM favorite where is_public = 1 ORDER BY rand() LIMIT #{num}
     </select>
 
     <select id="getAttFavByUser" resultMap="BaseResultMap">
         SELECT
-        favorite.*
+        *
         FROM
         favorite
         JOIN attention
@@ -47,6 +47,38 @@
         and
         izhihu.attention.type = 7
     </select>
+
+    <select id="getArticleByFav" resultType="java.util.HashMap">
+        SELECT
+users.`name`,
+article.article_id,
+article.type,
+article.ques_id,
+article.title,
+article.photo_url,
+article.content,
+article.author_id,
+article.anonymity,
+article.comment_num,
+article.report_num,
+article.create_time,
+article.update_time,
+article.del
+FROM
+favorite_article
+JOIN article
+ON favorite_article.article_id = article.article_id
+JOIN favorite
+ON favorite.favorite_id = favorite_article.favorites_id
+JOIN users
+ON article.author_id = users.user_id
+WHERE
+favorite.favorite_id = #{id}
+and
+article.del = 0
+    </select>
+
+
 
 
 </mapper>

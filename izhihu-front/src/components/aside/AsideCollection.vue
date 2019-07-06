@@ -2,143 +2,130 @@
   <!-- 我的收藏页 -->
   <div class="aside-colletcion">
     <el-card class="colletcion-card">
-      <el-row>
-        <div class="list">
-          <div class="above" style="margin-left:-20px;">
-            <div>
-              <el-button type="text">
-                <i class="el-icon-collection-tag" />
-                <span>我的收藏</span>
-              </el-button>
-            </div>
-            <div>
-              <el-button type="text">
-                <i class="el-icon-folder-checked" />
-                <span>我关注的问题</span>
-              </el-button>
-            </div>
-            <div>
-              <el-button type="text">
-                <i class="el-icon-document" />
-                <span>邀请我回答的问题</span>
-              </el-button>
-            </div>
-          </div>
+      <div class="list">
+        <div class="above">
+          <el-button type="text" @click="toFavorite">
+            <i class="el-icon-collection-tag" />
+            <span>我的收藏</span>
+          </el-button>
         </div>
-      </el-row>
-    </el-card>
-    <el-card class="colletcion-card">
-      <el-row>
-        <div class="list">
-          <div class="above" style="margin-left:-20px;">
-            <div>
-              <el-button type="text">
-                <i class="el-icon-s-home" />
-                <span>社区服务中心</span>
-              </el-button>
-            </div>
-            <div>
-              <el-button type="text">
-                <i class="el-icon-s-management" />
-                <span>版权服务中心</span>
-              </el-button>
-            </div>
-          </div>
+        <div class="above">
+          <el-button type="text">
+            <i class="el-icon-folder-checked" />
+            <span>我关注的问题</span>
+          </el-button>
         </div>
-      </el-row>
-    </el-card>
-    <el-card class="colletcion-card">
-      <el-row>
-        <div class="list">
-          <div>
-            <!-- Form -->
-            <div class="above">
-              <div style="margin-left:-40px;">
-                <el-button type="text" @click="dialogFormVisible = true">+创建收藏夹</el-button>
-              </div>
-            </div>
-            <el-dialog title="创建收藏夹" width="600px" :visible.sync="dialogFormVisible">
-              <el-form :model="form" label-width="60px" style="width:100%;padding:20px;">
-                <el-form-item label="标题" style="margin-left:-35px;">
-                  <el-input
-                    v-model="form.name"
-                    id="inTitle"
-                    autocomplete="off"
-                    placeholder="最多输入20字"
-                  ></el-input>
-                </el-form-item>
-                <el-form-item label="描述" style="margin-left:-35px;">
-                  <el-input
-                    v-model="form.detail"
-                    id="inDetail"
-                    autocomplete="off"
-                    placeholder="最多输入20字"
-                  ></el-input>
-                </el-form-item>
-                <div class="choiArea">
-                  <el-radio v-model="radioOC" label="1">
-                    <span class="choiFont">公开</span>
-                    <span class="detailFont">收藏夹关注者 > 0 时不能设置为私密</span>
-                  </el-radio>
-                </div>
-                <div class="choiArea">
-                  <el-radio v-model="radioOC" label="2">
-                    <span class="choiFont">私密</span>
-                    <span class="detailFont">只有你可以查看这个收藏夹</span>
-                  </el-radio>
-                </div>
-              </el-form>
-              <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-              </div>
-            </el-dialog>
-          </div>
+        <div class="above">
+          <el-button type="text">
+            <i class="el-icon-document" />
+            <span>邀请我回答的问题</span>
+          </el-button>
         </div>
-      </el-row>
+        <el-divider></el-divider>
+        <div class="above">
+          <el-button type="text">
+            <i class="el-icon-s-home" />
+            <span>社区服务中心</span>
+          </el-button>
+        </div>
+        <div class="above">
+          <el-button type="text">
+            <i class="el-icon-s-management" />
+            <span>版权服务中心</span>
+          </el-button>
+        </div>
+        <el-divider></el-divider>
+        <div class="above">
+          <el-button type="text"
+                     @click="dialogFormVisible = true">
+            <i class="el-icon-plus"></i>
+            <span>创建收藏夹</span>
+          </el-button>
+        </div>
+      </div>
     </el-card>
+
+    <el-dialog title="创建收藏夹"
+               width="600px"
+               :visible.sync="dialogFormVisible">
+      <el-form label-width="60px"
+               style="width: 100%;padding: 20px;">
+        <el-form-item label="名称"
+                      style="">
+          <el-input v-model="name"
+                    placeholder="请输入收藏夹名称"></el-input>
+        </el-form-item>
+        <el-form-item label="描述"
+                      style="">
+          <el-input v-model="describes"
+                    placeholder="请输入收藏夹描述"></el-input>
+        </el-form-item>
+        <div class="choiArea">
+          <el-radio v-model="isPublic"
+                    label="1">
+            <span class="choiFont">公开</span>
+            <span class="detailFont">收藏夹关注者 > 0 时不能设置为私密</span>
+          </el-radio>
+        </div>
+        <div class="choiArea">
+          <el-radio v-model="isPublic"
+                    label="0">
+            <span class="choiFont">私密</span>
+            <span class="detailFont">只有你可以查看这个收藏夹</span>
+          </el-radio>
+        </div>
+      </el-form>
+      <div slot="footer"
+           class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary"
+                   @click="handleCreate">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import { reqCreateFav } from '../../api/favorite'
+
 export default {
   name: "asideCollection",
-  methods: {
-    // 弹窗备选方法，只是不知道怎么改成两个输入框.....
-    // open() {
-    //   this.$prompt('标题', '创建新收藏夹', {
-    //     confirmButtonText: '确定',
-    //     cancelButtonText: '取消',
-    //     // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-    //     // inputErrorMessage: '收藏夹名称不正确'
-    //   }).then(({ value }) => {
-    //     this.$message({
-    //       type: 'success',
-    //       message: '你创建的收藏夹是: ' + value
-    //     });
-    //   }).catch(() => {
-    //     this.$message({
-    //       type: 'info',
-    //       message: '取消输入'
-    //     });
-    //   });
-    // }
-  },
-  data() {
+  data () {
     return {
+      userId: this.$store.state.user.userId,
       dialogFormVisible: false,
-      form: {
-        name: "",
-        detail: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: ""
-      },
-      radioOC: "1"
+      name: '',
+      describes: '',
+      isPublic: '1'
     };
+  },
+  methods: {
+    handleCreate () {
+      let params = {
+        userId: this.userId,
+        name: this.name,
+        describes: this.describes,
+        isPublic: Number(this.isPublic)
+      }
+      reqCreateFav(params).then(res => {
+        if (res.resultCode == 200) {
+          this.$message({
+            type: 'success',
+            message: res.resultMessage
+          })
+          this.name = ''
+          this.describes = ''
+          this.dialogFormVisible = false
+          this.$emit('loadData')
+        }
+      })
+
+    },
+    toFavorite () {
+      this.$router.push({ path: '/home/favorite' })
+    }
   }
-};
+}
 </script>
 <style lang="scss">
 .aside-colletcion {
@@ -149,16 +136,6 @@ export default {
     .el-card__body {
       padding: 10px 0px;
     }
-    .colletcion-button {
-      text-align: center;
-      i {
-        margin: 6px;
-        font-size: 30px;
-      }
-    }
-    .el-divider {
-      margin: 5px 0;
-    }
     .list {
       text-align: left;
       span {
@@ -167,30 +144,32 @@ export default {
       i {
         font-size: 17px;
       }
-      div {
+      .above {
+        display: block;
         padding-left: 20px;
       }
-      .above {
-        div:hover {
-          background: #f6f6f6;
-          span {
-            color: #7abce7;
-          }
+      .above:hover {
+        background: #f6f6f6;
+        span {
+          color: #7abce7;
         }
       }
+      .el-divider--horizontal {
+        margin: 6px 0;
+      }
     }
-    .choiFont {
-      font-size: 15px;
-      font-weight: bold;
-    }
-    .detailFont {
-      font-size: 13px;
-      margin-left: 5px;
-    }
-    .choiArea {
-      margin-top: 10px;
-      margin-left: 50px;
-    }
+  }
+  .choiFont {
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .detailFont {
+    font-size: 13px;
+    margin-left: 5px;
+  }
+  .choiArea {
+    margin-top: 10px;
+    margin-left: 50px;
   }
 }
 </style>

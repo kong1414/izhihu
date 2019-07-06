@@ -86,4 +86,12 @@ public interface FavoriteService {
      * @return
      */
     ResultVO unCollect(String favoritesId, String articleId);
+
+    /**
+     * 收藏夹详情页的信息
+     *
+     * @param favId
+     * @return
+     */
+    ResultVO detail(String favId);
 }

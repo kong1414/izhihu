@@ -52,12 +52,12 @@ export default new Router({
           component: () => import('./views/topic/TopicDetail.vue')
         },
         {
-          path: '/home/favorite/:userid',
+          path: '/home/favorite',
           menuName: 'favorite',
           component: () => import('./views/personal/Favorite.vue')
         },
         {
-          path: '/home/favoriteDetail',
+          path: '/home/favoriteDetail/:favoriteid',
           menuName: 'favoriteDetail',
           component: () => import('./views/personal/FavoriteDetail.vue')
         },

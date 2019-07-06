@@ -22,7 +22,7 @@ public class Favorite {
     /**
      * 收藏夹描述
      */
-    private String describe;
+    private String describes;
 
     /**
      * 创建者用户id
@@ -81,19 +81,19 @@ public class Favorite {
     /**
      * 获取收藏夹描述
      *
-     * @return describe - 收藏夹描述
+     * @return describes - 收藏夹描述
      */
-    public String getDescribe() {
-        return describe;
+    public String getDescribes() {
+        return describes;
     }
 
     /**
      * 设置收藏夹描述
      *
-     * @param describe 收藏夹描述
+     * @param describes 收藏夹描述
      */
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
+    public void setDescribes(String describes) {
+        this.describes = describes == null ? null : describes.trim();
     }
 
     /**
