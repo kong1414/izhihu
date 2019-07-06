@@ -4,23 +4,25 @@
       <el-card class="question-header-card">
         <div class="quesTopic">
           <span class="title">相关话题：</span>
-          <el-tag v-for="i in topicList" :key="i.topicName">
-            {{i.topicName}}
-            </el-tag>
+          <el-tag v-for="i in topicList" :key="i.topicName">{{i.topicName}}</el-tag>
         </div>
-        <div class="quesName">
-          {{quesInfo.quesName}}
-        </div>
+        <div class="quesName">{{quesInfo.quesName}}</div>
         <div class="quesdesc">
           <div v-html="quesInfo.quesDescribe"></div>
         </div>
         <div class="button-group">
           <el-button type="primary" size="mini">关注问题</el-button>
-          <el-button type="primary" plain size="mini">写回答</el-button>
+          <el-button type="primary" plain size="mini" @click="writeAnswerVisible = true">写回答</el-button>
           <el-button type="info" plain size="mini">邀请回答</el-button>
-          <el-button type="text"><i class="el-icon-s-comment"/>评论</el-button>
-          <el-button type="text"><i class="el-icon-s-promotion"/>分享</el-button>
-          <el-button type="text"><i class="el-icon-warning"/>举报</el-button>
+          <el-button type="text">
+            <i class="el-icon-s-comment" />评论
+          </el-button>
+          <el-button type="text">
+            <i class="el-icon-s-promotion" />分享
+          </el-button>
+          <el-button type="text">
+            <i class="el-icon-warning" />举报
+          </el-button>
         </div>
       </el-card>
     </el-header>
@@ -28,9 +30,7 @@
     <el-container>
       <el-main>
         <el-card>
-          <div slot="header">
-            全部回答
-          </div>
+          <div slot="header">全部回答</div>
           <div>
             <!-- <answer-item></answer-item> -->
           </div>
@@ -44,33 +44,52 @@
               <div class="att-title-N">{{quesInfo.attentionNum}}</div>
             </el-col>
             <el-col :span="12">
-              <div class="att-title" >浏览量</div>
+              <div class="att-title">浏览量</div>
               <div class="att-title-N">{{quesInfo.browseNum}}</div>
             </el-col>
           </el-row>
         </el-card>
-        <aside-discovery style="margin-top: 20px;"/>
+        <aside-discovery style="margin-top: 20px;" />
       </el-aside>
     </el-container>
-    
+    <el-dialog title="写回答" :visible.sync="writeAnswerVisible" class="wriAnsDia">
+      <div class="wriAnsHead">
+        <el-avatar shape="square" :size="40" :src="squareUrl" style="float: left;"></el-avatar>
+        <span class="wriAnsAuthor">{{author}}</span>
+        <div class="rightArea">
+          <span class="noname">匿名发布</span>
+          <el-radio v-model="radio" label="0">否</el-radio>
+          <el-radio v-model="radio" label="1">是</el-radio>
+        </div>
+      </div>
+      <div class="content">
+        <quill-editor
+          v-model="content"
+          :options="editorOption"
+        ></quill-editor>
+      </div>
+      <div class="diaFooter">
+        <el-button type="primary" @click="handleUp()">提交回答</el-button>
+        <!-- <i class="el-icon-s-tools"/>设置 -->
+      </div>
+    </el-dialog>
   </el-container>
-
 </template>
 
 <script>
-import AnswerItem from '../../components/index/AnswerItem'
-import AsideFooter from '../../components/aside/AsideFooter'
-import AsideDiscovery from '../../components/aside/AsideDiscovery'
-import { reqFindQuestionById } from '../../api/question'
+import AnswerItem from "../../components/index/AnswerItem";
+import AsideFooter from "../../components/aside/AsideFooter";
+import AsideDiscovery from "../../components/aside/AsideDiscovery";
+import { reqFindQuestionById } from "../../api/question";
 export default {
-  name: 'question',
+  name: "question",
   components: {
     AsideFooter,
     AnswerItem,
     AsideDiscovery
   },
-  
-  data () {
+
+  data() {
     return {
       quesId: this.$route.params.quesid,
       quesInfo: {
@@ -85,30 +104,42 @@ export default {
         quesId: "",
         quesName: "",
         questionerId: "",
-        updateTime: "",
+        updateTime: ""
       },
-      topicList: [{topicName: '123'}],
-    }
+      topicList: [{ topicName: "123" }],
+      writeAnswerVisible: false,
+      squareUrl: "",
+      author: "123",
+      radio: "0",
+      content:'请输入您的回答',
+      editorOption: {}
+    };
   },
-  created () {
-    this._loadData()
+  created() {
+    this._loadData();
   },
   methods: {
-    _loadData () {
-      let params = 'quesId=' + this.$route.params.quesid
+    _loadData() {
+      let params = "quesId=" + this.$route.params.quesid;
       reqFindQuestionById(params).then(res => {
         if (res.resultCode == 200) {
-          this.quesInfo = res.data
-          console.info(123,this.quesInfo)
+          this.quesInfo = res.data;
+          console.info(123, this.quesInfo);
         }
-      })
+      });
       // 查询作者
       // TODO:
       // 查询相关联话题
       // TODO:
+    },
+    handleUp(){
+      if(this.content == ''){
+        this.$message("回答不能为空")
+        return
+      }
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -139,7 +170,6 @@ export default {
         margin-top: 5px;
       }
     }
-    
   }
   .ques-aside {
     padding-right: 20px;
@@ -157,5 +187,45 @@ export default {
       font-weight: 600;
     }
   }
-}
+    .wriAnsHead {
+      padding: 16px 22px;
+      height: 75px;
+      padding-bottom: 0px;
+      .wriAnsAuthor {
+        float: left;
+        font-weight: 600;
+        color: #444;
+        font-size: 15px;
+        margin: 10px 10px;
+      }
+      .rightArea {
+        float: right;
+        line-height: 40px;
+      }
+      .noname {
+        margin-right: 20px;
+      }
+    }
+    .content {
+      min-height: 310px;
+      .quill-editor {
+        .ql-container {
+          min-height: 200px;
+        }
+      }
+    }
+    .diaFooter{
+      width: 100%;
+      padding: 15px 22px;
+      i{
+        margin-left: 10px
+      }
+      .el-button{
+        padding: 6px 10px;
+        // margin-right: 20px;
+        // margin-left: 10px;
+        // margin-bottom: 15px;
+      }
+    }
+  }
 </style>
