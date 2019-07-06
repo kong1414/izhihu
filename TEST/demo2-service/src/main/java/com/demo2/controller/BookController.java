@@ -9,10 +9,7 @@ import com.demo2.pojo.entity.Record;
 import com.demo2.pojo.request.BorrowRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -36,7 +33,7 @@ public class BookController {
 
 
     @PostMapping("/list")
-    public ResultVO list(@RequestParam(defaultValue = "") String keyword) {
+    public ResultVO list(@RequestParam(defaultValue = "",required = false) String keyword) {
         if ("".equals(keyword)) {
             return new SuccessVO(bookMapper.selectAll());
         } else {
@@ -45,19 +42,19 @@ public class BookController {
     }
 
     @PostMapping("/create")
-    public ResultVO create(Book book) {
+    public ResultVO create(@RequestBody Book book) {
         bookMapper.insert(book);
         return new SuccessVO("新增成功");
     }
 
     @PostMapping("/update")
-    public ResultVO update(Book book) {
+    public ResultVO update(@RequestBody Book book) {
         bookMapper.updateByPrimaryKey(book);
         return new SuccessVO("更新成功");
     }
 
     @PostMapping("/del")
-    public ResultVO del(int id) {
+    public ResultVO del(@RequestParam("id") int id) {
         Record record = new Record();
         record.setBookId(id);
         List<Record> list = recordMapper.select(record);
@@ -70,7 +67,7 @@ public class BookController {
 
 
     @PostMapping("/borrow")
-    public synchronized ResultVO borrow(BorrowRequest record) {
+    public synchronized ResultVO borrow(@RequestBody BorrowRequest record) {
 
         Record rea = new Record();
 
@@ -103,7 +100,7 @@ public class BookController {
     }
 
     @PostMapping("/rebook")
-    public ResultVO rebook(int id) {
+    public ResultVO rebook(@RequestParam("id") int id) {
         Record red = recordMapper.selectByPrimaryKey(id);
         red.setReturnTime(new Date());
         recordMapper.updateByPrimaryKey(red);
@@ -116,7 +113,7 @@ public class BookController {
     }
 
     @PostMapping("/recordAllList")
-    public ResultVO RecordAllList(String keyword) {
+    public ResultVO RecordAllList(@RequestParam(defaultValue = "",required = false) String keyword) {
         if ("".equals(keyword)) {
             return new SuccessVO(bookMapper.selectAll());
         } else {

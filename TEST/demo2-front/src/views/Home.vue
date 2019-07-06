@@ -6,7 +6,7 @@
     </el-header>
     <el-container>
       <el-aside width="200px">
-        <el-menu :collapse="collapsed"
+        <el-menu 
                  class="menu"
                  default-active="/home/index"
                  @open="handleOpen"
@@ -58,7 +58,15 @@ export default {
   components: {
     HeaderItem,
     HelloWorld
-  }
+  },
+  methods: {
+    handleOpen () {
+
+    },
+    handleClose () {
+
+    },
+  },
 }
 </script>
 
