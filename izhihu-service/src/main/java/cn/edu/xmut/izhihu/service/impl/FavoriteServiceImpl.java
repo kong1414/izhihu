@@ -5,10 +5,11 @@ import cn.edu.xmut.izhihu.dao.FavoriteMapper;
 import cn.edu.xmut.izhihu.pojo.common.HttpCodeEnum;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
-import cn.edu.xmut.izhihu.pojo.entity.Attention;
 import cn.edu.xmut.izhihu.pojo.entity.Favorite;
+import cn.edu.xmut.izhihu.pojo.entity.FavoriteArticle;
 import cn.edu.xmut.izhihu.pojo.request.CreateFavoriteRequest;
 import cn.edu.xmut.izhihu.pojo.request.UpdateFavoriteRequest;
+import cn.edu.xmut.izhihu.pojo.vo.CollectDetailVO;
 import cn.edu.xmut.izhihu.service.FavoriteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,23 @@ public class FavoriteServiceImpl implements FavoriteService {
                 .andEqualTo("userId", userId);
         List<Favorite> record = favoriteMapper.selectByExample(example);
         return new SuccessVO(record);
+    }
+
+    @Override
+    public ResultVO myFavoriteDetail(String userId) {
+        CollectDetailVO record = new CollectDetailVO();
+        Favorite favorite = new Favorite();
+        favorite.setUserId(userId);
+        List<Favorite> list = favoriteMapper.select(favorite);
+
+        for (Favorite i : list) {
+            int contNum = favoriteMapper.countFavArt(i.getFavoriteId());
+            int attNum = favoriteMapper.countFavAtt(i.getFavoriteId());
+            //TODO:
+        }
+
+
+        return new SuccessVO();
     }
 
     /**
@@ -90,8 +108,9 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Override
     public ResultVO del(String favoriteId) {
         int num = favoriteMapper.countFavArt(favoriteId);
-        if (num>0) {
-            return new ResultVO(HttpCodeEnum.REQUEST_FAIL.getCode(),null,"该收藏夹有关联的文章");
+
+        if (num > 0) {
+            return new ResultVO(HttpCodeEnum.REQUEST_FAIL.getCode(), null, "该收藏夹有关联的文章");
         }
         favoriteMapper.deleteByPrimaryKey(favoriteId);
         return new SuccessVO("删除成功");
@@ -105,31 +124,37 @@ public class FavoriteServiceImpl implements FavoriteService {
      */
     @Override
     public ResultVO hotFavorite(int num) {
+
         return null;
     }
 
     /**
      * 收藏
      *
-     * @param userId
+     * @param favoritesId
      * @param articleId
      * @return
      */
     @Override
-    public ResultVO collect(String userId, String articleId) {
-        return null;
+    public ResultVO collect(String favoritesId, String articleId) {
+        FavoriteArticle record = new FavoriteArticle();
+        record.setFavoritesId(favoritesId);
+        record.setArticleId(articleId);
+        favArtMapper.insertSelective(record);
+        return new SuccessVO();
     }
 
     /**
      * 取消收藏
      *
-     * @param userId
+     * @param favoritesId
      * @param articleId
      * @return
      */
     @Override
-    public ResultVO unCollect(String userId, String articleId) {
-        return null;
+    public ResultVO unCollect(String favoritesId, String articleId) {
+        favArtMapper.delCollect(favoritesId, articleId);
+        return new SuccessVO("取消收藏成功");
     }
 
 

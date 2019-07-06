@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:
@@ -111,6 +112,20 @@ public class QuestionServiceImpl implements QuestionService {
         question.setBrowseNum(question.getBrowseNum() + 1);
         questionMapper.updateByPrimaryKey(question);
         return new SuccessVO(question);
+    }
+
+    /**
+     * 根据问题id
+     * 获取问题下的所有回答
+     *
+     * @param quesId
+     * @return
+     */
+    @Override
+    public ResultVO findAnsByQues(String quesId) {
+
+        List<Map<String, Object>> res = questionMapper.findAnsByQues(quesId);
+        return new SuccessVO(res);
     }
 
 

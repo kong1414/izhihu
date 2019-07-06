@@ -4,8 +4,6 @@ import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.request.CreateFavoriteRequest;
 import cn.edu.xmut.izhihu.pojo.request.UpdateFavoriteRequest;
 
-import javax.xml.transform.Result;
-
 /**
  * @Description:
  * @Author: qiuguanlin
@@ -15,12 +13,20 @@ import javax.xml.transform.Result;
 public interface FavoriteService {
 
     /**
-     * 获取我的收藏
+     * 获取我的收藏列表
      *
      * @param userId
      * @return
      */
     public ResultVO myFavorite(String userId);
+
+    /**
+     * 获取我的收藏详情 增加关注人数以及内容数量
+     *
+     * @param userId
+     * @return
+     */
+    public ResultVO myFavoriteDetail(String userId);
 
 
     /**
@@ -58,18 +64,18 @@ public interface FavoriteService {
     /**
      * 收藏
      *
-     * @param userId
+     * @param favoritesId
      * @param articleId
      * @return
      */
-    ResultVO collect(String userId,String articleId);
+    ResultVO collect(String favoritesId, String articleId);
 
     /**
      * 取消收藏
      *
-     * @param userId
+     * @param favoritesId
      * @param articleId
      * @return
      */
-    ResultVO unCollect(String userId,String articleId);
+    ResultVO unCollect(String favoritesId, String articleId);
 }

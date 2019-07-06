@@ -9,10 +9,20 @@ import tk.mybatis.mapper.common.Mapper;
 public interface FavoriteMapper extends Mapper<Favorite> {
 
     /**
-     * 查询收藏夹关联文章的数量
+     * 查询某收藏夹关联文章的数量
      *
      * @param id
      * @return
      */
     int countFavArt(@Param("id") String id);
+
+    /**
+     * 查询某收藏夹被关注的数量
+     *
+     * @param id
+     * @return
+     */
+    int countFavAtt(@Param("id") String id);
+
+
 }

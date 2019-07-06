@@ -17,10 +17,17 @@
         SELECT
         count(favorite_article.article_id)
         FROM
-        favorite
-        JOIN favorite_article
-        ON favorite.favorite_id = favorite_article.favorites_id
+        favorite_article
         WHERE
-        favorite.favorite_id = #{id}
+        favorite_article.favorites_id = #{id}
+    </select>
+
+    <select id="countFavArt" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT
+        COUNT(attention.user_id)
+        FROM
+        attention
+        WHERE
+        att_id = #{id}
     </select>
 </mapper>

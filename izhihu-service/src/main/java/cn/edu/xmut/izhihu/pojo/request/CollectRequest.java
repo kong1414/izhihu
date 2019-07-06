@@ -10,6 +10,6 @@ import lombok.Data;
  */
 @Data
 public class CollectRequest {
-    private String userId;
+    private String favoritesId;
     private String articleId;
 }

@@ -10,4 +10,9 @@
     <result column="article_id" jdbcType="VARCHAR" property="articleId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
+
+  <delete id="delCollect">
+    DELETE FROM favorite_article
+    WHERE favorites_id = #{favoritesId} and article_id = #{articleId};
+  </delete>
 </mapper>
