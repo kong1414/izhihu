@@ -6,8 +6,7 @@
     </el-header>
     <el-container>
       <el-aside width="200px">
-        <el-menu 
-                 class="menu"
+        <el-menu class="menu"
                  default-active="/home/index"
                  @open="handleOpen"
                  @close="handleClose"
@@ -19,22 +18,28 @@
               <span style="font-size: 16px;color: #575a64;">菜单项</span>
               <span class="MENU">MENU</span>
             </span>
-            
+
             <span style="float:right;font-size: 17px;color: #575a64;">>></span>
           </el-menu-item>
-          <el-menu-item v-if="this.$store.state.user.type=='1'" index="/home/bookmanage">
+          <el-menu-item v-if="this.$store.state.user.type=='1'"
+                        index="/home/bookmanage">
             <i class="el-icon-s-management"></i>
             <span slot="title">图书管理</span>
           </el-menu-item>
-          <el-menu-item v-if="this.$store.state.user.type=='1'" index="/home/borrowhistory"  class="menuItem">
+          <el-menu-item v-if="this.$store.state.user.type=='1'"
+                        index="/home/borrowhistory"
+                        class="menuItem">
             <i class="el-icon-s-order"></i>
             <span slot="title">借阅历史</span>
           </el-menu-item>
-          <el-menu-item v-if="this.$store.state.user.type=='0'" index="/home/bookborrow">
+          <el-menu-item v-if="this.$store.state.user.type=='0'"
+                        index="/home/bookborrow">
             <i class="el-icon-s-management"></i>
             <span slot="title">图书借阅</span>
           </el-menu-item>
-          <el-menu-item v-if="this.$store.state.user.type=='0'" index="/home/myborrow"  class="menuItem">
+          <el-menu-item v-if="this.$store.state.user.type=='0'"
+                        index="/home/myborrow"
+                        class="menuItem">
             <i class="el-icon-s-order"></i>
             <span slot="title">我的借阅</span>
           </el-menu-item>
@@ -75,7 +80,7 @@ export default {
   height: 100%;
   width: 100%;
   .home-header {
-    background-image:url('../img/HeadLogo.png');
+    background-image: url("../img/HeadLogo.png");
   }
   .main {
     background-color: #eef5f9;
@@ -84,7 +89,7 @@ export default {
   .menu {
     .el-menu-item {
       .MENU {
-        margin-left:10px;
+        margin-left: 10px;
         color: #b5b6ba;
         font-size: 14px;
         color: #a3a4a9;
@@ -94,7 +99,6 @@ export default {
       }
     }
     .el-menu-item:hover {
-
     }
   }
 }

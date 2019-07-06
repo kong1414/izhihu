@@ -10,7 +10,8 @@
         <!-- <div class="creaBook"><el-button>新增图书</el-button></div> -->
         <div class="createBook">
           <el-button type="primary"
-                     class="createBut" @click="createbook">{{title}}</el-button>
+                     class="createBut"
+                     @click="createbook">{{title}}</el-button>
         </div>
         <div class="searchBook">
           <span>图书名称：</span>
@@ -18,7 +19,8 @@
                     placeholder="输入图书名称查询"
                     class="searchInput"></el-input>
           <el-button type="primary"
-                     class="searchBut" @click="search">搜索</el-button>
+                     class="searchBut"
+                     @click="search">搜索</el-button>
         </div>
         <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                   style="width: 100%;min-height:500px;">
@@ -40,9 +42,10 @@
                            label="操作">
             <template slot-scope="scope">
               <el-button type="text"
-                       @click="updatebook(scope.$index, scope.row)">编辑</el-button>
+                         @click="updatebook(scope.$index, scope.row)">编辑</el-button>
               <el-divider direction="vertical"></el-divider>
-              <el-button type="text" @click="delbook(scope.$index, scope.row)">删除</el-button>
+              <el-button type="text"
+                         @click="delbook(scope.$index, scope.row)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -106,7 +109,7 @@
 </template>
 
 <script>
-import { reqBookInfo,reqBookcreate, reqBookupdate, reqBookdel } from '../api/home'
+import { reqBookInfo, reqBookcreate, reqBookupdate, reqBookdel } from '../api/home'
 import { Message } from '_element-ui@2.10.1@element-ui';
 import { fips } from 'crypto';
 export default {
@@ -152,38 +155,38 @@ export default {
     updatebook (index, row) {
       this.from = row
       this.dialogFormVisible = true
-      this.title='编辑图书'
+      this.title = '编辑图书'
     },
     delbook (index, row) {
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          let params = 'id=' + row.id
-          reqBookdel(params).then(res =>{
-            if (res.resultCode ==200) {
-              this.$message({
-                type:'success',
-                message: res.resultMessage
-              })
-              this._loadData()
-            }
-          })
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });          
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let params = 'id=' + row.id
+        reqBookdel(params).then(res => {
+          if (res.resultCode == 200) {
+            this.$message({
+              type: 'success',
+              message: res.resultMessage
+            })
+            this._loadData()
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
         });
-      
+      });
+
     },
     createbook () {
       this.dialogFormVisible = true
-      this.title='新增图书'
+      this.title = '新增图书'
     },
     updataCreate () {
-      if (this.title=='新增图书') {
+      if (this.title == '新增图书') {
         let params = {
           name: this.from.name,
           publisher: this.from.publisher,
@@ -191,9 +194,9 @@ export default {
           stock: this.from.stock
         }
         reqBookcreate(params).then(res => {
-          if (res.resultCode ==200) {
+          if (res.resultCode == 200) {
             this.$message({
-              type:'success',
+              type: 'success',
               message: res.resultMessage
             })
             this.from = {}
@@ -201,7 +204,7 @@ export default {
             this._loadData()
           }
         })
-      } else if (this.title=='编辑图书') {
+      } else if (this.title == '编辑图书') {
 
         let params = {
           id: this.from.id,
@@ -211,9 +214,9 @@ export default {
           stock: this.from.stock
         }
         reqBookupdate(params).then(res => {
-          if (res.resultCode ==200) {
+          if (res.resultCode == 200) {
             this.$message({
-              type:'success',
+              type: 'success',
               message: res.resultMessage
             })
             this.from = {}

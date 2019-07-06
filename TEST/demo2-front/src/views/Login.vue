@@ -2,9 +2,11 @@
   <div class="login-page">
     <div class="content">
       <div class="login-card"
-               :body-style="{ padding: '0px' }">
+           :body-style="{ padding: '0px' }">
         <div class="head">
-          <img src="../img/loginTop.png" alt="" style="width: 360px; height: 180px">
+          <img src="../img/loginTop.png"
+               alt=""
+               style="width: 360px; height: 180px">
         </div>
         <el-form ref="AccountFrom"
                  :model="login"
@@ -20,7 +22,7 @@
           </el-form-item>
           <el-form-item prop="password">
             <el-input v-model="login.password"
-            prefix-icon="el-icon-lock"
+                      prefix-icon="el-icon-lock"
                       type="password"
                       placeholder="密码"
                       auto-complete="off"
@@ -28,12 +30,13 @@
                       @keyup.enter.native="handleLogin"></el-input>
           </el-form-item>
           <div class="other">
-            <el-select v-model="value" placeholder="我是管理员" style="width:130px;">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+            <el-select v-model="value"
+                       placeholder="我是管理员"
+                       style="width:130px;">
+              <el-option v-for="item in options"
+                         :key="item.value"
+                         :label="item.label"
+                         :value="item.value">
               </el-option>
             </el-select>
 
@@ -67,13 +70,13 @@ export default {
   data () {
     return {
       options: [{
-          value: '1',
-          label: '我是管理员'
-        }, {
-          value: '0',
-          label: '我是学生'
-        }],
-        value: '',
+        value: '1',
+        label: '我是管理员'
+      }, {
+        value: '0',
+        label: '我是学生'
+      }],
+      value: '',
       fits: 'fill',
       url: '../img/loginTop.png',
       login: {
@@ -107,7 +110,7 @@ export default {
       }
       reqLogin(params).then(res => {
         // console.info(res)
-        if(res.resultCode === ERR_OK) {
+        if (res.resultCode === ERR_OK) {
           this.$message({
             message: '登录成功！',
             type: 'success'
@@ -115,12 +118,12 @@ export default {
           this.saveUser(res.data)
           // this.saveToken(res.data.token)
           this.fullscreenLoading = false
-          if (this.value=='0') {
-            this.$router.push({ path: '/home/bookborrow'})
+          if (this.value == '0') {
+            this.$router.push({ path: '/home/bookborrow' })
           } else {
             this.$router.push({ path: '/home/bookmanage' })
           }
-          
+
         } else {
           this.fullscreenLoading = false
         }
@@ -135,7 +138,7 @@ export default {
 
 <style lang="scss">
 .login-page {
-  background-image:url('../img/login.png');
+  background-image: url("../img/login.png");
   //background-color: #087DDA;
   width: 100%;
   height: 100%;
@@ -147,8 +150,8 @@ export default {
     margin: 0 auto;
     width: 440px;
     .login-card {
-      border:none;
-       background-color:Transparent;
+      border: none;
+      background-color: Transparent;
       margin-top: 210px;
       padding: 0;
       .head {
@@ -186,7 +189,7 @@ export default {
           width: 350px;
           color: #fff;
           margin-top: 25px;
-          .el-button--primary{
+          .el-button--primary {
             background-color: #0084ff;
           }
         }

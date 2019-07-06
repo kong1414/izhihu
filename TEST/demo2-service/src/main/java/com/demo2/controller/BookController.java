@@ -69,15 +69,15 @@ public class BookController {
     @PostMapping("/borrow")
     public synchronized ResultVO borrow(@RequestBody BorrowRequest record) {
 
-        Record rea = new Record();
-
-        rea.setBookId(record.getBookId());
-        rea.setUserId(record.getUserId());
-
-        List<Record> relist = recordMapper.select(rea);
-        if (relist.size() >= 0) {
-            return new ResultVO(400, null, "已借阅");
-        }
+        // Record rea = new Record();
+        //
+        // rea.setBookId(record.getBookId());
+        // rea.setUserId(record.getUserId());
+        //
+        // List<Record> relist = recordMapper.select(rea);
+        // if (relist.size() >= 0) {
+        //     return new ResultVO(400, null, "已借阅");
+        // }
 
 
         int bookid = record.getBookId();
@@ -93,7 +93,7 @@ public class BookController {
         Record re = new Record();
         re.setBookId(record.getBookId());
         re.setUserId(record.getUserId());
-        recordMapper.insert(re);
+        recordMapper.insertSelective(re);
 
 
         return new SuccessVO("借阅成功");
