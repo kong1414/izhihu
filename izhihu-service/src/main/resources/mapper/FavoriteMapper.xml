@@ -22,7 +22,7 @@
         favorite_article.favorites_id = #{id}
     </select>
 
-    <select id="countFavArt" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <select id="countFavAtt" parameterType="java.lang.String" resultType="java.lang.Integer">
         SELECT
         COUNT(attention.user_id)
         FROM
