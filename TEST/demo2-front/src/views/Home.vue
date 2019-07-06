@@ -22,19 +22,19 @@
             
             <span style="float:right;font-size: 17px;color: #575a64;">>></span>
           </el-menu-item>
-          <el-menu-item index="/home/bookmanage">
+          <el-menu-item v-if="this.$store.state.user.type=='1'" index="/home/bookmanage">
             <i class="el-icon-s-management"></i>
             <span slot="title">图书管理</span>
           </el-menu-item>
-          <el-menu-item index="/home/borrowhistory"  class="menuItem">
+          <el-menu-item v-if="this.$store.state.user.type=='1'" index="/home/borrowhistory"  class="menuItem">
             <i class="el-icon-s-order"></i>
             <span slot="title">借阅历史</span>
           </el-menu-item>
-          <el-menu-item index="/home/bookborrow">
+          <el-menu-item v-if="this.$store.state.user.type=='0'" index="/home/bookborrow">
             <i class="el-icon-s-management"></i>
             <span slot="title">图书借阅</span>
           </el-menu-item>
-          <el-menu-item index="/home/myborrow"  class="menuItem">
+          <el-menu-item v-if="this.$store.state.user.type=='0'" index="/home/myborrow"  class="menuItem">
             <i class="el-icon-s-order"></i>
             <span slot="title">我的借阅</span>
           </el-menu-item>

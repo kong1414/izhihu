@@ -14,7 +14,7 @@
           <el-button type="primary" class="searchBut">搜索</el-button>
         </div>
         <el-table :data="tableData"
-                  style="width: 100%">
+                  style="width: 100%;min-height:500px">
           <el-table-column prop="name"
                            label="图书名称"
                            width="180">

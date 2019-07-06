@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div >
     <div class="title">
       <el-breadcrumb class="titleFont">
         <el-breadcrumb-item :to="{ path: '/' }"><i class="el-icon-house" />借阅历史</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="BookHistory">
-      <el-card>
+      <el-card style="  padding-bottom: 20px;">
         <!-- <div class="creaBook"><el-button>新增图书</el-button></div> -->
         <div class="searchBook">
           <span>图书名称：</span>
@@ -14,7 +14,7 @@
           <el-button type="primary" class="searchBut">搜索</el-button>
         </div>
         <el-table :data="tableData"
-                  style="width: 100%">
+                  style="width: 100%;min-height:500px">
           <el-table-column prop="name"
                            label="图书名称"
                            width="180">

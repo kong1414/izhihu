@@ -67,10 +67,10 @@ export default {
   data () {
     return {
       options: [{
-          value: '选项1',
+          value: '1',
           label: '我是管理员'
         }, {
-          value: '选项2',
+          value: '0',
           label: '我是学生'
         }],
         value: '',
@@ -115,7 +115,12 @@ export default {
           this.saveUser(res.data)
           // this.saveToken(res.data.token)
           this.fullscreenLoading = false
-          this.$router.push({ path: '/home/index' })
+          if (this.value=='0') {
+            this.$router.push({ path: '/home/bookborrow'})
+          } else {
+            this.$router.push({ path: '/home/bookmanage' })
+          }
+          
         } else {
           this.fullscreenLoading = false
         }

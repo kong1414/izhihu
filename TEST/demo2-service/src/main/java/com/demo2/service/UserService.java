@@ -50,6 +50,8 @@ public class UserService {
             UserVO userVO = new UserVO();
             userVO.setId(user.getId());
             userVO.setUsername(user.getUsername());
+            userVO.setType(user.getType());
+            result.setUserVO(userVO);
 
 
             // UserVO userVO = new UserVO(

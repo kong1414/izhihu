@@ -16,5 +16,6 @@ public class UserVO {
      */
     private int id;
     private String username;
+    private String type;
 
 }
