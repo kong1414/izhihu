@@ -37,6 +37,13 @@ public class FavoriteController {
         return favoriteService.myFavorite(userId);
     }
 
+    @ApiOperation("我关注的收藏夹")
+    @RequestMapping(value = "/myAttFavorite", method = RequestMethod.POST)
+    public ResultVO myAttFavorite(@RequestParam("userId") String userId) {
+
+        return favoriteService.myFavoriteDetail(userId);
+    }
+
     @ApiOperation("创建收藏夹")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResultVO create(@RequestBody CreateFavoriteRequest record) {

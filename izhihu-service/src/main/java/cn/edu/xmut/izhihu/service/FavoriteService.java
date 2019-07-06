@@ -18,7 +18,15 @@ public interface FavoriteService {
      * @param userId
      * @return
      */
-    public ResultVO myFavorite(String userId);
+    ResultVO myFavorite(String userId);
+
+    /**
+     * 我关注的收藏列表
+     *
+     * @param userId
+     * @return
+     */
+    ResultVO myAttFavorite(String userId);
 
     /**
      * 获取我的收藏详情 增加关注人数以及内容数量

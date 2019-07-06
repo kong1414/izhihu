@@ -35,5 +35,18 @@
         SELECT * FROM favorite ORDER BY rand() LIMIT #{num}
     </select>
 
+    <select id="getAttFavByUser" resultMap="BaseResultMap">
+        SELECT
+        favorite.*
+        FROM
+        favorite
+        JOIN attention
+        ON favorite.favorite_id = attention.att_id
+        WHERE
+        izhihu.attention.user_id = #{userId}
+        and
+        izhihu.attention.type = 7
+    </select>
+
 
 </mapper>

@@ -34,4 +34,6 @@ public interface FavoriteMapper extends Mapper<Favorite> {
      */
     List<Favorite> getFavRandom(@Param("num") int num);
 
+    List<Favorite> getAttFavByUser(@Param("userId") String userId);
+
 }

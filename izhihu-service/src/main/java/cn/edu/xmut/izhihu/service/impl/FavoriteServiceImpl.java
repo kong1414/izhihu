@@ -1,7 +1,9 @@
 package cn.edu.xmut.izhihu.service.impl;
 
+import cn.edu.xmut.izhihu.dao.AttentionMapper;
 import cn.edu.xmut.izhihu.dao.FavoriteArticleMapper;
 import cn.edu.xmut.izhihu.dao.FavoriteMapper;
+import cn.edu.xmut.izhihu.dao.UsersMapper;
 import cn.edu.xmut.izhihu.pojo.common.HttpCodeEnum;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
@@ -10,6 +12,7 @@ import cn.edu.xmut.izhihu.pojo.entity.FavoriteArticle;
 import cn.edu.xmut.izhihu.pojo.request.CreateFavoriteRequest;
 import cn.edu.xmut.izhihu.pojo.request.UpdateFavoriteRequest;
 import cn.edu.xmut.izhihu.pojo.vo.CollectDetailVO;
+import cn.edu.xmut.izhihu.pojo.vo.MyAttFavVO;
 import cn.edu.xmut.izhihu.service.FavoriteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +34,13 @@ public class FavoriteServiceImpl implements FavoriteService {
     private FavoriteMapper favoriteMapper;
 
     @Autowired
+    private UsersMapper usersMapper;
+
+    @Autowired
     private FavoriteArticleMapper favArtMapper;
+
+    @Autowired
+    private AttentionMapper attentionMapper;
 
 
     /**
@@ -47,6 +56,32 @@ public class FavoriteServiceImpl implements FavoriteService {
                 .andEqualTo("userId", userId);
         List<Favorite> record = favoriteMapper.selectByExample(example);
         return new SuccessVO(record);
+    }
+
+    /**
+     * 我关注的收藏列表
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public ResultVO myAttFavorite(String userId) {
+        List<MyAttFavVO> res = new ArrayList();
+        List<Favorite> list = favoriteMapper.getAttFavByUser(userId);
+
+        for (Favorite i :
+                list) {
+            MyAttFavVO record = new MyAttFavVO();
+            int contNum = favoriteMapper.countFavArt(i.getFavoriteId());
+            int attNum = favoriteMapper.countFavAtt(i.getFavoriteId());
+            record.setAttNum(attNum);
+            record.setContentNum(contNum);
+            record.setFavorite(i);
+            record.setUserName(usersMapper.selectByPrimaryKey(i.getUserId()).getName());
+            res.add(record);
+        }
+
+        return new SuccessVO(res);
     }
 
     /**

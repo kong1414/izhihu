@@ -52,7 +52,7 @@ export default new Router({
           component: () => import('./views/topic/TopicDetail.vue')
         },
         {
-          path: '/home/favorite',
+          path: '/home/favorite/:userid',
           menuName: 'favorite',
           component: () => import('./views/personal/Favorite.vue')
         },
