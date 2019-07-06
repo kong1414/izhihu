@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.xmut.izhihu.dao.FavoriteArticleMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.xmut.izhihu.pojo.entity.FavoriteArticle">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="favorites_id" jdbcType="VARCHAR" property="favoritesId" />
+    <result column="article_id" jdbcType="VARCHAR" property="articleId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <delete id="delCollect">
+    DELETE FROM favorite_article
+    WHERE favorites_id = #{favoritesId} and article_id = #{articleId};
+  </delete>
+</mapper>

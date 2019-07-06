@@ -46,4 +46,11 @@ public class QuestionController {
 
         return questionService.findById(quesId);
     }
+
+    @ApiOperation("获取问题下的所有回答")
+    @PostMapping("/findAnsByQues")
+    public ResultVO findAnsByQues(@RequestParam String quesId) {
+
+        return null;
+    }
 }

@@ -34,4 +34,13 @@ public interface QuestionService {
      * @return
      */
     ResultVO findById(String quesId);
+
+    /**
+     * 根据问题id
+     * 获取问题下的所有回答
+     *
+     * @param quesId
+     * @return
+     */
+    ResultVO findAnsByQues(String quesId);
 }

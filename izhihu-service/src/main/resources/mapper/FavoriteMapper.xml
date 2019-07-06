@@ -12,4 +12,28 @@
         <result column="is_public" jdbcType="INTEGER" property="isPublic"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
     </resultMap>
+
+    <select id="countFavArt" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT
+        count(favorite_article.article_id)
+        FROM
+        favorite_article
+        WHERE
+        favorite_article.favorites_id = #{id}
+    </select>
+
+    <select id="countFavAtt" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT
+        COUNT(attention.user_id)
+        FROM
+        attention
+        WHERE
+        att_id = #{id}
+    </select>
+
+    <select id="getFavRandom" resultMap="BaseResultMap">
+        SELECT * FROM favorite ORDER BY rand() LIMIT #{num}
+    </select>
+
+
 </mapper>

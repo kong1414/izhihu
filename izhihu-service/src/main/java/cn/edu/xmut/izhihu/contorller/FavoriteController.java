@@ -1,10 +1,13 @@
 package cn.edu.xmut.izhihu.contorller;
 
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
+import cn.edu.xmut.izhihu.pojo.request.CollectRequest;
+import cn.edu.xmut.izhihu.pojo.request.CreateFavoriteRequest;
+import cn.edu.xmut.izhihu.pojo.request.UpdateFavoriteRequest;
+import cn.edu.xmut.izhihu.service.FavoriteService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Description:
@@ -16,46 +19,55 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/favorite")
 public class FavoriteController {
 
+    @Autowired
+    private FavoriteService favoriteService;
+
+
     @ApiOperation("发现页的热门收藏夹")
     @RequestMapping(value = "/hotFavorite", method = RequestMethod.POST)
-    public ResultVO hotFavorite() {
-        return null;
+    public ResultVO hotFavorite(@RequestParam(defaultValue = "5",required = false) int num) {
+
+        return favoriteService.hotFavorite(num);
     }
 
     @ApiOperation("某用户的收藏夹")
     @RequestMapping(value = "/myFavorite", method = RequestMethod.POST)
-    public ResultVO myFavorite() {
-        return null;
+    public ResultVO myFavorite(@RequestParam("userId") String userId) {
+
+        return favoriteService.myFavorite(userId);
     }
 
     @ApiOperation("创建收藏夹")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ResultVO create() {
-        //TODO:
-        return null;
+    public ResultVO create(@RequestBody CreateFavoriteRequest record) {
+
+        return favoriteService.create(record);
     }
 
-    @ApiOperation("更新收藏夹")
+    @ApiOperation("更新编辑收藏夹")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ResultVO update() {
-        return null;
+    public ResultVO update(@RequestBody UpdateFavoriteRequest record) {
+
+        return favoriteService.update(record);
     }
 
-    @ApiOperation("删除收藏夹（会删除收藏夹内数据）")
+    @ApiOperation("删除收藏夹（有数据会提示报错）")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public ResultVO delete() {
-        return null;
+    public ResultVO delete(@RequestParam("record") String record) {
+
+        return favoriteService.del(record);
     }
 
     @ApiOperation("把文章加入收藏夹")
-    @RequestMapping(value = "/collect", method = RequestMethod.POST)
-    public ResultVO collect() {
-        return null;
+    @PostMapping("/collect")
+    public ResultVO collect(@RequestBody CollectRequest record) {
+
+        return favoriteService.collect(record.getFavoritesId(), record.getArticleId());
     }
 
     @ApiOperation("把文章取消收藏")
     @RequestMapping(value = "/unCollect", method = RequestMethod.POST)
-    public ResultVO unCollect() {
-        return null;
+    public ResultVO unCollect(@RequestBody CollectRequest record) {
+        return favoriteService.unCollect(record.getFavoritesId(), record.getArticleId());
     }
 }

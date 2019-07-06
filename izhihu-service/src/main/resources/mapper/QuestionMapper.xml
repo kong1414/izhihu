@@ -18,4 +18,27 @@
         <result column="del" jdbcType="INTEGER" property="del"/>
         <result column="ques_describe" jdbcType="LONGVARCHAR" property="quesDescribe"/>
     </resultMap>
+    <select id="findAnsByQues" resultType="java.util.HashMap">
+        SELECT
+question.ques_id,
+article.article_id,
+article.type,
+article.title,
+article.photo_url,
+article.content,
+article.author_id,
+article.anonymity,
+article.comment_num,
+article.report_num,
+article.create_time,
+users.`name`
+FROM
+question
+JOIN article
+ON question.ques_id = article.ques_id
+JOIN users
+ON article.author_id = users.user_id
+WHERE
+izhihu.question.ques_id = #{quesId}
+    </select>
 </mapper>
