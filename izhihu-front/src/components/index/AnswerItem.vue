@@ -78,7 +78,7 @@
           </div>
           <div class="comContent">{{comDet.comment_content}}</div>
           <div class="comTime">{{comDet.create_time.substr(0,10)}}</div>
-          <div>
+          <div class="operaBut">
             <el-button
               class="shareBut"
               v-if="comDet.stat!=1"
@@ -136,6 +136,10 @@
               <i class="el-icon-warning" />
               <span>举报</span>
             </el-button>
+            <el-button type="text" size="mini" class="shareBut">
+              <i class="el-icon-error" />
+              <span>删除</span>
+            </el-button>
             <el-divider></el-divider>
           </div>
         </div>
@@ -182,7 +186,8 @@ export default {
       commentVisible: false,
       replayname: null,
       replayStat: false,
-      replaycom: null
+      replaycom: null,
+      delVisible: false
     };
   },
   created() {
