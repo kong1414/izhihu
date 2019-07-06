@@ -71,7 +71,10 @@
         <div v-for="(comDet, index) in comDets" :key="index" class="vforD">
           <div class="comName">
             {{comDet.name}}
-            <span v-if="comDet.is_reply!=0" class="replyName">回复了   {{comDet.replayname}}</span>
+            <span
+              v-if="comDet.is_reply!=0"
+              class="replyName"
+            >回复了 {{comDet.replayname}}</span>
           </div>
           <div class="comContent">{{comDet.comment_content}}</div>
           <div class="comTime">{{comDet.create_time.substr(0,10)}}</div>
@@ -174,53 +177,7 @@ export default {
   data() {
     return {
       input2: "",
-      comDets: [
-        // {
-        //   create_time: "2019-07-02T13:49:03.000+0000",
-        //   commentator_id: "c6c4cb00-9188-4722-9817-08b0c53aa182",
-        //   praise_num: 0,
-        //   name: "qwe",
-        //   comment_content: "评论内容1",
-        //   id: 1,
-        //   comment_id: "0c593ec4-feea-4751-99bd-bfee1434961e",
-        //   is_reply: 0,
-        //   stat: "0"
-        // },
-        // {
-        //   create_time: "2019-07-02T13:49:44.000+0000",
-        //   commentator_id: "c6c4cb00-9188-4722-9817-08b0c53aa182",
-        //   praise_num: 0,
-        //   name: "wer",
-        //   comment_content: "评论内容2",
-        //   id: 2,
-        //   comment_id: "0c593ec4-feea-4751-99bd-bfee1434961e",
-        //   is_reply: 0,
-        //   stat: "1"
-        // },
-        // {
-        //   reply_id: 1,
-        //   create_time: "2019-07-02T13:50:40.000+0000",
-        //   commentator_id: "c6c4cb00-9188-4722-9817-08b0c53aa182",
-        //   praise_num: 0,
-        //   name: "ert",
-        //   comment_content: "测试回复内容1: 回复内容1",
-        //   id: 3,
-        //   comment_id: "0c593ec4-feea-4751-99bd-bfee1434961e",
-        //   is_reply: 1,
-        //   stat: "2"
-        // },
-        // {
-        //   create_time: "2019-07-04T04:03:04.000+0000",
-        //   commentator_id: "c6c4cb00-9188-4722-9817-08b0c53aa182",
-        //   praise_num: 0,
-        //   name: "rty",
-        //   comment_content: "评论内容3",
-        //   id: 4,
-        //   comment_id: "0c593ec4-feea-4751-99bd-bfee1434961e",
-        //   is_reply: 0,
-        //   stat: "2"
-        // }
-      ],
+      comDets: [],
       dialogVisible: false,
       commentVisible: false,
       replayname: null,
@@ -237,52 +194,52 @@ export default {
       // console.info(this.topicId);
       reqGetArticleCom(params).then(res => {
         if (res.resultCode === 200) {
-          console.info(res.data);
+          // console.info(res.data);
           res.data.forEach(element => {
             element.stat = 0;
-            element.praise_num = 100;
+            // element.praise_num = 123;
           });
           res.data.forEach(element => {
-            if(element.is_reply!=0){
+            if (element.is_reply != 0) {
               res.data.forEach(element2 => {
-                if(element.is_reply === element2.id)
+                if (element.is_reply === element2.id)
                   element.replayname = element2.name;
-                  console.info(element2.replayname);
+                // console.info(element.replayname);
               });
             }
           });
           this.comDets = res.data;
-          console.info(this.comDets);
+          // console.info(this.comDets);
         }
       });
     },
     handleClick() {},
-    showReply(id) {
-      this.comDets.forEach(element => {
-        console.info(element);
-        if (element.id === id) element.replayname = element.name;
-        console.info(element.name);
-        console.info(element.replayname);
-      });
+    // showReply(id) {
+    //   this.comDets.forEach(element => {
+    //     // console.info(element);
+    //     if (element.id === id) element.replayname = element.name;
+    //     // console.info(element.name);
+    //     // console.info(element.replayname);
+    //   });
+    // },
+    // replayCom(id) {
+    //   this.comDets.forEach(element => {
+    //     // console.info(element);
+    //     if (element.id === id) this.replaycom = element.name;
+    //     // console.info(this.replaycom);
+    //   });
+    // },
+    apprNadd() {
+      this.apprN++;
     },
-    replayCom(id) {
-      this.comDets.forEach(element => {
-        // console.info(element);
-        if (element.id === id) this.replaycom = element.name;
-        // console.info(this.replaycom);
-      });
+    apprNsub() {
+      this.apprN--;
     },
-    apprNadd(){
-      this.apprN ++;
+    praNadd(comDet) {
+      comDet.praise_num++;
     },
-    apprNsub(){
-      this.apprN --;
-    },
-    praNadd(comDet){
-      comDet.praise_num ++;
-    },
-    praNsub(comDet){
-      comDet.praise_num --;
+    praNsub(comDet) {
+      comDet.praise_num--;
     }
   }
 };
