@@ -189,7 +189,7 @@ export default {
   }
     .wriAnsHead {
       padding: 16px 22px;
-      height: 75px;
+      height: 56px;
       padding-bottom: 0px;
       .wriAnsAuthor {
         float: left;
