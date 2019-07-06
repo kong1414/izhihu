@@ -1,6 +1,7 @@
 package cn.edu.xmut.izhihu.contorller;
 
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
+import cn.edu.xmut.izhihu.pojo.request.CollectRequest;
 import cn.edu.xmut.izhihu.pojo.request.CreateFavoriteRequest;
 import cn.edu.xmut.izhihu.pojo.request.UpdateFavoriteRequest;
 import cn.edu.xmut.izhihu.service.FavoriteService;
@@ -59,13 +60,14 @@ public class FavoriteController {
 
     @ApiOperation("把文章加入收藏夹")
     @PostMapping("/collect")
-    public ResultVO collect() {
-        return null;
+    public ResultVO collect(@RequestBody CollectRequest record) {
+
+        return favoriteService.collect(record.getFavoritesId(), record.getArticleId());
     }
 
     @ApiOperation("把文章取消收藏")
     @RequestMapping(value = "/unCollect", method = RequestMethod.POST)
-    public ResultVO unCollect() {
-        return null;
+    public ResultVO unCollect(@RequestBody CollectRequest record) {
+        return favoriteService.unCollect(record.getFavoritesId(), record.getArticleId());
     }
 }

@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.util.List;
+
 @Repository("FavoriteDAO")
 public interface FavoriteMapper extends Mapper<Favorite> {
 
@@ -24,5 +26,12 @@ public interface FavoriteMapper extends Mapper<Favorite> {
      */
     int countFavAtt(@Param("id") String id);
 
+    /**
+     * 随机取得收藏夹
+     *
+     * @param num
+     * @return
+     */
+    List<Favorite> getFavRandom(@Param("num") int num);
 
 }

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,21 +49,30 @@ public class FavoriteServiceImpl implements FavoriteService {
         return new SuccessVO(record);
     }
 
+    /**
+     * 获取我的收藏详情 增加关注人数以及内容数量
+     *
+     * @param userId
+     * @return
+     */
     @Override
     public ResultVO myFavoriteDetail(String userId) {
-        CollectDetailVO record = new CollectDetailVO();
+        List<CollectDetailVO> res = new ArrayList();
+
         Favorite favorite = new Favorite();
         favorite.setUserId(userId);
         List<Favorite> list = favoriteMapper.select(favorite);
 
         for (Favorite i : list) {
+            CollectDetailVO record = new CollectDetailVO();
             int contNum = favoriteMapper.countFavArt(i.getFavoriteId());
             int attNum = favoriteMapper.countFavAtt(i.getFavoriteId());
-            //TODO:
+            record.setAttNum(attNum);
+            record.setContentNum(contNum);
+            record.setFavorite(i);
+            res.add(record);
         }
-
-
-        return new SuccessVO();
+        return new SuccessVO(res);
     }
 
     /**
@@ -124,8 +134,8 @@ public class FavoriteServiceImpl implements FavoriteService {
      */
     @Override
     public ResultVO hotFavorite(int num) {
-
-        return null;
+        List<Favorite> list = favoriteMapper.getFavRandom(num);
+        return new SuccessVO(list);
     }
 
     /**

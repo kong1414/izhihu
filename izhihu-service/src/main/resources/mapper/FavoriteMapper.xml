@@ -30,4 +30,10 @@
         WHERE
         att_id = #{id}
     </select>
+
+    <select id="getFavRandom" resultMap="BaseResultMap">
+        SELECT * FROM favorite ORDER BY rand() LIMIT #{num}
+    </select>
+
+
 </mapper>

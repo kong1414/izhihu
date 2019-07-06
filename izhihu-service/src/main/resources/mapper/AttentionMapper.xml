@@ -11,4 +11,12 @@
         <result column="type" jdbcType="INTEGER" property="type"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
     </resultMap>
+    <select id="countByAttId" resultType="java.lang.Integer">
+        SELECT
+        COUNT(attention.user_id)
+        FROM
+        attention
+        WHERE
+        att_id = #{attId}
+    </select>
 </mapper>
