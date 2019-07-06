@@ -12,4 +12,15 @@
         <result column="is_public" jdbcType="INTEGER" property="isPublic"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
     </resultMap>
+
+    <select id="countFavArt" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT
+        count(favorite_article.article_id)
+        FROM
+        favorite
+        JOIN favorite_article
+        ON favorite.favorite_id = favorite_article.favorites_id
+        WHERE
+        favorite.favorite_id = #{id}
+    </select>
 </mapper>
