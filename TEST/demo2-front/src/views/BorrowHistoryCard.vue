@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { reqMyRecordList } from '../api/home'
+import { reqRecordAllList } from '../api/home'
 export default {
   name: 'BorrowHistoryCard',
   data () {
@@ -75,14 +75,14 @@ export default {
   },
   methods: {
     _loadData () {
-      let params = 'userId=10001'
-      reqMyRecordList(params).then(res => {
+      let params= 'keyword=' + this.input
+      reqRecordAllList(params).then(res => {
         if (res.resultCode == 200) {
           console.info(res.data)
           res.data.forEach(element => {
             element.create_time = element.create_time.substr(0, 10);
-            element.return_time = element.return_time.substr(0, 10);
-          });
+            element.return_time = element.create_time.substr(0, 10);
+          })
           this.tableData = res.data
         }
       })

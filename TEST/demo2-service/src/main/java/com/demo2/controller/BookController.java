@@ -35,7 +35,7 @@ public class BookController {
     @PostMapping("/list")
     public ResultVO list(@RequestParam(defaultValue = "",required = false) String keyword) {
         if ("".equals(keyword)) {
-            return new SuccessVO(bookMapper.selectAll());
+            return new SuccessVO(bookMapper.findByName(keyword));
         } else {
             return new SuccessVO(bookMapper.findByName(keyword));
         }
@@ -93,6 +93,8 @@ public class BookController {
         Record re = new Record();
         re.setBookId(record.getBookId());
         re.setUserId(record.getUserId());
+        re.setCreateTime(new Date());
+        re.setReturnTime(new Date());
         recordMapper.insertSelective(re);
 
 
@@ -115,7 +117,7 @@ public class BookController {
     @PostMapping("/recordAllList")
     public ResultVO RecordAllList(@RequestParam(defaultValue = "",required = false) String keyword) {
         if ("".equals(keyword)) {
-            return new SuccessVO(bookMapper.selectAll());
+            return new SuccessVO(bookMapper.findAllRecord(keyword));
         } else {
             return new SuccessVO(bookMapper.findAllRecord(keyword));
         }
