@@ -4,10 +4,7 @@ import cn.edu.xmut.izhihu.dao.*;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
 import cn.edu.xmut.izhihu.pojo.common.Type;
-import cn.edu.xmut.izhihu.pojo.entity.AgreeOppose;
-import cn.edu.xmut.izhihu.pojo.entity.Article;
-import cn.edu.xmut.izhihu.pojo.entity.Attention;
-import cn.edu.xmut.izhihu.pojo.entity.Question;
+import cn.edu.xmut.izhihu.pojo.entity.*;
 import cn.edu.xmut.izhihu.service.FollowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +33,7 @@ public class FollowServiceImpl implements FollowService {
     private QuestionMapper questionMapper;
 
     @Autowired
-    private UsersMapper usersMapper;
+    private CommentMapper commentMapper;
 
     @Autowired
     private ArticleMapper articleMapper;
@@ -141,6 +138,12 @@ public class FollowServiceImpl implements FollowService {
             articleMapper.updateByPrimaryKeySelective(article);
         }
 
+        Comment comment = commentMapper.selectByPrimaryKey(contentId);
+        if (comment != null) {
+            comment.setPraiseNum(comment.getPraiseNum() + 1);
+            commentMapper.updateByPrimaryKeySelective(comment);
+        }
+
         return new SuccessVO("点赞成功");
     }
 
@@ -162,7 +165,6 @@ public class FollowServiceImpl implements FollowService {
         record.setArticleId(contentId);
         record.setAgrOpp(0);
         agreeOpposeMapper.insertSelective(record);
-
 
         return new SuccessVO("不赞成成功");
     }
