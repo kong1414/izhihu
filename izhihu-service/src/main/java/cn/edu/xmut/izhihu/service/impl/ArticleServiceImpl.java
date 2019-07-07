@@ -1,10 +1,14 @@
 package cn.edu.xmut.izhihu.service.impl;
 
 import cn.edu.xmut.izhihu.dao.ArticleMapper;
+import cn.edu.xmut.izhihu.dao.AttentionMapper;
 import cn.edu.xmut.izhihu.dao.TopicContentMapper;
+import cn.edu.xmut.izhihu.pojo.common.HttpCodeEnum;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
+import cn.edu.xmut.izhihu.pojo.common.Type;
 import cn.edu.xmut.izhihu.pojo.entity.Article;
+import cn.edu.xmut.izhihu.pojo.entity.Attention;
 import cn.edu.xmut.izhihu.pojo.entity.TopicContent;
 import cn.edu.xmut.izhihu.pojo.request.ArticleRequest;
 import cn.edu.xmut.izhihu.service.ArticleService;
@@ -12,7 +16,9 @@ import cn.hutool.core.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +37,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private TopicContentMapper topicContentMapper;
+
+    @Autowired
+    private AttentionMapper attentionMapper;
 
     /**
      * 创建文章想法
@@ -116,6 +125,69 @@ public class ArticleServiceImpl implements ArticleService {
         List<Map<String, Object>> list = articleMapper.getArticleByUser(userId, type);
 
         return new SuccessVO(list);
+    }
+
+    /**
+     * 首页的关注内容
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public ResultVO attContetn(String userId) {
+        List<Map<String, Object>> res = new ArrayList();
+
+        // 1获取关注的问题的最新回答
+        // 1.1获取关注的问题id
+        Example example = new Example(Attention.class);
+        example.createCriteria()
+                .andEqualTo("userId", userId)
+                .andEqualTo("type", Type.QUESTION.getCode());
+        List<Attention> list = attentionMapper.selectByExample(example);
+
+        // 1.2根据问题id获得article
+        for (Attention i : list) {
+            List<Map<String, Object>> record = articleMapper.getArticleByQues(i.getAttId());
+            res.addAll(record);
+        }
+
+        // 2获取关注的用户的最新回答
+        // 2.1获取关注的用户id
+        Example example2 = new Example(Attention.class);
+        example.createCriteria()
+                .andEqualTo("userId", userId)
+                .andEqualTo("type", Type.USER.getCode());
+        List<Attention> list2 = attentionMapper.selectByExample(example2);
+
+        // 2.2获取用户的回答
+        for (Attention i : list2) {
+            List<Map<String, Object>> record = articleMapper.getArticleByUserId(i.getAttId());
+            res.addAll(record);
+        }
+
+        // 3 去重排序（最后决定前端去重）
+
+        return new SuccessVO(res);
+    }
+
+    /**
+     * 删除文章
+     *
+     * @param userId
+     * @param artiId
+     * @return
+     */
+    @Override
+    public ResultVO delete(String userId, String artiId) {
+
+        Article record = articleMapper.selectByPrimaryKey(artiId);
+        if (userId.equals(record.getAuthorId())) {
+            record.setDel(1);
+            articleMapper.updateByPrimaryKeySelective(record);
+            return new SuccessVO("删除成功");
+        } else {
+            return new ResultVO(HttpCodeEnum.REQUEST_FAIL.getCode(), null, "不能删除别人的文章哦");
+        }
     }
 
 

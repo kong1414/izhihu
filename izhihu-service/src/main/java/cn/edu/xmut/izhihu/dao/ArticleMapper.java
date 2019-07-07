@@ -31,4 +31,20 @@ public interface ArticleMapper extends Mapper<Article> {
      */
     List<Map<String, Object>> getArticleByUser(@Param("userId") String userId,
                                                @Param("type") int type);
+
+    /**
+     * 根据问题id获取文章
+     *
+     * @param quesId
+     * @return
+     */
+    List<Map<String, Object>> getArticleByQues(@Param("quesId") String quesId);
+
+    /**
+     * 根据用户id获取文章 无视类别
+     *
+     * @param userId
+     * @return
+     */
+    List<Map<String, Object>> getArticleByUserId(@Param("userId") String userId);
 }

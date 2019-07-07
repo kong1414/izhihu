@@ -51,4 +51,20 @@ public interface ArticleService {
     ResultVO getArticleByUser(String userId, int type);
 
 
+    /**
+     * 首页的关注内容
+     *
+     * @param userId
+     * @return
+     */
+    ResultVO attContetn(String userId);
+
+    /**
+     * 删除文章
+     *
+     * @param userId
+     * @param artiId
+     * @return
+     */
+    ResultVO delete(String userId, String artiId);
 }

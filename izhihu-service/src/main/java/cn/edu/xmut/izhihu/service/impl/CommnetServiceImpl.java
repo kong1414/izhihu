@@ -69,7 +69,7 @@ public class CommnetServiceImpl implements CommnetService {
             commentMapper.updateByPrimaryKeySelective(record);
             return new SuccessVO("删除成功");
         } else {
-            return new ResultVO(HttpCodeEnum.REQUEST_FAIL.getCode(), null, "只能删除自己的评论");
+            return new ResultVO(HttpCodeEnum.REQUEST_FAIL.getCode(), null, "不能删除别人的评论哦");
         }
     }
 }

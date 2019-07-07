@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  * @Description:
  * @Author: qiuguanlin
@@ -32,11 +34,10 @@ public class ArticleController {
         return articleService.recommend();
     }
 
-    @ApiOperation("首页的关注内容")
-    @RequestMapping(value = "/attention", method = RequestMethod.POST)
-    public ResultVO attention(@RequestParam String userId) {
-        //TODO:
-        return null;
+    @ApiOperation("首页的关注内容 （！需要前端去重以及根据时间排序）")
+    @RequestMapping(value = "/attContetn", method = RequestMethod.POST)
+    public ResultVO attContetn(@RequestParam String userId) {
+        return articleService.attContetn(userId);
     }
 
     @ApiOperation("发现页的编辑推荐")
@@ -66,15 +67,13 @@ public class ArticleController {
 
     @ApiOperation("删除 回答文章想法")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public ResultVO delete(String id) {
-        //TODO:
-        return null;
+    public ResultVO delete(@RequestBody Map<String, String> map) {
+        return articleService.delete(map.get("userId"), map.get("articleId"));
     }
 
     @ApiOperation("某用户的所有文章")
     @RequestMapping(value = "/listByUser", method = RequestMethod.POST)
     public ResultVO list(@RequestBody ArtTypeRequest record) {
-
         return articleService.getArticleByUser(record.getUserId(), record.getType());
     }
 
