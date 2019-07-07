@@ -1,14 +1,17 @@
 package cn.edu.xmut.izhihu.service.impl;
 
-import cn.edu.xmut.izhihu.dao.AgreeOpposeMapper;
-import cn.edu.xmut.izhihu.dao.AttentionMapper;
+import cn.edu.xmut.izhihu.dao.*;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
+import cn.edu.xmut.izhihu.pojo.common.Type;
 import cn.edu.xmut.izhihu.pojo.entity.AgreeOppose;
+import cn.edu.xmut.izhihu.pojo.entity.Article;
 import cn.edu.xmut.izhihu.pojo.entity.Attention;
+import cn.edu.xmut.izhihu.pojo.entity.Question;
 import cn.edu.xmut.izhihu.service.FollowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
@@ -20,6 +23,7 @@ import java.util.List;
  * @Version: 1.0
  */
 @Service
+@Transactional
 public class FollowServiceImpl implements FollowService {
 
     @Autowired
@@ -27,6 +31,15 @@ public class FollowServiceImpl implements FollowService {
 
     @Autowired
     private AttentionMapper attentionMapper;
+
+    @Autowired
+    private QuestionMapper questionMapper;
+
+    @Autowired
+    private UsersMapper usersMapper;
+
+    @Autowired
+    private ArticleMapper articleMapper;
 
     /**
      * 关注某事
@@ -37,7 +50,7 @@ public class FollowServiceImpl implements FollowService {
      * @return
      */
     @Override
-    public ResultVO infollow(String userId, String contentId, int type) {
+    public synchronized ResultVO infollow(String userId, String contentId, int type) {
         if (this.checkFollow(userId, contentId)) {
             return new SuccessVO("已关注");
         }
@@ -46,6 +59,13 @@ public class FollowServiceImpl implements FollowService {
         record.setAttId(contentId);
         record.setType(type);
         attentionMapper.insertSelective(record);
+
+        if (type == Type.QUESTION.getCode()) {
+            Question question = questionMapper.selectByPrimaryKey(contentId);
+            question.setAttentionNum(question.getAttentionNum() + 1);
+            questionMapper.updateByPrimaryKeySelective(question);
+        }
+
         return new SuccessVO("已关注");
     }
 
@@ -57,7 +77,7 @@ public class FollowServiceImpl implements FollowService {
      * @return
      */
     @Override
-    public ResultVO unfollow(String userId, String contentId) {
+    public synchronized ResultVO unfollow(String userId, String contentId) {
         if (!this.checkFollow(userId, contentId)) {
             return new SuccessVO("尚未关注");
         }
@@ -65,6 +85,12 @@ public class FollowServiceImpl implements FollowService {
         att.setUserId(userId);
         att.setAttId(contentId);
         attentionMapper.delete(att);
+
+        Question question = questionMapper.selectByPrimaryKey(contentId);
+        if (question != null) {
+            question.setAttentionNum(question.getAttentionNum() - 1);
+            questionMapper.updateByPrimaryKeySelective(question);
+        }
 
         return new SuccessVO("已取消关注");
     }
@@ -100,14 +126,21 @@ public class FollowServiceImpl implements FollowService {
      */
     @Override
     public ResultVO like(String userId, String contentId) {
-        if (this.checkLike(userId, contentId)) {
-                return new SuccessVO("已点赞");
-        }
+        // 先取消态度再点赞
+        this.cancelLike(userId, contentId);
+
         AgreeOppose record = new AgreeOppose();
         record.setUserId(userId);
         record.setArticleId(contentId);
         record.setAgrOpp(1);
         agreeOpposeMapper.insertSelective(record);
+
+        Article article = articleMapper.selectByPrimaryKey(contentId);
+        if (article != null) {
+            article.setReportNum(article.getReportNum() + 1);
+            articleMapper.updateByPrimaryKeySelective(article);
+        }
+
         return new SuccessVO("点赞成功");
     }
 
@@ -119,15 +152,18 @@ public class FollowServiceImpl implements FollowService {
      * @return
      */
     @Override
-    public ResultVO unlike(String userId, String contentId) {
-        if (this.checkLike(userId, contentId)) {
-            return new SuccessVO("已不赞成");
-        }
+    public synchronized ResultVO unlike(String userId, String contentId) {
+
+        // 先取消态度再点赞
+        this.cancelLike(userId, contentId);
+
         AgreeOppose record = new AgreeOppose();
         record.setUserId(userId);
         record.setArticleId(contentId);
         record.setAgrOpp(0);
         agreeOpposeMapper.insertSelective(record);
+
+
         return new SuccessVO("不赞成成功");
     }
 
@@ -139,12 +175,13 @@ public class FollowServiceImpl implements FollowService {
      * @return
      */
     @Override
-    public ResultVO cancelLike(String userId, String contentId) {
+    public synchronized ResultVO cancelLike(String userId, String contentId) {
         Example example = new Example(AgreeOppose.class);
         example.createCriteria()
                 .andEqualTo("userId", userId)
                 .andEqualTo("articleId", contentId);
         agreeOpposeMapper.deleteByExample(example);
+
         return new SuccessVO("已取消态度");
     }
 
@@ -156,7 +193,7 @@ public class FollowServiceImpl implements FollowService {
      * @return 已点赞返回True 未点赞返回False
      */
     @Override
-    public Boolean checkLike(String userId, String contentId) {
+    public synchronized Boolean checkLike(String userId, String contentId) {
         Example example = new Example(AgreeOppose.class);
         example.createCriteria()
                 .andEqualTo("userId", userId)

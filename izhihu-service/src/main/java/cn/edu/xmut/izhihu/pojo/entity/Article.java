@@ -53,7 +53,7 @@ public class Article {
     private Integer commentNum;
 
     /**
-     * 举报次数
+     * 举报次数 修改为赞次数
      */
     @Column(name = "report_num")
     private Integer reportNum;

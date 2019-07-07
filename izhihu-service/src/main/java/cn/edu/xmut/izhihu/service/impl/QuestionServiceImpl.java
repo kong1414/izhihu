@@ -94,6 +94,9 @@ public class QuestionServiceImpl implements QuestionService {
 
         articleMapper.insertSelective(article);
 
+        question.setAnswerNum(question.getAnswerNum() + 1);
+
+        questionMapper.updateByPrimaryKeySelective(question);
         return new SuccessVO();
     }
 
