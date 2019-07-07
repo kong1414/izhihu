@@ -1,14 +1,17 @@
 package cn.edu.xmut.izhihu.service.impl;
 
+import cn.edu.xmut.izhihu.dao.ArticleMapper;
 import cn.edu.xmut.izhihu.dao.CommentMapper;
 import cn.edu.xmut.izhihu.pojo.common.HttpCodeEnum;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
+import cn.edu.xmut.izhihu.pojo.entity.Article;
 import cn.edu.xmut.izhihu.pojo.entity.Comment;
 import cn.edu.xmut.izhihu.pojo.request.CommentRequest;
 import cn.edu.xmut.izhihu.service.CommnetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -20,10 +23,14 @@ import java.util.Map;
  * @Version: 1.0
  */
 @Service
+@Transactional
 public class CommnetServiceImpl implements CommnetService {
 
     @Autowired
     private CommentMapper commentMapper;
+
+    @Autowired
+    private ArticleMapper articleMapper;
 
     /**
      * 获取某内容的评论
@@ -43,7 +50,7 @@ public class CommnetServiceImpl implements CommnetService {
      * @return
      */
     @Override
-    public ResultVO comment(CommentRequest record) {
+    public synchronized ResultVO comment(CommentRequest record) {
         Comment comment = new Comment();
         comment.setCommentId(record.getCommentId());
         comment.setIsReply(record.getIsReply());
@@ -51,6 +58,13 @@ public class CommnetServiceImpl implements CommnetService {
         comment.setCommentatorId(record.getCommentatorId());
         comment.setCommentContent(record.getCommentContent());
         commentMapper.insertSelective(comment);
+
+        Article article = articleMapper.selectByPrimaryKey(record.getCommentId());
+        if (article != null) {
+            article.setCommentNum(article.getCommentNum() + 1);
+        }
+
+
         return new SuccessVO("评论成功");
     }
 
@@ -62,11 +76,17 @@ public class CommnetServiceImpl implements CommnetService {
      * @return
      */
     @Override
-    public ResultVO delete(String userId, String id) {
+    public synchronized ResultVO delete(String userId, String id) {
         Comment record = commentMapper.selectByPrimaryKey(id);
         if (record.getCommentatorId() == userId) {
             record.setDel(1);
             commentMapper.updateByPrimaryKeySelective(record);
+
+            Article article = articleMapper.selectByPrimaryKey(record.getCommentId());
+            if (article != null) {
+                article.setCommentNum(article.getCommentNum() - 1);
+            }
+
             return new SuccessVO("删除成功");
         } else {
             return new ResultVO(HttpCodeEnum.REQUEST_FAIL.getCode(), null, "不能删除别人的评论哦");
