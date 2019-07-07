@@ -10,12 +10,14 @@ import cn.edu.xmut.izhihu.pojo.entity.UserDO;
 import cn.edu.xmut.izhihu.pojo.entity.UsersInfo;
 import cn.edu.xmut.izhihu.pojo.request.LoginRequest;
 import cn.edu.xmut.izhihu.pojo.request.RegisterRequest;
+import cn.edu.xmut.izhihu.pojo.request.UpdateUserInfoRequest;
 import cn.edu.xmut.izhihu.pojo.vo.UserVO;
 import cn.edu.xmut.izhihu.service.UserService;
 import cn.edu.xmut.izhihu.util.Gloal;
 import cn.edu.xmut.izhihu.util.JWTUtil;
 import cn.edu.xmut.izhihu.util.MapBeanUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.system.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -236,6 +238,37 @@ public class UserServiceImpl implements UserService {
         usersInfoMapper.insertSelective(usersInfo);
 
         return new SuccessVO();
+    }
+
+    /**
+     * 更新个人用户
+     *
+     * @param record
+     * @return
+     */
+    @Override
+    public synchronized ResultVO updateUserInfo(UpdateUserInfoRequest record) {
+        UsersInfo usersInfo = usersInfoMapper.selectByPrimaryKey(record.getUserId());
+
+        usersInfo.setGender(record.getGender());
+
+        usersInfo.setAutograph(record.getAutograph());
+        usersInfo.setIntroduce(record.getIntroduce());
+        usersInfo.setIndustry(record.getIndustry());
+        usersInfo.setPersonalityUrl(record.getPersonalityUrl());
+        usersInfo.setCompany(record.getCompany());
+        usersInfo.setPosition(record.getPosition());
+        usersInfo.setSchool(record.getSchool());
+        usersInfo.setMajor(record.getMajor());
+        usersInfoMapper.updateByPrimaryKeySelective(usersInfo);
+
+
+        UserDO userDO = userMapper.selectByPrimaryKey(record.getUserId());
+        userDO.setName(record.getName());
+        userDO.setPhotoUrl(record.getPhotoUrl());
+        userMapper.updateByPrimaryKeySelective(userDO);
+
+        return new SuccessVO("更新成功");
     }
 
 }

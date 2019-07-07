@@ -37,13 +37,13 @@
         <div class="more">
           <span>
 
-            <el-popover
-              placement="bottom"
-              width="300"
-              trigger="hover">
+            <el-popover placement="bottom"
+                        width="300"
+                        trigger="hover">
               <el-tabs style="margin-left:15px; margin-right:15px;">
-                <el-tab-pane label="问答区"> 
-                  <div v-for="i in noticelist" :key="i.id">
+                <el-tab-pane label="问答区">
+                  <div v-for="i in noticelist"
+                       :key="i.id">
                     <el-button type="text">{{i.username}}</el-button>
                     <span> 邀请你回答：</span>
                     <el-button type="text">{{i.question}}</el-button>
@@ -52,8 +52,10 @@
                 <el-tab-pane label="未开发"></el-tab-pane>
                 <el-tab-pane label="未开发"></el-tab-pane>
               </el-tabs>
-              <i class="el-icon-message-solid" type="text"  style="margin-right: 30px; cursor: pointer;"
-                  slot="reference"></i>
+              <i class="el-icon-message-solid"
+                 type="text"
+                 style="margin-right: 30px; cursor: pointer;"
+                 slot="reference"></i>
             </el-popover>
 
             <i class="el-icon-chat-line-round"
@@ -62,7 +64,7 @@
               <span class="el-dropdown-link userinfo-inner">
                 <span class="username">
                   <!-- {{this.$store.state.user.name}} -->
-                  {{user.name}}
+                  {{user.name ? user.name : '未登录'}}
                 </span>
                 <i style="padding-left:5px"
                    class="el-icon-caret-bottom"></i>
@@ -104,11 +106,14 @@ export default {
       activeIndex: '1',
       input: '',
       noticelist: [
-        { username: '路人甲', question: '午饭吃什么'},
-        { username: '路人乙', question: '晚饭吃什么'},
-        { username: '路人丙', question: '夜宵吃什么'}
+        { username: '路人甲', question: '午饭吃什么' },
+        { username: '路人乙', question: '晚饭吃什么' },
+        { username: '路人丙', question: '夜宵吃什么' }
       ]
     }
+  },
+  created () {
+    this.user = this.$store.state.user
   },
   mounted () {
     this.user = this.$store.state.user
@@ -122,13 +127,20 @@ export default {
       console.log(key, keyPath)
     },
     handleAsk () { // 提问
-      this.$router.push({ path:'/home/editquestion'})
+      this.$router.push({ path: '/home/editquestion' })
     },
     changePasswords () { // 修改密码
 
     },
     logout () { // 退出登录
-      this.$router.push({ path:'/login'})
+      var _this = this
+      this.$confirm('确认退出吗?', '提示', {
+        // type: 'warning'
+      }).then(() => {
+        localStorage.removeItem('vuex')
+        _this.$router.push('/login')
+      }).catch(() => { })
+
     },
     toPersonal () { // 跳转到个人主页
       if (this.$store.state.user === null) {

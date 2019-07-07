@@ -128,14 +128,14 @@
     <el-dialog title="编辑个人资料"
                :visible.sync="userInfodialogVisible"
                width="600px"
-               class="updata-dialog"
+               custom-class="updata-dialog"
                :before-close="handleClose">
       <el-form label-width="80px"
                size="medium"
                class="update">
         <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          action="http://localhost:8090/api/user/uploadImage"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
@@ -191,7 +191,7 @@
 </template>
 
 <script>
-import { reqUserInfo } from '../../api/home'
+import { reqUserInfo, reqUpdateUserInfo } from '../../api/home'
 import AsideFooter from '../../components/aside/AsideFooter'
 import recommendItem from '../../components/index/RecommendItem'
 export default {
@@ -204,7 +204,6 @@ export default {
     return {
       activeName: 'dynamic',
       userId: this.$route.params.userid,
-      avatarPhotoUrl: 'http://img3.imgtn.bdimg.com/it/u=4259300811,497831842&fm=26&gp=0.jpg',
       userInfo: {
         name: '',
         photo_url: '',
@@ -223,7 +222,7 @@ export default {
     }
   },
   created () {
-    console.info('userid')
+    // console.info('userid')
     this._loadData(this.userId)
   },
   methods: {
@@ -233,10 +232,36 @@ export default {
         if (res.resultCode === 200) {
           console.info(res.data)
           this.userInfo = res.data
+          this.userInfo.gender = String(res.data.gender)
+          this.imageUrl = res.data.photo_url
         }
       })
     },
     handleUpdate () { // 更新个人信息
+      let params = {
+        userId: this.userId,
+        name: this.userInfo.name,
+        photoUrl: this.imageUrl,
+        gender: Number(this.userInfo.gender),
+        autograph: this.userInfo.autograph,
+        introduce: this.userInfo.introduce,
+        industry: this.userInfo.industry,
+        personalityUrl: this.userInfo.personality_url,
+        company: this.userInfo.company,
+        position: this.userInfo.position,
+        school: this.userInfo.school,
+        major: this.userInfo.major,
+      }
+      reqUpdateUserInfo(params).then(res => {
+        if (res.resultCode == 200) {
+          this.$message({
+            type:'success',
+            message: res.resultMessage
+          })
+          this._loadData(this.userId)
+          this.userInfodialogVisible = false
+        }
+      })
 
       // 发送请求
       this.userInfodialogVisible = false
@@ -248,7 +273,10 @@ export default {
 
     },
     handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
+      console.info('res', res)
+      console.info('file', file)
+      // this.imageUrl = URL.createObjectURL(file.raw)
+      this.imageUrl = res.data
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg';
@@ -356,6 +384,11 @@ export default {
   }
   .updata-dialog {
     padding: 20px;
+    margin-top: 5vh !important;
+    .avatar-uploader {
+      text-align: center;
+      margin-bottom: 15px;
+    }
     .el-dialog__body {
       padding: 20px;
       .update {

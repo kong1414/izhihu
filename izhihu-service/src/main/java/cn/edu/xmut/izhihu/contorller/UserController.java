@@ -6,10 +6,13 @@ import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
 import cn.edu.xmut.izhihu.pojo.request.LoginRequest;
 import cn.edu.xmut.izhihu.pojo.request.RegisterRequest;
+import cn.edu.xmut.izhihu.pojo.request.UpdateFavoriteRequest;
+import cn.edu.xmut.izhihu.pojo.request.UpdateUserInfoRequest;
 import cn.edu.xmut.izhihu.pojo.vo.UserVO;
 import cn.edu.xmut.izhihu.service.UserService;
 import cn.edu.xmut.izhihu.util.Gloal;
 import cn.edu.xmut.izhihu.util.OSSClientUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -89,10 +92,22 @@ public class UserController {
         return userService.register(record);
     }
 
+    /**
+     * 上传图片
+     *
+     * @param file
+     * @return
+     */
     @PostMapping("/uploadImage")
     public ResultVO uploadImage(@RequestParam("file") MultipartFile file) {
         String imageUrl = ossClientUtil.checkImage(file);
         return new SuccessVO(imageUrl, "");
+    }
+
+    @ApiOperation("更新个人信息")
+    @PostMapping("/updateUserInfo")
+    public ResultVO updateUserInfo(@RequestBody UpdateUserInfoRequest record) {
+        return userService.updateUserInfo(record);
     }
 
 }
