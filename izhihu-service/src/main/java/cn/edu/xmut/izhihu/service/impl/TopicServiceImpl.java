@@ -185,5 +185,16 @@ public class TopicServiceImpl implements TopicService {
         return res;
     }
 
+    /**
+     * 获取关注人数最多的话题
+     *
+     * @return
+     */
+    @Override
+    public ResultVO hotTopic() {
+        List<Map<String, Object>> list = topicMapper.hotTopic();
+        return new SuccessVO(list);
+    }
+
 
 }

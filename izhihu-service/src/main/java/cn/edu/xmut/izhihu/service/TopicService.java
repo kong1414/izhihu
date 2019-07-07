@@ -108,4 +108,11 @@ public interface TopicService {
      */
     List<Topic> find(String keyword);
 
+    /**
+     * 获取关注人数最多的话题
+     *
+     * @return
+     */
+    ResultVO hotTopic();
+
 }

@@ -19,4 +19,114 @@
         <result column="del" jdbcType="INTEGER" property="del"/>
         <result column="content" jdbcType="LONGVARCHAR" property="content"/>
     </resultMap>
+
+    <select id="getArticleRandom" resultType="java.util.HashMap">
+        SELECT
+        users.`name`,
+        article.article_id,
+        article.type,
+        article.ques_id,
+        article.title,
+        article.photo_url,
+        article.content,
+        article.author_id,
+        article.anonymity,
+        article.comment_num,
+        article.report_num,
+        article.create_time,
+        article.update_time
+        FROM
+        article
+        JOIN users
+        ON article.author_id = users.user_id
+        WHERE
+        article.del = 0
+        ORDER BY RAND() LIMIT 10
+    </select>
+
+
+    <select id="todayHot" resultType="java.util.HashMap">
+        SELECT
+        COUNT(agree_oppose.article_id),
+        article.article_id AS article_id_0,
+        article.type,
+        article.ques_id,
+        article.title,
+        article.photo_url,
+        article.content,
+        article.author_id,
+        article.anonymity,
+        article.comment_num,
+        article.report_num,
+        article.create_time,
+        article.update_time
+        FROM
+        agree_oppose
+        LEFT JOIN article
+        ON agree_oppose.article_id = article.article_id
+        WHERE
+        DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(agree_oppose.create_time)
+        AND
+        article.del = 0
+        GROUP BY
+        agree_oppose.article_id
+        ORDER BY COUNT(agree_oppose.article_id) DESC
+    </select>
+
+    <select id="monthHot" resultType="java.util.HashMap">
+        SELECT
+        COUNT(agree_oppose.article_id),
+        article.article_id AS article_id_0,
+        article.type,
+        article.ques_id,
+        article.title,
+        article.photo_url,
+        article.content,
+        article.author_id,
+        article.anonymity,
+        article.comment_num,
+        article.report_num,
+        article.create_time,
+        article.update_time
+        FROM
+        agree_oppose
+        LEFT JOIN article
+        ON agree_oppose.article_id = article.article_id
+        WHERE
+        DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(agree_oppose.create_time)
+        AND
+        article.del = 0
+        GROUP BY
+        agree_oppose.article_id
+        ORDER BY COUNT(agree_oppose.article_id) DESC
+
+    </select>
+
+    <select id="getArticleByUser" resultType="java.util.HashMap">
+        SELECT
+users.`name`,
+article.article_id,
+article.type,
+article.ques_id,
+article.title,
+article.photo_url,
+article.content,
+article.author_id,
+article.anonymity,
+article.comment_num,
+article.report_num,
+article.create_time,
+article.update_time
+FROM
+article
+JOIN users
+ON article.author_id = users.user_id
+WHERE
+izhihu.article.del = 0
+and
+izhihu.article.author_id = #{userId}
+and
+izhihu.article.type = #{type}
+    </select>
+
 </mapper>

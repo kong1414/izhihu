@@ -31,12 +31,13 @@ public interface CommnetService {
     ResultVO comment(CommentRequest record);
 
     /**
-     * 进行评论
+     * 删除评论
      *
      * @param userId
      * @param id
      * @return
      */
     ResultVO delete(String userId, String id);
+
 
 }

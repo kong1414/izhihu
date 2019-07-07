@@ -19,5 +19,36 @@ public interface ArticleService {
      */
     ResultVO create(ArticleRequest record);
 
+    /**
+     * 首页推荐文章
+     *
+     * @return
+     */
+    ResultVO recommend();
+
+    /**
+     * 今日最热
+     *
+     * @return
+     */
+    ResultVO todayHot();
+
+    /**
+     * 本月最热
+     *
+     * @return
+     */
+    ResultVO monthHot();
+
+    /**
+     * 获取用户的所有文章信息
+     *
+     * @param userId
+     * @param type   类别（1回答，2文章，3想法）
+     *               类别（1回答，2文章，3想法，4问题，5话题，6用户，7收藏夹，8专栏）
+     * @return
+     */
+    ResultVO getArticleByUser(String userId, int type);
+
 
 }

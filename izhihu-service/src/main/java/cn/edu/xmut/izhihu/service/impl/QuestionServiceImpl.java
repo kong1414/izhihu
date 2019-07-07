@@ -128,5 +128,17 @@ public class QuestionServiceImpl implements QuestionService {
         return new SuccessVO(res);
     }
 
+    /**
+     * 发现页编辑推荐 问题
+     *
+     * @return
+     */
+    @Override
+    public ResultVO editorRecommend() {
+        List<Map<String, Object>> list = questionMapper.getQuesRandom();
+
+        return new SuccessVO(list);
+    }
+
 
 }

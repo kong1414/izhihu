@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:
@@ -64,6 +65,57 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         return new SuccessVO("发布成功");
+    }
+
+    /**
+     * 首页推荐文章
+     *
+     * @return
+     */
+    @Override
+    public ResultVO recommend() {
+
+        List<Map<String, Object>> list = articleMapper.getArticleRandom();
+
+        return new SuccessVO(list);
+    }
+
+    /**
+     * 今日最热
+     *
+     * @return
+     */
+    @Override
+    public ResultVO todayHot() {
+        List<Map<String, Object>> list = articleMapper.todayHot();
+
+        return new SuccessVO(list);
+    }
+
+    /**
+     * 本月最热
+     *
+     * @return
+     */
+    @Override
+    public ResultVO monthHot() {
+        List<Map<String, Object>> list = articleMapper.monthHot();
+        return new SuccessVO(list);
+    }
+
+    /**
+     * 获取用户的所有文章信息
+     *
+     * @param userId
+     * @param type   类别（1回答，2文章，3想法）
+     *               类别（1回答，2文章，3想法，4问题，5话题，6用户，7收藏夹，8专栏）
+     * @return
+     */
+    @Override
+    public ResultVO getArticleByUser(String userId, int type) {
+        List<Map<String, Object>> list = articleMapper.getArticleByUser(userId, type);
+
+        return new SuccessVO(list);
     }
 
 

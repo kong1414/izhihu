@@ -4,7 +4,10 @@ import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.service.FollowService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
@@ -39,19 +42,19 @@ public class FollowController {
 
     @ApiOperation("点赞")
     @RequestMapping(value = "/like", method = RequestMethod.POST)
-    public ResultVO like(String userId, String contentId) {
-        return followService.like(userId, contentId);
+    public ResultVO like(@RequestBody Map<String, String> record) {
+        return followService.like(record.get("userId"), record.get("contentId"));
     }
 
     @ApiOperation("不赞同")
     @RequestMapping(value = "/unLike", method = RequestMethod.POST)
-    public ResultVO unLike(String userId, String contentId) {
-        return followService.unlike(userId, contentId);
+    public ResultVO unLike(@RequestBody Map<String, String> record) {
+        return followService.unlike(record.get("userId"), record.get("contentId"));
     }
 
     @ApiOperation("取消态度（取消点赞和不赞同）")
     @RequestMapping(value = "/cancelLike", method = RequestMethod.POST)
-    public ResultVO cancelLike(String userId, String contentId) {
-        return followService.cancelLike(userId, contentId);
+    public ResultVO cancelLike(@RequestBody Map<String, String> record) {
+        return followService.cancelLike(record.get("userId"), record.get("contentId"));
     }
 }

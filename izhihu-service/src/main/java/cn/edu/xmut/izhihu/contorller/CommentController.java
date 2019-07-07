@@ -7,10 +7,7 @@ import cn.edu.xmut.izhihu.pojo.request.DeleteCommentRequest;
 import cn.edu.xmut.izhihu.service.CommnetService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Description:
@@ -27,7 +24,7 @@ public class CommentController {
 
     @ApiOperation("列出文章的评论")
     @RequestMapping(value = "/listByArticle", method = RequestMethod.POST)
-    public ResultVO listByArticle(String articleId) {
+    public ResultVO listByArticle(@RequestParam String articleId) {
         return new SuccessVO(commnetService.find(articleId));
     }
 
@@ -40,7 +37,6 @@ public class CommentController {
     @ApiOperation("删除评论(只能删除自己的评论)")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public ResultVO delete(@RequestBody DeleteCommentRequest record) {
-
-        return null;
+        return commnetService.delete(record.getUserId(), record.getId());
     }
 }

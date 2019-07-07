@@ -2,7 +2,6 @@ package cn.edu.xmut.izhihu.dao;
 
 import cn.edu.xmut.izhihu.pojo.entity.Topic;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -43,5 +42,12 @@ public interface TopicMapper extends Mapper<Topic> {
      * @return
      */
     List<Topic> find(@Param("keyword") String keyword);
+
+    /**
+     * 获取关注人数最多的，即为热门话题
+     *
+     * @return
+     */
+    List<Map<String, Object>> hotTopic();
 
 }

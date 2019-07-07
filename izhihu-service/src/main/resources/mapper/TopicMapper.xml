@@ -71,4 +71,25 @@ izhihu.attention.type = 5
     <select id="find" parameterType="java.lang.String" resultMap="BaseResultMap">
         select * from topic where topic_name LIKE concat('%',#{keyword},'%');
     </select>
+
+    <select id="hotTopic" resultType="java.util.HashMap">
+SELECT
+COUNT(attention.user_id) as att_num,
+topic.topic_id,
+topic.topic_name,
+topic.topic_desc,
+topic.topic_father_id,
+topic.photo_url,
+topic.create_time
+FROM
+attention
+JOIN topic
+ON attention.att_id = topic.topic_id
+WHERE
+izhihu.attention.type = 5
+GROUP BY
+attention.att_id
+ORDER BY COUNT(attention.user_id) Desc, RAND()
+LIMIT 3
+    </select>
 </mapper>

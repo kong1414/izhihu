@@ -12,4 +12,6 @@ import java.util.Map;
 public interface QuestionMapper extends Mapper<Question> {
 
     List<Map<String, Object>> findAnsByQues(@Param("quesId") String quesId);
+
+    List<Map<String, Object>> getQuesRandom();
 }

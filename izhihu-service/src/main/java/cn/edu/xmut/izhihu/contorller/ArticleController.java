@@ -1,8 +1,10 @@
 package cn.edu.xmut.izhihu.contorller;
 
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
+import cn.edu.xmut.izhihu.pojo.request.ArtTypeRequest;
 import cn.edu.xmut.izhihu.pojo.request.ArticleRequest;
 import cn.edu.xmut.izhihu.service.ArticleService;
+import cn.edu.xmut.izhihu.service.QuestionService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,34 +22,40 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    @Autowired
+    private QuestionService questionService;
+
     @ApiOperation("首页的推荐内容")
     @RequestMapping(value = "/recommend", method = RequestMethod.POST)
     public ResultVO recommend() {
-        return null;
+
+        return articleService.recommend();
     }
 
     @ApiOperation("首页的关注内容")
     @RequestMapping(value = "/attention", method = RequestMethod.POST)
     public ResultVO attention(@RequestParam String userId) {
+        //TODO:
         return null;
     }
 
     @ApiOperation("发现页的编辑推荐")
     @RequestMapping(value = "/editorRecommend", method = RequestMethod.POST)
     public ResultVO editorRecommend() {
-        return null;
+
+        return questionService.editorRecommend();
     }
 
     @ApiOperation("发现页的今日最热")
     @RequestMapping(value = "/todayHot", method = RequestMethod.POST)
     public ResultVO todayHot() {
-        return null;
+        return articleService.todayHot();
     }
 
     @ApiOperation("发现页的本月最热")
     @RequestMapping(value = "/monthHot", method = RequestMethod.POST)
     public ResultVO monthHot() {
-        return null;
+        return articleService.monthHot();
     }
 
     @ApiOperation("发文章，写想法")
@@ -59,13 +67,15 @@ public class ArticleController {
     @ApiOperation("删除 回答文章想法")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public ResultVO delete(String id) {
+        //TODO:
         return null;
     }
 
     @ApiOperation("某用户的所有文章")
     @RequestMapping(value = "/listByUser", method = RequestMethod.POST)
-    public ResultVO list(String userId) {
-        return null;
+    public ResultVO list(@RequestBody ArtTypeRequest record) {
+
+        return articleService.getArticleByUser(record.getUserId(), record.getType());
     }
 
 }

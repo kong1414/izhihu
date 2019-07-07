@@ -43,4 +43,11 @@ public interface QuestionService {
      * @return
      */
     ResultVO findAnsByQues(String quesId);
+
+    /**
+     * 发现页编辑推荐 问题
+     *
+     * @return
+     */
+    ResultVO editorRecommend();
 }

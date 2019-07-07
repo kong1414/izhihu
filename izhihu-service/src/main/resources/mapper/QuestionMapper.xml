@@ -41,4 +41,27 @@ ON article.author_id = users.user_id
 WHERE
 izhihu.question.ques_id = #{quesId}
     </select>
+
+    <select id="getQuesRandom" resultType="java.util.HashMap">
+        SELECT
+users.`name`,
+question.ques_id,
+question.questioner_id,
+question.ques_name,
+question.ques_describe,
+question.photo_url,
+question.answer_num,
+question.attention_num,
+question.browse_num,
+question.anonymity,
+question.create_time,
+question.update_time
+FROM
+question
+JOIN users
+ON question.questioner_id = users.user_id
+WHERE
+izhihu.question.del = 0
+ORDER BY RAND() LIMIT 10
+    </select>
 </mapper>
