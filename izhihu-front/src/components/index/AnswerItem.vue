@@ -26,11 +26,7 @@
           <i class="el-icon-caret-top" style="color:white;"></i>
           <span style="color:white;">已赞同 {{likeNum}}</span>
         </el-button>
-        <el-button
-          class="oppBut"
-          v-if="attiStat!=0"
-          @click="preAtti=attiStat;attiStat=0;unlike()"
-        >
+        <el-button class="oppBut" v-if="attiStat!=0" @click="preAtti=attiStat;attiStat=0;unlike()">
           <i class="el-icon-caret-bottom"></i>
         </el-button>
         <el-button
@@ -368,28 +364,26 @@ export default {
         contentId: this.articleId,
         type: 1
       };
-      if(this.preAtti == 1){
+      if (this.preAtti == 1) {
         reqCancelLike(params).then(res => {
           if (res.resultCode == 200) {
             this.attiStat = -1;
-            this.likeNum --
+            this.likeNum--;
           }
         });
-      }
-      else{
+      } else {
         reqCancelLike(params).then(res => {
           if (res.resultCode == 200) {
             this.attiStat = -1;
           }
         });
       }
-      
     },
     //评论点赞
     comlike(v) {
       let params = {
         userId: this.userId,
-        contentId: v.commentator_id,
+        contentId: v.commentator_id
         // type: 1
       };
       reqLike(params).then(res => {
@@ -405,7 +399,7 @@ export default {
     comunlike(v) {
       let params = {
         userId: this.userId,
-        contentId: v.commentator_id,
+        contentId: v.commentator_id
         // type: 1
       };
       if (this.preAtti == 1) {
@@ -431,18 +425,17 @@ export default {
     comcanclike(v) {
       let params = {
         userId: this.userId,
-        contentId: v.commentator_id,
+        contentId: v.commentator_id
         // type: 1
       };
-      if(this.preAtti == 1){
+      if (this.preAtti == 1) {
         reqCancelLike(params).then(res => {
           if (res.resultCode == 200) {
             this.attiStat = -1;
-            v.praise_num --
+            v.praise_num--;
           }
         });
-      }
-      else{
+      } else {
         reqCancelLike(params).then(res => {
           if (res.resultCode == 200) {
             this.attiStat = -1;
