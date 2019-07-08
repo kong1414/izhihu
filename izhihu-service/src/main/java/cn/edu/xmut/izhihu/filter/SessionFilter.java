@@ -24,7 +24,7 @@ import java.util.Map;
  * @Description: 过滤器
  * @Date: 0:28 2019/6/26
  */
-@WebFilter(filterName = "loginFilter", urlPatterns = "/*")
+@WebFilter(filterName = "loginFilter", urlPatterns = "/api/*")
 public class SessionFilter implements Filter {
 
     @Autowired
@@ -63,7 +63,6 @@ public class SessionFilter implements Filter {
             chain.doFilter(httpRequest, response);
             return;
         }
-
 
         // // 获取token
         String token = httpRequest.getHeader(Gloal.REQUEST_HEADER_TOKEN_KEY);
