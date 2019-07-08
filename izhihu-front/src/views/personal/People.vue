@@ -79,62 +79,62 @@
         <el-card>
           <el-tabs v-model="activeName"
                    @tab-click="handleClick">
-            <el-tab-pane label="动态"
+            <!-- <el-tab-pane label="动态"
                          name="dynamic">
               动态1
-            </el-tab-pane>
+            </el-tab-pane> -->
             <el-tab-pane label="回答"
                          name="answer">
-              <div v-if="articleList.length <= 0">暂无数据</div>
+              <div v-if="articleList.length <= 0">暂无回答</div>
               <div v-else>
                 {{articleList}}
               </div>
             </el-tab-pane>
             <el-tab-pane label="提问"
                          name="question">
-              <div v-if="quesList.length <= 0">暂无数据</div>
+              <div v-if="quesList.length <= 0">暂无提问</div>
               <div v-else>
                 {{quesList}}
               </div>
             </el-tab-pane>
             <el-tab-pane label="文章"
                          name="article">
-              <div v-if="articleList.length <= 0">暂无数据</div>
+              <div v-if="articleList.length <= 0">暂无文章</div>
               <div v-else>
                 {{articleList}}
               </div>
             </el-tab-pane>
             <el-tab-pane label="想法"
                          name="idea">
-              <div v-if="articleList.length <= 0">暂无数据</div>
+              <div v-if="articleList.length <= 0">暂无想法</div>
               <div v-else>
                 {{articleList}}
               </div>
             </el-tab-pane>
             <el-tab-pane label="收藏夹"
                          name="favorite">
-              <div v-if="faveList.length <= 0">暂无数据</div>
+              <div v-if="faveList.length <= 0">暂无收藏夹</div>
               <div v-else>
                 {{faveList}}
               </div>
             </el-tab-pane>
             <el-tab-pane label="关注的话题"
                          name="attTopic">
-              <div v-if="topicList.length <= 0">暂无数据</div>
+              <div v-if="topicList.length <= 0">暂未关注</div>
               <div v-else>
                 {{topicList}}
               </div>
             </el-tab-pane>
             <el-tab-pane label="关注的问题"
                          name="attQues">
-              <div v-if="attQuesList.length <= 0">暂无数据</div>
+              <div v-if="attQuesList.length <= 0">暂未关注</div>
               <div v-else>
                 {{attQuesList}}
               </div>
             </el-tab-pane>
             <el-tab-pane label="关注的用户"
                          name="attPeople">
-              <div v-if="attUserList.length <= 0">暂无数据</div>
+              <div v-if="attUserList.length <= 0">暂未关注</div>
               <div v-else>
                 {{attUserList}}
               </div>
@@ -144,27 +144,10 @@
 
       </el-main>
       <el-aside class="people-aside">
-        <el-card  style="text-align: center;">
+        <el-card  style="text-align: center;margin-top:20px">
           <el-row>
-            <el-col :span="10">
-              <div>
-                关注了
-              </div>
-              <div>
-                1
-              </div>
-            </el-col>
-            <el-col :span="4">
-              <el-divider direction="vertical"></el-divider>
-            </el-col>
-            <el-col :span="10">
-              <div>
-                关注者
-              </div>
-              <div>
-                2
-              </div>
-            </el-col>
+            <el-col :span="12">关注了<div>{{attNum}}</div></el-col>
+            <el-col :span="12">关注者<div>{{attedNum}}</div></el-col>
           </el-row>
         </el-card>
         <aside-footer></aside-footer>
@@ -248,7 +231,7 @@ import { reqGetArticleByUser } from '../../api/article'
 import { reqMyFavorite } from '../../api/favorite'
 import { reqFindQuesByUser } from '../../api/question'
 import { reqAttedTopic } from '../../api/topic'
-import { reqGetAttByUser, reqInFollow, reqUnFollow, reqCheckFollow } from '../../api/follow'
+import { reqCountAtted, reqGetAttByUser, reqInFollow, reqUnFollow, reqCheckFollow } from '../../api/follow'
 import AsideFooter from '../../components/aside/AsideFooter'
 import recommendItem from '../../components/index/RecommendItem'
 export default {
@@ -259,7 +242,7 @@ export default {
   },
   data () {
     return {
-      activeName: 'dynamic',
+      activeName: 'answer',
       userId: this.$store.state.user.userId, // 登录账号的id
       currentUserId: this.$route.params.userid, // 当前页面的id
       userInfo: {
@@ -285,9 +268,11 @@ export default {
       attQuesList: [], // 关注的问题
       faveList: [], // 收藏夹
       attType: false, // 对该用户关注状态
+      attNum: 0, // 关注了的人数
+      attedNum: 0, // 被关注的人数
     }
   },
-  created () {
+  mounted () {
     // console.info('userid')
     this._loadData(this.currentUserId)
   },
@@ -310,6 +295,28 @@ export default {
         if (res.resultCode === 200) {
           this.attType = res.data
           console.info(res.data)
+        }
+      })
+      // 首选项卡 渲染
+      this.handleClick({name:this.activeName})
+      
+      // 关注了的人数
+      let params3 = {
+        userId: this.currentUserId,
+        type: 6
+      }
+      reqGetAttByUser(params3).then(res => {
+        if (res.resultCode == 200) {
+          this.attNum = res.data.length
+        }
+      })
+      // 被关注的人数
+      let params4 = {
+        userId: this.currentUserId
+      }
+      reqCountAtted(params).then(res => {
+        if (res.resultCode == 200) {
+          this.attedNum = res.data
         }
       })
     },
@@ -349,7 +356,6 @@ export default {
       console.info(v.name)
       if (v.name === 'dynamic') { // 动态
         // this.articleList = v.name
-
 
       } else if (v.name === 'answer') { // 回答
         let params = {

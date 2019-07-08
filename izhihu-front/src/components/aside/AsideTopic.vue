@@ -47,7 +47,7 @@ export default {
       list: []
     };
   },
-  created() {
+  mounted() {
     this._loadData();
   },
   methods: {

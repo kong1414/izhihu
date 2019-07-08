@@ -68,7 +68,7 @@ export default {
       SonTops: []
     };
   },
-  created() {
+  mounted() {
     this._loadData();
   },
   methods: {

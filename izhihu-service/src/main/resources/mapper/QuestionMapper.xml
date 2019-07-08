@@ -64,4 +64,27 @@ WHERE
 izhihu.question.del = 0
 ORDER BY RAND() LIMIT 10
     </select>
+    <select id="getHotList" resultMap="BaseResultMap" >
+        SELECT
+        question.*
+        FROM
+        question
+        WHERE del = 0
+        ORDER BY
+        question.browse_num DESC
+    </select>
+
+    <select id="findQuesByName" resultMap="BaseResultMap" >
+        SELECT
+        question.*
+        FROM
+        question
+        WHERE
+        del = 0
+        and (
+            ques_name like concat('%',#{keyword},'%')
+            or
+            ques_describe like concat('%',#{keyword},'%')
+        )
+    </select>
 </mapper>

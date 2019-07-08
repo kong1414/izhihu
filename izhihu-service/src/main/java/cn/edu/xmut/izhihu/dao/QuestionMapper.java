@@ -14,4 +14,18 @@ public interface QuestionMapper extends Mapper<Question> {
     List<Map<String, Object>> findAnsByQues(@Param("quesId") String quesId);
 
     List<Map<String, Object>> getQuesRandom();
+
+    /**
+     * 热榜
+     *
+     * @return
+     */
+    List<Question> getHotList();
+
+    /**
+     * 模糊搜索
+     *
+     * @return
+     */
+    List<Question> findQuesByName();
 }

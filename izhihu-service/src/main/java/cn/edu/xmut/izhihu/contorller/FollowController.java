@@ -1,14 +1,13 @@
 package cn.edu.xmut.izhihu.contorller;
 
+import cn.edu.xmut.izhihu.dao.AttentionMapper;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
+import cn.edu.xmut.izhihu.pojo.entity.Attention;
 import cn.edu.xmut.izhihu.service.FollowService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -24,6 +23,9 @@ public class FollowController {
 
     @Autowired
     private FollowService followService;
+
+    @Autowired
+    private AttentionMapper attentionMapper;
 
     @ApiOperation("关注")
     @RequestMapping(value = "/inFollow", method = RequestMethod.POST)
@@ -80,5 +82,14 @@ public class FollowController {
         return followService.checkOpp(
                 record.get("userId"),
                 record.get("contentId"));
+    }
+
+    @ApiOperation("查询某用户的被关注次数")
+    @PostMapping("/countAtted")
+    public ResultVO countAtted(@RequestBody Map<String, String> record) {
+        Attention attention = new Attention();
+        attention.setAttId(record.get("userId"));
+        int number = attentionMapper.selectCount(attention);
+        return new SuccessVO(number);
     }
 }

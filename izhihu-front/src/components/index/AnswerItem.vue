@@ -226,7 +226,7 @@ export default {
       attiStat: ""
     };
   },
-  created() {
+  mounted() {
     this._loadData();
     this.username = this.$store.state.user.name;
   },

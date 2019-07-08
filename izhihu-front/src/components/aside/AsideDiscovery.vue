@@ -56,7 +56,7 @@ export default {
       
     }
   },
-  created () {
+  mounted () {
     this._loadData()
   },
   methods: {
