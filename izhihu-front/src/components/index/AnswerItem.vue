@@ -211,7 +211,7 @@ export default {
       // 评论详情、收藏夹
       comDets: [],
       creaCollections: [],
-      // 问题答案弹窗、评论弹窗、删除评论按钮、评论收藏弹窗、回复框前面、回复某人
+      // 问题答案弹窗、评论弹窗、删除评论按钮、评论收藏弹窗、回复框前面、回复某人姓名
       dialogVisible: false,
       commentVisible: false,
       delVisible: false,

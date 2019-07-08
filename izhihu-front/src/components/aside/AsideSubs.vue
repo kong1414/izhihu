@@ -129,7 +129,7 @@ export default {
     }
     .el-divider {
       height: 3em;
-      margin-left: -10px;
+      margin-left: -20px;
     }
     .subsNum {
       float: left;
@@ -148,7 +148,7 @@ export default {
     .queNum {
       float: right;
       widows: 100px;
-      margin-right: 30px;
+      margin-right: 40px;
       .queM {
         color: #8590a6;
       }
