@@ -19,3 +19,7 @@ export const reqAnswer = params => { // 写回答
 export const reqFindTopicByQues = params => { // 获得话题通过问题id
   return axios.post(`${BASE_URL}/question/findTopicByQues?` + params).then(res => res.data)
 }
+
+export const reqFindQuesByUser = params => { // 获得用户id 获得用户的提问
+  return axios.post(`${BASE_URL}/question/findQuesByUser?` + params).then(res => res.data)
+}
