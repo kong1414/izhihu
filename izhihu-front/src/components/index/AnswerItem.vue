@@ -26,7 +26,11 @@
           <i class="el-icon-caret-top" style="color:white;"></i>
           <span style="color:white;">已赞同 {{likeNum}}</span>
         </el-button>
-        <el-button class="oppBut" v-if="attiStat!=0" @click="attiStat=0;">
+        <el-button
+          class="oppBut"
+          v-if="attiStat!=0"
+          @click="preAtti=attiStat;attiStat=0;canclike()"
+        >
           <i class="el-icon-caret-bottom"></i>
         </el-button>
         <el-button
@@ -188,7 +192,12 @@
 // import CommentItem from './Comment'
 import { reqMyFavorite, reqCollect } from "../../api/favorite";
 import { reqGetArticleCom } from "../../api/topicArticle";
-import { reqCheckOpp,reqLike,reqUnLike } from "../../api/follow";
+import {
+  reqCheckOpp,
+  reqLike,
+  reqUnLike,
+  reqCancelLike
+} from "../../api/follow";
 import dataUtil from "../../util/dataUtil";
 export default {
   name: "AnswerItem",
@@ -196,7 +205,7 @@ export default {
     // CommentItem
   },
   props: {
-    // 从topicDet取数据
+    // 从topicDet取数据：点赞数、评论数、问题文章名称、作者、问题文章详情、回答id、问题id、类型
     // attiStat: Number,
     apprN: Number,
     evalN: Number,
@@ -219,13 +228,14 @@ export default {
       comFavriVisible: false,
       replayStat: false,
       replaycom: null,
-      //获取当前页面用户名、用户id、回复输入框、选择器当前值、点赞状态
+      //获取当前页面用户名、用户id、回复输入框、选择器当前值、点赞状态、点赞数
       username: "",
       userId: this.$store.state.user.userId,
       input: "",
       v: "",
       attiStat: "",
-      likeNum: this.apprN
+      likeNum: this.apprN,
+      preAtti: ""
     };
   },
   mounted() {
@@ -237,11 +247,11 @@ export default {
       // console.info(this.userId);
       let params = "articleId=" + this.articleId;
       let userParams = "userId=" + this.userId;
-      let userArtiParams ={
+      let userArtiParams = {
         userId: this.userId,
         contentId: this.topicId,
         type: 4
-      }
+      };
       console.info(this.articleId);
       //获取文章评价
       reqGetArticleCom(params).then(res => {
@@ -275,12 +285,12 @@ export default {
         }
       });
       //获取点赞状态
-      reqCheckOpp(userArtiParams).then(res =>{
-        if(res.resultCode == 200){
-          console.info(res.data)
-          this.attiStat = res.data
+      reqCheckOpp(userArtiParams).then(res => {
+        if (res.resultCode == 200) {
+          console.info(res.data);
+          this.attiStat = res.data;
         }
-      })
+      });
     },
     handleClick() {},
     //根据id获取用户名
@@ -322,33 +332,61 @@ export default {
       });
     },
     //点赞
-    like(){
+    like() {
       let params = {
         userId: this.userId,
         contentId: this.articleId,
         type: 4
-      }
-      reqLike(params).then(res =>{
+      };
+      reqLike(params).then(res => {
         // console.info(res)
-        if(res.resultCode == 200){
+        if (res.resultCode == 200) {
           // console.info(this.likeNum)
-          this.likeNum ++
+          this.likeNum++;
           // console.info(this.likeNum)
         }
-      })
+      });
     },
     //取消态度
-    unlike(){
+    unlike() {
       let params = {
         userId: this.userId,
         contentId: this.articleId,
         type: 4
-      }
-      reqUnLike(params).then(res =>{
-        if(res.resultCode == 200){
-          this.likeNum --
+      };
+      reqUnLike(params).then(res => {
+        if (res.resultCode == 200) {
+          this.likeNum--;
+          this.attiStat = -1;
         }
-      })
+      });
+    },
+    //踩
+    canclike() {
+      let params = {
+        userId: this.userId,
+        contentId: this.articleId,
+        type: 4
+      };
+      if (this.preAtti == 1) {
+        reqUnLike(params).then(res => {
+          if (res.resultCode == 200) {
+            this.likeNum--;
+          }
+        })
+        reqCancelLike(params).then(res =>{
+          if(res.resultCode == 200){
+            this.attiStat = 0
+          }
+        })
+      }
+      else{
+        reqCancelLike(params).then(res =>{
+          if(res.resultCode == 200){
+            this.attiStat = 0
+          }
+        })
+      }
     }
   }
 };
