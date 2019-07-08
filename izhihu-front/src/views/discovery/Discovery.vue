@@ -10,8 +10,12 @@
             <i class="el-icon-d-arrow-right"></i>
           </el-button>
         </div>
-        <div>
-          编辑推荐content
+        <div class="recommend" v-for="i in recommendList" :key="i.id" >
+          <el-button class="title" type="text" @click="toRecommend()"><span><b>{{i.ques_name}}</b></span></el-button>
+          <div class="message">
+            <span>回答人数：{{i.attention_num}}   作者：{{i.name}}    浏览人数：{{i.browse_num}}  更新时间：{{i.update_time}}</span>
+          </div>
+          <div class="hl-line"></div>
         </div>
       </el-card>
       <el-card class="today-hot">
@@ -25,7 +29,6 @@
         </el-tabs>
       </el-card>
     </el-main>
-
     <el-aside width="300px" style="min-height:200px">
       <aside-discovery></aside-discovery>
     </el-aside>
@@ -36,6 +39,7 @@
 import AsideDiscovery from '../../components/aside/AsideDiscovery'
 import RecommendItem from '../../components/index/RecommendItem'
 import { reqEditorRecommend } from '../../api/question'
+import { reqGetRecommend } from '../../api/topic'
 export default {
   name: 'discovery',
   components: {
@@ -45,7 +49,9 @@ export default {
   data () {
     return {
       userId: this.$store.state.user.userId,
-      activeName: 'today'
+      activeName: 'today',
+      recommendList: []
+
     }
   },
   mounted () {
@@ -53,11 +59,19 @@ export default {
   },
   methods: {
     _loadData () {
-
+      reqGetRecommend().then(res => {
+        if (res.resultCode === 200) {
+          console.info(res.data)
+          this.recommendList = res.data
+        }
+      })
     },
     handleClick () { // 改变今日最热 和 本月最热
       
-    }
+    },
+    toRecommend () {  //编辑推荐
+
+    },
   }
 }
 </script>
@@ -73,6 +87,21 @@ export default {
       padding: 3px 0;
       float:right;
       color:rgb(133, 144, 166);
+    }
+    .recommend{
+      .title{
+        color: #259;
+      }
+      .message{
+        margin: 5px 0px;
+        color: #999;
+      }
+      .hl-line{
+        height: 1px;
+        width: 110%;
+        margin: 10px -50px 10px -20px;
+        background-color: #ebeef5;
+      }
     }
   }
   .today-hot {

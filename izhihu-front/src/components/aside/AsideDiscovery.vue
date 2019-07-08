@@ -88,7 +88,7 @@ export default {
 <style lang="scss">
 .aside-discovery {
   .hot-topic {
-    margin-top:10px;
+    margin-top:20px;
     padding: 0px;
     .topHeader{
       margin: -10px;

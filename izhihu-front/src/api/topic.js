@@ -27,3 +27,7 @@ export const reqTopicCreate = params => { // 新增话题
 export const reqFindTopic = params => { // 模糊搜索话题
   return axios.post(`${BASE_URL}/topic/find?` + params).then(res => res.data)
 }
+
+export const reqGetRecommend = params => { // 获得发现页编辑推荐
+  return axios.post(`${BASE_URL}/article/editorRecommend`, params).then(res => res.data)
+}
