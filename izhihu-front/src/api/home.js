@@ -5,7 +5,7 @@ import {
 // 首页
 
 export const reqGetHostList = params => { // 获得 列出热榜
-  return axios.post(`${BASE_URL}/hostList/list`, params).then(res => res.data)
+  return axios.post(`${BASE_URL}/hostList/getHotList`, params).then(res => res.data)
 }
 
 // 个人页

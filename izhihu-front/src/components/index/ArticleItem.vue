@@ -1,15 +1,14 @@
 <template>
   <div>
-    <div class="item-content" v-for="item in list" :key="item.id">
+    <div class="item-content" v-for="(item,index) in list" :key="index">
       <div class="index">
-        <div class="hot">{{item.id}}</div>
+        <div class="hot">{{index+1}}</div>
       </div>
       <div class="content">
-        <h2 class="title" :title="item.title"  @click="dialogVisible = true">{{item.title}}</h2>
-        <p class="excerpt" :title="item.title"  @click="dialogVisible = true">{{item.excerpt}}</p>
-
+        <h2 class="title" :title="item.quesName"  @click="toQues(item.quesId)">{{item.quesName}}</h2>
+        <p class="excerpt" v-html="item.quesDescribe" @click="dialogVisible = true"></p>
         <div class="button-content">
-          <i class="el-icon-trophy">{{item.heat}}万热度</i>
+          <i class="el-icon-trophy">{{item.browseNum}} 热度</i>
           <i class="el-icon-s-promotion">{{item.share}}</i>
         </div>
       </div>
@@ -29,24 +28,30 @@
 </template>
 
 <script>
+import {reqGetHostList} from '../../api/home'
+
 export default {
   name: 'ArticleItem',
   data () {
     return {
       dialogVisible: false,
-      url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      list: [
-        {
-          id: '1',
-          title: '为什么有很多人说百度全面降低了中国的互联网的良好体验?',
-          excerpt: '今天说说不定华盛顿还会的文化啊是的话安徽的哈手动阿森纳大很多快乐按时扩大和阿斯顿你阿瑟东阿瑟东今天说说不定华盛顿还会的文化啊是的话安徽的哈手动阿森纳大很多快乐按时扩大和阿斯顿你阿瑟东阿瑟东',
-          heat: '123',
-          share: '分享'
-        }
-      ]
+      list: []
     }
   },
-  methods:{        
+  mounted () {
+    this._loadData()
+  },
+  methods:{
+    _loadData () {
+      reqGetHostList().then(res => {
+        if (res.resultCode == 200) {
+          this.list = res.data
+        }
+      })
+    },
+    toQues(id) {
+      this.$router.push({ path: "/home/question/" + id })
+    }
   }
 }
 </script>
