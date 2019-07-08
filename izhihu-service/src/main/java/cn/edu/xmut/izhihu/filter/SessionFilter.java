@@ -1,6 +1,13 @@
 package cn.edu.xmut.izhihu.filter;
 
+import cn.edu.xmut.izhihu.pojo.common.HttpCodeEnum;
+import cn.edu.xmut.izhihu.pojo.entity.UserDO;
+import cn.edu.xmut.izhihu.pojo.vo.UserVO;
 import cn.edu.xmut.izhihu.service.UserService;
+import cn.edu.xmut.izhihu.util.Gloal;
+import cn.edu.xmut.izhihu.util.JWTUtil;
+import cn.edu.xmut.izhihu.util.MapBeanUtil;
+import cn.edu.xmut.izhihu.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.*;
@@ -8,6 +15,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @Author: QiuGuanLin
@@ -29,9 +39,9 @@ public class SessionFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        chain.doFilter(httpRequest, response);
+        // chain.doFilter(httpRequest, response);
 
-/*
+
         // System.out.println("执行过滤操作。。。");
         // 获取url
         String uri = httpRequest.getRequestURI();
@@ -48,11 +58,12 @@ public class SessionFilter implements Filter {
             chain.doFilter(httpRequest, response);
             return;
         }
-        if (url.endsWith("/api/user/queryList")) {
-            // 过滤登录页的判断 不需要登录
+        // 判断如果是登录请求则不需要过滤
+        if (url.endsWith("register")) {
             chain.doFilter(httpRequest, response);
             return;
         }
+
 
         // // 获取token
         String token = httpRequest.getHeader(Gloal.REQUEST_HEADER_TOKEN_KEY);
@@ -84,7 +95,7 @@ public class SessionFilter implements Filter {
             }
 
             // 如果获取到的Id为空也抛出异常
-            if (tokenUserVO.getId() == null || tokenUserVO.getId() == null) {
+            if (tokenUserVO.getUserId() == null || tokenUserVO.getUserId() == null) {
                 ResponseUtil.writeResponse(httpRequest, httpResponse, HttpCodeEnum.NO_LOGIN);
                 return;
             }
@@ -94,7 +105,7 @@ public class SessionFilter implements Filter {
         UserDO userDO = userService.getByToken(token);
         // 用户信息为空或token生效时间为空或token有效时长为空，踢出用户
         if (userDO == null || userDO.getTokenAge() == null || userDO.getTokenTakeEffectTime() == null
-                || !userDO.getId().equals(tokenUserVO.getId())) {
+                || !userDO.getUserId().equals(tokenUserVO.getUserId())) {
             ResponseUtil.writeResponse(httpRequest, httpResponse, HttpCodeEnum.NO_LOGIN);
             return;
         } else if (userDO.getTokenAge() != -1) {
@@ -107,11 +118,10 @@ public class SessionFilter implements Filter {
                 return;
             }
         }
-        userService.refreshToken(userDO.getId()); // 刷新token
+        userService.refreshToken(userDO.getUserId()); // 刷新token
         chain.doFilter(httpRequest, response);
 
 
- */
     }
 
     /**
