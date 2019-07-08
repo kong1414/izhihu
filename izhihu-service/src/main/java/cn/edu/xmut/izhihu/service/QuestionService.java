@@ -50,4 +50,12 @@ public interface QuestionService {
      * @return
      */
     ResultVO editorRecommend();
+
+    /**
+     * 获取问题的关联话题
+     *
+     * @param quesId
+     * @return
+     */
+    ResultVO findTopicByQues(String quesId);
 }

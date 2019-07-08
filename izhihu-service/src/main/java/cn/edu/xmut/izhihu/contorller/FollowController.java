@@ -26,12 +26,12 @@ public class FollowController {
 
     @ApiOperation("关注")
     @RequestMapping(value = "/inFollow", method = RequestMethod.POST)
-    public ResultVO infollow(@RequestBody Map<String, Object> record) {
+    public ResultVO infollow(@RequestBody Map<String, String> record) {
 
         return followService.infollow(
-                (String) record.get("userId"),
-                (String) record.get("contentId"),
-                (Integer) record.get("type"));
+                record.get("userId"),
+                record.get("contentId"),
+                Integer.parseInt(record.get("type")));
     }
 
     @ApiOperation("取消关注")

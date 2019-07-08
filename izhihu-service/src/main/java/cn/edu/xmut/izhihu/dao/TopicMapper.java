@@ -50,4 +50,12 @@ public interface TopicMapper extends Mapper<Topic> {
      */
     List<Map<String, Object>> hotTopic();
 
+    /**
+     * 根据问题id 获得话题
+     *
+     * @param quesId
+     * @return
+     */
+    List<Topic> getTopicByQues(@Param("quesId") String quesId);
+
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="aside-discovery">
-    <aside-hotcolumn></aside-hotcolumn>
+    <!-- <aside-hotcolumn></aside-hotcolumn> -->
 
     <el-card class="hot-topic" :body-style="{ padding: '0px' }">
       <div slot="header" class="topHeader">

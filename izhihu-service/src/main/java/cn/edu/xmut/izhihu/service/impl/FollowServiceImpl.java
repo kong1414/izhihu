@@ -83,12 +83,6 @@ public class FollowServiceImpl implements FollowService {
         att.setAttId(contentId);
         attentionMapper.delete(att);
 
-        Question question = questionMapper.selectByPrimaryKey(contentId);
-        if (question != null) {
-            question.setAttentionNum(question.getAttentionNum() - 1);
-            questionMapper.updateByPrimaryKeySelective(question);
-        }
-
         return new SuccessVO("已取消关注");
     }
 

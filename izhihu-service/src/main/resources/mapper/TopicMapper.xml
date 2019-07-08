@@ -92,4 +92,17 @@ attention.att_id
 ORDER BY COUNT(attention.user_id) Desc, RAND()
 LIMIT 3
     </select>
+
+    <select id="getTopicByQues" resultType="java.util.HashMap">
+        SELECT
+topic.*
+FROM
+topic_content
+JOIN topic
+ON topic_content.topic_id = topic.topic_id
+WHERE
+izhihu.topic_content.content_id = #{quesId}
+and
+topic_content.type = 4
+    </select>
 </mapper>

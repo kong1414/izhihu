@@ -4,23 +4,27 @@
       <el-card class="question-header-card">
         <div class="quesTopic">
           <span class="title">相关话题：</span>
-          <el-tag v-for="i in topicList" :key="i.topicName">{{i.topicName}}</el-tag>
+          <span v-if="topicList.length <= 0"> 暂无关联话题</span>
+          <el-tag v-else v-for="i in topicList" :key="i.topic_id" @click="toTopic">
+            <el-button size="mini" type="text">{{i.topic_name}}</el-button>
+          </el-tag>
         </div>
         <div class="quesName">{{quesInfo.quesName}}</div>
         <div class="quesdesc">
           <div v-html="quesInfo.quesDescribe"></div>
         </div>
         <div class="button-group">
-          <el-button type="primary" size="mini">关注问题</el-button>
+          <el-button v-if="attQuesType" type="primary" size="mini" @click="attQues">已关注</el-button>
+          <el-button v-else type="primary" size="mini" @click="attQues">关注问题</el-button>
           <el-button type="primary" plain size="mini" @click="writeAnswerVisible = true">写回答</el-button>
           <el-button type="info" plain size="mini">邀请回答</el-button>
-          <el-button type="text">
+          <!-- <el-button type="text">
             <i class="el-icon-s-comment" />评论
-          </el-button>
-          <el-button type="text">
+          </el-button> -->
+          <el-button type="text" @click="share">
             <i class="el-icon-s-promotion" />分享
           </el-button>
-          <el-button type="text">
+          <el-button type="text" @click="report">
             <i class="el-icon-warning" />举报
           </el-button>
         </div>
@@ -80,7 +84,9 @@
 import AnswerItem from "../../components/index/AnswerItem";
 import AsideFooter from "../../components/aside/AsideFooter";
 import AsideDiscovery from "../../components/aside/AsideDiscovery";
-import { reqFindQuestionById, reqAnswer } from "../../api/question";
+import { reqFindQuestionById, reqAnswer, reqFindTopicByQues } from "../../api/question";
+import { reqInFollow,reqUnFollow } from '../../api/follow'
+
 export default {
   name: "question",
   components: {
@@ -92,6 +98,7 @@ export default {
   data() {
     return {
       quesId: this.$route.params.quesid,
+      attQuesType: false, // 关注默认为未关注
       quesInfo: {
         anonymity: 0,
         answerNum: 0,
@@ -106,7 +113,7 @@ export default {
         questionerId: "",
         updateTime: ""
       },
-      topicList: [{ topicName: "123" }],
+      topicList: [],
       writeAnswerVisible: false,
       squareUrl: "",
       author: "123",
@@ -131,7 +138,12 @@ export default {
       // 查询作者
       // TODO:
       // 查询相关联话题
-      // TODO:
+      let params2 = 'quesId=' + this.quesId
+      reqFindTopicByQues(params2).then(res => {
+        if (res.resultCode ==200) {
+          this.topicList = res.data
+        }
+      })
     },
     handleUp () {
       if(this.content == ''){
@@ -156,6 +168,51 @@ export default {
         }
       })
 
+    },
+    attQues () {
+      if (!this.attQuesType) { // 关注
+        let params = {
+          type: 4, // 问题是4
+          userId: this.user.userId,
+          contentId: this.quesId,
+        }
+       reqInFollow(params).then(res => {
+         if (res.resultCode ==200) {
+          this.$message({
+            type:'success',
+            message: res.resultMessage
+          })
+          this.attQuesType = true
+         }
+       })
+      } else if (this.attQuesType) { // 取消关注
+        let params = {
+          userId: this.user.userId,
+          contentId: this.quesId,
+        }
+       reqUnFollow(params).then(res => {
+         if (res.resultCode ==200) {
+          this.$message({
+            type:'success',
+            message: res.resultMessage
+          })
+          this.attQuesType = false
+         }
+       })
+      }
+      return
+    },
+    toTopic (id) {
+      this.$router.push({ path: '/home/topicDetail/' + id})
+    },
+    invite () {
+      this.$message("暂未实现")
+    },
+    share () {
+      this.$message("暂未实现")
+    },
+    report () {
+      this.$message("暂未实现")
     }
   }
 };

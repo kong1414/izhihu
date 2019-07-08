@@ -3,12 +3,14 @@ package cn.edu.xmut.izhihu.service.impl;
 import cn.edu.xmut.izhihu.dao.ArticleMapper;
 import cn.edu.xmut.izhihu.dao.QuestionMapper;
 import cn.edu.xmut.izhihu.dao.TopicContentMapper;
+import cn.edu.xmut.izhihu.dao.TopicMapper;
 import cn.edu.xmut.izhihu.pojo.common.HttpCodeEnum;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
 import cn.edu.xmut.izhihu.pojo.common.Type;
 import cn.edu.xmut.izhihu.pojo.entity.Article;
 import cn.edu.xmut.izhihu.pojo.entity.Question;
+import cn.edu.xmut.izhihu.pojo.entity.Topic;
 import cn.edu.xmut.izhihu.pojo.entity.TopicContent;
 import cn.edu.xmut.izhihu.pojo.request.AnswerRequest;
 import cn.edu.xmut.izhihu.pojo.request.QuestionRequest;
@@ -39,6 +41,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
     private TopicContentMapper topicContentMapper;
+
+    @Autowired
+    private TopicMapper topicMapper;
 
     /**
      * 创建一个问题
@@ -141,6 +146,19 @@ public class QuestionServiceImpl implements QuestionService {
     public ResultVO editorRecommend() {
         List<Map<String, Object>> list = questionMapper.getQuesRandom();
 
+        return new SuccessVO(list);
+    }
+
+    /**
+     * 获取问题的关联话题
+     *
+     * @param quesId
+     * @return
+     */
+    @Override
+    public ResultVO findTopicByQues(String quesId) {
+
+        List<Topic> list = topicMapper.getTopicByQues(quesId);
         return new SuccessVO(list);
     }
 
