@@ -27,3 +27,11 @@ export const reqCancelLike = params => { // 不赞同 （userId contentId）
 export const reqGetAttByUser = params => { // 通过userid 获得关注的内容 参数：userId Number(type）
   return axios.post(`${BASE_URL}/follow/getAttByUser`, params).then(res => res.data)
 }
+
+export const reqCheckFollow = params => { // 获取关注状态 参数：userId Number(type）
+  return axios.post(`${BASE_URL}/follow/checkFollow`, params).then(res => res.data)
+}
+
+export const reqCheckOpp = params => { // 获取对文章的点赞态度 获得关注的内容 参数：userId Number(type）
+  return axios.post(`${BASE_URL}/follow/checkOpp`, params).then(res => res.data)
+}

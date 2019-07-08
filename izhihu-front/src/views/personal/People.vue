@@ -144,9 +144,28 @@
 
       </el-main>
       <el-aside class="people-aside">
-        aside
-        <el-card>
-
+        <el-card  style="text-align: center;">
+          <el-row>
+            <el-col :span="10">
+              <div>
+                关注了
+              </div>
+              <div>
+                1
+              </div>
+            </el-col>
+            <el-col :span="4">
+              <el-divider direction="vertical"></el-divider>
+            </el-col>
+            <el-col :span="10">
+              <div>
+                关注者
+              </div>
+              <div>
+                2
+              </div>
+            </el-col>
+          </el-row>
         </el-card>
         <aside-footer></aside-footer>
       </el-aside>
@@ -229,7 +248,7 @@ import { reqGetArticleByUser } from '../../api/article'
 import { reqMyFavorite } from '../../api/favorite'
 import { reqFindQuesByUser } from '../../api/question'
 import { reqAttedTopic } from '../../api/topic'
-import { reqGetAttByUser, reqInFollow, reqUnFollow } from '../../api/follow'
+import { reqGetAttByUser, reqInFollow, reqUnFollow, reqCheckFollow } from '../../api/follow'
 import AsideFooter from '../../components/aside/AsideFooter'
 import recommendItem from '../../components/index/RecommendItem'
 export default {
@@ -281,6 +300,16 @@ export default {
           this.userInfo = res.data
           this.userInfo.gender = String(res.data.gender)
           this.imageUrl = res.data.photo_url
+        }
+      })
+      let params2 = {
+        userId: this.userId,
+        contentId: this.currentUserId
+      }
+      reqCheckFollow(params2).then(res => {
+        if (res.resultCode === 200) {
+          this.attType = res.data
+          console.info(res.data)
         }
       })
     },
