@@ -21,7 +21,7 @@
           class="apprBut"
           style="background:#0084ff;width:120px;"
           v-if="attiStat==1"
-          @click="attiStat=-1;unlike()"
+          @click="preAtti = attiStat;attiStat=-1;canclike()"
         >
           <i class="el-icon-caret-top" style="color:white;"></i>
           <span style="color:white;">已赞同 {{likeNum}}</span>
@@ -29,7 +29,7 @@
         <el-button
           class="oppBut"
           v-if="attiStat!=0"
-          @click="preAtti=attiStat;attiStat=0;canclike()"
+          @click="preAtti=attiStat;attiStat=0;unlike()"
         >
           <i class="el-icon-caret-bottom"></i>
         </el-button>
@@ -37,7 +37,7 @@
           class="oppBut"
           style="background:#0084ff;"
           v-if="attiStat==0"
-          @click="attiStat=-1"
+          @click="preAtti = attiStat;attiStat=-1;canclike()"
         >
           <i class="el-icon-caret-bottom" style="color:white;"></i>
         </el-button>
@@ -86,7 +86,7 @@
             <el-button
               class="shareBut"
               v-if="comDet.stat!=1"
-              @click="comDet.stat=1;praNadd(comDet)"
+              @click="comDet.stat=1;comlike(comDet)"
               style="margin-left: 0px;"
               size="mini"
               type="text"
@@ -98,7 +98,7 @@
               class="shareBut"
               size="mini"
               v-if="comDet.stat==1"
-              @click="comDet.stat=0;praNsub(comDet)"
+              @click="preAtti =comDet.stat; comDet.stat=-1;comcanclike(comDet)"
               style="color: #0084ff;margin-left: 0px;"
               type="text"
             >
@@ -108,9 +108,9 @@
             <el-button
               class="shareBut"
               size="mini"
-              v-if="comDet.stat!=2"
+              v-if="comDet.stat!=0"
               style="margin-left:10px;"
-              @click="comDet.stat=2;"
+              @click="preAtti =comDet.stat;comDet.stat=0;comunlike(comDet)"
               type="text"
             >
               <i class="el-icon-caret-bottom"></i>
@@ -118,9 +118,9 @@
             </el-button>
             <el-button
               class="shareBut"
-              v-if="comDet.stat==2"
+              v-if="comDet.stat==0"
               size="mini"
-              @click="comDet.stat=0;"
+              @click="preAtti =comDet.stat;comDet.stat=-1;comcanclike(comDet)"
               style="color: #0084ff;margin-left:10px;"
               type="text"
             >
@@ -258,7 +258,7 @@ export default {
         if (res.resultCode === 200) {
           // console.info(res.data);
           res.data.forEach(element => {
-            element.stat = 0;
+            element.stat = -1;
           });
           //赋值回复了谁
           res.data.forEach(element => {
@@ -301,18 +301,6 @@ export default {
         // console.info(this.replaycom);
       });
     },
-    apprNadd() {
-      this.apprN++;
-    },
-    apprNsub() {
-      this.apprN--;
-    },
-    praNadd(comDet) {
-      comDet.praise_num++;
-    },
-    praNsub(comDet) {
-      comDet.praise_num--;
-    },
     toQueDetail() {
       // 跳转到问题主页
       if (this.type == 1)
@@ -331,12 +319,12 @@ export default {
         } else this.$message("收藏失败");
       });
     },
-    //点赞
+    //回答点赞
     like() {
       let params = {
         userId: this.userId,
         contentId: this.articleId,
-        type: 4
+        type: 1
       };
       reqLike(params).then(res => {
         // console.info(res)
@@ -347,45 +335,119 @@ export default {
         }
       });
     },
-    //取消态度
+    //回答踩
     unlike() {
       let params = {
         userId: this.userId,
         contentId: this.articleId,
-        type: 4
+        type: 1
       };
-      reqUnLike(params).then(res => {
-        if (res.resultCode == 200) {
-          this.likeNum--;
-          this.attiStat = -1;
-        }
-      });
+      if (this.preAtti == 1) {
+        reqCancelLike(params).then(res => {
+          if (res.resultCode == 200) {
+            this.likeNum--;
+          }
+        });
+        reqUnLike(params).then(res => {
+          if (res.resultCode == 200) {
+            this.attiStat = 0;
+          }
+        });
+      } else {
+        reqUnLike(params).then(res => {
+          if (res.resultCode == 200) {
+            this.attiStat = 0;
+          }
+        });
+      }
     },
-    //踩
+    //回答取消态度
     canclike() {
       let params = {
         userId: this.userId,
         contentId: this.articleId,
-        type: 4
+        type: 1
       };
-      if (this.preAtti == 1) {
-        reqUnLike(params).then(res => {
+      if(this.preAtti == 1){
+        reqCancelLike(params).then(res => {
           if (res.resultCode == 200) {
-            this.likeNum--;
+            this.attiStat = -1;
+            this.likeNum --
           }
-        })
-        reqCancelLike(params).then(res =>{
-          if(res.resultCode == 200){
-            this.attiStat = 0
-          }
-        })
+        });
       }
       else{
-        reqCancelLike(params).then(res =>{
-          if(res.resultCode == 200){
-            this.attiStat = 0
+        reqCancelLike(params).then(res => {
+          if (res.resultCode == 200) {
+            this.attiStat = -1;
           }
-        })
+        });
+      }
+      
+    },
+    //评论点赞
+    comlike(v) {
+      let params = {
+        userId: this.userId,
+        contentId: v.commentator_id,
+        // type: 1
+      };
+      reqLike(params).then(res => {
+        // console.info(res)
+        if (res.resultCode == 200) {
+          // console.info(this.likeNum)
+          v.praise_num++;
+          // console.info(this.likeNum)
+        }
+      });
+    },
+    //评论踩
+    comunlike(v) {
+      let params = {
+        userId: this.userId,
+        contentId: v.commentator_id,
+        // type: 1
+      };
+      if (this.preAtti == 1) {
+        reqCancelLike(params).then(res => {
+          if (res.resultCode == 200) {
+            v.praise_num--;
+          }
+        });
+        reqUnLike(params).then(res => {
+          if (res.resultCode == 200) {
+            this.attiStat = 0;
+          }
+        });
+      } else {
+        reqUnLike(params).then(res => {
+          if (res.resultCode == 200) {
+            this.attiStat = 0;
+          }
+        });
+      }
+    },
+    //评论取消态度
+    comcanclike(v) {
+      let params = {
+        userId: this.userId,
+        contentId: v.commentator_id,
+        // type: 1
+      };
+      if(this.preAtti == 1){
+        reqCancelLike(params).then(res => {
+          if (res.resultCode == 200) {
+            this.attiStat = -1;
+            v.praise_num --
+          }
+        });
+      }
+      else{
+        reqCancelLike(params).then(res => {
+          if (res.resultCode == 200) {
+            this.attiStat = -1;
+          }
+        });
       }
     }
   }
