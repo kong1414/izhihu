@@ -77,40 +77,63 @@
                    @tab-click="handleClick">
             <el-tab-pane label="动态"
                         name="dynamic">
-              <recommend-item title="5G的到来会造成编程语言大灭绝进而JS一统应用前端吗?"
-                              content="5G的到来会造成编程语言大灭绝进而JS一统应用前端吗?"
-                              articleId="123123"
-                              quesId="123123"
-                              type=1
-                              heatNum=123 />
+              动态1
             </el-tab-pane>
             <el-tab-pane label="回答"
                         name="answer">
-              关注
+              <div v-if="articleList.length <= 0">暂无数据</div>
+              <div v-else>
+                {{articleList}}
+              </div>
             </el-tab-pane>
             <el-tab-pane label="提问"
                         name="question">
-              关注
+              <div v-if="quesList.length <= 0">暂无数据</div>
+              <div v-else>
+                {{quesList}}
+              </div>
             </el-tab-pane>
             <el-tab-pane label="文章"
                         name="article">
-              关注
-            </el-tab-pane>
-            <el-tab-pane label="专栏"
-                        name="column">
-              关注
+              <div v-if="articleList.length <= 0">暂无数据</div>
+              <div v-else>
+                {{articleList}}
+              </div>
             </el-tab-pane>
             <el-tab-pane label="想法"
                         name="idea">
-              关注
+              <div v-if="articleList.length <= 0">暂无数据</div>
+              <div v-else>
+                {{articleList}}
+              </div>
             </el-tab-pane>
-            <el-tab-pane label="收藏"
+            <el-tab-pane label="收藏夹"
                         name="favorite">
-              关注
+              <div v-if="faveList.length <= 0">暂无数据</div>
+              <div v-else>
+                {{faveList}}
+              </div>
             </el-tab-pane>
-            <el-tab-pane label="关注"
-                        name="att">
-              关注
+            <el-tab-pane label="关注的话题"
+                        name="attTopic">
+              <div v-if="topicList.length <= 0">暂无数据</div>
+              <div v-else>
+                {{topicList}}
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="关注的问题"
+                        name="attQues">
+              <div v-if="attQuesList.length <= 0">暂无数据</div>
+              <div v-else>
+                {{attQuesList}}
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="关注的用户"
+                        name="attPeople">
+              <div v-if="attUserList.length <= 0">暂无数据</div>
+              <div v-else>
+                {{attUserList}}
+              </div>
             </el-tab-pane>
           </el-tabs>
         </el-card>
@@ -192,6 +215,11 @@
 
 <script>
 import { reqUserInfo, reqUpdateUserInfo } from '../../api/home'
+import {reqGetArticleByUser} from '../../api/article'
+import {  reqMyFavorite } from '../../api/favorite'
+import { reqFindQuesByUser } from '../../api/question'
+import { reqAttedTopic } from '../../api/topic'
+import { reqGetAttByUser } from '../../api/follow'
 import AsideFooter from '../../components/aside/AsideFooter'
 import recommendItem from '../../components/index/RecommendItem'
 export default {
@@ -218,7 +246,15 @@ export default {
         major: ''// 行业
       },
       userInfodialogVisible: false,
-      imageUrl: ''
+      imageUrl: '',
+      type: '', // 类别（1回答，2文章，3想法，4问题，5话题，6用户，7收藏夹，8专栏）
+      articleList: [], //文章相关的 回答文章想法
+      quesList: [], // 问题
+      topicList: [], // 话题
+      attUserList: [], // 用户
+      attQuesList: [], // 关注的问题
+      faveList: [], // 收藏夹
+
     }
   },
   created () {
@@ -269,8 +305,92 @@ export default {
     handleClose () { // 关闭弹窗
       this.userInfodialogVisible = false
     },
-    handleClick () { // 下面的tabs
+    handleClick (v) { // 下面的tabs
+      console.info(v.name)
+      if (v.name === 'dynamic') { // 动态
+        // this.articleList = v.name
 
+
+      } else if (v.name === 'answer') { // 回答
+        let params = {
+          userId: this.userId,
+          type: 1
+        }
+        reqGetArticleByUser(params).then(res => {
+          if (res.resultCode == 200) {
+            this.articleList = res.data
+          }
+        })
+      } else if (v.name === 'question') { // 提问
+        
+        let params = 'userId=' + this.userId
+
+        reqFindQuesByUser(params).then(res => {
+          if (res.resultCode == 200) {
+            this.quesList = res.data
+          }
+        })
+
+      } else if (v.name === 'article') { // 文章
+        let params = {
+          userId: this.userId,
+          type: 2
+        }
+        reqGetArticleByUser(params).then(res => {
+          if (res.resultCode == 200) {
+            this.articleList = res.data
+          }
+        })
+
+      } else if (v.name === 'idea') { // 想法
+        let params = {
+          userId: this.userId,
+          type: 3
+        }
+        reqGetArticleByUser(params).then(res => {
+          if (res.resultCode == 200) {
+            this.articleList = res.data
+          }
+        })
+
+      } else if (v.name === 'favorite') { // 收藏夹
+        let params = 'userId=' + this.userId
+        reqMyFavorite(params).then(res => {
+          if (res.resultCode == 200) {
+            this.faveList = res.data
+          }
+        })
+
+      } else if (v.name === 'attTopic') { // 关注话题
+        let params = 'userId=' + this.userId
+        reqAttedTopic(params).then(res => {
+          if (res.resultCode == 200) {
+            this.topicList = res.data
+          }
+        })
+
+      } else if (v.name === 'attQues') { // 关注的问题
+        let params = {
+          userId: this.userId,
+          type: 4
+        }
+        reqGetAttByUser(params).then(res => {
+          if (res.resultCode == 200) {
+            this.attQuesList = res.data
+          }
+        })
+
+      } else if (v.name === 'attPeople') { // 关注的人
+        let params = {
+          userId: this.userId,
+          type: 6
+        }
+        reqGetAttByUser(params).then(res => {
+          if (res.resultCode == 200) {
+            this.attQuesList = res.data
+          }
+        })
+      }
     },
     handleAvatarSuccess(res, file) {
       console.info('res', res)

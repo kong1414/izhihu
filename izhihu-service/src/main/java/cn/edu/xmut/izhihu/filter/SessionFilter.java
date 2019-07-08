@@ -64,6 +64,12 @@ public class SessionFilter implements Filter {
             return;
         }
 
+        // 判断如果是登录请求则不需要过滤
+        if (url.endsWith("uploadImage")) {
+            chain.doFilter(httpRequest, response);
+            return;
+        }
+
         // // 获取token
         String token = httpRequest.getHeader(Gloal.REQUEST_HEADER_TOKEN_KEY);
         // // 解析token

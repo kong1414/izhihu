@@ -57,4 +57,11 @@ public class QuestionController {
     public ResultVO findTopicByQues(@RequestParam String quesId) {
         return questionService.findTopicByQues(quesId);
     }
+
+    @ApiOperation("根据用户id 获取用户的提问")
+    @PostMapping("/findQuesByUser")
+    public ResultVO findQuesByUser(@RequestParam String userId) {
+        return questionService.findQuesByUser(userId);
+    }
+
 }

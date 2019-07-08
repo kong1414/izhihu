@@ -60,7 +60,7 @@
 
             <i class="el-icon-chat-line-round"
                style="margin-right: 30px;"></i>
-            <el-dropdown>
+            <el-dropdown> 
               <span class="el-dropdown-link userinfo-inner">
                 <span class="username">
                   <!-- {{this.$store.state.user.name}} -->
@@ -70,9 +70,9 @@
                    class="el-icon-caret-bottom"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="toPersonal">我的主页</el-dropdown-item>
-                <el-dropdown-item @click.native="changePasswords">修改密码</el-dropdown-item>
-                <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>
+                <el-dropdown-item @click.native="toPersonal" class="home-dropdown-item">我的主页</el-dropdown-item>
+                <el-dropdown-item @click.native="changePasswords" class="home-dropdown-item">修改密码</el-dropdown-item>
+                <el-dropdown-item @click.native="logout" class="home-dropdown-item">退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </span>
@@ -226,5 +226,9 @@ export default {
     width: 1100px;
     margin: 0 auto;
   }
+  
+}
+.home-dropdown-item {
+  min-width: 96px;
 }
 </style>

@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:
@@ -37,6 +39,12 @@ public class FollowServiceImpl implements FollowService {
 
     @Autowired
     private ArticleMapper articleMapper;
+
+    @Autowired
+    private TopicMapper topicMapper;
+
+    @Autowired
+    private UsersMapper userMapper;
 
     /**
      * 关注某事
@@ -223,5 +231,59 @@ public class FollowServiceImpl implements FollowService {
         } else {
             return false;
         }
+    }
+
+    /**
+     * 根据用户id 以及type 返回关注的内容
+     *
+     * @param userId
+     * @param type
+     * @return
+     */
+    @Override
+    public ResultVO getAttByUser(String userId, int type) {
+        if (type == Type.QUESTION.getCode()) {
+            List<Question> res = new ArrayList<>();
+
+            Attention attention = new Attention();
+            attention.setType(type);
+            attention.setUserId(userId);
+            List<Attention> list = attentionMapper.select(attention);
+            for (Attention i : list) {
+                Question record = questionMapper.selectByPrimaryKey(i.getAttId());
+                res.add(record);
+            }
+            return new SuccessVO(res);
+
+        } else if (type == Type.TOPIC.getCode()) {
+            List<Topic> res = new ArrayList<>();
+            Attention attention = new Attention();
+            attention.setType(type);
+            attention.setUserId(userId);
+            List<Attention> list = attentionMapper.select(attention);
+
+            for (Attention i : list) {
+                Topic record = topicMapper.selectByPrimaryKey(i.getAttId());
+                res.add(record);
+            }
+            return new SuccessVO(res);
+
+        } else if (type == Type.USER.getCode()) {
+
+            List<Map<String,Object>> res = new ArrayList<>();
+            Attention attention = new Attention();
+            attention.setType(type);
+            attention.setUserId(userId);
+            List<Attention> list = attentionMapper.select(attention);
+
+            for (Attention i : list) {
+                Map<String,Object> record = userMapper.userInfo(i.getAttId());
+                res.add(record);
+            }
+            return new SuccessVO(res);
+        } else {
+
+        }
+        return new SuccessVO();
     }
 }
