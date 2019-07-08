@@ -10,6 +10,9 @@
             <i class="el-icon-d-arrow-right"></i>
           </el-button>
         </div>
+        <div>
+          编辑推荐content
+        </div>
       </el-card>
       <el-card class="today-hot">
         <el-tabs v-model="activeName" @tab-click="handleClick">
@@ -32,6 +35,7 @@
 <script>
 import AsideDiscovery from '../../components/aside/AsideDiscovery'
 import RecommendItem from '../../components/index/RecommendItem'
+import { reqEditorRecommend } from '../../api/question'
 export default {
   name: 'discovery',
   components: {
@@ -44,9 +48,15 @@ export default {
       activeName: 'today'
     }
   },
+  mounted () {
+    this._loadData()
+  },
   methods: {
-    handleClick () { // 改变今日最热 和 本月最热
+    _loadData () {
 
+    },
+    handleClick () { // 改变今日最热 和 本月最热
+      
     }
   }
 }

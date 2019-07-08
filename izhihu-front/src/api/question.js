@@ -23,3 +23,7 @@ export const reqFindTopicByQues = params => { // 获得话题通过问题id
 export const reqFindQuesByUser = params => { // 获得用户id 获得用户的提问
   return axios.post(`${BASE_URL}/question/findQuesByUser?` + params).then(res => res.data)
 }
+
+export const reqEditorRecommend = params => { // 发现页的编辑推荐
+  return axios.post(`${BASE_URL}/article/editorRecommend?` + params).then(res => res.data)
+}
