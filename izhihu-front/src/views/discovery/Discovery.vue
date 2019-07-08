@@ -19,7 +19,7 @@
           <el-tab-pane label="今日最热" name="today">
             今日最热
           </el-tab-pane>
-          <el-tab-pane label="关注" name="month">
+          <el-tab-pane label="本月最热" name="month">
             本月最热
           </el-tab-pane>
         </el-tabs>
