@@ -1,14 +1,14 @@
 <template>
   <!-- 回答内容的组件 -->
   <div class="myanswer-item">
-    <el-button type="text">
+    <el-button type="text" @click="toQueDetail ()">
       <div class="disDetName">{{queName}}</div>
     </el-button>
     <div style="margin-top:10px;">
       <el-image class="avaImag" :src="null"></el-image>
-      <span class="disDetAuthor">{{author.substr(0,5)}}</span>
+      <span class="disDetAuthor">{{author}}</span>
     </div>
-    <div class="disDetque" @click=" dialogVisible = true">{{queDet}}</div>
+    <div class="disDetque" @click=" dialogVisible = true" v-html="queDet"></div>
     <div class="ope">
       <span>
         <el-button class="apprBut" v-if="attiStat!=1" @click="attiStat=1;apprNadd()">
@@ -24,7 +24,7 @@
           <i class="el-icon-caret-top" style="color:white;"></i>
           <span style="color:white;">已赞同 {{apprN}}</span>
         </el-button>
-        <el-button class="oppBut" v-if="attiStat!=2" @click="attiStat=2;apprNsub()">
+        <el-button class="oppBut" v-if="attiStat!=2" @click="attiStat=2;">
           <i class="el-icon-caret-bottom"></i>
         </el-button>
         <el-button
@@ -45,7 +45,7 @@
         <i class="el-icon-s-promotion shareI" />
         <span>分享</span>
       </el-button>
-      <el-button type="text" class="shareBut">
+      <el-button type="text" class="shareBut" @click="comFavriVisible=true">
         <i class="el-icon-star-on shareI" />
         <span>收藏</span>
       </el-button>
@@ -57,9 +57,7 @@
     <el-divider></el-divider>
     <!-- 问题答案内容 -->
     <el-dialog :title="queName" :visible.sync="dialogVisible" width="600px">
-      <div class="dialog-body">
-        <span>{{queDet}}</span>
-      </div>
+      <div class="dialog-body"  v-html="queDet"></div>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogVisible = false">关 闭</el-button>
       </span>
@@ -106,7 +104,7 @@
               size="mini"
               v-if="comDet.stat!=2"
               style="margin-left:10px;"
-              @click="comDet.stat=2;praNsub(comDet)"
+              @click="comDet.stat=2;"
               type="text"
             >
               <i class="el-icon-caret-bottom"></i>
@@ -116,7 +114,7 @@
               class="shareBut"
               v-if="comDet.stat==2"
               size="mini"
-              @click="comDet.stat=0;praNsub(comDet)"
+              @click="comDet.stat=0;"
               style="color: #0084ff;margin-left:10px;"
               type="text"
             >
@@ -136,7 +134,7 @@
               <i class="el-icon-warning" />
               <span>举报</span>
             </el-button>
-            <el-button type="text" size="mini" class="shareBut">
+            <el-button type="text" size="mini" class="shareBut" v-if="comDet.del">
               <i class="el-icon-error" />
               <span>删除</span>
             </el-button>
@@ -158,25 +156,41 @@
         </div>
       </span>
     </el-dialog>
+    <!-- 评论收藏弹窗 -->
+    <el-dialog title="添加收藏" :visible.sync="comFavriVisible" width="600px">
+      <div class="creaColl-body" v-for="(creaCollection,index) in creaCollections" :key="index">
+        <span class="creaCollName">{{creaCollection.favoriteName}}</span>
+        <el-button class="creaCollBut" v-if="!creaCollBut" @click="creaCollBut=!creaCollBut">收藏</el-button>
+        <el-button class="creaCollBut2" v-if="creaCollBut" @click="creaCollBut=!creaCollBut">已收藏</el-button>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="comFavriVisible = false">提 交</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 // import CommentItem from './Comment'
+import { reqMyFavorite } from '../../api/favorite'
 import { reqGetArticleCom } from "../../api/topicArticle";
+import dataUtil from '../../util/dataUtil';
 export default {
   name: "AnswerItem",
   components: {
     // CommentItem
   },
   props: {
-    topicId: String,
+    // topicId: String,
     attiStat: Number,
     apprN: Number,
     evalN: Number,
     queName: String,
     author: String,
-    queDet: String
+    queDet: String,
+    articleId: String,
+    queId: String,
+    type: Number
   },
   data() {
     return {
@@ -187,24 +201,34 @@ export default {
       replayname: null,
       replayStat: false,
       replaycom: null,
-      delVisible: false
+      delVisible: false,
+      username: '',
+      comFavriVisible: true,
+      userId: this.$store.state.user.userId,
+      creaCollections:[],
+      creaCollBut: false
     };
   },
   created() {
     this._loadData();
+    this.username = this.$store.state.user.name;
   },
   methods: {
     _loadData() {
-      let params = "articleId=0c593ec4-feea-4751-99bd-bfee1434961e";
+      console.info(this.userId);
+      let params = "articleId=" + this.articleId;
+      let userParams = "userId=" +this.userId;
       // console.info(this.topicId);
-      reqGetArticleCom(params).then(res => {
+      reqGetArticleCom(params).then(res => { 
         if (res.resultCode === 200) {
           // console.info(res.data);
           res.data.forEach(element => {
             element.stat = 0;
-            // element.praise_num = 123;
           });
           res.data.forEach(element => {
+            if(element.name==this.username) element.del = true;
+            else element.del = false;
+            // console.info(element.del);
             if (element.is_reply != 0) {
               res.data.forEach(element2 => {
                 if (element.is_reply === element2.id)
@@ -215,6 +239,12 @@ export default {
           });
           this.comDets = res.data;
           // console.info(this.comDets);
+        }
+      });
+      reqMyFavorite(userParams).then(res => {
+        if (res.resultCode == 200) {
+          this.creaCollections = res.data;
+          console.info(this.creaCollections);
         }
       });
     },
@@ -237,14 +267,17 @@ export default {
     apprNadd() {
       this.apprN++;
     },
-    apprNsub() {
-      this.apprN--;
-    },
+    // apprNsub() {
+    //   this.apprN--;
+    // },
     praNadd(comDet) {
       comDet.praise_num++;
     },
-    praNsub(comDet) {
-      comDet.praise_num--;
+    // praNsub(comDet) {
+    //   comDet.praise_num--;
+    // },
+    toQueDetail () { // 跳转到问题主页
+      if(this.type==1) this.$router.push({ path: '/home/question/'+ this.queId });
     }
   }
 };
@@ -316,10 +349,37 @@ export default {
       height: 24px;
     }
   }
+  .creaColl-body{
+    padding: 22px;
+    margin-top: -5px;
+    font-size: 15px;
+    .creaCollName{
+      font-weight: 700;
+      line-height: 1.7;
+      font-size: 15px;
+      color: #1a1a1a;
+    }
+    .creaCollBut{
+      float: right;
+      border: 0px;
+    }
+    .creaCollBut2{
+      float: right;
+      border: 0px;
+      color: #fff;
+      background-color: #8590a6;
+    }
+    .el-button{
+      padding-left: 0;
+      padding-right: 0;
+      width: 76px;
+    }
+  }
   .dialog-body {
     padding: 22px;
     margin-top: -5px;
     font-size: 15px;
+    
     .replyName {
       color: #8590a6;
       margin-left: 5px;
@@ -352,7 +412,7 @@ export default {
     .el-divider--horizontal {
       margin: 0px;
       margin-bottom: 15px;
-      margin-top: 10px;
+      margin-top: 15px;
     }
     .comInput {
       width: 80%;

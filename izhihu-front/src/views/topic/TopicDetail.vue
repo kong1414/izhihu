@@ -29,15 +29,17 @@
         <div v-if="disDetCon==false">暂无数据</div>
         <div v-if="disDetCon==true">
           <div  v-for="disDet in disDets" :key="disDet.topicId" class="text item" >
-            <!-- 给answerItem传值 -->
+            <!-- 给answerItem传值   :topicid="topicId"-->
             <answer-item
-              :topicid="topicId"
               :attiStat="disDet.attiStat"
               :apprN="disDet.apprN"
               :evalN="disDet.comment_num"
               :queName="disDet.ques_name"
-              :author="disDet.author_id"
+              :author="disDet.name"
               :queDet="disDet.content"
+              :articleId="disDet.article_id"
+              :queId="disDet.ques_id"
+              :type="disDet.type"
             />
           </div>
         </div>
@@ -134,7 +136,7 @@ export default {
       });
       reqGetTopicArticle(params).then(res =>{
         if (res.resultCode === 200) {
-          console.info(res.data);
+          // console.info(res.data);
           this.disDets = res.data;
           this.disDetCon = false;
           this.disDets.forEach(element => {
