@@ -28,7 +28,7 @@
         </div>
         <div v-if="disDetCon==false">暂无数据</div>
         <div v-if="disDetCon==true">
-          <div  v-for="disDet in disDets" :key="disDet.topicId" class="text item" >
+          <div v-for="disDet in disDets" :key="disDet.topicId" class="text item">
             <!-- 给answerItem传值   :topicid="topicId"-->
             <answer-item
               :attiStat="disDet.attiStat"
@@ -46,9 +46,7 @@
       </el-card>
     </el-main>
     <el-aside width="300px" style="background-color:#ecf5ff;min-height:200px">
-      <aside-Subs :topicId="topicId"
-                  :quenum="queNumber"
-      ></aside-Subs>
+      <aside-Subs :topicId="topicId" :quenum="queNumber"></aside-Subs>
       <aside-Footer></aside-Footer>
     </el-aside>
     <el-dialog :title="topDet.topicName" :visible.sync="dialogVisible" width="600px">
@@ -65,7 +63,7 @@
 import AsideFooter from "../../components/aside/AsideFooter";
 import AsideSubs from "../../components/aside/AsideSubs";
 import AnswerItem from "../../components/index/AnswerItem";
-import  {reqGetTopicArticle} from "../../api/topicArticle";
+import { reqGetTopicArticle } from "../../api/topicArticle";
 import { reqGetTopicDet } from "../../api/topicArticle";
 export default {
   name: "topicDetail",
@@ -77,13 +75,13 @@ export default {
   data() {
     return {
       topicId: this.$route.params.topicid,
+      //话题图标地址、话题详情、暂无数据可视
       url: "",
-      isFollow: false,
-      apprButView: false,
-      oppButView: false,
-      dialogVisible: false,
       topDet: "",
-      disDetCon: '',
+      disDetCon: "",
+      //关注问题可视、话题详细内容弹窗
+      isFollow: false,
+      dialogVisible: false,
       // topName: "高考",
       // topDet:
       //   "普通高等学校招生全国统一考试（The National College Entrance Examination），简称“高考”，是中华人民共和国（不包括香港特别行政区、澳门特别行政区和台湾省）合格的高中毕业生或具有同等学历的考生参加的选拔性考试。 2018年8月，北京市新高考方案公布。",
@@ -119,7 +117,7 @@ export default {
         //     "典型的拉不出屎还要怪到地心引力。短短的几句问题描述，我来告诉你都有哪些槽点。1、兼容并包北大的兼容并包是什么？指的是任何思想都可以在这里碰撞，不是说任何人都可以在园子里嘚瑟。你有思想，哪怕今天在扫地，明天说不定也能和大师们坐而论道；你没思想，就算今天堂而皇之地坐在教学楼里，说不定明天就被扫地出门。这才叫兼容并包，实现它的前提是平等。所以，一个高考“状元”从北大退学，恰恰证明北大坚持了传统，不以高考成绩考察学生，高考状元也没有特权，真正做到了兼容并包。2、天才如果按照IQ140的标准，那么主人公很可能是天才，这没什么说的。但是你要知道，IQ140在人群中的概率比上清华北大还要高，也就不难知道，这样的天才在北大绝对不稀奇。如果换一个标准，以人才作为人间之才，那么天才指的就是此才只应天上有。一个地级市状元，再考是省状元，这也远远达不到“天选之才”的程度。全国每年几百个市状元，大几十个省状元，是必然会出现的一个群体。"
         // }
       ],
-      queNumber: 0,
+      queNumber: 0
     };
   },
   created() {
@@ -137,24 +135,24 @@ export default {
           //console.info(this.Ftop);
         }
       });
-      reqGetTopicArticle(params).then(res =>{
+      reqGetTopicArticle(params).then(res => {
         if (res.resultCode === 200) {
           // console.info(res.data);
           this.disDets = res.data;
           this.disDetCon = false;
+          this.queNumber = 0;
           this.disDets.forEach(element => {
             // 给答案数据创一些新的值(点赞状态、评论数、点赞数)
             element.attiStat = 0;
             element.comment_num = 4;
             element.apprN = 201;
-            if(element.ques_name!=null) this.disDetCon = true;
-            this.queNumber ++;
+            if (element.ques_name != null) this.disDetCon = true;
+            this.queNumber++;
           });
           //console.info(this.Ftop);
           // console.info(this.disDets.ques_name)
-        }   
-      }
-      )
+        }
+      });
     }
   }
 };

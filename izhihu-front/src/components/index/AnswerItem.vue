@@ -196,8 +196,7 @@ export default {
   },
   props: {
     // 从topicDet取数据
-    // topicId: String,
-    attiStat: Number,
+    // attiStat: Number,
     apprN: Number,
     evalN: Number,
     queName: String,
@@ -218,12 +217,13 @@ export default {
       delVisible: false,
       comFavriVisible: false,
       replayStat: false,
-      replaycom: null,   
-      //获取当前页面用户名、用户id、回复输入框、选择器当前值
+      replaycom: null,
+      //获取当前页面用户名、用户id、回复输入框、选择器当前值、点赞状态
       username: "",
       userId: this.$store.state.user.userId,
       input: "",
-      v: ""
+      v: "",
+      attiStat: ""
     };
   },
   created() {
@@ -243,6 +243,7 @@ export default {
           res.data.forEach(element => {
             element.stat = 0;
           });
+          //赋值回复了谁
           res.data.forEach(element => {
             if (element.name == this.username) element.del = true;
             else element.del = false;
