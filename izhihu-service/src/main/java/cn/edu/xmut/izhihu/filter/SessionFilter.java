@@ -24,7 +24,7 @@ import java.util.Map;
  * @Description: 过滤器
  * @Date: 0:28 2019/6/26
  */
-@WebFilter(filterName = "loginFilter", urlPatterns = "/api/*")
+// @WebFilter(filterName = "loginFilter", urlPatterns = "/api/*")
 public class SessionFilter implements Filter {
 
     @Autowired

@@ -10,11 +10,11 @@
             <i class="el-icon-d-arrow-right"></i>
           </el-button>
       </div>  
-      <div v-for="i in list" :key="i.id" class="topiclist">
-        <el-avatar class="img" shape="square" fit="cover" :src="i.photoUrl"></el-avatar>
+      <div v-for="i in list" :key="i.topic_id" class="topiclist">
+        <el-avatar class="img" shape="square" fit="cover" :src="i.photo_url"></el-avatar>
         <div class="nameNum" >
-          <el-button class="name" type="text">{{i.topicName}}</el-button>
-          <span class="number">{{i.attNum}} 人关注</span>
+          <el-button class="name" type="text" @click="toTopic(i.topic_id)">{{i.topic_name}}</el-button>
+          <span class="number">{{i.att_num}} 人关注</span>
         </div>
       </div>
     </el-card>
@@ -28,9 +28,10 @@
         </el-button>
       </div>
 
-      <div v-for="k in cllist" :key="k.id" class="cllist">
-        <el-button class="clbodyname" type="text">{{k.clName}}</el-button>
-        <span class="clNumCon">{{k.clnum}} 人关注  •  {{k.clcont}} 条内容</span>
+      <div v-for="k in cllist" :key="k.favoriteId" class="cllist">
+        <el-button class="clbodyname" type="text" @click="toFavorite(k.favoriteId)">{{k.favoriteName}}</el-button>
+        <!-- <span class="clNumCon">{{k.clnum}} 人关注  •  {{k.clcont}} 条内容</span> -->
+        <span class="clNumCon">2 人关注  •  3 条内容</span>
       </div>
     </el-card>
 
@@ -38,6 +39,7 @@
   </div>
 </template>
 <script>
+import { reqHotFavorite } from '../../api/favorite'
 import { reqGetHotTopic } from '../../api/topic'
 import AsideHotcolumn from '../../components/aside/AsideHotColumn'
 import AsideFooter from '../../components/aside/AsideFooter'
@@ -50,16 +52,16 @@ export default {
   data () {
     return {
       list: [],
-      cllist: [
-        { clName: '吃很重要', clnum:'100', clcont:'123'},
-        { clName: '吃非常重要', clnum:'100', clcont:'123'},
-        { clName: '吃超级无敌重要', clnum:'100', clcont:'123'}
-      ],
+      cllist: [],
       
     }
   },
   created () {
     this._loadData()
+    let params ={
+      userId: '',
+      contentId
+    }
   },
   methods: {
     _loadData () {
@@ -69,7 +71,21 @@ export default {
           this.list = res.data
         }
       })
-    }
+
+      reqHotFavorite().then(res => {
+        if (res.resultCode === 200) {
+          console.info(res.data)
+          this.cllist = res.data
+        }
+      })
+
+    },
+    toTopic (id) {
+      this.$router.push({ path: '/home/topicDetail/' + id})
+    },
+    toFavorite (id) {
+      this.$router.push({ path: '/home/favoriteDetail/' + id})
+    },
   }
 }
 </script>
