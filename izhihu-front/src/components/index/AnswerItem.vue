@@ -146,7 +146,7 @@
       </div>
       <span slot="footer">
         <div style="margin-top: -15px;" v-if="!replayStat">
-          <el-input placeholder="请输入评论" v-model="input2" autocomplete="off">
+          <el-input placeholder="请输入评论" v-model="input" autocomplete="off">
             <el-button slot="append">发送</el-button>
           </el-input>
         </div>
@@ -212,19 +212,16 @@ export default {
       // 评论详情、收藏夹
       comDets: [],
       creaCollections: [],
-      // 问题答案弹窗、评论弹窗、删除评论按钮、评论收藏弹窗
+      // 问题答案弹窗、评论弹窗、删除评论按钮、评论收藏弹窗、回复框前面、回复某人
       dialogVisible: false,
       commentVisible: false,
       delVisible: false,
-      comFavriVisible: true,
-
-      replayname: null,
+      comFavriVisible: false,
       replayStat: false,
-      replaycom: null,
+      replaycom: null,   
+      //获取当前页面用户名、用户id、回复输入框、选择器当前值
       username: "",
       userId: this.$store.state.user.userId,
-      
-      creaCollBut: false, 
       input: "",
       v: ""
     };
@@ -239,6 +236,7 @@ export default {
       let params = "articleId=" + this.articleId;
       let userParams = "userId=" + this.userId;
       // console.info(this.topicId);
+      //获取文章评价
       reqGetArticleCom(params).then(res => {
         if (res.resultCode === 200) {
           // console.info(res.data);
@@ -261,6 +259,7 @@ export default {
           // console.info(this.comDets);
         }
       });
+      //获取我的收藏夹
       reqMyFavorite(userParams).then(res => {
         if (res.resultCode == 200) {
           this.creaCollections = res.data;
@@ -269,14 +268,7 @@ export default {
       });
     },
     handleClick() {},
-    // showReply(id) {
-    //   this.comDets.forEach(element => {
-    //     // console.info(element);
-    //     if (element.id === id) element.replayname = element.name;
-    //     // console.info(element.name);
-    //     // console.info(element.replayname);
-    //   });
-    // },
+    //根据id获取用户名
     replayCom(id) {
       this.comDets.forEach(element => {
         // console.info(element);
@@ -301,21 +293,19 @@ export default {
       if (this.type == 1)
         this.$router.push({ path: "/home/question/" + this.queId });
     },
+    //收藏弹窗
     collArt(v) {
       let params = {
         articleId: this.articleId,
         favoritesId: v
       };
-      console.info(params);
+      // console.info(params);
       reqCollect(params).then(res => {
         if (res.resultCode == 200) {
           this.$message("收藏成功");
         } else this.$message("收藏失败");
       });
     }
-    // selectColl (v) {
-    //   console.info(v)
-    // }
   }
 };
 </script>
