@@ -13,27 +13,27 @@
     <!-- 文章、问答详情 -->
     <div class="ope">
       <span>
-        <el-button class="apprBut" v-if="attiStat!=1" @click="attiStat=1;apprNadd()">
+        <el-button class="apprBut" v-if="attiStat!=1" @click="attiStat=1;like()">
           <i class="el-icon-caret-top"></i>
-          <span>赞同 {{apprN}}</span>
+          <span>赞同 {{likeNum}}</span>
         </el-button>
         <el-button
           class="apprBut"
           style="background:#0084ff;width:120px;"
           v-if="attiStat==1"
-          @click="attiStat=0;apprNsub()"
+          @click="attiStat=-1;"
         >
           <i class="el-icon-caret-top" style="color:white;"></i>
-          <span style="color:white;">已赞同 {{apprN}}</span>
+          <span style="color:white;">已赞同 {{likeNum}}</span>
         </el-button>
-        <el-button class="oppBut" v-if="attiStat!=2" @click="attiStat=2;">
+        <el-button class="oppBut" v-if="attiStat!=0" @click="attiStat=0;">
           <i class="el-icon-caret-bottom"></i>
         </el-button>
         <el-button
           class="oppBut"
           style="background:#0084ff;"
-          v-if="attiStat==2"
-          @click="attiStat=0"
+          v-if="attiStat==0"
+          @click="attiStat=-1"
         >
           <i class="el-icon-caret-bottom" style="color:white;"></i>
         </el-button>
@@ -188,7 +188,7 @@
 // import CommentItem from './Comment'
 import { reqMyFavorite, reqCollect } from "../../api/favorite";
 import { reqGetArticleCom } from "../../api/topicArticle";
-import { reqCheckOpp } from "../../api/follow";
+import { reqCheckOpp,reqLike } from "../../api/follow";
 import dataUtil from "../../util/dataUtil";
 export default {
   name: "AnswerItem",
@@ -224,7 +224,8 @@ export default {
       userId: this.$store.state.user.userId,
       input: "",
       v: "",
-      attiStat: ""
+      attiStat: "",
+      likeNum: this.apprN
     };
   },
   mounted() {
@@ -277,6 +278,7 @@ export default {
       reqCheckOpp(userArtiParams).then(res =>{
         if(res.resultCode == 200){
           console.info(res.data)
+          this.attiStat = res.data
         }
       })
     },
@@ -318,6 +320,21 @@ export default {
           this.$message("收藏成功");
         } else this.$message("收藏失败");
       });
+    },
+    like(){
+      let params = {
+        userId: this.userId,
+        contentId: this.articleId,
+        type: 4
+      }
+      reqLike(params).then(res =>{
+        // console.info(res)
+        if(res.resultCode == 200){
+          // console.info(this.likeNum)
+          this.likeNum ++
+          // console.info(this.likeNum)
+        }
+      })
     }
   }
 };

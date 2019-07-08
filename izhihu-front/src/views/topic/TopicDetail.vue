@@ -178,7 +178,7 @@ export default {
         contentId: this.topicId,
         type: 5
       };
-      console.info(followparams);
+      // console.info(followparams);
       reqInFollow(followparams).then(res => {
         if (res.resultCode == 200) {
           this.$message("关注成功");
