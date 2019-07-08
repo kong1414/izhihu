@@ -52,10 +52,10 @@
         <aside-discovery style="margin-top: 20px;" />
       </el-aside>
     </el-container>
-    <el-dialog title="写回答" :visible.sync="writeAnswerVisible" class="wriAnsDia">
+    <el-dialog title="写回答" width="600px" :visible.sync="writeAnswerVisible" class="wriAnsDia">
       <div class="wriAnsHead">
-        <el-avatar shape="square" :size="40" :src="squareUrl" style="float: left;"></el-avatar>
-        <span class="wriAnsAuthor">{{author}}</span>
+        <el-avatar shape="square" :size="40" :src="user.photoUrl" style="float: left;"></el-avatar>
+        <span class="wriAnsAuthor">{{user.name}}</span>
         <div class="rightArea">
           <span class="noname">匿名发布</span>
           <el-radio v-model="radio" label="0">否</el-radio>
@@ -80,7 +80,7 @@
 import AnswerItem from "../../components/index/AnswerItem";
 import AsideFooter from "../../components/aside/AsideFooter";
 import AsideDiscovery from "../../components/aside/AsideDiscovery";
-import { reqFindQuestionById } from "../../api/question";
+import { reqFindQuestionById, reqAnswer } from "../../api/question";
 export default {
   name: "question",
   components: {
@@ -112,8 +112,9 @@ export default {
       author: "123",
       radio: "0",
       content:'请输入您的回答',
-      editorOption: {}
-    };
+      editorOption: {},
+      user: this.$store.state.user
+    }
   },
   created() {
     this._loadData();
@@ -132,11 +133,29 @@ export default {
       // 查询相关联话题
       // TODO:
     },
-    handleUp(){
+    handleUp () {
       if(this.content == ''){
         this.$message("回答不能为空")
         return
       }
+      let params = {
+        anonymity: Number(this.radio),
+        content: this.content,
+        quesId: this.quesId,
+        userId: this.$store.state.user.userId
+      }
+      reqAnswer(params).then(res=> {
+        if (res.resultCode == 200) {
+          this.$message({
+            type:'success',
+            message: res.resultMessage
+          })
+          this._loadData()
+          this.writeAnswerVisible = false
+          this.content = ''
+        }
+      })
+
     }
   }
 };

@@ -58,10 +58,6 @@ export default {
   },
   created () {
     this._loadData()
-    let params ={
-      userId: '',
-      contentId
-    }
   },
   methods: {
     _loadData () {

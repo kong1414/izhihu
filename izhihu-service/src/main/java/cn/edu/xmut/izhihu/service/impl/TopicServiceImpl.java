@@ -153,7 +153,8 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public Topic getTopicFather(String topicId) {
         Topic topic = topicMapper.selectByPrimaryKey(topicId);
-        return topic;
+        Topic topicFa = topicMapper.selectByPrimaryKey(topic.getTopicFatherId());
+        return topicFa;
     }
 
     /**

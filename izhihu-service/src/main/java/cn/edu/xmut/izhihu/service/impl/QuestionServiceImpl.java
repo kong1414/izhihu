@@ -91,13 +91,14 @@ public class QuestionServiceImpl implements QuestionService {
         article.setAuthorId(record.getUserId());
         article.setQuesId(record.getQuesId());
         article.setTitle(question.getQuesName());
+        article.setContent(record.getContent());
 
         articleMapper.insertSelective(article);
 
         question.setAnswerNum(question.getAnswerNum() + 1);
 
         questionMapper.updateByPrimaryKeySelective(question);
-        return new SuccessVO();
+        return new SuccessVO("回答成功");
     }
 
     /**
