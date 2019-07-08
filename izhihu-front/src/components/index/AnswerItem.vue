@@ -21,7 +21,7 @@
           class="apprBut"
           style="background:#0084ff;width:120px;"
           v-if="attiStat==1"
-          @click="attiStat=-1;"
+          @click="attiStat=-1;unlike()"
         >
           <i class="el-icon-caret-top" style="color:white;"></i>
           <span style="color:white;">已赞同 {{likeNum}}</span>
@@ -188,7 +188,7 @@
 // import CommentItem from './Comment'
 import { reqMyFavorite, reqCollect } from "../../api/favorite";
 import { reqGetArticleCom } from "../../api/topicArticle";
-import { reqCheckOpp,reqLike } from "../../api/follow";
+import { reqCheckOpp,reqLike,reqUnLike } from "../../api/follow";
 import dataUtil from "../../util/dataUtil";
 export default {
   name: "AnswerItem",
@@ -321,6 +321,7 @@ export default {
         } else this.$message("收藏失败");
       });
     },
+    //点赞
     like(){
       let params = {
         userId: this.userId,
@@ -333,6 +334,19 @@ export default {
           // console.info(this.likeNum)
           this.likeNum ++
           // console.info(this.likeNum)
+        }
+      })
+    },
+    //取消态度
+    unlike(){
+      let params = {
+        userId: this.userId,
+        contentId: this.articleId,
+        type: 4
+      }
+      reqUnLike(params).then(res =>{
+        if(res.resultCode == 200){
+          this.likeNum --
         }
       })
     }
