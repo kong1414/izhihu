@@ -57,4 +57,10 @@ public class FollowController {
     public ResultVO cancelLike(@RequestBody Map<String, String> record) {
         return followService.cancelLike(record.get("userId"), record.get("contentId"));
     }
+
+    @ApiOperation("获得关注的内容 通过userid")
+    @RequestMapping(value = "/getAttByUser", method = RequestMethod.POST)
+    public ResultVO getAttByUser(@RequestBody Map<String, String> record) {
+        return followService.getAttByUser(record.get("userId"), Integer.parseInt(record.get("type")));
+    }
 }

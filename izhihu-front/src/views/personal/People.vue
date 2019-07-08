@@ -10,7 +10,8 @@
           <!-- <el-image class="avatar"
                     :src="userInfo.photo_url">
           </el-image> -->
-          <img :src="userInfo.photo_url" class="avatar" />
+          <img :src="userInfo.photo_url"
+               class="avatar" />
           <div class="introduce">
             <span class="name">{{userInfo.name}}</span>
             <span class="autograph">{{userInfo.autograph}}</span>
@@ -18,16 +19,10 @@
                      size="mini"
                      class="userinfo">
               <el-form-item label="性别">
-                <span v-if="userInfo.gender===0">未知</span>
-                <span v-else-if="userInfo.gender===1">男</span>
-                <span v-else-if="userInfo.gender===2">女</span>
+                <span v-if="userInfo.gender==0">未知</span>
+                <span v-else-if="userInfo.gender==1">男</span>
+                <span v-else-if="userInfo.gender==2">女</span>
               </el-form-item>
-              <!-- <el-form-item label="个性签名">
-                {{userInfo.autograph}}
-              </el-form-item> -->
-              <!-- <el-form-item label="个人简介">
-                {{userInfo.introduce}}
-              </el-form-item> -->
               <el-form-item label="个人简介">
                 <el-button type="text"> 点击查看个人简介</el-button>
               </el-form-item>
@@ -53,16 +48,25 @@
             </el-form>
           </div>
           <div class="operation">
-            <el-button v-if="this.userId===this.$store.state.user.userId"
+            <el-button v-if="this.currentUserId===this.$store.state.user.userId"
                        size="medium"
                        type="primary"
                        @click="userInfodialogVisible = true">
               编辑资料
             </el-button>
-            <el-button v-else
-                       size="medium"
-                       icon="el-icon-plus"
-                       type="primary">关注</el-button>
+            <span v-else
+                  style="margin-right: 10px">
+              <el-button v-if="!attType"
+                         size="medium"
+                         icon="el-icon-plus"
+                         type="primary"
+                         @click="attPeople">关注</el-button>
+              <el-button v-else
+                         size="medium"
+                         type="primary"
+                         @click="unAttPeople">已关注</el-button>
+            </span>
+
             <el-button size="medium"
                        icon="el-icon-chat-round">发私信</el-button>
           </div>
@@ -76,45 +80,68 @@
           <el-tabs v-model="activeName"
                    @tab-click="handleClick">
             <el-tab-pane label="动态"
-                        name="dynamic">
-              <recommend-item title="5G的到来会造成编程语言大灭绝进而JS一统应用前端吗?"
-                              content="5G的到来会造成编程语言大灭绝进而JS一统应用前端吗?"
-                              articleId="123123"
-                              quesId="123123"
-                              type=1
-                              heatNum=123 />
+                         name="dynamic">
+              动态1
             </el-tab-pane>
             <el-tab-pane label="回答"
-                        name="answer">
-              关注
+                         name="answer">
+              <div v-if="articleList.length <= 0">暂无数据</div>
+              <div v-else>
+                {{articleList}}
+              </div>
             </el-tab-pane>
             <el-tab-pane label="提问"
-                        name="question">
-              关注
+                         name="question">
+              <div v-if="quesList.length <= 0">暂无数据</div>
+              <div v-else>
+                {{quesList}}
+              </div>
             </el-tab-pane>
             <el-tab-pane label="文章"
-                        name="article">
-              关注
-            </el-tab-pane>
-            <el-tab-pane label="专栏"
-                        name="column">
-              关注
+                         name="article">
+              <div v-if="articleList.length <= 0">暂无数据</div>
+              <div v-else>
+                {{articleList}}
+              </div>
             </el-tab-pane>
             <el-tab-pane label="想法"
-                        name="idea">
-              关注
+                         name="idea">
+              <div v-if="articleList.length <= 0">暂无数据</div>
+              <div v-else>
+                {{articleList}}
+              </div>
             </el-tab-pane>
-            <el-tab-pane label="收藏"
-                        name="favorite">
-              关注
+            <el-tab-pane label="收藏夹"
+                         name="favorite">
+              <div v-if="faveList.length <= 0">暂无数据</div>
+              <div v-else>
+                {{faveList}}
+              </div>
             </el-tab-pane>
-            <el-tab-pane label="关注"
-                        name="att">
-              关注
+            <el-tab-pane label="关注的话题"
+                         name="attTopic">
+              <div v-if="topicList.length <= 0">暂无数据</div>
+              <div v-else>
+                {{topicList}}
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="关注的问题"
+                         name="attQues">
+              <div v-if="attQuesList.length <= 0">暂无数据</div>
+              <div v-else>
+                {{attQuesList}}
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="关注的用户"
+                         name="attPeople">
+              <div v-if="attUserList.length <= 0">暂无数据</div>
+              <div v-else>
+                {{attUserList}}
+              </div>
             </el-tab-pane>
           </el-tabs>
         </el-card>
-        
+
       </el-main>
       <el-aside class="people-aside">
         aside
@@ -133,24 +160,30 @@
       <el-form label-width="80px"
                size="medium"
                class="update">
-        <el-upload
-          class="avatar-uploader"
-          action="http://120.78.136.84:8090/api/user/uploadImage"
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload">
-          <img v-if="imageUrl" :src="imageUrl" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        <el-upload class="avatar-uploader"
+                   action="http://120.78.136.84:8090/api/user/uploadImage"
+                   :show-file-list="false"
+                   :on-success="handleAvatarSuccess"
+                   :before-upload="beforeAvatarUpload">
+          <img v-if="imageUrl"
+               :src="imageUrl"
+               class="avatar">
+          <i v-else
+             class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
         <el-form-item label="姓名">
           <el-input v-model="userInfo.name"></el-input>
         </el-form-item>
         <el-form-item label="性别">
           <!-- <el-input v-model="userInfo.gender"></el-input> -->
-          <el-select v-model="userInfo.gender" placeholder="请选择">
-            <el-option label="未知" value="0"></el-option>
-            <el-option label="男" value="1"></el-option>
-            <el-option label="女" value="2"></el-option>
+          <el-select v-model="userInfo.gender"
+                     placeholder="请选择">
+            <el-option label="未知"
+                       value="0"></el-option>
+            <el-option label="男"
+                       value="1"></el-option>
+            <el-option label="女"
+                       value="2"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="个性签名">
@@ -192,6 +225,11 @@
 
 <script>
 import { reqUserInfo, reqUpdateUserInfo } from '../../api/home'
+import { reqGetArticleByUser } from '../../api/article'
+import { reqMyFavorite } from '../../api/favorite'
+import { reqFindQuesByUser } from '../../api/question'
+import { reqAttedTopic } from '../../api/topic'
+import { reqGetAttByUser, reqInFollow, reqUnFollow } from '../../api/follow'
 import AsideFooter from '../../components/aside/AsideFooter'
 import recommendItem from '../../components/index/RecommendItem'
 export default {
@@ -203,7 +241,8 @@ export default {
   data () {
     return {
       activeName: 'dynamic',
-      userId: this.$route.params.userid,
+      userId: this.$store.state.user.userId, // 登录账号的id
+      currentUserId: this.$route.params.userid, // 当前页面的id
       userInfo: {
         name: '',
         photo_url: '',
@@ -218,12 +257,20 @@ export default {
         major: ''// 行业
       },
       userInfodialogVisible: false,
-      imageUrl: ''
+      imageUrl: '',
+      type: '', // 类别（1回答，2文章，3想法，4问题，5话题，6用户，7收藏夹，8专栏）
+      articleList: [], //文章相关的 回答文章想法
+      quesList: [], // 问题
+      topicList: [], // 话题
+      attUserList: [], // 用户
+      attQuesList: [], // 关注的问题
+      faveList: [], // 收藏夹
+      attType: false, // 对该用户关注状态
     }
   },
   created () {
     // console.info('userid')
-    this._loadData(this.userId)
+    this._loadData(this.currentUserId)
   },
   methods: {
     _loadData (userId) {
@@ -255,7 +302,7 @@ export default {
       reqUpdateUserInfo(params).then(res => {
         if (res.resultCode == 200) {
           this.$message({
-            type:'success',
+            type: 'success',
             message: res.resultMessage
           })
           this._loadData(this.userId)
@@ -269,16 +316,100 @@ export default {
     handleClose () { // 关闭弹窗
       this.userInfodialogVisible = false
     },
-    handleClick () { // 下面的tabs
+    handleClick (v) { // 下面的tabs
+      console.info(v.name)
+      if (v.name === 'dynamic') { // 动态
+        // this.articleList = v.name
 
+
+      } else if (v.name === 'answer') { // 回答
+        let params = {
+          userId: this.currentUserId,
+          type: 1
+        }
+        reqGetArticleByUser(params).then(res => {
+          if (res.resultCode == 200) {
+            this.articleList = res.data
+          }
+        })
+      } else if (v.name === 'question') { // 提问
+
+        let params = 'userId=' + this.currentUserId
+
+        reqFindQuesByUser(params).then(res => {
+          if (res.resultCode == 200) {
+            this.quesList = res.data
+          }
+        })
+
+      } else if (v.name === 'article') { // 文章
+        let params = {
+          userId: this.currentUserId,
+          type: 2
+        }
+        reqGetArticleByUser(params).then(res => {
+          if (res.resultCode == 200) {
+            this.articleList = res.data
+          }
+        })
+
+      } else if (v.name === 'idea') { // 想法
+        let params = {
+          userId: this.currentUserId,
+          type: 3
+        }
+        reqGetArticleByUser(params).then(res => {
+          if (res.resultCode == 200) {
+            this.articleList = res.data
+          }
+        })
+
+      } else if (v.name === 'favorite') { // 收藏夹
+        let params = 'userId=' + this.currentUserId
+        reqMyFavorite(params).then(res => {
+          if (res.resultCode == 200) {
+            this.faveList = res.data
+          }
+        })
+
+      } else if (v.name === 'attTopic') { // 关注话题
+        let params = 'userId=' + this.currentUserId
+        reqAttedTopic(params).then(res => {
+          if (res.resultCode == 200) {
+            this.topicList = res.data
+          }
+        })
+
+      } else if (v.name === 'attQues') { // 关注的问题
+        let params = {
+          userId: this.currentUserId,
+          type: 4
+        }
+        reqGetAttByUser(params).then(res => {
+          if (res.resultCode == 200) {
+            this.attQuesList = res.data
+          }
+        })
+
+      } else if (v.name === 'attPeople') { // 关注的人
+        let params = {
+          userId: this.currentUserId,
+          type: 6
+        }
+        reqGetAttByUser(params).then(res => {
+          if (res.resultCode == 200) {
+            this.attQuesList = res.data
+          }
+        })
+      }
     },
-    handleAvatarSuccess(res, file) {
-      console.info('res', res)
-      console.info('file', file)
+    handleAvatarSuccess (res, file) { // 上传图片回调
+      // console.info('res', res)
+      // console.info('file', file)
       // this.imageUrl = URL.createObjectURL(file.raw)
       this.imageUrl = res.data
     },
-    beforeAvatarUpload(file) {
+    beforeAvatarUpload (file) { // 上传图片前
       const isJPG = file.type === 'image/jpeg';
       const isLt2M = file.size / 1024 / 1024 < 2;
 
@@ -289,6 +420,37 @@ export default {
         this.$message.error('上传头像图片大小不能超过 2MB!');
       }
       return isJPG && isLt2M;
+    },
+    attPeople () { // 关注该用户
+      let params = {
+        userId: this.userId,
+        contentId: this.currentUserId,
+        type: 6
+      }
+      reqInFollow(params).then(res => {
+        if (res.resultCode == 200) {
+          this.$message({
+            type: 'success',
+            message: res.resultMessage
+          })
+          this.attType = true
+        }
+      })
+    },
+    unAttPeople () { // 取消关注该用户
+      let params = {
+        userId: this.userId,
+        contentId: this.currentUserId,
+      }
+      reqUnFollow(params).then(res => {
+        if (res.resultCode == 200) {
+          this.$message({
+            type: 'success',
+            message: res.resultMessage
+          })
+          this.attType = false
+        }
+      })
     }
   }
 }
@@ -392,7 +554,6 @@ export default {
     .el-dialog__body {
       padding: 20px;
       .update {
-      
       }
       .avatar-uploader {
         .el-upload {
@@ -403,7 +564,7 @@ export default {
           overflow: hidden;
         }
         .el-upload:hover {
-          border-color: #409EFF;
+          border-color: #409eff;
         }
       }
       .avatar-uploader-icon {
@@ -420,8 +581,6 @@ export default {
         display: block;
       }
     }
-    
   }
-  
 }
 </style>

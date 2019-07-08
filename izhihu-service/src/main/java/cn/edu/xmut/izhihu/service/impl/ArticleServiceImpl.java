@@ -122,7 +122,15 @@ public class ArticleServiceImpl implements ArticleService {
      */
     @Override
     public ResultVO getArticleByUser(String userId, int type) {
-        List<Map<String, Object>> list = articleMapper.getArticleByUser(userId, type);
+
+        if (type == 0) {
+            List<Map<String, Object>> res =
+                    articleMapper.getArticleByUserId(userId);
+            return new SuccessVO(res);
+        }
+
+        List<Map<String, Object>> list =
+                articleMapper.getArticleByUser(userId, type);
 
         return new SuccessVO(list);
     }

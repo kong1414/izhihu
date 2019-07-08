@@ -7,3 +7,7 @@ import {
 export const reqCreateArticle = params => { // 写文章写想法
   return axios.post(`${BASE_URL}/article/create`, params).then(res => res.data)
 }
+
+export const reqGetArticleByUser = params => { // 写文章写想法
+  return axios.post(`${BASE_URL}/article/listByUser`, params).then(res => res.data)
+}

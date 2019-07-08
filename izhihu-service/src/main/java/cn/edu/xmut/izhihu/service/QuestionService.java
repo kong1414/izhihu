@@ -3,6 +3,7 @@ package cn.edu.xmut.izhihu.service;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.request.AnswerRequest;
 import cn.edu.xmut.izhihu.pojo.request.QuestionRequest;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @Description:
@@ -58,4 +59,12 @@ public interface QuestionService {
      * @return
      */
     ResultVO findTopicByQues(String quesId);
+
+    /**
+     * 根据用户id 获取用户的提问
+     *
+     * @param UserId
+     * @return
+     */
+    ResultVO findQuesByUser(String UserId);
 }

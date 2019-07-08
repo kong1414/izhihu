@@ -82,4 +82,13 @@ public interface FollowService {
      * @return
      */
     public Boolean checkUnLike(String userId, String contentId);
+
+    /**
+     * 根据用户id 以及type 返回关注的内容
+     *
+     * @param userId
+     * @param type
+     * @return
+     */
+    ResultVO getAttByUser(String userId,int type);
 }

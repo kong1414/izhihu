@@ -162,5 +162,22 @@ public class QuestionServiceImpl implements QuestionService {
         return new SuccessVO(list);
     }
 
+    /**
+     * 根据用户id 获取用户的提问
+     *
+     * @param UserId
+     * @return
+     */
+    @Override
+    public ResultVO findQuesByUser(String UserId) {
+
+        Question question = new Question();
+        question.setQuestionerId(UserId);
+
+        List<Question> list = questionMapper.select(question);
+
+        return new SuccessVO(list);
+    }
+
 
 }
