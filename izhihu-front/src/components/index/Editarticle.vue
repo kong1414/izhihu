@@ -103,7 +103,7 @@ export default {
       inputValue: '',
     }
   },
-  created () {
+  mounted () {
     this._loadSelectData()
   },
   methods: {

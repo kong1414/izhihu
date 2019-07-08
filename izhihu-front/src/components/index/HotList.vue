@@ -33,7 +33,7 @@ export default {
       category: '0'
     }
   },
-  created () {
+  mounted () {
     // this._loadData()
   },
   methods: {

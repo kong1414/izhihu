@@ -123,7 +123,7 @@ export default {
       user: this.$store.state.user
     }
   },
-  created() {
+  mounted() {
     this._loadData();
   },
   methods: {

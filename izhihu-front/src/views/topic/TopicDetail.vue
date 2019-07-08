@@ -120,7 +120,7 @@ export default {
       queNumber: 0
     };
   },
-  created() {
+  mounted() {
     this._loadData();
   },
   methods: {
