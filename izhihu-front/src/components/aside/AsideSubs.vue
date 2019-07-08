@@ -10,7 +10,7 @@
         <el-divider direction="vertical"></el-divider>
         <div class="queNum">
           <div class="queM">问题数</div>
-          <div class="queN">{{queNum}}</div>
+          <div class="queN">{{quenum}}</div>
         </div>
       </div>
     </el-card>
@@ -48,12 +48,13 @@ import { reqGetSonTop } from "../../api/topicFS";
 export default {
   name: "asideSubs",
   props: {
-    topicId: String
+    topicId: String,
+    quenum: Number
   },
   data() {
     return {
-      subNum: "26361",
-      queNum: "31231",
+      subNum: "2",
+      // queNum: "31231",
       // Ftop: '教育',
       // Sontops: [
       //   { topic: '高考志愿' },

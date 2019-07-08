@@ -1,5 +1,6 @@
 <template>
   <!-- 回答内容的组件 -->
+  <!-- 话题头部卡片 -->
   <div class="myanswer-item">
     <el-button type="text" @click="toQueDetail ()">
       <div class="disDetName">{{queName}}</div>
@@ -9,6 +10,7 @@
       <span class="disDetAuthor">{{author}}</span>
     </div>
     <div class="disDetque" @click=" dialogVisible = true" v-html="queDet"></div>
+    <!-- 文章、问答详情 -->
     <div class="ope">
       <span>
         <el-button class="apprBut" v-if="attiStat!=1" @click="attiStat=1;apprNadd()">
@@ -57,7 +59,7 @@
     <el-divider></el-divider>
     <!-- 问题答案内容 -->
     <el-dialog :title="queName" :visible.sync="dialogVisible" width="600px">
-      <div class="dialog-body"  v-html="queDet"></div>
+      <div class="dialog-body" v-html="queDet"></div>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogVisible = false">关 闭</el-button>
       </span>
@@ -149,7 +151,7 @@
           </el-input>
         </div>
         <div style="margin-top: -15px;" v-if="replayStat">
-          <el-input placeholder="请输入评论" v-model="input2" autocomplete="off">
+          <el-input placeholder="请输入评论" v-model="input" autocomplete="off">
             <template slot="prepend">回复 {{replaycom}}</template>
             <el-button slot="append">发送</el-button>
           </el-input>
@@ -158,29 +160,42 @@
     </el-dialog>
     <!-- 评论收藏弹窗 -->
     <el-dialog title="添加收藏" :visible.sync="comFavriVisible" width="600px">
-      <div class="creaColl-body" v-for="(creaCollection,index) in creaCollections" :key="index">
-        <span class="creaCollName">{{creaCollection.favoriteName}}</span>
-        <el-button class="creaCollBut" v-if="!creaCollBut" @click="creaCollBut=!creaCollBut">收藏</el-button>
-        <el-button class="creaCollBut2" v-if="creaCollBut" @click="creaCollBut=!creaCollBut">已收藏</el-button>
+      <div class="creaColl-body">
+        <el-select v-model="v" placeholder="请选择">
+          <el-option
+            v-for="item in creaCollections"
+            :key="item.favoriteId"
+            :label="item.favoriteName"
+            :value="item.favoriteId"
+          ></el-option>
+        </el-select>
+        <el-button
+          type="primary"
+          @click="comFavriVisible = false;collArt(v);"
+          style="float:right;"
+        >提 交</el-button>
       </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="comFavriVisible = false">提 交</el-button>
-      </span>
+      <!-- <div class="creaColl-body" v-for="(creaCollection,index) in creaCollections" :key="index">
+        <span class="creaCollName">{{creaCollection.favoriteName}}</span>
+      <el-button class="creaCollBut" v-if="!creaCollBut" @click="creaCollBut=!creaCollBut">收藏</el-button>-->
+      <!-- <el-button class="creaCollBut2" v-if="creaCollBut" @click="creaCollBut=!creaCollBut">已收藏</el-button>
+      </div>-->
     </el-dialog>
   </div>
 </template>
 
 <script>
 // import CommentItem from './Comment'
-import { reqMyFavorite } from '../../api/favorite'
+import { reqMyFavorite, reqCollect } from "../../api/favorite";
 import { reqGetArticleCom } from "../../api/topicArticle";
-import dataUtil from '../../util/dataUtil';
+import dataUtil from "../../util/dataUtil";
 export default {
   name: "AnswerItem",
   components: {
     // CommentItem
   },
   props: {
+    // 从topicDet取数据
     // topicId: String,
     attiStat: Number,
     apprN: Number,
@@ -194,19 +209,24 @@ export default {
   },
   data() {
     return {
-      input2: "",
+      // 评论详情、收藏夹
       comDets: [],
+      creaCollections: [],
+      // 问题答案弹窗、评论弹窗、删除评论按钮、评论收藏弹窗
       dialogVisible: false,
       commentVisible: false,
+      delVisible: false,
+      comFavriVisible: true,
+
       replayname: null,
       replayStat: false,
       replaycom: null,
-      delVisible: false,
-      username: '',
-      comFavriVisible: true,
+      username: "",
       userId: this.$store.state.user.userId,
-      creaCollections:[],
-      creaCollBut: false
+      
+      creaCollBut: false, 
+      input: "",
+      v: ""
     };
   },
   created() {
@@ -215,18 +235,18 @@ export default {
   },
   methods: {
     _loadData() {
-      console.info(this.userId);
+      // console.info(this.userId);
       let params = "articleId=" + this.articleId;
-      let userParams = "userId=" +this.userId;
+      let userParams = "userId=" + this.userId;
       // console.info(this.topicId);
-      reqGetArticleCom(params).then(res => { 
+      reqGetArticleCom(params).then(res => {
         if (res.resultCode === 200) {
           // console.info(res.data);
           res.data.forEach(element => {
             element.stat = 0;
           });
           res.data.forEach(element => {
-            if(element.name==this.username) element.del = true;
+            if (element.name == this.username) element.del = true;
             else element.del = false;
             // console.info(element.del);
             if (element.is_reply != 0) {
@@ -244,7 +264,7 @@ export default {
       reqMyFavorite(userParams).then(res => {
         if (res.resultCode == 200) {
           this.creaCollections = res.data;
-          console.info(this.creaCollections);
+          // console.info(this.creaCollections);
         }
       });
     },
@@ -257,28 +277,45 @@ export default {
     //     // console.info(element.replayname);
     //   });
     // },
-    // replayCom(id) {
-    //   this.comDets.forEach(element => {
-    //     // console.info(element);
-    //     if (element.id === id) this.replaycom = element.name;
-    //     // console.info(this.replaycom);
-    //   });
-    // },
+    replayCom(id) {
+      this.comDets.forEach(element => {
+        // console.info(element);
+        if (element.id === id) this.replaycom = element.name;
+        // console.info(this.replaycom);
+      });
+    },
     apprNadd() {
       this.apprN++;
     },
-    // apprNsub() {
-    //   this.apprN--;
-    // },
+    apprNsub() {
+      this.apprN--;
+    },
     praNadd(comDet) {
       comDet.praise_num++;
     },
-    // praNsub(comDet) {
-    //   comDet.praise_num--;
-    // },
-    toQueDetail () { // 跳转到问题主页
-      if(this.type==1) this.$router.push({ path: '/home/question/'+ this.queId });
+    praNsub(comDet) {
+      comDet.praise_num--;
+    },
+    toQueDetail() {
+      // 跳转到问题主页
+      if (this.type == 1)
+        this.$router.push({ path: "/home/question/" + this.queId });
+    },
+    collArt(v) {
+      let params = {
+        articleId: this.articleId,
+        favoritesId: v
+      };
+      console.info(params);
+      reqCollect(params).then(res => {
+        if (res.resultCode == 200) {
+          this.$message("收藏成功");
+        } else this.$message("收藏失败");
+      });
     }
+    // selectColl (v) {
+    //   console.info(v)
+    // }
   }
 };
 </script>
@@ -349,27 +386,27 @@ export default {
       height: 24px;
     }
   }
-  .creaColl-body{
+  .creaColl-body {
     padding: 22px;
     margin-top: -5px;
     font-size: 15px;
-    .creaCollName{
+    .creaCollName {
       font-weight: 700;
       line-height: 1.7;
       font-size: 15px;
       color: #1a1a1a;
     }
-    .creaCollBut{
+    .creaCollBut {
       float: right;
       border: 0px;
     }
-    .creaCollBut2{
+    .creaCollBut2 {
       float: right;
       border: 0px;
       color: #fff;
       background-color: #8590a6;
     }
-    .el-button{
+    .el-button {
       padding-left: 0;
       padding-right: 0;
       width: 76px;
@@ -379,7 +416,7 @@ export default {
     padding: 22px;
     margin-top: -5px;
     font-size: 15px;
-    
+
     .replyName {
       color: #8590a6;
       margin-left: 5px;
