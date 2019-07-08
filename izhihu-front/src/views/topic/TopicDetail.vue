@@ -26,17 +26,20 @@
           <span class="dis">讨论</span>
           <el-button class="moreCon" type="text">更多内容</el-button>
         </div>
-        <div v-for="disDet in disDets" :key="disDet.topicId" class="text item">
-          <!-- 给answerItem传值 -->
-          <answer-item
-            :topicid="topicId"
-            :attiStat="disDet.attiStat"
-            :apprN="disDet.apprN"
-            :evalN="disDet.comment_num"
-            :queName="disDet.ques_name"
-            :author="disDet.author_id"
-            :queDet="disDet.content"
-          />
+        <div v-if="disDetCon==false">暂无数据</div>
+        <div v-if="disDetCon==true">
+          <div  v-for="disDet in disDets" :key="disDet.topicId" class="text item" >
+            <!-- 给answerItem传值 -->
+            <answer-item
+              :topicid="topicId"
+              :attiStat="disDet.attiStat"
+              :apprN="disDet.apprN"
+              :evalN="disDet.comment_num"
+              :queName="disDet.ques_name"
+              :author="disDet.author_id"
+              :queDet="disDet.content"
+            />
+          </div>
         </div>
       </el-card>
     </el-main>
@@ -76,6 +79,7 @@ export default {
       oppButView: false,
       dialogVisible: false,
       topDet: "",
+      disDetCon: '',
       // topName: "高考",
       // topDet:
       //   "普通高等学校招生全国统一考试（The National College Entrance Examination），简称“高考”，是中华人民共和国（不包括香港特别行政区、澳门特别行政区和台湾省）合格的高中毕业生或具有同等学历的考生参加的选拔性考试。 2018年8月，北京市新高考方案公布。",
@@ -130,18 +134,20 @@ export default {
       });
       reqGetTopicArticle(params).then(res =>{
         if (res.resultCode === 200) {
-          // console.info(res.data);
+          console.info(res.data);
           this.disDets = res.data;
+          this.disDetCon = false;
           this.disDets.forEach(element => {
             // 给答案数据创一些新的值(点赞状态、评论数、点赞数)
             element.attiStat = 0;
             element.comment_num = 4;
             element.apprN = 201;
+            if(element.ques_name!=null) this.disDetCon = true;
           });
           //console.info(this.Ftop);
-        }
+          // console.info(this.disDets.ques_name)
+        }   
       }
-
       )
     }
   }

@@ -135,7 +135,7 @@
                class="update">
         <el-upload
           class="avatar-uploader"
-          action="http://120:8090/api/user/uploadImage"
+          action="http://120.78.136.84:8090/api/user/uploadImage"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
