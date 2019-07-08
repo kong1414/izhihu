@@ -12,10 +12,20 @@
             <span>{{topDet.topicDesc}}</span>
           </div>
         </div>
-        <el-button type="primary" class="subsBut" v-if="!topicFollow" @click="topicFollow=!topicFollow;topinfollow()">
+        <el-button
+          type="primary"
+          class="subsBut"
+          v-if="!topicFollow"
+          @click="topicFollow=!topicFollow;topinfollow()"
+        >
           <span>关注话题</span>
         </el-button>
-        <el-button type="info" class="subsBut2" v-if="topicFollow" @click="topicFollow=!topicFollow;topunfollow()">取消关注</el-button>
+        <el-button
+          type="info"
+          class="subsBut2"
+          v-if="topicFollow"
+          @click="topicFollow=!topicFollow;topunfollow()"
+        >取消关注</el-button>
         <el-button type="text" class="shareBut">
           <i class="el-icon-s-promotion" />
           <span>分享</span>
@@ -65,7 +75,7 @@ import AsideSubs from "../../components/aside/AsideSubs";
 import AnswerItem from "../../components/index/AnswerItem";
 import { reqGetTopicArticle } from "../../api/topicArticle";
 import { reqGetTopicDet } from "../../api/topicArticle";
-import { reqCheckFollow,reqInFollow,reqUnFollow } from "../../api/follow";
+import { reqCheckFollow, reqInFollow, reqUnFollow } from "../../api/follow";
 export default {
   name: "topicDetail",
   components: {
@@ -84,7 +94,7 @@ export default {
       queNumber: 0,
       //话题详细内容弹窗、用户话题关注情况、问题详细内容
       dialogVisible: false,
-      topicFollow:false,
+      topicFollow: false,
       disDets: [
         // {  之前的假数据
         //   attiStat: "0",
@@ -104,21 +114,21 @@ export default {
   },
   methods: {
     _loadData() {
-      console.info(this.userId)
+      console.info(this.userId);
       let params = "topicId=" + this.topicId;
       let followparams = {
         additionalProp1: this.userId,
         additionalProp2: this.topicId
-      }
+      };
       //检查关注状态
-      reqCheckFollow(followparams).then(res =>{
+      reqCheckFollow(followparams).then(res => {
         if (res.resultCode === 200) {
           // console.info(res.data);
-          this.topicFollow = res.data
-          console.info(this.topicFollow)
+          this.topicFollow = res.data;
+          console.info(this.topicFollow);
           //console.info(this.Ftop);
         }
-      })
+      });
       // console.info(this.topicId);
       //获取话题简介详情
       reqGetTopicDet(params).then(res => {
@@ -127,7 +137,7 @@ export default {
           this.topDet = res.data;
           //console.info(this.Ftop);
         }
-      })
+      });
       //获取话题下文章、问题详情
       reqGetTopicArticle(params).then(res => {
         if (res.resultCode === 200) {
@@ -142,40 +152,38 @@ export default {
             element.apprN = 201;
             if (element.ques_name != null) this.disDetCon = true;
             this.queNumber++;
-          })
+          });
           //console.info(this.Ftop);
           // console.info(this.disDets.ques_name)
         }
-      })
+      });
     },
     //取关话题
-    topunfollow(){
+    topunfollow() {
       let followparams = {
         userId: this.userId,
         contentId: this.topicId,
         type: 5
-      }
-      reqUnFollow(followparams).then(res=>{
-        if(res.resultCode == 200){
-          this.$message("取关成功")
-        }
-        else this.$message("取关失败")
-      })
+      };
+      reqUnFollow(followparams).then(res => {
+        if (res.resultCode == 200) {
+          this.$message("取关成功");
+        } else this.$message("取关失败");
+      });
     },
     //关注话题
-    topinfollow(){
+    topinfollow() {
       let followparams = {
         userId: this.userId,
         contentId: this.topicId,
         type: 5
-      }
-      console.info(followparams)
-      reqInFollow(followparams).then(res=>{
-        if(res.resultCode == 200){
-          this.$message("关注成功")
-        }
-        else this.$message("关注失败")
-      })
+      };
+      console.info(followparams);
+      reqInFollow(followparams).then(res => {
+        if (res.resultCode == 200) {
+          this.$message("关注成功");
+        } else this.$message("关注失败");
+      });
     }
   }
 };

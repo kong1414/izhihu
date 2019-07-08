@@ -188,6 +188,7 @@
 // import CommentItem from './Comment'
 import { reqMyFavorite, reqCollect } from "../../api/favorite";
 import { reqGetArticleCom } from "../../api/topicArticle";
+import { reqCheckOpp } from "../../api/follow";
 import dataUtil from "../../util/dataUtil";
 export default {
   name: "AnswerItem",
@@ -235,7 +236,12 @@ export default {
       // console.info(this.userId);
       let params = "articleId=" + this.articleId;
       let userParams = "userId=" + this.userId;
-      // console.info(this.topicId);
+      let userArtiParams ={
+        userId: this.userId,
+        contentId: this.topicId,
+        type: 4
+      }
+      console.info(this.articleId);
       //获取文章评价
       reqGetArticleCom(params).then(res => {
         if (res.resultCode === 200) {
@@ -267,6 +273,12 @@ export default {
           // console.info(this.creaCollections);
         }
       });
+      //获取点赞状态
+      reqCheckOpp(userArtiParams).then(res =>{
+        if(res.resultCode == 200){
+          console.info(res.data)
+        }
+      })
     },
     handleClick() {},
     //根据id获取用户名
