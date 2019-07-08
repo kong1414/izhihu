@@ -286,4 +286,26 @@ public class FollowServiceImpl implements FollowService {
         }
         return new SuccessVO();
     }
+
+    /**
+     * 获取关注状态
+     *
+     * @param userId
+     * @param contentId
+     * @return
+     */
+    @Override
+    public ResultVO checkOpp(String userId, String contentId) {
+        AgreeOppose agreeOppose = new AgreeOppose();
+        agreeOppose.setUserId(userId);
+        agreeOppose.setArticleId(contentId);
+        AgreeOppose record = agreeOpposeMapper.selectOne(agreeOppose);
+        if (record == null) {
+            return new SuccessVO(-1);
+        }
+
+        return new SuccessVO(record.getAgrOpp());
+    }
+
+
 }

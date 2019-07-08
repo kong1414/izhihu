@@ -1,6 +1,7 @@
 package cn.edu.xmut.izhihu.contorller;
 
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
+import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
 import cn.edu.xmut.izhihu.service.FollowService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,22 @@ public class FollowController {
     @RequestMapping(value = "/getAttByUser", method = RequestMethod.POST)
     public ResultVO getAttByUser(@RequestBody Map<String, String> record) {
         return followService.getAttByUser(record.get("userId"), Integer.parseInt(record.get("type")));
+    }
+
+    @ApiOperation("查询用户的某事务的关注状态")
+    @RequestMapping(value = "/checkFollow", method = RequestMethod.POST)
+    public ResultVO checkFollow(@RequestBody Map<String, String> record) {
+        Boolean isFollow =
+                followService.checkFollow(record.get("userId"), record.get("contentId"));
+        return new SuccessVO(isFollow);
+    }
+
+    @ApiOperation("查询用户的某事务的点赞状态")
+    @RequestMapping(value = "/checkOpp", method = RequestMethod.POST)
+    public ResultVO checkOpp(@RequestBody Map<String, String> record) {
+
+        return followService.checkOpp(
+                record.get("userId"),
+                record.get("contentId"));
     }
 }

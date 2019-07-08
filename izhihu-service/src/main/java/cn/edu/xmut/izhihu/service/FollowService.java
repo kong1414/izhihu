@@ -91,4 +91,13 @@ public interface FollowService {
      * @return
      */
     ResultVO getAttByUser(String userId,int type);
+
+    /**
+     * 获取点赞状态
+     *
+     * @param userId
+     * @param contentId
+     * @return
+     */
+    ResultVO checkOpp(String userId, String contentId);
 }
