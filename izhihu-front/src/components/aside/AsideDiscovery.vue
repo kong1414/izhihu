@@ -9,7 +9,7 @@
             更多话题
             <i class="el-icon-d-arrow-right"></i>
           </el-button>
-      </div>  
+      </div>
       <div v-for="i in list" :key="i.topic_id" class="topiclist">
         <el-avatar class="img" shape="square" fit="cover" :src="i.photo_url"></el-avatar>
         <div class="nameNum" >
@@ -22,7 +22,7 @@
     <el-card class="hot-collect" :body-style="{ padding: '0px' }">
       <div slot="header" class="cl-topHeader">
         <span class="cl-topicLeft">热门收藏</span>
-        <el-button type="text" class="cl-topicRight">
+        <el-button type="text" class="cl-topicRight" @click="_loadCollectData ()">
           换一换
           <i class="el-icon-refresh"></i>
         </el-button>
@@ -52,36 +52,36 @@ export default {
   data () {
     return {
       list: [],
-      cllist: [],
-      
+      cllist: []
     }
   },
   mounted () {
-    this._loadData()
+    this._loadCollectData()
+    this._loadTopicData()
   },
   methods: {
-    _loadData () {
+    _loadTopicData () {
       reqGetHotTopic().then(res => {
         if (res.resultCode === 200) {
           console.info(res.data)
           this.list = res.data
         }
       })
-
+    },
+    _loadCollectData () {
       reqHotFavorite().then(res => {
         if (res.resultCode === 200) {
           console.info(res.data)
           this.cllist = res.data
         }
       })
-
     },
     toTopic (id) {
-      this.$router.push({ path: '/home/topicDetail/' + id})
+      this.$router.push({ path: '/home/topicDetail/' + id })
     },
     toFavorite (id) {
-      this.$router.push({ path: '/home/favoriteDetail/' + id})
-    },
+      this.$router.push({ path: '/home/favoriteDetail/' + id })
+    }
   }
 }
 </script>
@@ -129,7 +129,6 @@ export default {
     margin-top:10px;
     .cl-topHeader{
       margin: -10px;
-      
       .cl-topicRight{
         float:right;
         padding:3px 0px;
@@ -139,7 +138,7 @@ export default {
     .cllist{
       margin:5px 10px;
         .clbodyname{
-          display: flex;          
+          display: flex;
         }
         .clNumCon{
           color:#999;
