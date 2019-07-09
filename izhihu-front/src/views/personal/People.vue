@@ -67,8 +67,8 @@
                          @click="unAttPeople">已关注</el-button>
             </span>
 
-            <el-button size="medium"
-                       icon="el-icon-chat-round">发私信</el-button>
+            <!-- <el-button size="medium"
+                       icon="el-icon-chat-round" @click="showMessageVisible = true">发私信</el-button> -->
           </div>
         </div>
 
@@ -234,11 +234,12 @@ import { reqAttedTopic } from '../../api/topic'
 import { reqCountAtted, reqGetAttByUser, reqInFollow, reqUnFollow, reqCheckFollow } from '../../api/follow'
 import AsideFooter from '../../components/aside/AsideFooter'
 import recommendItem from '../../components/index/RecommendItem'
+
 export default {
   name: 'people',
   components: {
     AsideFooter,
-    recommendItem
+    recommendItem,
   },
   data () {
     return {
@@ -270,6 +271,7 @@ export default {
       attType: false, // 对该用户关注状态
       attNum: 0, // 关注了的人数
       attedNum: 0, // 被关注的人数
+      
     }
   },
   mounted () {
@@ -311,9 +313,11 @@ export default {
         }
       })
       // 被关注的人数
-      let params4 = {
-        userId: this.currentUserId
-      }
+      // let params4 = {
+      //   userId: this.currentUserId,
+      //   test: "1", // 占位置的 没用
+      // }
+      let params4 = 'userId='+ this.currentUserId 
       reqCountAtted(params).then(res => {
         if (res.resultCode == 200) {
           this.attedNum = res.data
@@ -433,7 +437,7 @@ export default {
         }
         reqGetAttByUser(params).then(res => {
           if (res.resultCode == 200) {
-            this.attQuesList = res.data
+            this.attUserList = res.data
           }
         })
       }
@@ -486,7 +490,8 @@ export default {
           this.attType = false
         }
       })
-    }
+    },
+    
   }
 }
 </script>

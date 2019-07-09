@@ -78,7 +78,7 @@ public class CommnetServiceImpl implements CommnetService {
     @Override
     public synchronized ResultVO delete(String userId, String id) {
         Comment record = commentMapper.selectByPrimaryKey(id);
-        if (record.getCommentatorId() == userId) {
+        if (userId.equals(record.getCommentatorId())) {
             record.setDel(1);
             commentMapper.updateByPrimaryKeySelective(record);
 
