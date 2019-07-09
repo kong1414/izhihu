@@ -226,11 +226,11 @@ export default {
       userId: this.$store.state.user.userId,
       input: "",
       v: "",
-      attiStat: "",
+      attiStat: -1,
       likeNum: this.apprN,
       preAtti: "",
       remarkId: "",
-      comNum: "",
+      comNum: 0,
       url:''
     };
   },
