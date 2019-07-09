@@ -3,7 +3,7 @@
   <el-container class="topicDetail-container">
     <el-main class="topDet">
       <el-card>
-        <el-image class="topImag" :src="url"></el-image>
+        <el-image class="topImag" :src="topDet.photoUrl"></el-image>
         <div class="firCard">
           <div class="firCardName">
             <span>{{topDet.topicName}}</span>
