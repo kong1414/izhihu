@@ -22,33 +22,13 @@
           <el-tab-pane label="七日最热" name="today">
             <!-- {{todayList}} -->
             <div v-for="(item, index) in todayList" :key="index">
-              <!-- {{item}} -->
-              <answer-item
-                  :apprN="item.report_num"
-                  :evalN="item.comment_num"
-                  :queName="item.title"
-                  :author="item.name"
-                  :queDet="item.content"
-                  :articleId="item.article_id"
-                  :queId="item.ques_id"
-                  :type="item.type"
-            />
+              {{item}}
             </div>
           </el-tab-pane>
           <el-tab-pane label="本月最热" name="month">
             <!-- {{monthList}} -->
             <div v-for="(item, index) in monthList" :key="index">
-              <!-- {{item}} -->
-              <answer-item
-                  :apprN="item.report_num"
-                  :evalN="item.comment_num"
-                  :queName="item.title"
-                  :author="item.name"
-                  :queDet="item.content"
-                  :articleId="item.article_id"
-                  :queId="item.ques_id"
-                  :type="item.type"
-            />
+              {{item}}
             </div>
           </el-tab-pane>
         </el-tabs>
