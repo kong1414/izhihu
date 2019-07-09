@@ -245,8 +245,7 @@ export default {
       let userParams = "userId=" + this.userId;
       let userArtiParams = {
         userId: this.userId,
-        contentId: this.topicId,
-        type: 4
+        contentId: this.articleId
       };
       console.info(this.articleId);
       //获取文章评价
@@ -320,7 +319,7 @@ export default {
       let params = {
         userId: this.userId,
         contentId: this.articleId,
-        type: 1
+        // type: 1
       };
       reqLike(params).then(res => {
         // console.info(res)
@@ -336,7 +335,7 @@ export default {
       let params = {
         userId: this.userId,
         contentId: this.articleId,
-        type: 1
+        // type: 1
       };
       if (this.preAtti == 1) {
         reqCancelLike(params).then(res => {
@@ -362,7 +361,7 @@ export default {
       let params = {
         userId: this.userId,
         contentId: this.articleId,
-        type: 1
+        // type: 1
       };
       if (this.preAtti == 1) {
         reqCancelLike(params).then(res => {
@@ -410,13 +409,13 @@ export default {
         });
         reqUnLike(params).then(res => {
           if (res.resultCode == 200) {
-            this.attiStat = 0;
+            // this.attiStat = 0;
           }
         });
       } else {
         reqUnLike(params).then(res => {
           if (res.resultCode == 200) {
-            this.attiStat = 0;
+            // this.attiStat = 0;
           }
         });
       }
