@@ -36,7 +36,6 @@
         </div>
         <div class="more">
           <span>
-
             <el-popover placement="bottom"
                         width="300"
                         trigger="hover">

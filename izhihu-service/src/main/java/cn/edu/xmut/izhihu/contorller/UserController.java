@@ -1,5 +1,6 @@
 package cn.edu.xmut.izhihu.contorller;
 
+import cn.edu.xmut.izhihu.dao.UsersMapper;
 import cn.edu.xmut.izhihu.pojo.bo.LoginResultBO;
 import cn.edu.xmut.izhihu.pojo.common.HttpCodeEnum;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
@@ -32,6 +33,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UsersMapper userMapper;
 
     @Autowired
     private OSSClientUtil ossClientUtil;
@@ -108,6 +112,13 @@ public class UserController {
     @PostMapping("/updateUserInfo")
     public ResultVO updateUserInfo(@RequestBody UpdateUserInfoRequest record) {
         return userService.updateUserInfo(record);
+    }
+
+    @ApiOperation("用户名和用户id的模糊搜索")
+    @PostMapping("/search")
+    public ResultVO search(@RequestParam(defaultValue = "",required = false) String keyword) {
+        System.out.println(keyword);
+        return new SuccessVO(userMapper.serach(keyword));
     }
 
 }
