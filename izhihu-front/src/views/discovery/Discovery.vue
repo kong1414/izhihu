@@ -5,9 +5,8 @@
         <div slot="header">
           <i class="el-icon-s-unfold"></i>
           <span class="left">编辑推荐</span>
-          <el-button class="right" type="text">
-            更多推荐
-            <i class="el-icon-d-arrow-right"></i>
+          <el-button class="right" type="text" @click="_loadData()">
+            换一换  <i class="el-icon-refresh"></i>
           </el-button>
         </div>
         <div class="recommend" v-for="(i,index) in recommendList" :key="index" >
@@ -60,7 +59,7 @@ export default {
   },
   methods: {
     _loadData () {
-      reqGetRecommend().then(res => {
+      reqGetRecommend().then(res => { //编辑推荐内容
         if (res.resultCode === 200) {
           console.info(res.data)
           this.recommendList = res.data.map(i => {
