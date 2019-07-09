@@ -122,7 +122,7 @@ export default {
 
     },
     toFavorite () {
-      this.$router.push({ path: "/home/favorite"});
+      this.$router.push({ path: "/home/favorite" });
     }
   }
 }
