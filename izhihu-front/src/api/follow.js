@@ -37,5 +37,5 @@ export const reqCheckOpp = params => { // 获取对文章的点赞态度 获得�
 }
 
 export const reqCountAtted = params => { // 获取被关注人次数 参数：userId
-  return axios.post(`${BASE_URL}/follow/countAtted`, params).then(res => res.data)
+  return axios.post(`${BASE_URL}/follow/countAtted?` + params).then(res => res.data)
 }

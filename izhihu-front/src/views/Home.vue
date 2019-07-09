@@ -59,7 +59,7 @@
             </el-popover>
 
             <i class="el-icon-chat-line-round"
-               style="margin-right: 30px;"></i>
+               style="margin-right: 30px;" @click="showMessageVisible= true"></i>
             <el-dropdown> 
               <span class="el-dropdown-link userinfo-inner">
                 <span class="username">
@@ -90,14 +90,21 @@
         Aside
       </el-aside> -->
     </el-container>
+
+    <message :show="showMessageVisible" @close="closeMessage"></message>
   </el-container>
 </template>
 
 <script>
 // import md5 from 'js-md5'
 // @ is an alias to /src
+import Message from '../components/index/Message'
+
 export default {
   name: 'home',
+  components: {
+    Message
+  },
   data () {
     return {
       user: {
@@ -109,7 +116,8 @@ export default {
         { username: '路人甲', question: '午饭吃什么' },
         { username: '路人乙', question: '晚饭吃什么' },
         { username: '路人丙', question: '夜宵吃什么' }
-      ]
+      ],
+      showMessageVisible: false, // 发私信的状态框
     }
   },
   created () {
@@ -147,6 +155,9 @@ export default {
         this.$router.push({ path: '/login' })
       }
       this.$router.push({ path: '/home/people/' + this.$store.state.user.userId })
+    },
+    closeMessage () {
+      this.showMessageVisible = false
     }
   }
 }

@@ -86,9 +86,9 @@ public class FollowController {
 
     @ApiOperation("查询某用户的被关注次数")
     @PostMapping("/countAtted")
-    public ResultVO countAtted(@RequestBody Map<String, String> record) {
+    public ResultVO countAtted(@RequestParam String userId) {
         Attention attention = new Attention();
-        attention.setAttId(record.get("userId"));
+        attention.setAttId(userId);
         int number = attentionMapper.selectCount(attention);
         return new SuccessVO(number);
     }
