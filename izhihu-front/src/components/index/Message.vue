@@ -54,7 +54,7 @@ export default {
   },
   data () {
     return {
-      contentLoading: true,
+      contentLoading: false,
       visible: true,
       contentList: [
         {name:'name',content:'1234355'},
