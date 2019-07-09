@@ -177,7 +177,7 @@
                          name="attQues">
               <div v-if="attQuesList.length <= 0">暂未关注</div>
               <div v-else>
-                {{attQuesList}}
+                <!-- {{attQuesList}} -->
                 <div v-for="(item, index) in attQuesList" :key="index" class="topName">
                   <span  @click="toQueDet(item.quesId)">{{item.quesName}}</span>
                   <p>{{item.answerNum}}个回答 {{item.attentionNum}}个关注 {{item.browseNum}}个浏览</p>
