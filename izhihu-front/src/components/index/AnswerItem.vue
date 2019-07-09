@@ -39,9 +39,8 @@
         </el-button>
       </span>
       <el-button type="text" class="shareBut" @click="commentVisible = true">
-        <!-- <comment :commentVisible = "commentVisible"/> -->
         <i class="el-icon-chat-line-round shareI" />
-        <span>{{evalN}} 条评论</span>
+        <span>{{comNum}} 条评论</span>
       </el-button>
       <el-button type="text" class="shareBut">
         <i class="el-icon-s-promotion shareI" />
@@ -65,9 +64,8 @@
       </span>
     </el-dialog>
     <!-- 评论内容 -->
-    <el-dialog :title="evalN+'条评论'" :visible.sync="commentVisible" width="600px">
+    <el-dialog :title="comNum+'条评论'" :visible.sync="commentVisible" width="600px">
       <div class="dialog-body">
-        <!-- <CommetItem></CommetItem> -->
         <div v-for="(comDet, index) in comDets" :key="index" class="vforD">
           <div class="comName">
             {{comDet.name}}
@@ -77,7 +75,7 @@
             >回复了 {{comDet.replayname}}</span>
           </div>
           <div class="comContent">{{comDet.comment_content}}</div>
-          <div class="comTime">{{comDet.create_time.substr(0,10)}}</div>
+          <div class="comTime">{{comDet.create_time}}</div>
           <div class="operaBut">
             <el-button
               class="shareBut"
@@ -127,7 +125,7 @@
               type="text"
               size="mini"
               class="shareBut"
-              @click="replayStat = !replayStat;replayCom(comDet.id)"
+              @click="replayStat = !replayStat;replayCom(comDet.id);remarkId=comDet.id"
             >
               <i class="el-icon-s-comment" />
               <span>回复</span>
@@ -136,7 +134,13 @@
               <i class="el-icon-warning" />
               <span>举报</span>
             </el-button>
-            <el-button type="text" size="mini" class="shareBut" v-if="comDet.del">
+            <el-button
+              type="text"
+              size="mini"
+              class="shareBut"
+              v-if="comDet.del"
+              @click="delCom(comDet.id)"
+            >
               <i class="el-icon-error" />
               <span>删除</span>
             </el-button>
@@ -147,13 +151,13 @@
       <span slot="footer">
         <div style="margin-top: -15px;" v-if="!replayStat">
           <el-input placeholder="请输入评论" v-model="input" autocomplete="off">
-            <el-button slot="append">发送</el-button>
+            <el-button slot="append" @click="remark()">发送</el-button>
           </el-input>
         </div>
         <div style="margin-top: -15px;" v-if="replayStat">
           <el-input placeholder="请输入评论" v-model="input" autocomplete="off">
             <template slot="prepend">回复 {{replaycom}}</template>
-            <el-button slot="append">发送</el-button>
+            <el-button slot="append" @click="remarkPeople(remarkId)">发送</el-button>
           </el-input>
         </div>
       </span>
@@ -175,19 +179,13 @@
           style="float:right;"
         >提 交</el-button>
       </div>
-      <!-- <div class="creaColl-body" v-for="(creaCollection,index) in creaCollections" :key="index">
-        <span class="creaCollName">{{creaCollection.favoriteName}}</span>
-      <el-button class="creaCollBut" v-if="!creaCollBut" @click="creaCollBut=!creaCollBut">收藏</el-button>-->
-      <!-- <el-button class="creaCollBut2" v-if="creaCollBut" @click="creaCollBut=!creaCollBut">已收藏</el-button>
-      </div>-->
     </el-dialog>
   </div>
 </template>
 
 <script>
-// import CommentItem from './Comment'
 import { reqMyFavorite, reqCollect } from "../../api/favorite";
-import { reqGetArticleCom } from "../../api/topicArticle";
+import { reqGetArticleCom, reqRemark, reqDelCom } from "../../api/comment";
 import {
   reqCheckOpp,
   reqLike,
@@ -202,7 +200,6 @@ export default {
   },
   props: {
     // 从topicDet取数据：点赞数、评论数、问题文章名称、作者、问题文章详情、回答id、问题id、类型
-    // attiStat: Number,
     apprN: Number,
     evalN: Number,
     queName: String,
@@ -224,14 +221,16 @@ export default {
       comFavriVisible: false,
       replayStat: false,
       replaycom: null,
-      //获取当前页面用户名、用户id、回复输入框、选择器当前值、点赞状态、点赞数
+      //获取当前页面用户名、用户id、回复输入框、选择器当前值、点赞状态、点赞数、先前的点赞状态、回复Id、评论数
       username: "",
       userId: this.$store.state.user.userId,
       input: "",
       v: "",
       attiStat: "",
       likeNum: this.apprN,
-      preAtti: ""
+      preAtti: "",
+      remarkId: "",
+      comNum: ""
     };
   },
   mounted() {
@@ -240,60 +239,48 @@ export default {
   },
   methods: {
     _loadData() {
-      // console.info(this.userId);
       let params = "articleId=" + this.articleId;
       let userParams = "userId=" + this.userId;
       let userArtiParams = {
         userId: this.userId,
         contentId: this.articleId
       };
-      console.info(this.articleId);
-      //获取文章评价
-      reqGetArticleCom(params).then(res => {
+      reqGetArticleCom(params).then(res => {  //获取文章评价
         if (res.resultCode === 200) {
-          // console.info(res.data);
           res.data.forEach(element => {
             element.stat = -1;
           });
-          //赋值回复了谁
+          //赋值回复了谁、计算评论数、显示删除评论按钮、评价时间戳
+          this.comNum = 0;
           res.data.forEach(element => {
             if (element.name == this.username) element.del = true;
             else element.del = false;
-            // console.info(element.del);
+            this.comNum++;
+            element.create_time = dataUtil.getStrData(element.create_time)
             if (element.is_reply != 0) {
               res.data.forEach(element2 => {
-                if (element.is_reply === element2.id)
+                if (element.reply_id === element2.id)
                   element.replayname = element2.name;
-                // console.info(element.replayname);
               });
             }
           });
           this.comDets = res.data;
-          // console.info(this.comDets);
         }
       });
-      //获取我的收藏夹
-      reqMyFavorite(userParams).then(res => {
+      reqMyFavorite(userParams).then(res => {//获取我的收藏夹
         if (res.resultCode == 200) {
           this.creaCollections = res.data;
-          // console.info(this.creaCollections);
         }
       });
-      //获取点赞状态
-      reqCheckOpp(userArtiParams).then(res => {
+      reqCheckOpp(userArtiParams).then(res => {  //获取点赞状态
         if (res.resultCode == 200) {
-          console.info(res.data);
           this.attiStat = res.data;
         }
       });
     },
-    handleClick() {},
-    //根据id获取用户名
-    replayCom(id) {
+    replayCom(id) {  //根据id获取用户名
       this.comDets.forEach(element => {
-        // console.info(element);
         if (element.id === id) this.replaycom = element.name;
-        // console.info(this.replaycom);
       });
     },
     toQueDetail() {
@@ -301,41 +288,32 @@ export default {
       if (this.type == 1)
         this.$router.push({ path: "/home/question/" + this.queId });
     },
-    //收藏弹窗
-    collArt(v) {
+    collArt(v) {  //收藏弹窗
       let params = {
         articleId: this.articleId,
         favoritesId: v
       };
-      // console.info(params);
       reqCollect(params).then(res => {
         if (res.resultCode == 200) {
           this.$message("收藏成功");
         } else this.$message("收藏失败");
       });
     },
-    //回答点赞
-    like() {
+    like() { //回答点赞
       let params = {
         userId: this.userId,
-        contentId: this.articleId,
-        // type: 1
+        contentId: this.articleId
       };
       reqLike(params).then(res => {
-        // console.info(res)
         if (res.resultCode == 200) {
-          // console.info(this.likeNum)
           this.likeNum++;
-          // console.info(this.likeNum)
         }
       });
     },
-    //回答踩
-    unlike() {
+    unlike() {  //回答踩
       let params = {
         userId: this.userId,
-        contentId: this.articleId,
-        // type: 1
+        contentId: this.articleId
       };
       if (this.preAtti == 1) {
         reqCancelLike(params).then(res => {
@@ -356,12 +334,10 @@ export default {
         });
       }
     },
-    //回答取消态度
-    canclike() {
+    canclike() {  //回答取消态度
       let params = {
         userId: this.userId,
-        contentId: this.articleId,
-        // type: 1
+        contentId: this.articleId
       };
       if (this.preAtti == 1) {
         reqCancelLike(params).then(res => {
@@ -378,28 +354,21 @@ export default {
         });
       }
     },
-    //评论点赞
-    comlike(v) {
+    comlike(v) {  //评论点赞
       let params = {
         userId: this.userId,
-        contentId: v.commentator_id
-        // type: 1
+        contentId: v.id
       };
       reqLike(params).then(res => {
-        // console.info(res)
         if (res.resultCode == 200) {
-          // console.info(this.likeNum)
           v.praise_num++;
-          // console.info(this.likeNum)
         }
       });
     },
-    //评论踩
-    comunlike(v) {
+    comunlike(v) { //评论踩
       let params = {
         userId: this.userId,
-        contentId: v.commentator_id
-        // type: 1
+        contentId: v.id
       };
       if (this.preAtti == 1) {
         reqCancelLike(params).then(res => {
@@ -409,38 +378,87 @@ export default {
         });
         reqUnLike(params).then(res => {
           if (res.resultCode == 200) {
-            // this.attiStat = 0;
           }
         });
       } else {
         reqUnLike(params).then(res => {
           if (res.resultCode == 200) {
-            // this.attiStat = 0;
           }
         });
       }
     },
-    //评论取消态度
-    comcanclike(v) {
+    comcanclike(v) {  //评论取消态度
       let params = {
         userId: this.userId,
-        contentId: v.commentator_id
-        // type: 1
+        contentId: v.id
       };
       if (this.preAtti == 1) {
         reqCancelLike(params).then(res => {
           if (res.resultCode == 200) {
-            this.attiStat = -1;
             v.praise_num--;
           }
         });
       } else {
         reqCancelLike(params).then(res => {
           if (res.resultCode == 200) {
-            this.attiStat = -1;
           }
         });
       }
+    },
+    remark() {  //评论
+      let params = {
+        commentContent: this.input,
+        commentId: this.articleId,
+        commentatorId: this.userId,
+        isReply: 0,
+        replyId: 0
+      };
+      this.input = null;
+      reqRemark(params).then(res => {
+        if (res.resultCode == 200) {
+          this._loadData();
+          this.$message({
+            type: "success",
+            message: res.resultMessage
+          });
+        }
+      });
+    },
+
+    remarkPeople(v) {
+      // 回复某人
+      let params = {
+        commentContent: this.input,
+        commentId: this.articleId,
+        commentatorId: this.userId,
+        isReply: 1,
+        replyId: v
+      };
+      this.input = null;
+      reqRemark(params).then(res => {
+        if (res.resultCode == 200) {
+          this._loadData();
+          this.$message({
+            type: "success",
+            message: res.resultMessage
+          });
+        }
+      });
+    },
+    delCom(v) {  //删除自己评论
+      let params = {
+        id: v,
+        userId: this.$store.state.user.userId
+      };
+      reqDelCom(params).then(res => {
+        if (res.resultCode == 200) {
+          this._loadData();
+          this.$message({
+            type: "success",
+            message: res.resultMessage
+          });
+        }
+      });
     }
   }
 };
@@ -542,7 +560,8 @@ export default {
     padding: 22px;
     margin-top: -5px;
     font-size: 15px;
-
+    max-height: 500px;
+    overflow: auto;
     .replyName {
       color: #8590a6;
       margin-left: 5px;
