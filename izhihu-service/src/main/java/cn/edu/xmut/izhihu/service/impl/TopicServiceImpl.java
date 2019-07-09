@@ -35,7 +35,7 @@ public class TopicServiceImpl implements TopicService {
      */
     @Override
     public List<Topic> getTopicRandom(int num) {
-        System.out.println(topicMapper.getTopicRandom(num));
+        // System.out.println(topicMapper.getTopicRandom(num));
         return topicMapper.getTopicRandom(num);
     }
 

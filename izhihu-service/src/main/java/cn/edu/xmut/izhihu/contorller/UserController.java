@@ -117,7 +117,7 @@ public class UserController {
     @ApiOperation("用户名和用户id的模糊搜索")
     @PostMapping("/search")
     public ResultVO search(@RequestParam(defaultValue = "",required = false) String keyword) {
-        System.out.println(keyword);
+        // System.out.println(keyword);
         return new SuccessVO(userMapper.serach(keyword));
     }
 
