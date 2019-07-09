@@ -24,3 +24,11 @@ export const reqRecommend = params => { // 首页的推荐内容
 export const reqAttContetn = params => { // 首页的关注内容 （！需要前端去重以及根据时间排序）
   return axios.post(`${BASE_URL}/article/attContetn?` + params).then(res => res.data)
 }
+
+export const reqTodayHot = params => { // 发现页的今日最热
+  return axios.post(`${BASE_URL}/article/todayHot`, params).then(res => res.data)
+}
+
+export const reqMonthHot = params => { // 发现页的本月最热
+  return axios.post(`${BASE_URL}/article/monthHot`, params).then(res => res.data)
+}

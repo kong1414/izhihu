@@ -19,11 +19,13 @@
       </el-card>
       <el-card class="today-hot">
         <el-tabs v-model="activeName" @tab-click="handleClick">
-          <el-tab-pane label="今日最热" name="today">
-            今日最热
+          <el-tab-pane label="七日最热" name="today">
+            七日最热
+            {{todayList}}
           </el-tab-pane>
           <el-tab-pane label="本月最热" name="month">
             本月最热
+            {{monthList}}
           </el-tab-pane>
         </el-tabs>
       </el-card>
@@ -40,6 +42,8 @@ import AsideDiscovery from '../../components/aside/AsideDiscovery'
 import RecommendItem from '../../components/index/RecommendItem'
 import { reqEditorRecommend } from '../../api/question'
 import { reqGetRecommend } from '../../api/topic'
+
+import { reqTodayHot, reqMonthHot } from '../../api/home'
 export default {
   name: 'discovery',
   components: {
@@ -50,8 +54,9 @@ export default {
     return {
       userId: this.$store.state.user.userId,
       activeName: 'today',
-      recommendList: []
-
+      recommendList: [],
+      todayList: [],
+      monthList: [],
     }
   },
   mounted () {
@@ -69,7 +74,18 @@ export default {
             }
             return i
           })
-          
+        }
+      })
+
+      reqTodayHot().then(res => {
+        if (res.resultCode == 200) {
+          this.todayList = res.data
+        }
+      })
+
+      reqMonthHot().then(res => {
+        if (res.resultCode == 200) {
+          this.monthList = res.data
         }
       })
     },

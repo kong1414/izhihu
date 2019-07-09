@@ -47,7 +47,7 @@
 
     <select id="todayHot" resultType="java.util.HashMap">
         SELECT
-        COUNT(agree_oppose.article_id),
+        COUNT(agree_oppose.article_id) AS num,
         article.article_id AS article_id_0,
         article.type,
         article.ques_id,
@@ -75,7 +75,7 @@
 
     <select id="monthHot" resultType="java.util.HashMap">
         SELECT
-        COUNT(agree_oppose.article_id),
+        COUNT(agree_oppose.article_id) AS num,
         article.article_id AS article_id_0,
         article.type,
         article.ques_id,
