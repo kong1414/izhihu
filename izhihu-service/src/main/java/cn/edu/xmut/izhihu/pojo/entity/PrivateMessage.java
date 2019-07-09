@@ -34,7 +34,7 @@ public class PrivateMessage {
     /**
      * 是否已读（0未读1已读）
      */
-    private Integer read;
+    private Integer readed;
 
     /**
      * 是否已删除（1删除0未删除）
@@ -122,19 +122,19 @@ public class PrivateMessage {
     /**
      * 获取是否已读（0未读1已读）
      *
-     * @return read - 是否已读（0未读1已读）
+     * @return readed - 是否已读（0未读1已读）
      */
-    public Integer getRead() {
-        return read;
+    public Integer getReaded() {
+        return readed;
     }
 
     /**
      * 设置是否已读（0未读1已读）
      *
-     * @param read 是否已读（0未读1已读）
+     * @param readed 是否已读（0未读1已读）
      */
-    public void setRead(Integer read) {
-        this.read = read;
+    public void setReaded(Integer readed) {
+        this.readed = readed;
     }
 
     /**

@@ -66,4 +66,14 @@
     WHERE
     izhihu.users.user_id = #{userId}
   </select>
+
+  <select id="serach" resultType="java.util.HashMap">
+    select
+    users.user_id,users.`name`
+    from users
+    <if test="keyword != null and keyword != '' ">
+      where
+      users.`name` like concat('%',#{keyword},'%')
+    </if>
+  </select>
 </mapper>

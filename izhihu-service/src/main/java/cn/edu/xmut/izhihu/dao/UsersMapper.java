@@ -30,4 +30,7 @@ public interface UsersMapper extends Mapper<UserDO> {
 
     Map<String,Object> userInfo(@Param("userId") String userId);
 
+
+    List<Map<String,Object>> serach(@Param("keyword") String keyword);
+
 }

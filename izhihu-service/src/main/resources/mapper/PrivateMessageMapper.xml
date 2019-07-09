@@ -9,8 +9,35 @@
         <result column="takeIn_user_id" jdbcType="VARCHAR" property="takeinUserId"/>
         <result column="send_user_id" jdbcType="VARCHAR" property="sendUserId"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="read" jdbcType="INTEGER" property="read"/>
+        <result column="readed" jdbcType="INTEGER" property="readed"/>
         <result column="del" jdbcType="INTEGER" property="del"/>
         <result column="priv_mess_content" jdbcType="LONGVARCHAR" property="privMessContent"/>
     </resultMap>
+    <select id="list" resultType="java.util.HashMap">
+        SELECT
+users.`name` AS takeInName,
+users_alias1.`name` AS sendName,
+private_message.priv_mess_id,
+private_message.takeIn_user_id,
+private_message.send_user_id,
+private_message.priv_mess_content,
+private_message.create_time,
+private_message.`readed`
+FROM
+private_message
+JOIN users
+ON private_message.takeIn_user_id = users.user_id
+JOIN users AS users_alias1
+ON private_message.send_user_id = users_alias1.user_id
+WHERE
+izhihu.private_message.del = 0
+AND
+(private_message.takeIn_user_id = #{userId}
+OR
+private_message.send_user_id=#{userId}
+)
+ORDER BY
+private_message.create_time DESC
+
+    </select>
 </mapper>
