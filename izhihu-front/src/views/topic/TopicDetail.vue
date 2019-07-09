@@ -74,6 +74,7 @@ import AsideSubs from "../../components/aside/AsideSubs";
 import AnswerItem from "../../components/index/AnswerItem";
 import { reqGetTopicArticle } from "../../api/topicArticle";
 import { reqGetTopicDet } from "../../api/topicArticle";
+
 import { reqCheckFollow, reqInFollow, reqUnFollow } from "../../api/follow";
 export default {
   name: "topicDetail",

@@ -57,7 +57,6 @@
 
 <script>
 import { reqRecommend, reqAttContetn } from '../../api/home'
-
 import AsideWrite from '../../components/aside/AsideWrite.vue'
 import AsideCategory from '../../components/aside/AsideCategory.vue'
 import AsideFooter from '../../components/aside/AsideFooter.vue'
@@ -65,6 +64,7 @@ import HotList from '../../components/index/HotList'
 import AsideNavList from '../../components/aside/AsideNavList.vue'
 import RecommendItem from '../../components/index/RecommendItem'
 import AnswerItem from '../../components/index/AnswerItem'
+
 export default {
   name: 'index',
   components: {

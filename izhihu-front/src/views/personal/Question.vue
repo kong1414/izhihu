@@ -35,9 +35,19 @@
       <el-main>
         <el-card>
           <div slot="header">全部回答</div>
-          <div>
-            <!-- <answer-item></answer-item> -->
-          </div>
+            <div v-for="(item, index) in queDets" :key="index">
+                  <!-- {{item}} -->
+                  <answer-item
+                      :apprN="item.report_num"
+                      :evalN="item.comment_num"
+                      :queName="item.title"
+                      :author="item.name"
+                      :queDet="item.content"
+                      :articleId="item.article_id"
+                      :queId="item.ques_id"
+                      :type="item.type"
+                    />
+                </div>
         </el-card>
       </el-main>
       <el-aside width="300px" class="ques-aside">
@@ -84,7 +94,7 @@
 import AnswerItem from "../../components/index/AnswerItem";
 import AsideFooter from "../../components/aside/AsideFooter";
 import AsideDiscovery from "../../components/aside/AsideDiscovery";
-import { reqFindQuestionById, reqAnswer, reqFindTopicByQues } from "../../api/question";
+import { reqFindQuestionById, reqAnswer, reqFindTopicByQues,reqFindAnsByQues } from "../../api/question";
 import { reqInFollow,reqUnFollow } from '../../api/follow'
 
 export default {
@@ -114,6 +124,7 @@ export default {
         updateTime: ""
       },
       topicList: [],
+      queDets:[],
       writeAnswerVisible: false,
       squareUrl: "",
       author: "123",
@@ -142,6 +153,11 @@ export default {
       reqFindTopicByQues(params2).then(res => {
         if (res.resultCode ==200) {
           this.topicList = res.data
+        }
+      })
+      reqFindAnsByQues(params).then(res =>{
+        if(res.resultCode == 200){
+          this.queDets = res.data
         }
       })
     },
