@@ -230,7 +230,7 @@ export default {
       likeNum: this.apprN,
       preAtti: "",
       remarkId: "",
-      comNum: "",
+      comNum: 0,
       url:''
     };
   },
