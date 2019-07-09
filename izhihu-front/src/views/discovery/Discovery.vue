@@ -10,7 +10,7 @@
           </el-button>
         </div>
         <div class="recommend" v-for="(i,index) in recommendList" :key="index" >
-          <el-button class="title" type="text" @click="toRecommend()"><span><b>{{i.ques_name}}</b></span></el-button>
+          <el-button class="title" type="text" @click="toQues(i.ques_id)"><span><b>{{i.ques_name}}</b></span></el-button>
           <div class="message">
             <span>回答人数：{{i.attention_num}}   作者：{{i.name}}    浏览人数：{{i.browse_num}}  更新时间：{{i.update_time}}</span>
           </div>
@@ -92,6 +92,9 @@ export default {
     handleClick () { // 改变今日最热 和 本月最热
       
     },
+    toQues (id) {
+      this.$router.push({ path: "/home/question/" + id })
+    }
   }
 }
 </script>
