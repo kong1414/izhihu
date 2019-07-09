@@ -1,230 +1,189 @@
 <template>
   <el-container class="people-container">
     <el-header class="people-header">
-      <el-card :body-style="{ padding: '0px' }"
-               class="header-card">
-        <img src="../../assets/img/people-bg.jpg"
-             alt="背景图"
-             width="1100px">
+      <el-card :body-style="{ padding: '0px' }" class="header-card">
+        <img src="../../assets/img/people-bg.jpg" alt="背景图" width="1100px" />
         <div class="content">
           <!-- <el-image class="avatar"
                     :src="userInfo.photo_url">
-          </el-image> -->
-          <img :src="userInfo.photo_url"
-               class="avatar" />
+          </el-image>-->
+          <img :src="userInfo.photo_url" class="avatar" />
           <div class="introduce">
             <span class="name">{{userInfo.name}}</span>
             <span class="autograph">{{userInfo.autograph}}</span>
-            <el-form label-width="80px"
-                     size="mini"
-                     class="userinfo">
+            <el-form label-width="80px" size="mini" class="userinfo">
               <el-form-item label="性别">
                 <span v-if="userInfo.gender==0">未知</span>
                 <span v-else-if="userInfo.gender==1">男</span>
                 <span v-else-if="userInfo.gender==2">女</span>
               </el-form-item>
               <el-form-item label="个人简介">
-                <el-button type="text"> 点击查看个人简介</el-button>
+                <el-button type="text">点击查看个人简介</el-button>
               </el-form-item>
-              <el-form-item label="行业">
-                {{userInfo.industry}}
-              </el-form-item>
-              <el-form-item label="个性网址">
-                {{userInfo.personality_url}}
-              </el-form-item>
-              <el-form-item label="公司">
-                {{userInfo.company}}
-              </el-form-item>
-              <el-form-item label="职位">
-                {{userInfo.position}}
-              </el-form-item>
-              <el-form-item label="学校">
-                {{userInfo.school}}
-              </el-form-item>
-              <el-form-item label="专业">
-                {{userInfo.major}}
-              </el-form-item>
-
+              <el-form-item label="行业">{{userInfo.industry}}</el-form-item>
+              <el-form-item label="个性网址">{{userInfo.personality_url}}</el-form-item>
+              <el-form-item label="公司">{{userInfo.company}}</el-form-item>
+              <el-form-item label="职位">{{userInfo.position}}</el-form-item>
+              <el-form-item label="学校">{{userInfo.school}}</el-form-item>
+              <el-form-item label="专业">{{userInfo.major}}</el-form-item>
             </el-form>
           </div>
           <div class="operation">
-            <el-button v-if="this.currentUserId===this.$store.state.user.userId"
-                       size="medium"
-                       type="primary"
-                       @click="userInfodialogVisible = true">
-              编辑资料
-            </el-button>
-            <span v-else
-                  style="margin-right: 10px">
-              <el-button v-if="!attType"
-                         size="medium"
-                         icon="el-icon-plus"
-                         type="primary"
-                         @click="attPeople">关注</el-button>
-              <el-button v-else
-                         size="medium"
-                         type="primary"
-                         @click="unAttPeople">已关注</el-button>
+            <el-button
+              v-if="this.currentUserId===this.$store.state.user.userId"
+              size="medium"
+              type="primary"
+              @click="userInfodialogVisible = true"
+            >编辑资料</el-button>
+            <span v-else style="margin-right: 10px">
+              <el-button
+                v-if="!attType"
+                size="medium"
+                icon="el-icon-plus"
+                type="primary"
+                @click="attPeople"
+              >关注</el-button>
+              <el-button v-else size="medium" type="primary" @click="unAttPeople">已关注</el-button>
             </span>
 
             <!-- <el-button size="medium"
-                       icon="el-icon-chat-round" @click="showMessageVisible = true">发私信</el-button> -->
+            icon="el-icon-chat-round" @click="showMessageVisible = true">发私信</el-button>-->
           </div>
         </div>
-
       </el-card>
     </el-header>
     <el-container class="people-content">
       <el-main class="people-main">
         <el-card>
-          <el-tabs v-model="activeName"
-                   @tab-click="handleClick">
+          <el-tabs v-model="activeName" @tab-click="handleClick">
             <!-- <el-tab-pane label="动态"
                          name="dynamic">
               动态1
-            </el-tab-pane> -->
-            <el-tab-pane label="回答"
-                         name="answer">
+            </el-tab-pane>-->
+            <el-tab-pane label="回答" name="answer">
               <div v-if="articleList.length <= 0">暂无回答</div>
               <div v-else>
                 <!-- {{articleList}} -->
                 <div v-for="(item, index) in articleList" :key="index">
                   <!-- {{item}} -->
                   <answer-item
-                      :apprN="item.report_num"
-                      :evalN="item.comment_num"
-                      :queName="item.title"
-                      :author="item.name"
-                      :queDet="item.content"
-                      :articleId="item.article_id"
-                      :queId="item.ques_id"
-                      :type="item.type"
-                    />
+                    :apprN="item.report_num"
+                    :evalN="item.comment_num"
+                    :queName="item.title"
+                    :author="item.name"
+                    :queDet="item.content"
+                    :articleId="item.article_id"
+                    :queId="item.ques_id"
+                    :type="item.type"
+                  />
                 </div>
               </div>
             </el-tab-pane>
-            <el-tab-pane label="提问"
-                         name="question">
+            <el-tab-pane label="提问" name="question">
               <div v-if="quesList.length <= 0">暂无提问</div>
-              <div v-else>
-                {{quesList}}
-              </div>
+              <div v-else>{{quesList}}</div>
             </el-tab-pane>
-            <el-tab-pane label="文章"
-                         name="article">
+            <el-tab-pane label="文章" name="article">
               <div v-if="articleList.length <= 0">暂无文章</div>
               <div v-else>
                 <!-- {{articleList}} -->
                 <div v-for="(item, index) in articleList" :key="index">
                   <!-- {{item}} -->
                   <answer-item
-                      :apprN="item.report_num"
-                      :evalN="item.comment_num"
-                      :queName="item.title"
-                      :author="item.name"
-                      :queDet="item.content"
-                      :articleId="item.article_id"
-                      :queId="item.ques_id"
-                      :type="item.type"
-                    />
+                    :apprN="item.report_num"
+                    :evalN="item.comment_num"
+                    :queName="item.title"
+                    :author="item.name"
+                    :queDet="item.content"
+                    :articleId="item.article_id"
+                    :queId="item.ques_id"
+                    :type="item.type"
+                  />
                 </div>
               </div>
             </el-tab-pane>
-            <el-tab-pane label="想法"
-                         name="idea">
+            <el-tab-pane label="想法" name="idea">
               <div v-if="articleList.length <= 0">暂无想法</div>
               <div v-else>
                 <!-- {{articleList}} -->
                 <div v-for="(item, index) in articleList" :key="index">
                   <!-- {{item}} -->
                   <answer-item
-                      :apprN="item.report_num"
-                      :evalN="item.comment_num"
-                      :queName="item.title"
-                      :author="item.name"
-                      :queDet="item.content"
-                      :articleId="item.article_id"
-                      :queId="item.ques_id"
-                      :type="item.type"
-                    />
+                    :apprN="item.report_num"
+                    :evalN="item.comment_num"
+                    :queName="item.title"
+                    :author="item.name"
+                    :queDet="item.content"
+                    :articleId="item.article_id"
+                    :queId="item.ques_id"
+                    :type="item.type"
+                  />
                 </div>
               </div>
             </el-tab-pane>
-            <el-tab-pane label="收藏夹"
-                         name="favorite">
+            <el-tab-pane label="收藏夹" name="favorite">
               <div v-if="faveList.length <= 0">暂无收藏夹</div>
-              <div v-else>
-                {{faveList}}
-              </div>
+              <div v-else>{{faveList}}</div>
             </el-tab-pane>
-            <el-tab-pane label="关注的话题"
-                         name="attTopic">
+            <el-tab-pane label="关注的话题" name="attTopic">
               <div v-if="topicList.length <= 0">暂未关注</div>
-              <div v-else>
-                {{topicList}}
-              </div>
+              <div v-else>{{topicList}}</div>
             </el-tab-pane>
-            <el-tab-pane label="关注的问题"
-                         name="attQues">
+            <el-tab-pane label="关注的问题" name="attQues">
               <div v-if="attQuesList.length <= 0">暂未关注</div>
-              <div v-else>
-                {{attQuesList}}
-              </div>
+              <div v-else>{{attQuesList}}</div>
             </el-tab-pane>
-            <el-tab-pane label="关注的用户"
-                         name="attPeople">
+            <el-tab-pane label="关注的用户" name="attPeople">
               <div v-if="attUserList.length <= 0">暂未关注</div>
-              <div v-else>
-                {{attUserList}}
-              </div>
+              <div v-else>{{attUserList}}</div>
             </el-tab-pane>
           </el-tabs>
         </el-card>
-
       </el-main>
       <el-aside class="people-aside">
-        <el-card  style="text-align: center;margin-top:20px">
+        <el-card style="text-align: center;margin-top:20px">
           <el-row>
-            <el-col :span="12">关注了<div>{{attNum}}</div></el-col>
-            <el-col :span="12">关注者<div>{{attedNum}}</div></el-col>
+            <el-col :span="12">
+              关注了
+              <div>{{attNum}}</div>
+            </el-col>
+            <el-col :span="12">
+              关注者
+              <div>{{attedNum}}</div>
+            </el-col>
           </el-row>
         </el-card>
         <aside-footer></aside-footer>
       </el-aside>
     </el-container>
 
-    <el-dialog title="编辑个人资料"
-               :visible.sync="userInfodialogVisible"
-               width="600px"
-               custom-class="updata-dialog"
-               :before-close="handleClose">
-      <el-form label-width="80px"
-               size="medium"
-               class="update">
-        <el-upload class="avatar-uploader"
-                   action="http://120.78.136.84:8090/api/user/uploadImage"
-                   :show-file-list="false"
-                   :on-success="handleAvatarSuccess"
-                   :before-upload="beforeAvatarUpload">
-          <img v-if="imageUrl"
-               :src="imageUrl"
-               class="avatar">
-          <i v-else
-             class="el-icon-plus avatar-uploader-icon"></i>
+    <el-dialog
+      title="编辑个人资料"
+      :visible.sync="userInfodialogVisible"
+      width="600px"
+      custom-class="updata-dialog"
+      :before-close="handleClose"
+    >
+      <el-form label-width="80px" size="medium" class="update">
+        <el-upload
+          class="avatar-uploader"
+          action="http://120.78.136.84:8090/api/user/uploadImage"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload"
+        >
+          <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
         <el-form-item label="姓名">
           <el-input v-model="userInfo.name"></el-input>
         </el-form-item>
         <el-form-item label="性别">
           <!-- <el-input v-model="userInfo.gender"></el-input> -->
-          <el-select v-model="userInfo.gender"
-                     placeholder="请选择">
-            <el-option label="未知"
-                       value="0"></el-option>
-            <el-option label="男"
-                       value="1"></el-option>
-            <el-option label="女"
-                       value="2"></el-option>
+          <el-select v-model="userInfo.gender" placeholder="请选择">
+            <el-option label="未知" value="0"></el-option>
+            <el-option label="男" value="1"></el-option>
+            <el-option label="女" value="2"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="个性签名">
@@ -251,58 +210,61 @@
         <el-form-item label="专业">
           <el-input v-model="userInfo.major"></el-input>
         </el-form-item>
-
       </el-form>
 
-      <span slot="footer"
-            class="dialog-footer">
+      <span slot="footer" class="dialog-footer">
         <el-button @click="userInfodialogVisible = false">取 消</el-button>
-        <el-button type="primary"
-                   @click="handleUpdate">更 新</el-button>
+        <el-button type="primary" @click="handleUpdate">更 新</el-button>
       </span>
     </el-dialog>
   </el-container>
 </template>
 
 <script>
-import { reqUserInfo, reqUpdateUserInfo } from '../../api/home'
-import { reqGetArticleByUser } from '../../api/article'
-import { reqMyFavorite } from '../../api/favorite'
-import { reqFindQuesByUser } from '../../api/question'
-import { reqAttedTopic } from '../../api/topic'
-import { reqCountAtted, reqGetAttByUser, reqInFollow, reqUnFollow, reqCheckFollow } from '../../api/follow'
-import AsideFooter from '../../components/aside/AsideFooter'
-import recommendItem from '../../components/index/RecommendItem'
-import AnswerItem from '../../components/index/AnswerItem'
+import { reqUserInfo, reqUpdateUserInfo } from "../../api/home";
+import { reqGetArticleByUser } from "../../api/article";
+import { reqMyFavorite } from "../../api/favorite";
+import { reqFindQuesByUser } from "../../api/question";
+import { reqAttedTopic } from "../../api/topic";
+import {
+  reqCountAtted,
+  reqGetAttByUser,
+  reqInFollow,
+  reqUnFollow,
+  reqCheckFollow
+} from "../../api/follow";
+import AsideFooter from "../../components/aside/AsideFooter";
+import recommendItem from "../../components/index/RecommendItem";
+import AnswerItem from "../../components/index/AnswerItem";
 
 export default {
-  name: 'people',
+  name: "people",
   components: {
     AsideFooter,
     recommendItem,
     AnswerItem
   },
-  data () {
+  data() {
     return {
-      activeName: 'answer',
+      activeName: "answer",
       userId: this.$store.state.user.userId, // 登录账号的id
       currentUserId: this.$route.params.userid, // 当前页面的id
       userInfo: {
-        name: '',
-        photo_url: '',
-        gender: '', // 性别0未知1男2女
-        autograph: '', // 个性签名
-        introduce: '', // 简介
-        industry: '', // 行业
-        personality_url: '', // 个性网址
-        company: '', // 公司
-        position: '', // 职位
-        school: '', // 学校
-        major: ''// 行业
+        name: "",
+        photo_url: "",
+        gender: "", // 性别0未知1男2女
+        autograph: "", // 个性签名
+        introduce: "", // 简介
+        industry: "", // 行业
+        personality_url: "", // 个性网址
+        company: "", // 公司
+        position: "", // 职位
+        school: "", // 学校
+        major: "" // 行业
       },
       userInfodialogVisible: false,
-      imageUrl: '',
-      type: '', // 类别（1回答，2文章，3想法，4问题，5话题，6用户，7收藏夹，8专栏）
+      imageUrl: "",
+      type: "", // 类别（1回答，2文章，3想法，4问题，5话题，6用户，7收藏夹，8专栏）
       articleList: [], //文章相关的 回答文章想法
       quesList: [], // 问题
       topicList: [], // 话题
@@ -311,61 +273,61 @@ export default {
       faveList: [], // 收藏夹
       attType: false, // 对该用户关注状态
       attNum: 0, // 关注了的人数
-      attedNum: 0, // 被关注的人数
-      
-    }
+      attedNum: 0 // 被关注的人数
+    };
   },
-  mounted () {
+  mounted() {
     // console.info('userid')
-    this._loadData(this.currentUserId)
+    this._loadData(this.currentUserId);
   },
   methods: {
-    _loadData (userId) {
-      let params = 'userId=' + userId
+    _loadData(userId) {
+      let params = "userId=" + userId;
       reqUserInfo(params).then(res => {
         if (res.resultCode === 200) {
-          console.info(res.data)
-          this.userInfo = res.data
-          this.userInfo.gender = String(res.data.gender)
-          this.imageUrl = res.data.photo_url
+          console.info(res.data);
+          this.userInfo = res.data;
+          this.userInfo.gender = String(res.data.gender);
+          this.imageUrl = res.data.photo_url;
         }
-      })
+      });
       let params2 = {
         userId: this.userId,
         contentId: this.currentUserId
-      }
+      };
       reqCheckFollow(params2).then(res => {
         if (res.resultCode === 200) {
-          this.attType = res.data
-          console.info(res.data)
+          this.attType = res.data;
+          console.info(res.data);
         }
-      })
+      });
       // 首选项卡 渲染
-      this.handleClick({name:this.activeName})
-      
+      this.handleClick({ name: this.activeName });
+
       // 关注了的人数
       let params3 = {
         userId: this.currentUserId,
         type: 6
-      }
+      };
       reqGetAttByUser(params3).then(res => {
         if (res.resultCode == 200) {
-          this.attNum = res.data.length
+          this.attNum = res.data.length;
         }
-      })
+      });
       // 被关注的人数
       // let params4 = {
       //   userId: this.currentUserId,
       //   test: "1", // 占位置的 没用
       // }
-      let params4 = 'userId='+ this.currentUserId 
+      let params4 = "userId=" + this.currentUserId;
       reqCountAtted(params).then(res => {
         if (res.resultCode == 200) {
-          this.attedNum = res.data
+          this.attedNum = res.data;
         }
-      })
+      });
     },
-    handleUpdate () { // 更新个人信息
+    handleUpdate() {
+      // 更新个人信息
       let params = {
         userId: this.userId,
         name: this.userInfo.name,
@@ -378,163 +340,170 @@ export default {
         company: this.userInfo.company,
         position: this.userInfo.position,
         school: this.userInfo.school,
-        major: this.userInfo.major,
-      }
+        major: this.userInfo.major
+      };
       reqUpdateUserInfo(params).then(res => {
         if (res.resultCode == 200) {
           this.$message({
-            type: 'success',
+            type: "success",
             message: res.resultMessage
-          })
-          this._loadData(this.userId)
-          this.userInfodialogVisible = false
+          });
+          this._loadData(this.userId);
+          this.userInfodialogVisible = false;
         }
-      })
+      });
 
       // 发送请求
-      this.userInfodialogVisible = false
+      this.userInfodialogVisible = false;
     },
-    handleClose () { // 关闭弹窗
-      this.userInfodialogVisible = false
+    handleClose() {
+      // 关闭弹窗
+      this.userInfodialogVisible = false;
     },
-    handleClick (v) { // 下面的tabs
-      console.info(v.name)
-      if (v.name === 'dynamic') { // 动态
+    handleClick(v) {
+      // 下面的tabs
+      console.info(v.name);
+      if (v.name === "dynamic") {
+        // 动态
         // this.articleList = v.name
-
-      } else if (v.name === 'answer') { // 回答
+      } else if (v.name === "answer") {
+        // 回答
         let params = {
           userId: this.currentUserId,
           type: 1
-        }
+        };
         reqGetArticleByUser(params).then(res => {
           if (res.resultCode == 200) {
-            this.articleList = res.data
+            this.articleList = res.data;
           }
-        })
-      } else if (v.name === 'question') { // 提问
+        });
+      } else if (v.name === "question") {
+        // 提问
 
-        let params = 'userId=' + this.currentUserId
+        let params = "userId=" + this.currentUserId;
 
         reqFindQuesByUser(params).then(res => {
           if (res.resultCode == 200) {
-            this.quesList = res.data
+            this.quesList = res.data;
           }
-        })
-
-      } else if (v.name === 'article') { // 文章
+        });
+      } else if (v.name === "article") {
+        // 文章
         let params = {
           userId: this.currentUserId,
           type: 2
-        }
+        };
         reqGetArticleByUser(params).then(res => {
           if (res.resultCode == 200) {
-            this.articleList = res.data
+            this.articleList = res.data;
           }
-        })
-
-      } else if (v.name === 'idea') { // 想法
+        });
+      } else if (v.name === "idea") {
+        // 想法
         let params = {
           userId: this.currentUserId,
           type: 3
-        }
+        };
         reqGetArticleByUser(params).then(res => {
           if (res.resultCode == 200) {
-            this.articleList = res.data
+            this.articleList = res.data;
           }
-        })
-
-      } else if (v.name === 'favorite') { // 收藏夹
-        let params = 'userId=' + this.currentUserId
+        });
+      } else if (v.name === "favorite") {
+        // 收藏夹
+        let params = "userId=" + this.currentUserId;
         reqMyFavorite(params).then(res => {
           if (res.resultCode == 200) {
-            this.faveList = res.data
+            this.faveList = res.data;
           }
-        })
-
-      } else if (v.name === 'attTopic') { // 关注话题
-        let params = 'userId=' + this.currentUserId
+        });
+      } else if (v.name === "attTopic") {
+        // 关注话题
+        let params = "userId=" + this.currentUserId;
         reqAttedTopic(params).then(res => {
           if (res.resultCode == 200) {
-            this.topicList = res.data
+            this.topicList = res.data;
           }
-        })
-
-      } else if (v.name === 'attQues') { // 关注的问题
+        });
+      } else if (v.name === "attQues") {
+        // 关注的问题
         let params = {
           userId: this.currentUserId,
           type: 4
-        }
+        };
         reqGetAttByUser(params).then(res => {
           if (res.resultCode == 200) {
-            this.attQuesList = res.data
+            this.attQuesList = res.data;
           }
-        })
-
-      } else if (v.name === 'attPeople') { // 关注的人
+        });
+      } else if (v.name === "attPeople") {
+        // 关注的人
         let params = {
           userId: this.currentUserId,
           type: 6
-        }
+        };
         reqGetAttByUser(params).then(res => {
           if (res.resultCode == 200) {
-            this.attUserList = res.data
+            this.attUserList = res.data;
           }
-        })
+        });
       }
     },
-    handleAvatarSuccess (res, file) { // 上传图片回调
+    handleAvatarSuccess(res, file) {
+      // 上传图片回调
       // console.info('res', res)
       // console.info('file', file)
       // this.imageUrl = URL.createObjectURL(file.raw)
-      this.imageUrl = res.data
+      this.imageUrl = res.data;
     },
-    beforeAvatarUpload (file) { // 上传图片前
-      const isJPG = file.type === 'image/jpeg';
+    beforeAvatarUpload(file) {
+      // 上传图片前
+      const isJPG = file.type === "image/jpeg";
       const isLt2M = file.size / 1024 / 1024 < 2;
 
       if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!');
+        this.$message.error("上传头像图片只能是 JPG 格式!");
       }
       if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
+        this.$message.error("上传头像图片大小不能超过 2MB!");
       }
       return isJPG && isLt2M;
     },
-    attPeople () { // 关注该用户
+    attPeople() {
+      // 关注该用户
       let params = {
         userId: this.userId,
         contentId: this.currentUserId,
         type: 6
-      }
+      };
       reqInFollow(params).then(res => {
         if (res.resultCode == 200) {
           this.$message({
-            type: 'success',
+            type: "success",
             message: res.resultMessage
-          })
-          this.attType = true
+          });
+          this.attType = true;
         }
-      })
+      });
     },
-    unAttPeople () { // 取消关注该用户
+    unAttPeople() {
+      // 取消关注该用户
       let params = {
         userId: this.userId,
-        contentId: this.currentUserId,
-      }
+        contentId: this.currentUserId
+      };
       reqUnFollow(params).then(res => {
         if (res.resultCode == 200) {
           this.$message({
-            type: 'success',
+            type: "success",
             message: res.resultMessage
-          })
-          this.attType = false
+          });
+          this.attType = false;
         }
-      })
-    },
-    
+      });
+    }
   }
-}
+};
 </script>
 
 <style lang="scss">

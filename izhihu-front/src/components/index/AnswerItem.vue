@@ -286,7 +286,7 @@ export default {
     },
     toQueDetail() {
       // 跳转到问题主页
-      if (this.type == 1)
+      // if (this.type == 1)
         this.$router.push({ path: "/home/question/" + this.queId });
     },
     collArt(v) {  //收藏弹窗

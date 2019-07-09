@@ -12,6 +12,10 @@ export const reqFindQuestionById = params => { // 根据问题id获得问题情�
   return axios.post(`${BASE_URL}/question/findById?` + params).then(res => res.data)
 }
 
+export const reqFindAnsByQues = params => { // 根据问题id获得问题列表
+  return axios.post(`${BASE_URL}/question/findAnsByQues?` + params).then(res => res.data)
+}
+
 export const reqAnswer = params => { // 写回答
   return axios.post(`${BASE_URL}/question/answer`, params).then(res => res.data)
 }

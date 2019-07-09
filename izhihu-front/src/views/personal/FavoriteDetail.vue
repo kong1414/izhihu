@@ -31,16 +31,17 @@
              v-for="(item, index) in articleList"
              :key="index">
           <!-- 给answerItem传值 -->
-          <!-- <answer-item
-            :topicid="topicId"
-            :attiStat="disDet.attiStat"
-            :apprN="disDet.apprN"
-            :evalN="disDet.comment_num"
-            :queName="disDet.ques_name"
-            :author="disDet.author_id"
-            :queDet="disDet.content"
-          /> -->
-          {{item}}
+          <answer-item
+                      :apprN="item.report_num"
+                      :evalN="item.comment_num"
+                      :queName="item.title"
+                      :author="item.name"
+                      :queDet="item.content"
+                      :articleId="item.article_id"
+                      :queId="item.ques_id"
+                      :type="item.type"
+                    />
+          <!-- {{item}} -->
         </div>
       </el-card>
     </el-main>
