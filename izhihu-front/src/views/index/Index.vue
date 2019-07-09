@@ -8,14 +8,34 @@
           <el-tab-pane label="推荐"
                        name="first">
             <div v-for="(item, index) in remList" :key="index">
-              {{item}}
+              <!-- {{item}} -->
+              <answer-item
+                  :apprN="item.report_num"
+                  :evalN="item.comment_num"
+                  :queName="item.title"
+                  :author="item.name"
+                  :queDet="item.content"
+                  :articleId="item.article_id"
+                  :queId="item.ques_id"
+                  :type="item.type"
+            />
             </div>
           </el-tab-pane>
           <el-tab-pane label="关注"
                        name="second">
             <div v-if="attList.length<=0">暂无数据</div>
             <div v-else v-for="(item, index) in attList" :key="index">
-              {{item}}
+              <!-- {{item}} -->
+              <answer-item
+                  :apprN="item.report_num"
+                  :evalN="item.comment_num"
+                  :queName="item.title"
+                  :author="item.name"
+                  :queDet="item.content"
+                  :articleId="item.article_id"
+                  :queId="item.ques_id"
+                  :type="item.type"
+            />
             </div>
           </el-tab-pane>
           <el-tab-pane label="热榜"
@@ -44,6 +64,7 @@ import AsideFooter from '../../components/aside/AsideFooter.vue'
 import HotList from '../../components/index/HotList'
 import AsideNavList from '../../components/aside/AsideNavList.vue'
 import RecommendItem from '../../components/index/RecommendItem'
+import AnswerItem from '../../components/index/AnswerItem'
 export default {
   name: 'index',
   components: {
@@ -52,7 +73,8 @@ export default {
     AsideFooter,
     HotList,
     AsideNavList,
-    RecommendItem
+    RecommendItem,
+    AnswerItem
   },
   data () {
     return {

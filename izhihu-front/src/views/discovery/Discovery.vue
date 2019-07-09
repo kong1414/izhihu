@@ -20,12 +20,36 @@
       <el-card class="today-hot">
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="七日最热" name="today">
-            七日最热
-            {{todayList}}
+            <!-- {{todayList}} -->
+            <div v-for="(item, index) in todayList" :key="index">
+              <!-- {{item}} -->
+              <answer-item
+                  :apprN="item.report_num"
+                  :evalN="item.comment_num"
+                  :queName="item.title"
+                  :author="item.name"
+                  :queDet="item.content"
+                  :articleId="item.article_id"
+                  :queId="item.ques_id"
+                  :type="item.type"
+            />
+            </div>
           </el-tab-pane>
           <el-tab-pane label="本月最热" name="month">
-            本月最热
-            {{monthList}}
+            <!-- {{monthList}} -->
+            <div v-for="(item, index) in monthList" :key="index">
+              <!-- {{item}} -->
+              <answer-item
+                  :apprN="item.report_num"
+                  :evalN="item.comment_num"
+                  :queName="item.title"
+                  :author="item.name"
+                  :queDet="item.content"
+                  :articleId="item.article_id"
+                  :queId="item.ques_id"
+                  :type="item.type"
+            />
+            </div>
           </el-tab-pane>
         </el-tabs>
       </el-card>
@@ -40,15 +64,16 @@
 import dataUtil from "../../util/dataUtil";
 import AsideDiscovery from '../../components/aside/AsideDiscovery'
 import RecommendItem from '../../components/index/RecommendItem'
+import AnswerItem from "../../components/index/AnswerItem";
 import { reqEditorRecommend } from '../../api/question'
 import { reqGetRecommend } from '../../api/topic'
-
 import { reqTodayHot, reqMonthHot } from '../../api/home'
 export default {
   name: 'discovery',
   components: {
     AsideDiscovery,
-    RecommendItem
+    RecommendItem,
+    AnswerItem
   },
   data () {
     return {

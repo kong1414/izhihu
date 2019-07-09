@@ -41,7 +41,6 @@
           <div v-for="disDet in disDets" :key="disDet.topicId" class="text item">
             <!-- 给answerItem传值   :topicid="topicId"-->
             <answer-item
-              :attiStat="disDet.attiStat"
               :apprN="disDet.report_num"
               :evalN="disDet.comment_num"
               :queName="disDet.ques_name"
@@ -315,11 +314,6 @@ export default {
 
   .item {
     margin-bottom: 18px;
-    .avaImag {
-      float: left;
-      width: 24px;
-      height: 24px;
-    }
   }
 
   .dialog-body {

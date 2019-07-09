@@ -2,11 +2,11 @@
   <!-- 回答内容的组件 -->
   <!-- 话题头部卡片 -->
   <div class="myanswer-item">
-    <el-button type="text" @click="toQueDetail ()">
-      <div class="disDetName">{{queName}}</div>
+    <el-button type="text" size="mini" @click="toQueDetail()" class="disDetName">
+      {{queName}}
     </el-button>
-    <div style="margin-top:10px;">
-      <el-image class="avaImag" :src="null"></el-image>
+    <div style="margin:5px 0;" v-if="author!=null">
+      <el-avatar shape="square" :size="20" :src="url"></el-avatar>    
       <span class="disDetAuthor">{{author}}</span>
     </div>
     <div class="disDetque" @click=" dialogVisible = true" v-html="queDet"></div>
@@ -221,7 +221,7 @@ export default {
       comFavriVisible: false,
       replayStat: false,
       replaycom: null,
-      //获取当前页面用户名、用户id、回复输入框、选择器当前值、点赞状态、点赞数、先前的点赞状态、回复Id、评论数
+      //获取当前页面用户名、用户id、回复输入框、选择器当前值、点赞状态、点赞数、先前的点赞状态、回复Id、评论数、头像路径
       username: "",
       userId: this.$store.state.user.userId,
       input: "",
@@ -230,7 +230,8 @@ export default {
       likeNum: this.apprN,
       preAtti: "",
       remarkId: "",
-      comNum: ""
+      comNum: "",
+      url:''
     };
   },
   mounted() {
@@ -465,7 +466,6 @@ export default {
 </script>
 <style lang="scss">
 .myanswer-item {
-  .text {
     font-size: 14px;
     .disDetName {
       font-size: 18px;
@@ -476,9 +476,9 @@ export default {
       font-size: 15px;
       font-weight: 600;
       margin-left: 10px;
+      line-height: 20px;
     }
     .disDetque {
-      margin-top: 15px;
       font-size: 15px;
       color: #1a1a1a;
       overflow: hidden;
@@ -520,7 +520,18 @@ export default {
         background: #0084ff1a;
         border-width: 0px;
       }
-    }
+      .shareBut {
+        color: #76839b;
+        font-size: 15px;
+        margin-left: 20px;
+        i {
+          font-size: 18px;
+        }
+        .shareI {
+          color: #8590a6;
+          padding: 0px 5px;
+        }
+      }
   }
   .item {
     margin-bottom: 18px;
@@ -599,6 +610,9 @@ export default {
     .comInput {
       width: 80%;
     }
+  }
+  .el-divider--horizontal {
+    margin:12px 0;
   }
 }
 </style>
