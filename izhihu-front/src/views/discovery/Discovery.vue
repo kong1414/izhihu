@@ -10,7 +10,7 @@
             <i class="el-icon-d-arrow-right"></i>
           </el-button>
         </div>
-        <div class="recommend" v-for="i in recommendList" :key="i.id" >
+        <div class="recommend" v-for="(i,index) in recommendList" :key="index" >
           <el-button class="title" type="text" @click="toRecommend()"><span><b>{{i.ques_name}}</b></span></el-button>
           <div class="message">
             <span>回答人数：{{i.attention_num}}   作者：{{i.name}}    浏览人数：{{i.browse_num}}  更新时间：{{i.update_time}}</span>
@@ -36,6 +36,7 @@
   </el-container>
 </template>
 <script>
+import dataUtil from "../../util/dataUtil";
 import AsideDiscovery from '../../components/aside/AsideDiscovery'
 import RecommendItem from '../../components/index/RecommendItem'
 import { reqEditorRecommend } from '../../api/question'
@@ -62,7 +63,11 @@ export default {
       reqGetRecommend().then(res => {
         if (res.resultCode === 200) {
           console.info(res.data)
-          this.recommendList = res.data
+          this.recommendList = res.data.map(i => {
+            i.update_time = dataUtil.getStrData(i.update_time)
+            return i
+          })
+          
         }
       })
     },
@@ -79,7 +84,7 @@ export default {
 <style lang="scss">
 .discovery-container {
   .recommend-crad {
-    min-height: 400px;
+    min-height: 200px;
     .left{
       padding-left: 5px;
     }
