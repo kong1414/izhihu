@@ -31,7 +31,7 @@
       <div v-for="k in cllist" :key="k.favoriteId" class="cllist">
         <el-button class="clbodyname" type="text" @click="toFavorite(k.favoriteId)">{{k.favoriteName}}</el-button>
         <!-- <span class="clNumCon">{{k.clnum}} 人关注  •  {{k.clcont}} 条内容</span> -->
-        <span class="clNumCon">2 人关注  •  3 条内容</span>
+        <span class="clNumCon">{{getRandom()}} 人关注  •  {{getRandom()}} 条内容</span>
       </div>
     </el-card>
 
@@ -69,6 +69,7 @@ export default {
       })
     },
     _loadCollectData () {
+      this.getRandom()
       reqHotFavorite().then(res => {
         if (res.resultCode === 200) {
           console.info(res.data)
@@ -81,6 +82,10 @@ export default {
     },
     toFavorite (id) {
       this.$router.push({ path: '/home/favoriteDetail/' + id })
+    },
+    getRandom () {
+      var num = Math.floor(Math.random() * 10 + 1)
+      return num
     }
   }
 }

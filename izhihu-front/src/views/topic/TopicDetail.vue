@@ -148,7 +148,7 @@ export default {
           this.disDets.forEach(element => {
             // 给答案数据创一些新的值(点赞状态、评论数、点赞数)
             // element.attiStat = 0;
-            element.comment_num = 4;
+            // element.comment_num = 4;
             // element.apprN = 201;
             if (element.ques_name != null) this.disDetCon = true;
             this.queNumber++;

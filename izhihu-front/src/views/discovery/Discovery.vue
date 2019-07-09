@@ -76,9 +76,6 @@ export default {
     handleClick () { // 改变今日最热 和 本月最热
       
     },
-    toRecommend () {  //编辑推荐
-
-    },
   }
 }
 </script>
