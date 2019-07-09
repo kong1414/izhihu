@@ -180,12 +180,16 @@ public class FollowServiceImpl implements FollowService {
      */
     @Override
     public synchronized ResultVO cancelLike(String userId, String contentId) {
-        Example example = new Example(AgreeOppose.class);
-        example.createCriteria()
-                .andEqualTo("userId", userId)
-                .andEqualTo("articleId", contentId);
-        agreeOpposeMapper.deleteByExample(example);
-
+        // Example example = new Example(AgreeOppose.class);
+        // example.createCriteria()
+        //         .andEqualTo("userId", userId)
+        //         .andEqualTo("articleId", contentId);
+        // agreeOpposeMapper.deleteByExample(example);
+        //
+        AgreeOppose agreeOppose = new AgreeOppose();
+        agreeOppose.setUserId(userId);
+        agreeOppose.setArticleId(contentId);
+        agreeOpposeMapper.delete(agreeOppose);
         return new SuccessVO("已取消态度");
     }
 

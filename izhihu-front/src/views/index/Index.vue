@@ -7,10 +7,16 @@
                  @tab-click="handleClick">
           <el-tab-pane label="推荐"
                        name="first">
+            <div v-for="(item, index) in remList" :key="index">
+              {{item}}
+            </div>
           </el-tab-pane>
           <el-tab-pane label="关注"
                        name="second">
-            关注
+            <div v-if="attList.length<=0">暂无数据</div>
+            <div v-else v-for="(item, index) in attList" :key="index">
+              {{item}}
+            </div>
           </el-tab-pane>
           <el-tab-pane label="热榜"
                        name="third">
@@ -30,6 +36,8 @@
 </template>
 
 <script>
+import { reqRecommend, reqAttContetn } from '../../api/home'
+
 import AsideWrite from '../../components/aside/AsideWrite.vue'
 import AsideCategory from '../../components/aside/AsideCategory.vue'
 import AsideFooter from '../../components/aside/AsideFooter.vue'
@@ -48,12 +56,33 @@ export default {
   },
   data () {
     return {
-      activeName: 'first'
+      activeName: 'first',
+      remList: [],
+      attList: []
     }
   },
+  mounted () {
+    this._loadData()
+  },
   methods: {
-    handleClick () {
+    _loadData() {
 
+      reqRecommend().then(res => {
+        if (res.resultCode == 200) {
+          this.remList = res.data
+        }
+      })
+
+      let params = 'userId=' + this.$store.state.user.userId
+      reqAttContetn(params).then(res => {
+        if (res.resultCode == 200 ) {
+          this.attList = res.data
+        }
+      })
+
+    },
+    handleClick (v) {
+      console.info(v)
     }
   }
 }

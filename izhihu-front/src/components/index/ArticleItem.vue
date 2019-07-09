@@ -6,24 +6,25 @@
       </div>
       <div class="content">
         <h2 class="title" :title="item.quesName"  @click="toQues(item.quesId)">{{item.quesName}}</h2>
-        <p class="excerpt" v-html="item.quesDescribe" @click="dialogVisible = true"></p>
+        <p class="excerpt" v-html="item.quesDescribe" @click="show(item)"></p>
         <div class="button-content">
-          <i class="el-icon-trophy">{{item.browseNum}} 热度</i>
-          <i class="el-icon-s-promotion">{{item.share}}</i>
+          <i class="el-icon-trophy"></i>
+          <span style="margin-left:5px;">{{item.browseNum}} 热度</span>
+          <i class="el-icon-s-promotion">{{item.share}}</i> 分享
         </div>
       </div>
-      <el-dialog
-        :title="item.title"
+    </div>
+    <el-dialog
+        :title="title"
         :visible.sync="dialogVisible"
         width="600px">
-        <div class="dialog-body">
-          <span>{{item.excerpt}}</span>
+        <div style="padding:20px">
+          <div v-html="content"></div>
         </div>
         <span slot="footer" class="dialog-footer">
           <el-button type="primary" @click="dialogVisible = false">关 闭</el-button>
         </span>
       </el-dialog>
-    </div>
   </div>
 </template>
 
@@ -35,7 +36,9 @@ export default {
   data () {
     return {
       dialogVisible: false,
-      list: []
+      list: [],
+      title: '',
+      content: ''
     }
   },
   mounted () {
@@ -51,6 +54,11 @@ export default {
     },
     toQues(id) {
       this.$router.push({ path: "/home/question/" + id })
+    },
+    show (item) {
+      this.title = item.quesName
+      this.content = item.quesDescribe
+      this.dialogVisible = true
     }
   }
 }
@@ -63,12 +71,9 @@ export default {
   display: flex;
   font-size: 15px;
   width: 718px;
-  height: 137px;
+  // height: 137px;
   background: #fff;
   padding: 16px 16px 16px 0;
-  .dialog-body{
-    padding: 20px;
-  }
   .index{
     text-align: center;
     width: 57px;
@@ -81,7 +86,7 @@ export default {
   }
   .content{
     width: 651px;
-    height: 105px;
+    // height: 105px;
     .title{
       font-size: 18px;
       line-height: 28px;
