@@ -31,3 +31,7 @@ export const reqFindQuesByUser = params => { // 获得用户id 获得用户的�
 export const reqEditorRecommend = params => { // 发现页的编辑推荐
   return axios.post(`${BASE_URL}/article/editorRecommend?` + params).then(res => res.data)
 }
+
+export const reqFindQuesByName = params => { // 发现页的编辑推荐
+  return axios.post(`${BASE_URL}/question/findQuesByName?` + params).then(res => res.data)
+}

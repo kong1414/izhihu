@@ -1,12 +1,17 @@
 package cn.edu.xmut.izhihu.contorller;
 
+import cn.edu.xmut.izhihu.dao.QuestionMapper;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
+import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
+import cn.edu.xmut.izhihu.pojo.entity.Question;
 import cn.edu.xmut.izhihu.pojo.request.AnswerRequest;
 import cn.edu.xmut.izhihu.pojo.request.QuestionRequest;
 import cn.edu.xmut.izhihu.service.QuestionService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @Description: 问题Controller
@@ -21,6 +26,9 @@ public class QuestionController {
 
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private QuestionMapper questionMapper;
 
     @ApiOperation("创建问题")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -63,5 +71,14 @@ public class QuestionController {
     public ResultVO findQuesByUser(@RequestParam String userId) {
         return questionService.findQuesByUser(userId);
     }
+
+    @ApiOperation("首页搜索 搜索问题")
+    @PostMapping("/findQuesByName")
+    public ResultVO findQuesByName(@RequestParam String keyword) {
+       List<Question> list =  questionMapper.findQuesByName(keyword);
+        return new SuccessVO(list);
+    }
+
+
 
 }

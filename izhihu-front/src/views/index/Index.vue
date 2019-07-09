@@ -7,35 +7,40 @@
                  @tab-click="handleClick">
           <el-tab-pane label="推荐"
                        name="first">
-            <div v-for="(item, index) in remList" :key="index">
-              <!-- {{item}} -->
-              <answer-item
-                  :apprN="item.report_num"
-                  :evalN="item.comment_num"
-                  :queName="item.title"
-                  :author="item.name"
-                  :queDet="item.content"
-                  :articleId="item.article_id"
-                  :queId="item.ques_id"
-                  :type="item.type"
-            />
-            </div>
+            <ul v-infinite-scroll="load" infinite-scroll-delay="100" infinite-scroll-distance="-500">
+              <li v-for="(item, index) in remList" :key="index">
+                <!-- {{item}} -->
+                <answer-item
+                    :apprN="item.report_num"
+                    :evalN="item.comment_num"
+                    :queName="item.title"
+                    :author="item.name"
+                    :queDet="item.content"
+                    :articleId="item.article_id"
+                    :queId="item.ques_id"
+                    :type="item.type"
+              />
+              </li>
+            </ul>
+            
           </el-tab-pane>
           <el-tab-pane label="关注"
                        name="second">
             <div v-if="attList.length<=0">暂无数据</div>
-            <div v-else v-for="(item, index) in attList" :key="index">
-              <!-- {{item}} -->
-              <answer-item
-                  :apprN="item.report_num"
-                  :evalN="item.comment_num"
-                  :queName="item.title"
-                  :author="item.name"
-                  :queDet="item.content"
-                  :articleId="item.article_id"
-                  :queId="item.ques_id"
-                  :type="item.type"
-            />
+            <div v-else>
+              <div  v-for="(item, index) in attList" :key="index">
+                <!-- {{item}} -->
+                <answer-item
+                    :apprN="item.report_num"
+                    :evalN="item.comment_num"
+                    :queName="item.title"
+                    :author="item.name"
+                    :queDet="item.content"
+                    :articleId="item.article_id"
+                    :queId="item.ques_id"
+                    :type="item.type"
+              />
+              </div>
             </div>
           </el-tab-pane>
           <el-tab-pane label="热榜"
@@ -85,28 +90,39 @@ export default {
   },
   mounted () {
     this._loadData()
+    this._loadReData()
   },
   methods: {
     _loadData() {
-
-      reqRecommend().then(res => {
-        if (res.resultCode == 200) {
-          this.remList = res.data
-        }
-      })
-
       let params = 'userId=' + this.$store.state.user.userId
       reqAttContetn(params).then(res => {
         if (res.resultCode == 200 ) {
           this.attList = res.data
         }
       })
-
+    },
+    _loadReData () {
+      reqRecommend().then(res => {
+        if (res.resultCode == 200) {
+          this.remList = res.data
+        }
+      })
     },
     handleClick (v) {
       console.info(v)
+    },
+    load () {
+      // this._loadReData()
+      console.info('load')
+      reqRecommend().then(res => {
+        if (res.resultCode == 200) {
+          res.data.forEach(i => {
+            this.remList.push(i)
+          })
+        }
+      })
     }
-  }
+  }  
 }
 </script>
 

@@ -98,6 +98,8 @@
 // import md5 from 'js-md5'
 // @ is an alias to /src
 import Message from '../components/index/Message'
+import { POINT_CONVERSION_COMPRESSED } from 'constants';
+import { setTimeout } from 'timers';
 
 export default {
   name: 'home',
@@ -117,6 +119,18 @@ export default {
         { username: '路人丙', question: '夜宵吃什么' }
       ],
       showMessageVisible: false, // 发私信的状态框
+    }
+  },
+  watch: {
+    input () {
+      setTimeout(() => {
+        if (this.input.length > 0) {
+        this.$router.push({path:'/home/search/'+ this.input})
+      } else {
+        this.$router.push({path: '/home/index'})
+        // this.$router.go(-1) // 不实用
+      }
+      }, 200)
     }
   },
   created () {

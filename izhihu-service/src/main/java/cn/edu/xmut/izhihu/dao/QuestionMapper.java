@@ -27,5 +27,5 @@ public interface QuestionMapper extends Mapper<Question> {
      *
      * @return
      */
-    List<Question> findQuesByName();
+    List<Question> findQuesByName(@Param("keyword") String keyword);
 }

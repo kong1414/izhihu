@@ -37,7 +37,7 @@ export default new Router({
           component: () => import('./views/index/Index.vue')
         },
         {
-          path: '/home/search',
+          path: '/home/search/:input',
           menuName: 'search',
           component: () => import('./views/index/Search.vue')
         },
