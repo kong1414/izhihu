@@ -87,7 +87,20 @@
                          name="answer">
               <div v-if="articleList.length <= 0">暂无回答</div>
               <div v-else>
-                {{articleList}}
+                <!-- {{articleList}} -->
+                <div v-for="(item, index) in articleList" :key="index">
+                  <!-- {{item}} -->
+                  <answer-item
+                      :apprN="item.report_num"
+                      :evalN="item.comment_num"
+                      :queName="item.title"
+                      :author="item.name"
+                      :queDet="item.content"
+                      :articleId="item.article_id"
+                      :queId="item.ques_id"
+                      :type="item.type"
+                    />
+                </div>
               </div>
             </el-tab-pane>
             <el-tab-pane label="提问"
@@ -101,14 +114,40 @@
                          name="article">
               <div v-if="articleList.length <= 0">暂无文章</div>
               <div v-else>
-                {{articleList}}
+                <!-- {{articleList}} -->
+                <div v-for="(item, index) in articleList" :key="index">
+                  <!-- {{item}} -->
+                  <answer-item
+                      :apprN="item.report_num"
+                      :evalN="item.comment_num"
+                      :queName="item.title"
+                      :author="item.name"
+                      :queDet="item.content"
+                      :articleId="item.article_id"
+                      :queId="item.ques_id"
+                      :type="item.type"
+                    />
+                </div>
               </div>
             </el-tab-pane>
             <el-tab-pane label="想法"
                          name="idea">
               <div v-if="articleList.length <= 0">暂无想法</div>
               <div v-else>
-                {{articleList}}
+                <!-- {{articleList}} -->
+                <div v-for="(item, index) in articleList" :key="index">
+                  <!-- {{item}} -->
+                  <answer-item
+                      :apprN="item.report_num"
+                      :evalN="item.comment_num"
+                      :queName="item.title"
+                      :author="item.name"
+                      :queDet="item.content"
+                      :articleId="item.article_id"
+                      :queId="item.ques_id"
+                      :type="item.type"
+                    />
+                </div>
               </div>
             </el-tab-pane>
             <el-tab-pane label="收藏夹"
@@ -234,12 +273,14 @@ import { reqAttedTopic } from '../../api/topic'
 import { reqCountAtted, reqGetAttByUser, reqInFollow, reqUnFollow, reqCheckFollow } from '../../api/follow'
 import AsideFooter from '../../components/aside/AsideFooter'
 import recommendItem from '../../components/index/RecommendItem'
+import AnswerItem from '../../components/index/AnswerItem'
 
 export default {
   name: 'people',
   components: {
     AsideFooter,
     recommendItem,
+    AnswerItem
   },
   data () {
     return {

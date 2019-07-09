@@ -296,8 +296,11 @@ export default {
       };
       reqCollect(params).then(res => {
         if (res.resultCode == 200) {
-          this.$message("收藏成功");
-        } else this.$message("收藏失败");
+          this.$message({
+            type: "success",
+            message: res.resultMessage
+          });
+        } 
       });
     },
     like() { //回答点赞
@@ -308,6 +311,10 @@ export default {
       reqLike(params).then(res => {
         if (res.resultCode == 200) {
           this.likeNum++;
+          this.$message({
+            type: "success",
+            message: res.resultMessage
+          });
         }
       });
     },
@@ -325,12 +332,20 @@ export default {
         reqUnLike(params).then(res => {
           if (res.resultCode == 200) {
             this.attiStat = 0;
+            this.$message({
+              type: "success",
+              message: res.resultMessage
+            });
           }
         });
       } else {
         reqUnLike(params).then(res => {
           if (res.resultCode == 200) {
             this.attiStat = 0;
+            this.$message({
+              type: "success",
+              message: res.resultMessage
+            });
           }
         });
       }
@@ -345,12 +360,20 @@ export default {
           if (res.resultCode == 200) {
             this.attiStat = -1;
             this.likeNum--;
+            this.$message({
+              type: "success",
+              message: res.resultMessage
+            });
           }
         });
       } else {
         reqCancelLike(params).then(res => {
           if (res.resultCode == 200) {
             this.attiStat = -1;
+            this.$message({
+              type: "success",
+              message: res.resultMessage
+            });
           }
         });
       }
