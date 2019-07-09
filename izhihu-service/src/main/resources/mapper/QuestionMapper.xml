@@ -62,7 +62,7 @@ JOIN users
 ON question.questioner_id = users.user_id
 WHERE
 izhihu.question.del = 0
-ORDER BY RAND() LIMIT 10
+ORDER BY RAND() LIMIT 5
     </select>
     <select id="getHotList" resultMap="BaseResultMap" >
         SELECT

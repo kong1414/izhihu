@@ -64,8 +64,9 @@ export default {
           console.info(res.data)
           this.recommendList = res.data.map(i => {
             i.update_time = dataUtil.getStrData(i.update_time)
-            if(i.anonymity == 1)
-              i.name = '匿名用户';
+            if (i.anonymity == 1) {
+              i.name = '匿名用户'
+            }
             return i
           })
           
