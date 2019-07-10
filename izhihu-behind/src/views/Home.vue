@@ -59,10 +59,10 @@
           <i class="el-icon-chat-dot-square"></i>
           <span slot="title">评论管理</span>
         </el-menu-item>
-        <el-menu-item index="/home/favoritemanage">
+        <!-- <el-menu-item index="/home/favoritemanage">
           <i class="el-icon-notebook-2"></i>
           <span slot="title">收藏管理</span>
-        </el-menu-item>
+        </el-menu-item> -->
         <!-- <el-menu-item index="/home/index">
           <i class="el-icon-upload2"></i>
           <span slot="title">出库管理</span>

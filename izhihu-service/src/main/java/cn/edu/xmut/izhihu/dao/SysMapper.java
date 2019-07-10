@@ -24,5 +24,4 @@ public interface SysMapper {
 
     List<Map<String, Object>> findFar(@Param("keyword") String keyword);
 
-
 }

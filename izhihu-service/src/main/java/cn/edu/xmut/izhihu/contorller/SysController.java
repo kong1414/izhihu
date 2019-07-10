@@ -3,6 +3,7 @@ package cn.edu.xmut.izhihu.contorller;
 import cn.edu.xmut.izhihu.dao.*;
 import cn.edu.xmut.izhihu.pojo.common.ResultVO;
 import cn.edu.xmut.izhihu.pojo.common.SuccessVO;
+import cn.edu.xmut.izhihu.pojo.entity.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,6 +71,36 @@ public class SysController {
     public ResultVO findFar(@RequestParam(defaultValue = "")String keyword) {
         List<Map<String,Object>> list =  sysMapper.findFar(keyword);
         return new SuccessVO(list);
+    }
+    @ApiOperation("删除文章")
+    @PostMapping("/delArticle")
+    public ResultVO delArticle(@RequestParam String id) {
+        Article article = articleMapper.selectByPrimaryKey(id);
+        article.setDel(1);
+        articleMapper.updateByPrimaryKey(article);
+        return new SuccessVO("删除成功");
+    }
+    @ApiOperation("删除问题")
+    @PostMapping("/delQues")
+    public ResultVO delQues(@RequestParam String id) {
+        Question question = questionMapper.selectByPrimaryKey(id);
+        question.setDel(1);
+        questionMapper.updateByPrimaryKey(question);
+        return new SuccessVO("删除成功");
+    }
+    @ApiOperation("删除评论")
+    @PostMapping("/delComment")
+    public ResultVO delComment(@RequestParam String id) {
+        Comment comment = commentMapper.selectByPrimaryKey(id);
+        comment.setDel(1);
+        commentMapper.updateByPrimaryKey(comment);
+        return new SuccessVO("删除成功");
+    }
+    @ApiOperation("删除话题")
+    @PostMapping("/delTopic")
+    public ResultVO delTopic(@RequestParam String id) {
+        topicMapper.deleteByPrimaryKey(id);
+        return new SuccessVO("删除成功");
     }
 
 }

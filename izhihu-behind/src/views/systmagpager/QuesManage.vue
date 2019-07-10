@@ -23,22 +23,61 @@
         :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
         v-loading="loading"
         style="width: 100%;margin: 10px 0">
-        <el-table-column label="用户名" min-width="100px" fixed="left">
+        <el-table-column
+          type="index"
+          width="50">
+        </el-table-column>
+        <el-table-column label="问题" min-width="100px">
           <template slot-scope="scope">
-            <span>{{scope.row.username}}</span>
+            <span>{{scope.row.ques_name}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="用户名" min-width="100px" fixed="left">
+        <el-table-column label="详情" min-width="200px" show-overflow-tooltip> 
           <template slot-scope="scope">
-            <span>{{scope.row.username}}</span>
+            <span v-html="scope.row.ques_describe"></span>
           </template>
         </el-table-column>
-        <el-table-column label="用户名" min-width="100px" fixed="left">
+        <el-table-column label="提问人">
           <template slot-scope="scope">
-            <span>{{scope.row.username}}</span>
+            <span>{{scope.row.name}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="220px" fixed="right">
+        <el-table-column label="匿名">
+          <template slot-scope="scope">
+            <!-- <span>{{scope.row.anonymity}}</span> -->
+            <el-tag v-if="scope.row.anonymity==1" size="mini" type="info">匿名</el-tag>
+            <el-tag v-if="scope.row.anonymity==0" size="mini">未匿名</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="回答数" sortable prop="answer_num">
+          <!-- <template slot-scope="scope">
+            <span>{{scope.row.answer_num}}</span>
+          </template> -->
+        </el-table-column>
+        <el-table-column label="关注数" sortable prop="attention_num">
+          <!-- <template slot-scope="scope">
+            <span>{{scope.row.attention_num}}</span>
+          </template> -->
+        </el-table-column>
+        <el-table-column label="浏览数" sortable prop="browse_num">
+          <!-- <template slot-scope="scope">
+            <span>{{scope.row.browse_num}}</span>
+          </template> -->
+        </el-table-column>
+        <el-table-column label="创建时间" sortable prop="create_time">
+          <!-- <template slot-scope="scope">
+            <span>{{scope.row.create_time}}</span>
+          </template> -->
+        </el-table-column>
+        <el-table-column label="删除" min-width="100px" >
+          <template slot-scope="scope">
+            <!-- <span>{{scope.row.del}}</span> -->
+            <el-tag v-if="scope.row.del==0" size="mini">未删除</el-tag>
+            <el-tag v-if="scope.row.del==1" size="mini" type="danger">已删除</el-tag>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="操作" width="100px" fixed="right">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -62,7 +101,8 @@
 </template>
 
 <script>
-import {reqFindQues} from '../../api/sysManager'
+import {reqFindQues,reqDelQues} from '../../api/sysManager'
+import dataUtil from '../../util/dataUtil';
 export default {
   name: 'QuesManage',
   data () {
@@ -71,6 +111,7 @@ export default {
       tableData: [],
       pagesize: 10,
       currentPage: 1,
+      loading: true
     }
   },
   watch: {
@@ -89,30 +130,43 @@ export default {
   },
   methods: {
     _loadData () {
-
+      this.loading = true
+      let params = 'keyword='+ this.searchContent
+      reqFindQues(params).then(res => {
+        if (res.resultCode == 200) {
+          this.tableData = res.data.map(i => {
+            i.create_time = dataUtil.getStrData(i.create_time)
+            i.update_time = dataUtil.getStrData(i.update_time)
+            return i
+          })
+          this.loading = false
+        }
+      })
     },
     handleSizeChange (val) {
       this.pagesize = val
+      this._loadData()
     },
-    handleCurrentChange () {
+    handleCurrentChange (val) {
       this.currentPage = val
+      this._loadData()
     },
     handleDelete (index, row) {
-      this.$confirm('此操作将永久删除该用户且无法恢复，是否继续?', '提示', {
+      this.$confirm('此操作将永久删除问题且无法恢复，是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        // let params = 'id=' + row.id
-        // reqDelUser(params).then(res => {
-        //   if (res.resultCode === 200) {
-        //     this.$message({
-        //       type: 'success',
-        //       message: res.resultMessage
-        //     })
-        //     this._loadData()
-        //   }
-        // })
+        let params = 'id=' + row.ques_id
+        reqDelQues(params).then(res => {
+          if (res.resultCode === 200) {
+            this.$message({
+              type: 'success',
+              message: res.resultMessage
+            })
+            this._loadData()
+          }
+        })
         
       }).catch(() => {
       })

@@ -62,3 +62,19 @@ export const reqFindTopic = params => { //
 export const reqFindFar = params => { //
   return axios.post(`${BASE_URL}/sys/findFar`, params).then(res => res.data)
 }
+
+export const reqDelArticle = params => { //
+  return axios.post(`${BASE_URL}/sys/delArticle`, params).then(res => res.data)
+}
+
+export const reqDelQues = params => { //
+  return axios.post(`${BASE_URL}/sys/delQues`, params).then(res => res.data)
+}
+
+export const reqDelComment = params => { //
+  return axios.post(`${BASE_URL}/sys/delComment`, params).then(res => res.data)
+}
+
+export const reqDelTopic = params => { //
+  return axios.post(`${BASE_URL}/sys/delTopic`, params).then(res => res.data)
+}

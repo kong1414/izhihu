@@ -23,22 +23,36 @@
         :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
         v-loading="loading"
         style="width: 100%;margin: 10px 0">
-        <el-table-column label="用户名" min-width="100px" fixed="left">
+        <el-table-column
+          type="index"
+          width="50">
+        </el-table-column>
+        <el-table-column label="话题id" min-width="100px">
           <template slot-scope="scope">
-            <span>{{scope.row.username}}</span>
+            <span>{{scope.row.topic_id}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="用户名" min-width="100px" fixed="left">
+        <el-table-column label="话题名称">
           <template slot-scope="scope">
-            <span>{{scope.row.username}}</span>
+            <span>{{scope.row.topic_name}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="用户名" min-width="100px" fixed="left">
+        <el-table-column label="话题描述">
           <template slot-scope="scope">
-            <span>{{scope.row.username}}</span>
+            <span>{{scope.row.topic_desc}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="220px" fixed="right">
+        <el-table-column label="话题父id">
+          <template slot-scope="scope">
+            <span>{{scope.row.topic_father_id}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="创建时间" sortable prop="create_time">
+          <!-- <template slot-scope="scope">
+            <span>{{scope.row.create_time}}</span>
+          </template> -->
+        </el-table-column>
+        <el-table-column label="操作" width="100px" fixed="right">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -62,7 +76,8 @@
 </template>
 
 <script>
-import {reqFindTopic} from '../../api/sysManager'
+import {reqFindTopic,reqDelTopic} from '../../api/sysManager'
+import dataUtil from '../../util/dataUtil';
 export default {
   name: 'TopicManage',
   data () {
@@ -71,6 +86,7 @@ export default {
       tableData: [],
       pagesize: 10,
       currentPage: 1,
+      loading: true
     }
   },
   watch: {
@@ -89,30 +105,42 @@ export default {
   },
   methods: {
     _loadData () {
-
+      this.loading = true
+      let params = 'keyword='+ this.searchContent
+      reqFindTopic(params).then(res => {
+        if (res.resultCode == 200) {
+          this.tableData = res.data.map(i => {
+            i.create_time = dataUtil.getStrData(i.create_time)
+            return i
+          })
+          this.loading = false
+        }
+      })
     },
     handleSizeChange (val) {
       this.pagesize = val
+      this._loadData()
     },
-    handleCurrentChange () {
+    handleCurrentChange (val) {
       this.currentPage = val
+      this._loadData()
     },
     handleDelete (index, row) {
-      this.$confirm('此操作将永久删除该用户且无法恢复，是否继续?', '提示', {
+      this.$confirm('此操作将永久删除话题且无法恢复，是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        // let params = 'id=' + row.id
-        // reqDelUser(params).then(res => {
-        //   if (res.resultCode === 200) {
-        //     this.$message({
-        //       type: 'success',
-        //       message: res.resultMessage
-        //     })
-        //     this._loadData()
-        //   }
-        // })
+        let params = 'id=' + row.topic_id
+        reqDelTopic(params).then(res => {
+          if (res.resultCode === 200) {
+            this.$message({
+              type: 'success',
+              message: res.resultMessage
+            })
+            this._loadData()
+          }
+        })
         
       }).catch(() => {
       })

@@ -40,12 +40,12 @@
             <span>{{scope.row.title}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="内容" min-width="100px">
+        <el-table-column label="内容" min-width="100px" show-overflow-tooltip>
           <template slot-scope="scope">
-            <span>{{scope.row.title}}</span>
+            <span v-html="scope.row.content"></span>
           </template>
         </el-table-column>
-        <el-table-column label="作者" min-width="100px">
+        <el-table-column label="作者">
           <template slot-scope="scope">
             <span>{{scope.row.name}}</span>
           </template>
@@ -57,26 +57,26 @@
             <el-tag v-if="scope.row.anonymity==0" size="mini">未匿名</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="评论次数">
-          <template slot-scope="scope">
+        <el-table-column label="评论数" sortable prop="comment_num">
+          <!-- <template slot-scope="scope">
             <span>{{scope.row.comment_num}}</span>
-          </template>
+          </template> -->
         </el-table-column>
-        <el-table-column label="点赞数" >
-          <template slot-scope="scope">
+        <el-table-column label="点赞数" sortable prop="report_num">
+          <!-- <template slot-scope="scope">
             <span>{{scope.row.report_num}}</span>
-          </template>
+          </template> -->
         </el-table-column>
-        <el-table-column label="创建时间" >
-          <template slot-scope="scope">
+        <el-table-column label="创建时间" sortable prop="create_time">
+          <!-- <template slot-scope="scope">
             <span>{{scope.row.create_time}}</span>
-          </template>
+          </template> -->
         </el-table-column>
         <el-table-column label="删除" min-width="100px" >
           <template slot-scope="scope">
             <!-- <span>{{scope.row.del}}</span> -->
-            <el-tag v-if="scope.row.anonymity==0" size="mini">未删除</el-tag>
-            <el-tag v-if="scope.row.anonymity==1" size="mini" type="danger">已删除</el-tag>
+            <el-tag v-if="scope.row.del==0" size="mini">未删除</el-tag>
+            <el-tag v-if="scope.row.del==1" size="mini" type="danger">已删除</el-tag>
           </template>
         </el-table-column>
         
@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import {reqFindArticlev} from '../../api/sysManager'
+import {reqFindArticlev,reqDelArticle} from '../../api/sysManager'
 import dataUtil from '../../util/dataUtil';
 export default {
   name: 'ArticleManage',
@@ -133,6 +133,7 @@ export default {
   },
   methods: {
     _loadData () {
+      this.loading = true
       let params = 'keyword='+ this.searchContent
       reqFindArticlev(params).then(res => {
         if (res.resultCode == 200) {
@@ -147,26 +148,28 @@ export default {
     },
     handleSizeChange (val) {
       this.pagesize = val
+      this._loadData()
     },
-    handleCurrentChange () {
+    handleCurrentChange (val) {
       this.currentPage = val
+      this._loadData()
     },
     handleDelete (index, row) {
-      this.$confirm('此操作将删除文章，是否继续?', '提示', {
+      this.$confirm('此操作将永久删除文章且无法恢复，是否继续?，是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        // let params = 'id=' + row.id
-        // reqDelUser(params).then(res => {
-        //   if (res.resultCode === 200) {
-        //     this.$message({
-        //       type: 'success',
-        //       message: res.resultMessage
-        //     })
-        //     this._loadData()
-        //   }
-        // })
+        let params = 'id=' + row.article_id
+        reqDelArticle(params).then(res => {
+          if (res.resultCode === 200) {
+            this.$message({
+              type: 'success',
+              message: res.resultMessage
+            })
+            this._loadData()
+          }
+        })
 
       }).catch(() => {
       })
