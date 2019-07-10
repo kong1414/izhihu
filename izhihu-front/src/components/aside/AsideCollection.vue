@@ -121,9 +121,10 @@ export default {
       })
 
     },
-    toFavorite () {
+    toFavorite() {
+      //跳转favorite页面
       this.$router.push({ path: "/home/favorite" });
-    }
+    },
   }
 }
 </script>

@@ -5,6 +5,10 @@
     <el-button type="text" size="mini" @click="toQueDetail()" class="disDetName">
       {{queName}}
     </el-button>
+    <el-tag type="info" size="mini" v-if="type==1">问题</el-tag>
+    <el-tag type="info" size="mini" v-else-if="type==2">文章</el-tag>
+    <el-tag type="info" size="mini" v-else>想法</el-tag>
+    
     <div style="margin:5px 0;" v-if="author!=null">
       <el-avatar shape="square" :size="20" :src="url"></el-avatar>    
       <span class="disDetAuthor">{{author}}</span>
@@ -286,7 +290,7 @@ export default {
     },
     toQueDetail() {
       // 跳转到问题主页
-      // if (this.type == 1)
+      if (this.type == 1)
         this.$router.push({ path: "/home/question/" + this.queId });
     },
     collArt(v) {  //收藏弹窗
@@ -494,12 +498,14 @@ export default {
       font-size: 18px;
       font-weight: 600;
       color: black;
+      margin-right: 10px;
     }
     .disDetAuthor {
       font-size: 15px;
       font-weight: 600;
       margin-left: 10px;
       line-height: 20px;
+      padding: 0px;
     }
     .disDetque {
       font-size: 15px;
