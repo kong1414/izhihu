@@ -207,7 +207,7 @@ export default {
 <style lang="scss">
 .editIndex {
   margin: 2px auto 0;
-  width: 660px;
+  // width: 660px;
   .head {
     .leftArea {
       float: left;
