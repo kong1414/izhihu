@@ -17,19 +17,19 @@
           </el-button>
         </div>
         <div>
-          <el-button type="text">
+          <el-button type="text" @click="toUser">
             <i class="el-icon-plus"/>
             <span>我的邀请</span>
           </el-button>
         </div>
         <div>
-          <el-button type="text">
+          <el-button type="text" @click="toCommunity">
             <i class="el-icon-tickets"/>
             <span>站务中心</span>
           </el-button>
         </div>
         <div>
-          <el-button type="text">
+          <el-button type="text" @click="toCopyRight">
             <i class="el-icon-s-management"/>
             <span>版权服务中心</span>
           </el-button>
@@ -56,6 +56,12 @@ export default {
     toUser(){
       //跳转个人页面
       this.$router.push({ path: "/home/people/" +this.userId });
+    },
+    toCommunity(){
+       window.open('https://www.zhihu.com/community','_blank')
+    },
+    toCopyRight(){
+       window.open('https://www.zhihu.com/copyright','_blank')
     }
   }
 }

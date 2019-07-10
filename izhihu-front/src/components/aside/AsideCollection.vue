@@ -29,9 +29,9 @@
           </el-button>
         </div>
         <div class="above">
-          <el-button type="text">
-            <i class="el-icon-s-management" />
-            <span>版权服务中心1</span>
+          <el-button type="text" @click="toCopyRight">
+            <i class="el-icon-s-management"/>
+            <span>版权服务中心</span>
           </el-button>
         </div>
         <el-divider></el-divider>
@@ -48,16 +48,16 @@
     <el-dialog title="创建收藏夹"
                width="600px"
                :visible.sync="dialogFormVisible">
-      <el-form label-width="60px"
+      <el-form label-width="60px"  :model="collection" :rules="rules"
                style="width: 100%;padding: 20px;">
-        <el-form-item label="名称"
+        <el-form-item label="名称" prop="name"
                       style="">
-          <el-input v-model="name"
+          <el-input v-model="collection.name"
                     placeholder="请输入收藏夹名称"></el-input>
         </el-form-item>
-        <el-form-item label="描述"
+        <el-form-item label="描述" prop="describes"
                       style="">
-          <el-input v-model="describes"
+          <el-input v-model="collection.describes"
                     placeholder="请输入收藏夹描述"></el-input>
         </el-form-item>
         <div class="choiArea">
@@ -94,8 +94,19 @@ export default {
     return {
       userId: this.$store.state.user.userId,
       dialogFormVisible: false,
-      name: '',
-      describes: '',
+      collection: {
+        name: '',
+        describes: '',
+      },
+      rules: {
+        name: [
+          { required: true, message: '请输入收藏夹名' }
+          // { validator: validaePass }
+        ],
+        describes: [
+          { required: true, message: '请输入描述' }
+        ]
+      },
       isPublic: '1'
     };
   },
@@ -103,8 +114,8 @@ export default {
     handleCreate () {
       let params = {
         userId: this.userId,
-        name: this.name,
-        describes: this.describes,
+        name: this.collection.name,
+        describes: this.collection.describes,
         isPublic: Number(this.isPublic)
       }
       reqCreateFav(params).then(res => {
@@ -130,7 +141,10 @@ export default {
       this.$router.push({ path: "/home/people/" +this.userId });
     },
     toCommunity(){
-      window.location.href = 'http://www.baidu.com'; 
+       window.open('https://www.zhihu.com/community','_blank')
+    },
+    toCopyRight(){
+       window.open('https://www.zhihu.com/copyright','_blank')
     }
   }
 }

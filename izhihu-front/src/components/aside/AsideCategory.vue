@@ -10,25 +10,25 @@
         </el-button>
       </el-col>
       <el-col :span="8">
-        <el-button type="text" class="category-button button-color-book">
+        <el-button type="text" class="category-button button-color-book" @click="toBookShop">
           <i class="el-icon-notebook-1"/>
           <p class="categoryLabel">书店</p>
         </el-button>
       </el-col>
       <el-col :span="8">
-        <el-button type="text" class="category-button button-color-table">
+        <el-button type="text" class="category-button button-color-table" @click="toCTable">
           <i class="el-icon-bangzhu"/>
           <p class="categoryLabel">圆桌</p>
         </el-button>
       </el-col>
       <el-col :span="8">
-        <el-button type="text" class="category-button button-color-edit">
+        <el-button type="text" class="category-button button-color-edit" @click="toColumn">
           <i class="el-icon-edit"/>
           <p class="categoryLabel">专栏</p>
         </el-button>
       </el-col>
       <el-col :span="8">
-        <el-button type="text" class="category-button button-color-chat">
+        <el-button type="text" class="category-button button-color-chat" @click="toConsult">
           <i class="el-icon-chat-dot-round"/>
           <p class="categoryLabel">收费咨询</p>
         </el-button>
@@ -47,8 +47,20 @@ export default {
     }
   },
   methods: {
-    toLive () {
-       window.open('http://www.baidu.com', '_blank')
+    toLive () {//跳转live
+       window.open('https://www.zhihu.com/lives', '_blank')
+    },
+    toBookShop () {//跳转书店
+       window.open('https://www.zhihu.com/pub/', '_blank')
+    },
+    toCTable () {//跳转圆桌
+       window.open('https://www.zhihu.com/roundtable', '_blank')
+    },
+    toColumn () {//跳转专栏
+       window.open('https://zhuanlan.zhihu.com/', '_blank')
+    },
+    toConsult () {//跳转咨询
+       window.open('https://www.zhihu.com/consult', '_blank')
     }
   }
 }
