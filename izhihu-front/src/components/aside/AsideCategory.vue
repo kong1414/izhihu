@@ -4,7 +4,7 @@
   <el-card class="category-card">
     <el-row>
       <el-col :span="8">
-        <el-button type="text" class="category-button button-color-live">
+        <el-button type="text" class="category-button button-color-live" @click="toLive">
           <i class="el-icon-s-promotion"/>
           <p class="categoryLabel">Live</p>
         </el-button>
@@ -47,6 +47,9 @@ export default {
     }
   },
   methods: {
+    toLive () {
+       window.open('http://www.baidu.com', '_blank')
+    }
   }
 }
 </script>
