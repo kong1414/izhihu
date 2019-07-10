@@ -152,6 +152,12 @@ export default {
     .el-radio {
       margin-right: 0px;
     }
+    .el-radio.is-bordered + .el-radio.is-bordered {
+      margin-top: 10px;
+    }
+    .el-radio.is-bordered{
+      margin-left: 10px;
+    }
   }
   .topic-item {
     margin-top: 15px;
@@ -169,6 +175,7 @@ export default {
           font-weight: 600;
         }
       }
+
     }
     .introduction-head {
       margin-right: 28px;
