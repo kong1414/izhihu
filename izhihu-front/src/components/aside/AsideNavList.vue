@@ -5,13 +5,13 @@
       <el-row>
       <div class="list">
         <div>
-          <el-button type="text">
+          <el-button type="text" @click="toFavorite">
             <i class="el-icon-star-off"/>
             <span>我的收藏</span>
           </el-button>
         </div>
         <div>
-          <el-button type="text">
+          <el-button type="text" @click="toUser">
             <i class="el-icon-question"/>
             <span>我关注的问题</span>
           </el-button>
@@ -45,11 +45,18 @@ export default {
   name: 'asideNavlist',
   data () {
     return {
-
+      userId: this.$store.state.user.userId
     }
   },
   methods: {
-
+    toFavorite() {
+      //跳转favorite页面
+      this.$router.push({ path: "/home/favorite" });
+    },
+    toUser(){
+      //跳转个人页面
+      this.$router.push({ path: "/home/people/" +this.userId });
+    }
   }
 }
 </script>

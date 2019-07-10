@@ -5,9 +5,9 @@
     <el-button type="text" size="mini" @click="toQueDetail()" class="disDetName">
       {{queName}}
     </el-button>
-    <el-tag type="info" size="mini" v-if="type==1">问题</el-tag>
-    <el-tag type="info" size="mini" v-else-if="type==2">文章</el-tag>
-    <el-tag type="info" size="mini" v-else>想法</el-tag>
+    <el-tag  size="mini" v-if="type==1">问题</el-tag>
+    <el-tag type="success" size="mini" v-else-if="type==2">文章</el-tag>
+    <el-tag type="warning" size="mini" v-else>想法</el-tag>
     
     <div style="margin:5px 0;" v-if="author!=null">
       <el-avatar shape="square" :size="20" :src="url"></el-avatar>    
@@ -17,7 +17,7 @@
     <!-- 文章、问答详情 -->
     <div class="ope">
       <span>
-        <el-button class="apprBut" v-if="attiStat!=1" @click="attiStat=1;like()">
+        <el-button class="apprBut" v-if="attiStat!=1" @click="like()">
           <i class="el-icon-caret-top"></i>
           <span>赞同 {{likeNum}}</span>
         </el-button>
@@ -25,19 +25,19 @@
           class="apprBut"
           style="background:#0084ff;width:120px;"
           v-if="attiStat==1"
-          @click="preAtti = attiStat;attiStat=-1;canclike()"
+          @click="canclike()"
         >
           <i class="el-icon-caret-top" style="color:white;"></i>
           <span style="color:white;">已赞同 {{likeNum}}</span>
         </el-button>
-        <el-button class="oppBut" v-if="attiStat!=0" @click="preAtti=attiStat;attiStat=0;unlike()">
+        <el-button class="oppBut" v-if="attiStat!=0" @click="unlike()">
           <i class="el-icon-caret-bottom"></i>
         </el-button>
         <el-button
           class="oppBut"
           style="background:#0084ff;"
           v-if="attiStat==0"
-          @click="preAtti = attiStat;attiStat=-1;canclike()"
+          @click="canclike()"
         >
           <i class="el-icon-caret-bottom" style="color:white;"></i>
         </el-button>
@@ -84,7 +84,7 @@
             <el-button
               class="shareBut"
               v-if="comDet.stat!=1"
-              @click="comDet.stat=1;comlike(comDet)"
+              @click="comlike(comDet)"
               style="margin-left: 0px;"
               size="mini"
               type="text"
@@ -96,7 +96,7 @@
               class="shareBut"
               size="mini"
               v-if="comDet.stat==1"
-              @click="preAtti =comDet.stat; comDet.stat=-1;comcanclike(comDet)"
+              @click="comcanclike(comDet)"
               style="color: #0084ff;margin-left: 0px;"
               type="text"
             >
@@ -108,7 +108,7 @@
               size="mini"
               v-if="comDet.stat!=0"
               style="margin-left:10px;"
-              @click="preAtti =comDet.stat;comDet.stat=0;comunlike(comDet)"
+              @click="comunlike(comDet)"
               type="text"
             >
               <i class="el-icon-caret-bottom"></i>
@@ -118,7 +118,7 @@
               class="shareBut"
               v-if="comDet.stat==0"
               size="mini"
-              @click="preAtti =comDet.stat;comDet.stat=-1;comcanclike(comDet)"
+              @click="comcanclike(comDet)"
               style="color: #0084ff;margin-left:10px;"
               type="text"
             >
@@ -315,6 +315,7 @@ export default {
       reqLike(params).then(res => {
         if (res.resultCode == 200) {
           this.likeNum++;
+          this.attiStat=1;
           this.$message({
             type: "success",
             message: res.resultMessage
@@ -327,6 +328,7 @@ export default {
         userId: this.userId,
         contentId: this.articleId
       };
+      this.preAtti=this.attiStat;
       if (this.preAtti == 1) {
         reqCancelLike(params).then(res => {
           if (res.resultCode == 200) {
@@ -359,6 +361,7 @@ export default {
         userId: this.userId,
         contentId: this.articleId
       };
+      this.preAtti = this.attiStat;
       if (this.preAtti == 1) {
         reqCancelLike(params).then(res => {
           if (res.resultCode == 200) {
@@ -389,7 +392,12 @@ export default {
       };
       reqLike(params).then(res => {
         if (res.resultCode == 200) {
+          v.stat=1;
           v.praise_num++;
+          this.$message({
+              type: "success",
+              message: res.resultMessage
+            });
         }
       });
     },
@@ -398,6 +406,7 @@ export default {
         userId: this.userId,
         contentId: v.id
       };
+      this.preAtti =v.stat;
       if (this.preAtti == 1) {
         reqCancelLike(params).then(res => {
           if (res.resultCode == 200) {
@@ -406,11 +415,21 @@ export default {
         });
         reqUnLike(params).then(res => {
           if (res.resultCode == 200) {
+            v.stat=0;
+            this.$message({
+              type: "success",
+              message: res.resultMessage
+            });
           }
         });
       } else {
         reqUnLike(params).then(res => {
           if (res.resultCode == 200) {
+            v.stat=0;
+            this.$message({
+              type: "success",
+              message: res.resultMessage
+            });
           }
         });
       }
@@ -420,15 +439,26 @@ export default {
         userId: this.userId,
         contentId: v.id
       };
+      this.preAtti =v.stat; 
       if (this.preAtti == 1) {
         reqCancelLike(params).then(res => {
           if (res.resultCode == 200) {
             v.praise_num--;
+            v.stat=-1;
+            this.$message({
+              type: "success",
+              message: res.resultMessage
+            });
           }
         });
       } else {
         reqCancelLike(params).then(res => {
           if (res.resultCode == 200) {
+            v.stat=-1;
+            this.$message({
+              type: "success",
+              message: res.resultMessage
+            });
           }
         });
       }
