@@ -8,6 +8,9 @@ import './plugins/element.js'
 import '@/assets/styles/index.scss'
 import '@/assets/iconfont/iconfont.css'
 
+import VCharts from 'v-charts'
+Vue.use(VCharts)
+
 Vue.config.productionTip = false
 Vue.prototype.$md5 = md5
 
