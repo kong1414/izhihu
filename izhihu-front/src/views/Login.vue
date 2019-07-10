@@ -144,8 +144,6 @@ export default {
       .head {
         text-align: center;
         margin-top: 20px;
-        .logo {
-        }
         .logo-text {
           margin-top: 5px;
           color: #0084ff;
