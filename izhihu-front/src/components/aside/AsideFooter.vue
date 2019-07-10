@@ -1,6 +1,6 @@
 <template>
   <!-- 首页右侧底部、其他信息 -->
-  <div class="aside-footer">
+  <div class="aside-footer" @click="toLKS">
     <a href="">刘看山</a>
     <span>·</span>
     <a href="">i知乎指南</a>
@@ -39,7 +39,9 @@ export default {
     }
   },
   methods: {
-
+    toLKS(){
+      window.open('https://liukanshan.zhihu.com/', '_blank')
+    }
   }
 }
 </script>

@@ -17,19 +17,35 @@
           <div class="hl-line"></div>
         </div>
       </el-card>
-      <el-card class="today-hot">
+      <el-card class="recommend">
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="七日最热" name="today">
             <!-- {{todayList}} -->
             <div v-for="(item, index) in todayList" :key="index">
-              {{item}}
-            </div>
+                  <!-- {{item}} -->
+                  <answer-item
+                    :queName="item.title"
+                    :author="item.name"
+                    :queDet="item.content"
+                    :articleId="item.article_id"
+                    :queId="item.ques_id"
+                    :type="item.type"
+                  />
+                </div>
           </el-tab-pane>
           <el-tab-pane label="本月最热" name="month">
             <!-- {{monthList}} -->
-            <div v-for="(item, index) in monthList" :key="index">
-              {{item}}
-            </div>
+            <div v-for="(item, index) in monthList" :key="index"> 
+                  <!-- {{item}} -->
+                  <answer-item
+                    :queName="item.title"
+                    :author="item.name"
+                    :queDet="item.content"
+                    :articleId="item.article_id"
+                    :queId="item.ques_id"
+                    :type="item.type"
+                  />
+                </div>
           </el-tab-pane>
         </el-tabs>
       </el-card>
@@ -84,12 +100,18 @@ export default {
 
       reqTodayHot().then(res => {
         if (res.resultCode == 200) {
+          res.data.forEach(element => {
+            element.update_time = dataUtil.getStrData(element.update_time)
+          });
           this.todayList = res.data
         }
       })
 
       reqMonthHot().then(res => {
         if (res.resultCode == 200) {
+          res.data.forEach(element => {
+            element.update_time = dataUtil.getStrData(element.update_time)
+          });
           this.monthList = res.data
         }
       })

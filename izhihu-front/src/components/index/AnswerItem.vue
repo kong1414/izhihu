@@ -15,7 +15,7 @@
     </div>
     <div class="disDetque" @click=" dialogVisible = true" v-html="queDet"></div>
     <!-- 文章、问答详情 -->
-    <div class="ope">
+    <div class="ope" v-if="apprN!=null">
       <span>
         <el-button class="apprBut" v-if="attiStat!=1" @click="like()">
           <i class="el-icon-caret-top"></i>
@@ -277,7 +277,7 @@ export default {
           this.creaCollections = res.data;
         }
       });
-      reqCheckOpp(userArtiParams).then(res => {  //获取点赞状态
+      if(this.apprN!=null) reqCheckOpp(userArtiParams).then(res => {  //获取点赞状态
         if (res.resultCode == 200) {
           this.attiStat = res.data;
         }
