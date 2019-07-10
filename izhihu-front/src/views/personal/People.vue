@@ -133,10 +133,13 @@
             <el-tab-pane label="收藏夹" name="favorite">
               <div v-if="faveList.length <= 0">暂无收藏夹</div>
               <div v-else>
-                <div v-for="(collection, index) in faveList" :key="index">
-                  <el-button type="text" @click="toFavorite">{{collection.favorite.favoriteName}}</el-button>
-                  <div>{{collection.contentNum}} 条内容 · {{collection.attNum}} 人关注</div>
-                  <el-divider></el-divider>
+                <!-- {{faveList}} -->
+                <div class="recommend" v-for="(i,index) in faveList" :key="index" >
+                  <el-button class="title" type="text" @click="toFavorite"><span><b>{{i.favorite.favoriteName}}</b></span></el-button>
+                  <div class="message">
+                    <span>{{i.contentNum}}  条内容   {{i.attNum}} 人关注   更新时间：{{i.favorite.createTime}}</span>
+                  </div>
+                  <div class="hl-line"></div>
                 </div>
               </div>
             </el-tab-pane>
@@ -459,6 +462,9 @@ export default {
         let params = "userId=" + this.currentUserId;
         reqMyFavDetail(params).then(res => {
           if (res.resultCode == 200) {
+            res.data.forEach(element => {
+              element.favorite.createTime = dataUtil.getStrData(element.favorite.createTime)
+            });
             this.faveList = res.data;
           }
         });
