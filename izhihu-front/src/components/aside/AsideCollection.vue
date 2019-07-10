@@ -4,26 +4,26 @@
     <el-card class="colletcion-card">
       <div class="list">
         <div class="above">
-          <el-button type="text" @click="toFavorite">
+          <el-button type="text" @click="toUser">
             <i class="el-icon-collection-tag" />
             <span>我的收藏</span>
           </el-button>
         </div>
         <div class="above">
-          <el-button type="text">
+          <el-button type="text" @click="toUser">
             <i class="el-icon-folder-checked" />
             <span>我关注的问题</span>
           </el-button>
         </div>
         <div class="above">
-          <el-button type="text">
+          <el-button type="text" @click="toUser">
             <i class="el-icon-document" />
             <span>邀请我回答的问题</span>
           </el-button>
         </div>
         <el-divider></el-divider>
         <div class="above">
-          <el-button type="text">
+          <el-button type="text" @click="toCommunity">
             <i class="el-icon-s-home" />
             <span>社区服务中心</span>
           </el-button>
@@ -31,7 +31,7 @@
         <div class="above">
           <el-button type="text">
             <i class="el-icon-s-management" />
-            <span>版权服务中心</span>
+            <span>版权服务中心1</span>
           </el-button>
         </div>
         <el-divider></el-divider>
@@ -125,6 +125,13 @@ export default {
       //跳转favorite页面
       this.$router.push({ path: "/home/favorite" });
     },
+    toUser(){
+      //跳转个人页面
+      this.$router.push({ path: "/home/people/" +this.userId });
+    },
+    toCommunity(){
+      window.location.href = 'http://www.baidu.com'; 
+    }
   }
 }
 </script>
