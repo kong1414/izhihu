@@ -83,11 +83,12 @@
               <div v-if="quesList.length <= 0">暂无提问</div>
               <div v-else>
                 <!-- {{quesList}} -->
-                <div v-for="(item, index) in quesList" :key="index" class="topName">
-                  <el-button type="text">
-                    <span @click="toQueDet(item.quesId)">{{item.quesName}}</span>
-                  </el-button>
-                  <p>{{item.answerNum}}个回答 {{item.attentionNum}}个关注 {{item.browseNum}}个浏览</p>
+                <div class="recommend" v-for="(i,index) in quesList" :key="index" >
+                  <el-button class="title" type="text" @click="toQueDet(i.quesId)"><span><b>{{i.quesName}}</b></span></el-button>
+                  <div class="message">
+                    <span>回答人数：{{i.answerNum}}      浏览人数：{{i.browseNum}}   更新时间：{{i.updateTime}}</span>
+                  </div>
+                  <div class="hl-line"></div>
                 </div>
               </div>
             </el-tab-pane>
@@ -154,23 +155,25 @@
               <div v-if="attQuesList.length <= 0">暂未关注</div>
               <div v-else>
                 <!-- {{attQuesList}} -->
-                <div v-for="(item, index) in attQuesList" :key="index" class="topName">
-                  <el-button type="text">
-                    <span @click="toQueDet(item.quesId)">{{item.quesName}}</span>
-                  </el-button>
-                  <p>{{item.answerNum}}个回答 {{item.attentionNum}}个关注 {{item.browseNum}}个浏览</p>
+                <div class="recommend" v-for="(i,index) in attQuesList" :key="index" >
+                  <el-button class="title" type="text" @click="toQueDet(i.quesId)"><span><b>{{i.quesName}}</b></span></el-button>
+                  <div class="message">
+                    <span>回答人数：{{i.answerNum}}      浏览人数：{{i.browseNum}}   更新时间：{{i.updateTime}}</span>
+                  </div>
+                  <div class="hl-line"></div>
                 </div>
               </div>
             </el-tab-pane>
             <el-tab-pane label="关注的用户" name="attPeople">
               <div v-if="attUserList.length <= 0">暂未关注</div>
               <div v-else>
-                {{attUserList}}
-                <div v-for="(item, index) in attUserList" :key="index" class="topName">
-                  <el-button type="text">
-                    <span @click="toUser(item.user_id)">{{item.name}}</span>
-                  </el-button>
-                  <p>个人介绍：{{item.introduce}}</p>
+                <!-- {{attUserList}} -->
+                <div class="recommend" v-for="(i,index) in attUserList" :key="index" >
+                  <el-button class="title" type="text" @click="toUser(i.user_id)"><span><b>{{i.name}}</b></span></el-button>
+                  <div class="message">
+                    <span>个人简介：{{i.introduce}}       位置：{{i.position}}    公司：{{i.company}}</span>
+                  </div>
+                  <div class="hl-line"></div>
                 </div>
               </div>
             </el-tab-pane>
@@ -273,6 +276,7 @@ import {
 import AsideFooter from "../../components/aside/AsideFooter";
 import recommendItem from "../../components/index/RecommendItem";
 import AnswerItem from "../../components/index/AnswerItem";
+import dataUtil from "../../util/dataUtil";
 
 export default {
   name: "people",
@@ -421,6 +425,10 @@ export default {
 
         reqFindQuesByUser(params).then(res => {
           if (res.resultCode == 200) {
+            res.data.forEach(element => {
+              element.updateTime = dataUtil.getStrData(element.updateTime)
+            });
+
             this.quesList = res.data;
           }
         });
@@ -470,6 +478,9 @@ export default {
         };
         reqGetAttByUser(params).then(res => {
           if (res.resultCode == 200) {
+            res.data.forEach(element => {
+              element.updateTime = dataUtil.getStrData(element.updateTime)
+            });
             this.attQuesList = res.data;
           }
         });
@@ -663,6 +674,21 @@ export default {
           float: right;
           margin-top: 18px;
           margin-right: 10px;
+        }
+      }
+      .recommend{
+        .title{
+          color: #259;
+        }
+        .message{
+          margin: 5px 0px;
+          color: #999;
+        }
+        .hl-line{
+          height: 1px;
+          width: 110%;
+          margin: 10px -50px 10px -20px;
+          background-color: #ebeef5;
         }
       }
     }
