@@ -24,10 +24,11 @@
 
         <div class="top-search">
           <el-input size="small"
-                    v-model="input"
+                    v-model.trim="input"
                     class="input"
                     placeholder="请输入内容"
-                    suffix-icon="el-icon-search">
+                    suffix-icon="el-icon-search"
+                    @keyup.enter.native="handleSearch">
           </el-input>
           <el-button type="primary"
                      size="small"
@@ -125,11 +126,11 @@ export default {
     input () {
       setTimeout(() => {
         if (this.input.length > 0) {
-        this.$router.push({path:'/home/search/'+ this.input})
-      } else {
-        this.$router.push({path: '/home/index'})
-        // this.$router.go(-1) // 不实用
-      }
+          this.$router.push({path:'/home/search/'+ this.input})
+        } else {
+          this.$router.push({path: '/home/index'})
+          // this.$router.go(-1) // 不实用
+        }
       }, 200)
     }
   },
@@ -171,6 +172,9 @@ export default {
     },
     closeMessage () {
       this.showMessageVisible = false
+    },
+    handleSearch () {
+      this.$router.push({path:'/home/search/'+ this.input})
     }
   }
 }
