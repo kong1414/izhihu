@@ -29,9 +29,9 @@
           </el-button>
         </div>
         <div class="above">
-          <el-button type="text">
-            <i class="el-icon-s-management" />
-            <span>版权服务中心1</span>
+          <el-button type="text" @click="toCopyRight">
+            <i class="el-icon-s-management"/>
+            <span>版权服务中心</span>
           </el-button>
         </div>
         <el-divider></el-divider>
@@ -130,7 +130,10 @@ export default {
       this.$router.push({ path: "/home/people/" +this.userId });
     },
     toCommunity(){
-      window.location.href = 'http://www.baidu.com'; 
+       window.open('https://www.zhihu.com/community','_blank')
+    },
+    toCopyRight(){
+       window.open('https://www.zhihu.com/copyright','_blank')
     }
   }
 }
