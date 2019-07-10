@@ -185,7 +185,7 @@ export default {
     }
     return {
       isShowDeleteButton: false,
-      loading: true,
+      loading: false,
       ids: [],
       AclDialogVisible: false, // 权限配置弹窗是否显示的参数
       itemData: {}, // 编辑的暂存对象
@@ -228,21 +228,21 @@ export default {
 
   },
   created () {
-    this._loadData()
+    // this._loadData()
   },
   methods: {
     _loadData () {
-      this.loading = true
-      let params = 'keyword=' + this.searchContent
-      reqUserList(params).then(res => {
-        if (res.resultCode === 200) {
-          res.data.forEach(element => {
-            element.show = false
-          })
-          this.tableData = res.data
-          this.loading = false
-        }
-      })
+      // this.loading = true
+      // let params = 'keyword=' + this.searchContent
+      // reqUserList(params).then(res => {
+      //   if (res.resultCode === 200) {
+      //     res.data.forEach(element => {
+      //       element.show = false
+      //     })
+      //     this.tableData = res.data
+      //     this.loading = false
+      //   }
+      // })
     },
     handleAddUser () {
       let params = {

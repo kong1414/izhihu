@@ -3,7 +3,9 @@
   <div class="index">
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <!-- <h1>index</h1> -->
-    <img alt="Vue logo" src="../assets/test.png">
+    <!-- <img alt="Vue logo" src="../assets/test.png"> -->
+    souye
+    
   </div>
 </template>
 

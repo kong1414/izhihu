@@ -89,7 +89,7 @@ export default {
         userId: this.$store.state.user.userId,
         type: 3,
         anonymity: 0,
-        title: '我的想法',
+        title: '想法',
         content: this.textarea,
         topicList: []
       }

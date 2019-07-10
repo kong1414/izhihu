@@ -97,7 +97,15 @@ export default {
       let params = 'userId=' + this.$store.state.user.userId
       reqAttContetn(params).then(res => {
         if (res.resultCode == 200 ) {
-          this.attList = res.data
+          console.info(res.data)
+          // this.attList = res.data
+
+          // 去重
+          let obj = {};
+          this.attList = res.data.reduce((cur,next) => {
+              obj[next.article_id] ? "" : obj[next.article_id] = true && cur.push(next);
+              return cur;
+          },[])
         }
       })
     },

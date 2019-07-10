@@ -3,7 +3,7 @@
     <el-header>
       <div class="logo-box">
         <i class="el-icon-star-on logo-font"></i>
-        <span>库存管理系统</span>
+        <span>IZhiHu后台</span>
       </div>
       <div class="topbar-title">
         <div @click.prevent="collapse" class="collapse-icon">
@@ -14,7 +14,7 @@
       <div class="topbar-account">
         <el-dropdown>
           <span class="el-dropdown-link userinfo-inner">
-            {{this.$store.state.user.username}}
+            {{this.$store.state.user.name}}
             <i style="padding-left:5px" class="el-icon-caret-bottom"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
@@ -39,6 +39,25 @@
           <i class="el-icon-document"></i>
           <span slot="title">首页</span>
         </el-menu-item>
+        <el-menu-item index="/home/usermanage">
+          <i class="el-icon-document"></i>
+          <span slot="title">用户管理</span>
+        </el-menu-item>
+        <el-menu-item index="/home/articlemanage">
+          <span slot="title">文章管理</span>
+        </el-menu-item>
+        <el-menu-item index="/home/quesmanage">
+          <span slot="title">问题管理</span>
+        </el-menu-item>
+        <el-menu-item index="/home/topicmanage">
+          <span slot="title">话题管理</span>
+        </el-menu-item>
+        <el-menu-item index="/home/commentmanage">
+          <span slot="title">评论管理</span>
+        </el-menu-item>
+        <el-menu-item index="/home/favoritemanage">
+          <span slot="title">收藏管理</span>
+        </el-menu-item>
         <!-- <el-menu-item index="/home/index">
           <i class="el-icon-upload2"></i>
           <span slot="title">出库管理</span>
@@ -59,7 +78,7 @@
           <i class="el-icon-goods"></i>
           <span slot="title">产品管理</span>
         </el-menu-item> -->
-        <el-submenu index="">
+        <!-- <el-submenu index="">
           <template slot="title">
             <i class="el-icon-menu"></i>
             <span slot="title">系统管理</span>
@@ -76,10 +95,10 @@
           <el-menu-item index="/home/dictionary">
             <span slot="title">数据字典</span>
           </el-menu-item>
-        </el-submenu>
+        </el-submenu> -->
       </el-menu>
       <el-container>
-        <el-main>
+        <el-main style="  min-width: 800px;">
           <transition name="fade" mode="out-in">
             <router-view></router-view>
           </transition>
@@ -166,7 +185,7 @@ export default {
   },
   computed: {
     asideWidth () {
-      return this.collapsed ? '64px' : '250px'
+      return this.collapsed ? '64px' : '200px'
     }
   },
   methods: {
@@ -258,7 +277,7 @@ export default {
       height: 60px;
       line-height: 60px;
       padding-left: 22px;
-      width: 250px;
+      width: 200px;
       float: left;
       .logo-font {
         font-size: 22px;
@@ -289,7 +308,7 @@ export default {
   }
   .el-container {
     .el-menu-vertical:not(.el-menu--collapse) {
-      width: 250px;
+      width: 200px;
       min-height: 400px;
     }
     .el-menu {
@@ -304,9 +323,9 @@ export default {
         // min-height: -webkit-calc(100% - 64px);
         // min-height: calc(100% - 64px);
         // height: auto !important;
-        min-width: -moz-calc(1280px - 250px);
-        min-width: -webkit-calc(1280px - 250px);
-        min-width: calc(1024px - 250px);
+        min-width: -moz-calc(1280px - 200px);
+        min-width: -webkit-calc(1280px - 200px);
+        min-width: calc(1024px - 200px);
         box-sizing: border-box;
         padding: 0px;
       }
