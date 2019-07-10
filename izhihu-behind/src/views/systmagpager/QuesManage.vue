@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import {reqFindQues} from '../../api/sysManager'
 export default {
   name: 'QuesManage',
   data () {
@@ -126,9 +127,6 @@ export default {
     .main-header {
       display: flex;
       justify-content: space-between;
-    }
-    .pagination {
-      float: right;
     }
   }
 }

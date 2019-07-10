@@ -3,20 +3,6 @@ import {
   BASE_URL
 } from './config'
 
-/* 角色模块接口 */
-export const reqAddRole = params => { // 新增角色
-  return axios.post(`${BASE_URL}/role/create`, params).then(res => res.data)
-}
-export const reqDelRole = params => { // 删除角色
-  return axios.post(`${BASE_URL}/role/delete?` + params).then(res => res.data)
-}
-export const reqUpdateRole = params => { // 更新角色
-  return axios.post(`${BASE_URL}/role/update`, params).then(res => res.data)
-}
-export const reqRoleList = params => { // 获取角色列表
-  return axios.post(`${BASE_URL}/role/list?` + params).then(res => res.data)
-}
-
 /* 用户模块接口 */
 export const reqAddUser = params => { // 新增用户
   return axios.post(`${BASE_URL}/user/create`, params).then(res => res.data)
@@ -57,4 +43,22 @@ export const reqSaveChildren = params => { // 新增子节点
 }
 export const reqUpdateChildren = params => { // 修改子节点
   return axios.post(`${BASE_URL}/dictionary/updateChildren`, params).then(res => res.data)
+}
+
+// 管理接口
+
+export const reqFindArticlev = params => { //
+  return axios.post(`${BASE_URL}/sys/findArticle`, params).then(res => res.data)
+}
+export const reqFindQues = params => { //
+  return axios.post(`${BASE_URL}/sys/findQues`, params).then(res => res.data)
+}
+export const reqFindComment = params => { //
+  return axios.post(`${BASE_URL}/sys/findComment`, params).then(res => res.data)
+}
+export const reqFindTopic = params => { //
+  return axios.post(`${BASE_URL}/sys/findTopic`, params).then(res => res.data)
+}
+export const reqFindFar = params => { //
+  return axios.post(`${BASE_URL}/sys/findFar`, params).then(res => res.data)
 }

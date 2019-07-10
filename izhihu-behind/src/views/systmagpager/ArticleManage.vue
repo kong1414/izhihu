@@ -23,22 +23,64 @@
         :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
         v-loading="loading"
         style="width: 100%;margin: 10px 0">
-        <el-table-column label="用户名" min-width="100px" fixed="left">
+        <el-table-column
+          type="index"
+          width="50">
+        </el-table-column>
+        <el-table-column label="类型">
           <template slot-scope="scope">
-            <span>{{scope.row.username}}</span>
+            <!-- <span>{{scope.row.type}}</span> -->
+            <el-tag v-if="scope.row.type==1" size="mini">回答</el-tag>
+            <el-tag v-if="scope.row.type==2" size="mini" type="success">文章</el-tag>
+            <el-tag v-if="scope.row.type==3" size="mini" type="warning">想法</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="用户名" min-width="100px" fixed="left">
+        <el-table-column label="标题" min-width="100px">
           <template slot-scope="scope">
-            <span>{{scope.row.username}}</span>
+            <span>{{scope.row.title}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="用户名" min-width="100px" fixed="left">
+        <el-table-column label="内容" min-width="100px">
           <template slot-scope="scope">
-            <span>{{scope.row.username}}</span>
+            <span>{{scope.row.title}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="220px" fixed="right">
+        <el-table-column label="作者" min-width="100px">
+          <template slot-scope="scope">
+            <span>{{scope.row.name}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="匿名">
+          <template slot-scope="scope">
+            <!-- <span>{{scope.row.anonymity}}</span> -->
+            <el-tag v-if="scope.row.anonymity==1" size="mini" type="info">匿名</el-tag>
+            <el-tag v-if="scope.row.anonymity==0" size="mini">未匿名</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="评论次数">
+          <template slot-scope="scope">
+            <span>{{scope.row.comment_num}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="点赞数" >
+          <template slot-scope="scope">
+            <span>{{scope.row.report_num}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="创建时间" >
+          <template slot-scope="scope">
+            <span>{{scope.row.create_time}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="删除" min-width="100px" >
+          <template slot-scope="scope">
+            <!-- <span>{{scope.row.del}}</span> -->
+            <el-tag v-if="scope.row.anonymity==0" size="mini">未删除</el-tag>
+            <el-tag v-if="scope.row.anonymity==1" size="mini" type="danger">已删除</el-tag>
+          </template>
+        </el-table-column>
+        
+        <el-table-column label="操作" width="100px" fixed="right">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -62,10 +104,13 @@
 </template>
 
 <script>
+import {reqFindArticlev} from '../../api/sysManager'
+import dataUtil from '../../util/dataUtil';
 export default {
   name: 'ArticleManage',
   data () {
     return {
+      loading: true,
       searchContent: '',
       tableData: [],
       pagesize: 10,
@@ -88,7 +133,17 @@ export default {
   },
   methods: {
     _loadData () {
-
+      let params = 'keyword='+ this.searchContent
+      reqFindArticlev(params).then(res => {
+        if (res.resultCode == 200) {
+          this.tableData = res.data.map(i => {
+            i.create_time = dataUtil.getStrData(i.create_time)
+            i.update_time = dataUtil.getStrData(i.update_time)
+            return i
+          })
+          this.loading = false
+        }
+      })
     },
     handleSizeChange (val) {
       this.pagesize = val
@@ -97,7 +152,7 @@ export default {
       this.currentPage = val
     },
     handleDelete (index, row) {
-      this.$confirm('此操作将永久删除该用户且无法恢复，是否继续?', '提示', {
+      this.$confirm('此操作将删除文章，是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -112,7 +167,7 @@ export default {
         //     this._loadData()
         //   }
         // })
-        
+
       }).catch(() => {
       })
     }
@@ -126,9 +181,6 @@ export default {
     .main-header {
       display: flex;
       justify-content: space-between;
-    }
-    .pagination {
-      float: right;
     }
   }
 }

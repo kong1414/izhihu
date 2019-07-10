@@ -127,9 +127,6 @@ export default {
       display: flex;
       justify-content: space-between;
     }
-    .pagination {
-      float: right;
-    }
   }
 }
 </style>

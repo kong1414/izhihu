@@ -36,26 +36,31 @@
         active-text-color="#ffd04b"
         router>
         <el-menu-item index="/home/index">
-          <i class="el-icon-document"></i>
+          <i class="el-icon-house"></i>
           <span slot="title">首页</span>
         </el-menu-item>
         <el-menu-item index="/home/usermanage">
-          <i class="el-icon-document"></i>
+          <i class="el-icon-user"></i>
           <span slot="title">用户管理</span>
         </el-menu-item>
         <el-menu-item index="/home/articlemanage">
+          <i class="el-icon-document"></i>
           <span slot="title">文章管理</span>
         </el-menu-item>
         <el-menu-item index="/home/quesmanage">
+          <i class="el-icon-question"></i>
           <span slot="title">问题管理</span>
         </el-menu-item>
         <el-menu-item index="/home/topicmanage">
+          <i class="el-icon-collection-tag"></i>
           <span slot="title">话题管理</span>
         </el-menu-item>
         <el-menu-item index="/home/commentmanage">
+          <i class="el-icon-chat-dot-square"></i>
           <span slot="title">评论管理</span>
         </el-menu-item>
         <el-menu-item index="/home/favoritemanage">
+          <i class="el-icon-notebook-2"></i>
           <span slot="title">收藏管理</span>
         </el-menu-item>
         <!-- <el-menu-item index="/home/index">

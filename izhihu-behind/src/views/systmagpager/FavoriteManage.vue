@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import {reqFindFar} from '../../api/sysManager'
 export default {
   name: 'FavoriteManage',
   data () {
@@ -126,9 +127,6 @@ export default {
     .main-header {
       display: flex;
       justify-content: space-between;
-    }
-    .pagination {
-      float: right;
     }
   }
 }

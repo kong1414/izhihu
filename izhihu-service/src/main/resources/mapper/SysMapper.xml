@@ -2,4 +2,85 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.xmut.izhihu.dao.SysMapper">
 
+
+    <select id="findArticle" resultType="java.util.HashMap">
+        SELECT
+        users.`name`,
+        article.*
+        FROM
+        article
+        JOIN users
+        ON article.author_id = users.user_id
+        <if test="keyword != null and keyword != '' ">
+            where
+            article.title like concat('%',#{keyword},'%')
+            OR
+            article.content like concat('%',#{keyword},'%')
+        </if>
+    </select>
+
+    <select id="findQues" resultType="java.util.HashMap">
+        SELECT
+users.`name`,
+question.*
+FROM
+question
+JOIN users
+ON question.questioner_id = users.user_id
+        <if test="keyword != null and keyword != '' ">
+            where
+            question.ques_name like concat('%',#{keyword},'%')
+            OR
+            question.ques_describe like concat('%',#{keyword},'%')
+        </if>
+    </select>
+
+    <select id="findComment" resultType="java.util.HashMap">
+        SELECT
+        `comment`.id,
+        `comment`.comment_id,
+        `comment`.is_reply,
+        `comment`.reply_id,
+        `comment`.commentator_id,
+        users.`name`,
+        `comment`.comment_content,
+        `comment`.praise_num,
+        `comment`.create_time
+        FROM
+        `comment`
+        JOIN users
+        ON `comment`.commentator_id = users.user_id
+        <if test="keyword != null and keyword != '' ">
+            where
+            `comment`.comment_content like concat('%',#{keyword},'%')
+        </if>
+
+    </select>
+
+    <select id="findTopic" resultType="java.util.HashMap">
+        SELECT
+        topic.*
+        FROM
+        topic
+        <if test="keyword != null and keyword != '' ">
+            where
+            topic.topic_name like concat('%',#{keyword},'%')
+        </if>
+    </select>
+
+    <select id="findFar" resultType="java.util.HashMap">
+        SELECT
+users.`name`,
+favorite.*
+FROM
+favorite
+JOIN users
+ON favorite.user_id = users.user_id
+        <if test="keyword != null and keyword != '' ">s
+            where
+            favorite.favorite_name like concat('%',#{keyword},'%')
+        </if>
+
+    </select>
+
 </mapper>
