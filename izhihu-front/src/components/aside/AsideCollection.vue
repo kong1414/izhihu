@@ -103,9 +103,6 @@ export default {
           { required: true, message: '请输入收藏夹名' }
           // { validator: validaePass }
         ],
-        describes: [
-          { required: true, message: '请输入描述' }
-        ]
       },
       isPublic: '1'
     };
