@@ -24,4 +24,20 @@ public interface SysMapper {
 
     List<Map<String, Object>> findFar(@Param("keyword") String keyword);
 
+    Integer browseNum();
+    Integer artNum();
+    Integer quesNum();
+    Integer commentNum();
+    Integer agreeNum();
+    Integer attNum();
+    Integer topicNum();
+    Integer userNum();
+
+    List<Map<String,Object>> artAna();
+    List<Map<String,Object>> quesAna();
+    List<Map<String,Object>> comAna();
+
+
+
+
 }

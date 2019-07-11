@@ -78,3 +78,11 @@ export const reqDelComment = params => { //
 export const reqDelTopic = params => { //
   return axios.post(`${BASE_URL}/sys/delTopic`, params).then(res => res.data)
 }
+
+export const reqIndexDataHeader = params => { //
+  return axios.post(`${BASE_URL}/sys/indexDataHeader`, params).then(res => res.data)
+}
+
+export const reqArtAna = params => { //
+  return axios.post(`${BASE_URL}/sys/artAna`, params).then(res => res.data)
+}

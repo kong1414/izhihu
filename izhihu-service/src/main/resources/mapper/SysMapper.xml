@@ -83,4 +83,92 @@ ON favorite.user_id = users.user_id
 
     </select>
 
+<!--    Integer browseNum();
+    Integer artNum();
+    Integer quesNum();
+    Integer commentNum();
+    Integer ();
+    Integer ();
+    Integer ();-->
+    <select id="browseNum" resultType="java.lang.Integer">
+SELECT
+SUM(question.browse_num) AS browseNum
+FROM
+question
+    </select>
+    <select id="artNum" resultType="java.lang.Integer">
+SELECT
+COUNT(article.article_id) AS artNum
+FROM
+article
+    </select>
+    <select id="quesNum" resultType="java.lang.Integer">
+SELECT
+COUNT(question.ques_id) AS quesNum
+FROM
+question;
+    </select>
+    <select id="commentNum" resultType="java.lang.Integer">
+SELECT
+COUNT(`comment`.id) AS commentNum
+FROM
+`comment`
+
+    </select>
+    <select id="agreeNum" resultType="java.lang.Integer">
+SELECT
+SUM(agree_oppose.agr_opp) AS agreeNum
+FROM
+agree_oppose
+    </select>
+    <select id="attNum" resultType="java.lang.Integer">
+SELECT
+COUNT(attention.att_id) AS attNum
+FROM
+attention
+    </select>
+    <select id="topicNum" resultType="java.lang.Integer">
+SELECT
+COUNT(topic.topic_id) AS topicNum
+FROM
+topic
+    </select>
+    <select id="userNum" resultType="java.lang.Integer">
+        SELECT
+COUNT(users.user_id) AS userNum
+FROM
+users
+    </select>
+
+    <select id="artAna" resultType="java.util.HashMap">
+        SELECT
+        DATE_FORMAT(create_time,'%Y%m%d') as dateString,
+        count(*) as count
+        FROM
+        article
+        GROUP BY
+        dateString
+    </select>
+
+    <select id="quesAna" resultType="java.util.HashMap">
+        SELECT
+        DATE_FORMAT(create_time,'%Y%m%d') as dateString,
+        count(*) as count
+        FROM
+        question
+        GROUP BY
+        dateString
+    </select>
+
+    <select id="comAna" resultType="java.util.HashMap">
+        SELECT
+        DATE_FORMAT(create_time,'%Y%m%d') as dateString,
+        count(*) as count
+        FROM
+        `comment`
+        GROUP BY
+        dateString
+    </select>
+
+
 </mapper>

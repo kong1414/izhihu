@@ -18,7 +18,7 @@
             article.article_id,
             article.author_id,
             article.content,
-            article.photo_url,
+            users.photo_url,
             article.anonymity,
             users.`name`,
             article.comment_num,
