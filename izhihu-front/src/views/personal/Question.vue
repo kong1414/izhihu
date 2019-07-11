@@ -261,8 +261,11 @@ export default {
       }
       .quesdesc {
         word-break: break-word;
-        line-height: 1.6;
+        // line-height: 1.6;
         margin-top: 5px;
+        min-height: 25px;
+        max-height: 500px;
+        overflow: auto;
       }
       .button-group {
         margin-top: 5px;
