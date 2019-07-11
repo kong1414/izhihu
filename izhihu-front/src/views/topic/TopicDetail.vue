@@ -40,7 +40,7 @@
         <div v-if="disDetCon==true">
           <div v-for="disDet in disDets" :key="disDet.topicId" class="text item">
             <!-- 给answerItem传值   :topicid="topicId"-->
-            {{disDets}}
+            <!-- {{disDets}} -->
             <answer-item
               :apprN="disDet.report_num"
               :evalN="disDet.comment_num"
@@ -99,16 +99,6 @@ export default {
       dialogVisible: false,
       topicFollow: false,
       disDets: [
-        // {  之前的假数据
-        //   attiStat: "0",
-        //   apprN: "100",
-        //   evalN: "100",
-        //   queName: "你是如何填写高考志愿的，为什么选择了所填报的学校和专业？",
-        //   author: "Yuhang",
-        //   authorDet: "数学领域优秀答题者",
-        //   queDet:
-        //     "对这个问题感触还是很深，哈哈哈，因为我应该是知乎大佬们口中所说的“寒门子弟”，是家族里第一个过了一本线的大学生，所以没有人可以指导我，七年前的我，不知道知乎、没有微博、不知道什么微信公众号，直到大学第一天，我才有我自己的第一部手机，电脑也是为了填志愿而买的一部配置非常感人的老古董，偶尔百度百度。出分数之后，我是湖北省文科1022名，按名次来说，我可以填一个一般的985，然而，我们整个家族都不知道该怎么填志愿。正好一个远房亲戚的孩子也高考，刚过一本线，非常难填，要去市里面找一个什么大师去填志愿，我爸妈也是为数不多的一次为了我蹭人家的便车，连夜赶到他家做客尬聊，然后一起去“大师”家里问志愿怎么填，其实大师的逻辑非常之简单，看“录取分数波动”，其实后来我就知道这种方法很偏颇，应该要以“名次”为准，可是，当年，其实也没有什么更好的办法。"
-        // }
       ]
     };
   },
@@ -117,7 +107,6 @@ export default {
   },
   methods: {
     _loadData() {
-      console.info(this.userId);
       let params = "topicId=" + this.topicId;
       let followparams = {
         additionalProp1: this.userId,
@@ -126,38 +115,26 @@ export default {
       //检查关注状态
       reqCheckFollow(followparams).then(res => {
         if (res.resultCode === 200) {
-          // console.info(res.data);
           this.topicFollow = res.data;
-          console.info(this.topicFollow);
-          //console.info(this.Ftop);
         }
       });
-      // console.info(this.topicId);
       //获取话题简介详情
       reqGetTopicDet(params).then(res => {
         if (res.resultCode === 200) {
-          // console.info(res.data);
           this.topDet = res.data;
-          //console.info(this.Ftop);
         }
       });
       //获取话题下文章、问题详情
       reqGetTopicArticle(params).then(res => {
         if (res.resultCode === 200) {
-          // console.info(res.data);
           this.disDets = res.data;
           this.disDetCon = false;
           this.queNumber = 0;
           this.disDets.forEach(element => {
             // 给答案数据创一些新的值(点赞状态、评论数、点赞数)
-            // element.attiStat = 0;
-            // element.comment_num = 4;
-            // element.apprN = 201;
             if (element.ques_name != null) this.disDetCon = true;
             this.queNumber++;
           });
-          //console.info(this.Ftop);
-          // console.info(this.disDets.ques_name)
         }
       });
     },
@@ -181,7 +158,6 @@ export default {
         contentId: this.topicId,
         type: 5
       };
-      // console.info(followparams);
       reqInFollow(followparams).then(res => {
         if (res.resultCode == 200) {
           this.$message("关注成功");
