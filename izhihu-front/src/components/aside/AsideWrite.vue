@@ -46,13 +46,15 @@
     <el-dialog title="写想法"
                :visible.sync="writerDialogVisible"
                width="540px"
-               center>
+               center
+               >
       <div class="ideaContent">
         <el-input class="inputIdea"
                   type="textarea"
                   :autosize="{ minRows: 10, maxRows: 10}"
                   placeholder="请输入内容"
-                  v-model="textarea">
+                  v-model="textarea"
+                  >
         </el-input>
       </div>
       <span slot="footer"

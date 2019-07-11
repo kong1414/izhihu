@@ -40,6 +40,7 @@
         <div v-if="disDetCon==true">
           <div v-for="disDet in disDets" :key="disDet.topicId" class="text item">
             <!-- 给answerItem传值   :topicid="topicId"-->
+            {{disDets}}
             <answer-item
               :apprN="disDet.report_num"
               :evalN="disDet.comment_num"
@@ -49,6 +50,8 @@
               :articleId="disDet.article_id"
               :queId="disDet.ques_id"
               :type="disDet.type"
+              :authorId="disDet.author_id"
+              :photoUrl="disDet.photo_url"
             />
           </div>
         </div>
