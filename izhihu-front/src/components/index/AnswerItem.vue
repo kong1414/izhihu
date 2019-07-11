@@ -292,8 +292,9 @@ export default {
     },
     toQueDetail() {
       // 跳转到问题主页
-      if (this.type == 1)
+      if (this.type == 1){
         this.$router.push({ path: "/home/question/" + this.queId });
+      }
     },
     toUser(authorId){//跳转个人页
       this.$router.push({ path: "/home/people/" + authorId });

@@ -5,7 +5,8 @@
       <el-row>
         <el-col :span="8">
           <el-button type="text"
-                     class="write-button">
+                     class="write-button"
+                     @click="toUser">
             <i class="el-icon-s-order" />
             <p>写回答</p>
           </el-button>
@@ -30,13 +31,13 @@
       <el-divider></el-divider>
       <div class="list">
         <div>
-          <el-button type="text">
+          <el-button type="text" @click="toUser">
             <i class="el-icon-time" />
             <span>我的稍后答</span>
           </el-button>
         </div>
         <div>
-          <el-button type="text">
+          <el-button type="text" @click="toUser">
             <i class="el-icon-files" />
             <span>我的草稿</span>
           </el-button>
@@ -76,6 +77,7 @@ export default {
     return {
       writerDialogVisible: false,
       textarea: '',
+      userId: this.$store.state.user.userId
     }
   },
   methods: {
@@ -95,16 +97,26 @@ export default {
         content: this.textarea,
         topicList: []
       }
-
-      reqCreateArticle(Aparams).then(res => {
-        if (res.resultCode == 200) {
-          this.$message({
-            message: '发布成功',
-            type: 'success'
+      if(this.textarea==''||this.textarea==null){
+        this.$message({
+            message: '内容不能为空',
+            type: 'fail'
           })
-          this.emptyWriteIdea()
-        }
-      })
+      }
+      else{
+        reqCreateArticle(Aparams).then(res => {
+          if (res.resultCode == 200) {
+            this.$message({
+              message: '发布成功',
+              type: 'success'
+            })
+            this.emptyWriteIdea()
+          }
+        })
+      }
+    },
+    toUser(){
+      this.$router.push({ path: "/home/people/" +this.userId });
     }
   }
 }
