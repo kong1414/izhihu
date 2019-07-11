@@ -1,4 +1,3 @@
-<!-- 用户管理 -->
 <template>
   <div class="base-container user-page">
     <div class="header">
@@ -6,211 +5,109 @@
         <el-breadcrumb-item :to="{ path: '/home/index' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item>用户管理</el-breadcrumb-item>
       </el-breadcrumb>
-      <h1>用户管理</h1>
+      <h1>话题管理</h1>
     </div>
     <div class="main">
       <div class="main-header">
         <div>
-          <el-button type="primary" @click="addDialogVisible = true">新增用户</el-button>
+          <!-- <el-button type="primary" @click="addDialogVisible = true">新增用户</el-button> -->
           <!-- <el-button type="danger">批量删除</el-button> -->
         </div>
         <div>
-          <el-input style="width: 250px;" v-model.trim.lazy="searchContent" placeholder="请输入内容搜索">
-            <i style="margin: 12px 5px 0 0;font-size:16px" class="el-icon-search" slot="suffix"></i>
+          <el-input style="width: 250px;"
+                    v-model.trim.lazy="searchContent"
+                    placeholder="请输入内容搜索">
+            <i style="margin: 12px 5px 0 0;font-size:16px"
+               class="el-icon-search"
+               slot="suffix"></i>
           </el-input>
         </div>
       </div>
-      <el-table
-        :data="tableData"
-        @selection-change="handleSelectionChange"
-        v-loading="loading"
-        style="width: 100%;margin: 10px 0">
-        <el-table-column type="selection" width="55" fixed="left">
-        </el-table-column>
-        <el-table-column label="用户名" min-width="100px" fixed="left">
+      <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+                v-loading="loading"
+                style="width: 100%;margin: 10px 0">
+        <el-table-column label="用户UUID"
+                         min-width="100px">
           <template slot-scope="scope">
-            <span>{{scope.row.username}}</span>
+            <span>{{scope.row.user_id}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="手机" min-width="120px">
+        <el-table-column label="姓名">
           <template slot-scope="scope">
-            <span>{{scope.row.mobile}}</span>
+            <span>{{scope.row.name}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="邮箱" min-width="180px">
+        <el-table-column label="邮箱">
           <template slot-scope="scope">
             <span>{{scope.row.email}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="备注" min-width="150px">
+        <el-table-column label="手机">
           <template slot-scope="scope">
-            <span>{{scope.row.remark}}</span>
+            <span>{{scope.row.phone}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="上次登录时间" width="170px">
+        <el-table-column label="创建时间"
+                         sortable
+                         prop="gmt_create">
+          <!-- <template slot-scope="scope">
+            <span>{{scope.row.create_time}}</span>
+          </template> -->
+        </el-table-column>
+        <el-table-column label="封禁状态">
           <template slot-scope="scope">
-            <span>{{scope.row.lastLoginTime}}</span>
+            <el-tag v-if="scope.row.forbidden==1"
+                    type="danger">已封禁</el-tag>
+            <el-tag v-else
+                    type="success">正常</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="220px" fixed="right">
+        <el-table-column label="封禁时间">
           <template slot-scope="scope">
-            <el-button
-              size="mini"
-              @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-            <el-button
-              size="mini"
-              @click="handleAcl(scope.$index, scope.row)">权限</el-button>
-            <el-button
-              size="mini"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            <span>{{scope.row.forbidden_time ? scope.row.forbidden_time : ""}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作"
+                         width="100px"
+                         fixed="right">
+          <template slot-scope="scope">
+            <el-button v-if="scope.row.forbidden==0"
+                       size="mini"
+                       type="danger"
+                       @click="handleDelete(scope.$index, scope.row)">封禁</el-button>
+            <el-button v-else
+                       size="mini"
+                       type="danger"
+                       @click="handleDelete(scope.$index, scope.row)">解封</el-button>
           </template>
         </el-table-column>
       </el-table>
+      <div class="pagination">
+        <el-pagination @size-change="handleSizeChange"
+                       @current-change="handleCurrentChange"
+                       :current-page="currentPage"
+                       :page-sizes="[10, 20, 30, 40]"
+                       :page-size="pagesize"
+                       layout="total, sizes, prev, pager, next, jumper"
+                       :total="parseInt(tableData.length)">
+        </el-pagination>
+      </div>
     </div>
-    <el-dialog
-      title="权限配置"
-      :visible.sync="AclDialogVisible"
-      width="30%">
-      <span>正在开发</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="AclDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="AclDialogVisible = false">确 定</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog
-      title="新增用户"
-      :visible.sync="addDialogVisible"
-      width="50%">
-      <div style="width: 400px;margin: 0 auto;padding-right:15px">
-        <el-form ref="form" :model="addFormData" :rules="rules" label-width="80px" style="margin-top:20px">
-          <el-form-item label="用户名" prop="username">
-            <el-input v-model="addFormData.username" placeholder="请输入账号" clearable></el-input>
-          </el-form-item>
-          <el-form-item label="密码" prop="password">
-            <el-input v-model="addFormData.password" type="password" placeholder="请输入密码" clearable></el-input>
-          </el-form-item>
-          <el-form-item label="手机" prop="mobile">
-            <el-input v-model="addFormData.mobile" placeholder="请输入手机" clearable></el-input>
-          </el-form-item>
-          <el-form-item label="邮箱" prop="email">
-            <el-input v-model="addFormData.email" placeholder="请输入账号" clearable></el-input>
-          </el-form-item>
-          <el-form-item label="备注" prop="remark">
-            <el-input v-model="addFormData.remark" placeholder="请输入账号" clearable></el-input>
-          </el-form-item>
-        </el-form>
-      </div>
-      <span slot="footer">
-        <el-button @click="addDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="handleAddUser()">确 定</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog
-      title="编辑用户"
-      :visible.sync="updateDialogVisible"
-      width="50%">
-      <div style="width: 400px;margin: 0 auto;padding-right:15px">
-        <el-form ref="form" :model="updateFormData" :rules="rules" label-width="80px" style="margin-top:20px">
-          <el-form-item label="用户名" prop="username">
-            <el-input v-model="updateFormData.username" placeholder="请输入账号" clearable></el-input>
-          </el-form-item>
-          <el-form-item label="密码">
-            <el-button type="info" @click="resetPassword">重置密码</el-button>
-          </el-form-item>
-          <el-form-item label="手机" prop="mobile">
-            <el-input v-model="updateFormData.mobile" placeholder="请输入手机" clearable></el-input>
-          </el-form-item>
-          <el-form-item label="邮箱" prop="email">
-            <el-input v-model="updateFormData.email" placeholder="请输入账号" clearable></el-input>
-          </el-form-item>
-          <el-form-item label="备注" prop="remark">
-            <el-input v-model="updateFormData.remark" placeholder="请输入账号" clearable></el-input>
-          </el-form-item>
-        </el-form>
-      </div>
-      <span slot="footer">
-        <el-button @click="updateDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="handleUppdateUser()">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
 <script>
-import { reqUserList, reqUpdateUser, reqAddUser, reqDelUser, reqResetUser } from '../../api/sysManager.js'
-import dataUtil from '../../util/dataUtil.js'
-import md5 from 'js-md5'
+import { reqFindUser, reqBanUser, reqUnBanUser } from '../../api/sysManager'
+import dataUtil from '../../util/dataUtil';
 export default {
-  name: 'usermanager',
+  name: 'UserManage',
   data () {
-    var createCheckMobile = (rule, value, callback) => {
-      if (value.length > 0) {
-        if (!/^[1]*[1-9][0-9]*$/.test(value)) {
-          return callback(new Error('手机格式有误'))
-        }
-        if (value.length !== 11) {
-          return callback(new Error('长度必须为11'))
-        }
-        // 检测手机号码是否重复
-        // let params = 'mobilePhone=' + value + '&id=' + this.updateId
-        // reqCheckMobilePhone(params).then(res => {
-        //   if (res.resultCode === 200) {
-        //     return callback()
-        //   } else {
-        //     return callback(new Error('手机号码重复'))
-        //   }
-        // })
-      } else {
-        return callback()
-      }
-    }
-    var createCheckEmail = (rule, value, callback) => {
-      if (value.length > 0) {
-        if (!/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/.test(value)) {
-          return callback(new Error('邮箱格式有误'))
-        }
-        // 检测邮箱是否重复
-        // let params = 'mobilePhone=' + value + '&id=' + this.updateId
-        // reqCheckMobilePhone(params).then(res => {
-        //   if (res.resultCode === 200) {
-        //     return callback()
-        //   } else {
-        //     return callback(new Error('手机号码重复'))
-        //   }
-        // })
-      } else {
-        return callback()
-      }
-    }
     return {
-      isShowDeleteButton: false,
-      loading: false,
-      ids: [],
-      AclDialogVisible: false, // 权限配置弹窗是否显示的参数
-      itemData: {}, // 编辑的暂存对象
       searchContent: '',
       tableData: [],
-      updateFormData: [],
-      updateDialogVisible: false,
-      addDialogVisible: false,
-      addFormData: {},
-      rules: {
-        username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
-          { min: 3, max: 20, message: '长度在 3 到 5 个字符', trigger: 'blur'}
-        ],
-        password: [
-          { required: true, message: '密码不能为空', trigger: 'blur' },
-          { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' }
-        ],
-        mobile: [
-          { validator: createCheckMobile, trigger: 'blur' }
-        ],
-        email: [
-          { validator: createCheckEmail, trigger: 'blur' }
-        ]
-      }
+      pagesize: 10,
+      currentPage: 1,
+      loading: true
     }
   },
   watch: {
@@ -224,158 +121,55 @@ export default {
       }, 500)
     }
   },
-  computed: {
-
-  },
-  created () {
-    // this._loadData()
+  mounted () {
+    this._loadData()
   },
   methods: {
     _loadData () {
-      // this.loading = true
-      // let params = 'keyword=' + this.searchContent
-      // reqUserList(params).then(res => {
-      //   if (res.resultCode === 200) {
-      //     res.data.forEach(element => {
-      //       element.show = false
-      //     })
-      //     this.tableData = res.data
-      //     this.loading = false
-      //   }
-      // })
-    },
-    handleAddUser () {
-      let params = {
-        username: this.addFormData.username,
-        password: md5(this.addFormData.password + this.addFormData.password),
-        mobile: this.addFormData.mobile,
-        email: this.addFormData.email,
-        remark: this.addFormData.remark,
-      }
-      reqAddUser(params).then(res => {
-        if (res.resultCode === 200) {
-          this.$message({
-            type: 'success',
-            message: res.resultMessage
+      this.loading = true
+      let params = 'keyword=' + this.searchContent
+      reqFindUser(params).then(res => {
+        if (res.resultCode == 200) {
+          this.tableData = res.data.map(i => {
+            i.gmt_create = dataUtil.getStrData(i.gmt_create)
+            i.last_login_time = dataUtil.getStrData(i.last_login_time)
+            return i
           })
-          this.addDialogVisible = false
-          this._loadData()
-        }
-      })
-      this.addFormData = []
-    },
-    handleUppdateUser () {
-      let params = 'id=' + this.updateFormData.id
-                  + '&username=' + this.updateFormData.username
-                  + '&mobile=' + this.updateFormData.mobile
-                  + '&email=' + this.updateFormData.email
-                  + '&remark=' + this.updateFormData.remark
-      reqUpdateUser(params).then(res => {
-        if (res.resultCode === 200) {
-          this.$message({
-            type: 'success',
-            message: res.resultMessage
-          })
-          this.updateDialogVisible = false
-          this.updateFormData = []
-          this._loadData()
-        }
-      })
-      
-    },
-    resetPassword() {
-      let params = 'id=' + this.updateFormData.id
-      reqResetUser(params).then(res => {
-        if (res.resultCode === 200) {
-          this.$message({
-            type: 'success',
-            message: res.resultMessage
-          })
+          this.loading = false
         }
       })
     },
-    handleSelectionChange (checkList) { // 选中表格框时触发
-      if (checkList.length === 0) {
-        this.ids = []
-      } else {
-        let arr = []
-        checkList.forEach(item => {
-          arr.push(item.id)
-        })
-        this.ids = arr
-      }
-    },
-    handleEdit (index, row) {
-      this.updateFormData = {
-        id: row.id,
-        username: row.username,
-        mobile: row.mobile,
-        email: row.email,
-        remark: row.remark
-      }
-      this.updateDialogVisible = true
-    },
-    handleDelete (index, row) {
-      this.$confirm('此操作将永久删除该用户且无法恢复，是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        let params = 'id=' + row.id
-        reqDelUser(params).then(res => {
-          if (res.resultCode === 200) {
-            this.$message({
-              type: 'success',
-              message: res.resultMessage
-            })
-            this._loadData()
-          }
-        })
-      }).catch(() => {
-      })
-    },
-    handleSave (index, row) {
-      if (row.id === '' || row.id === null) { // 新增角色的保存
-        
-      } else { // 更新角色
-        row.show = false
-        // row = JSON.parse(JSON.stringify(this.itemData))
-        // console.info(row)
-        let params = {
-          id: row.id,
-          name: row.name,
-          type: row.type,
-          status: row.status,
-          remark: row.remark
-        }
-        reqUpdateUser(params).then(res => {
-          if (res.resultCode === 200) {
-            this.$message({
-              type: 'success',
-              message: res.resultMessage
-            })
-            this._loadData()
-          }
-        })
-      }
-    },
-    handleCancel (index, row) {
-      // console.info(index, row)
-      if (!row.id) {
-        this.tableData.splice(index, 1)
-      }
-      Object(row, this.itemData)
-      row.show = false
+    handleSizeChange (val) {
+      this.pagesize = val
       this._loadData()
     },
-    handleAcl (index, row) {
-      this.AclDialogVisible = true
+    handleCurrentChange (val) {
+      this.currentPage = val
+      this._loadData()
     },
-    handleStatus (index, row) {
-      if (row.status === 1) {
-        row.status = 0
-      } else if (row.status === 0) {
-        row.status = 1
+    handleDelete (index, row) {
+      if (row.forbidden == 0) { // 进行封禁操作
+        let params = 'userId=' + row.user_id;
+        reqBanUser(params).then(res => {
+          if (res.resultCode == 200) {
+            this.$message({
+              type: 'success',
+              message: res.resultMessage
+            })
+            this._loadData()
+          }
+        })
+      } else if (row.forbidden == 1) { // 进行解封操作
+        let params = 'userId=' + row.user_id;
+        reqUnBanUser(params).then(res => {
+          if (res.resultCode == 200) {
+            this.$message({
+              type: 'success',
+              message: res.resultMessage
+            })
+            this._loadData()
+          }
+        })
       }
     }
   }
@@ -383,7 +177,6 @@ export default {
 </script>
 
 <style lang="scss">
-// 全局引用了基本布局.base-container 文件在base.scss
 .user-page {
   .main {
     .main-header {

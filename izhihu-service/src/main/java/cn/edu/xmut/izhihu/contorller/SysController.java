@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Description:
@@ -40,6 +37,9 @@ public class SysController {
 
     @Autowired
     private FavoriteMapper favoriteMapper;
+
+    @Autowired
+    private UsersMapper usersMapper;
 
     @Autowired
     private SysMapper sysMapper;
@@ -151,6 +151,34 @@ public class SysController {
         res.put("comAna", sysMapper.comAna());
 
         return new SuccessVO(res);
+    }
+
+
+    @ApiOperation("用户")
+    @PostMapping("/findUser")
+    public ResultVO findUser(@RequestParam(defaultValue = "") String keyword) {
+        List<Map<String, Object>> list = sysMapper.findUser(keyword);
+        return new SuccessVO(list);
+    }
+
+    @ApiOperation("用户封禁")
+    @PostMapping("/banUser")
+    public ResultVO banUser(@RequestParam(defaultValue = "") String userId) {
+        UserDO record = usersMapper.selectByPrimaryKey(userId);
+        record.setForbidden(1);
+        record.setForbiddenTime(new Date());
+        usersMapper.updateByPrimaryKey(record);
+        return new SuccessVO("封禁成功");
+    }
+
+    @ApiOperation("用户解封")
+    @PostMapping("/unBanUser")
+    public ResultVO unBanUser(@RequestParam(defaultValue = "") String userId) {
+        UserDO record = usersMapper.selectByPrimaryKey(userId);
+        record.setForbidden(0);
+        record.setForbiddenTime(null);
+        usersMapper.updateByPrimaryKey(record);
+        return new SuccessVO("解封成功");
     }
 
 }

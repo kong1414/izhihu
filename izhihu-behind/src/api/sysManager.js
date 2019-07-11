@@ -86,3 +86,15 @@ export const reqIndexDataHeader = params => { //
 export const reqArtAna = params => { //
   return axios.post(`${BASE_URL}/sys/artAna`, params).then(res => res.data)
 }
+
+export const reqFindUser = params => { //
+  return axios.post(`${BASE_URL}/sys/findUser`, params).then(res => res.data)
+}
+
+export const reqBanUser = params => { // 用户封禁
+  return axios.post(`${BASE_URL}/sys/banUser`, params).then(res => res.data)
+}
+
+export const reqUnBanUser = params => { // 用户解封
+  return axios.post(`${BASE_URL}/sys/unBanUser`, params).then(res => res.data)
+}

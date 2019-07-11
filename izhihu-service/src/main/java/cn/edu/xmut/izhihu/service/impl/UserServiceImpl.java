@@ -71,6 +71,12 @@ public class UserServiceImpl implements UserService {
             result.setMsg("用户不存在");
             return result;
         }
+        if (user.getForbidden() == 1) {
+            result.setSuccess(isSuccess);
+            result.setMsg("用户已被禁用");
+            return result;
+        }
+
         // 验证密码
         isSuccess = user.getPassword().toUpperCase().equals(loginRequest.getPassword().toUpperCase());
         result.setSuccess(isSuccess);

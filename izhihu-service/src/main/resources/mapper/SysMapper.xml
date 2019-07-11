@@ -170,5 +170,28 @@ users
         dateString
     </select>
 
+    <select id="findUser" resultType="java.util.HashMap">
+        SELECT
+users.user_id,
+users.email,
+users.phone,
+users.`name`,
+users.photo_url,
+users.last_login_time,
+users.del,
+users.forbidden,
+users.forbidden_time,
+users.gmt_create
+FROM
+users
+        <if test="keyword != null and keyword != '' ">
+            where
+            users.`name` like concat('%',#{keyword},'%')
+            or
+            users.email like concat('%',#{keyword},'%')
+            or
+            users.phone like concat('%',#{keyword},'%')
+        </if>
+    </select>
 
 </mapper>

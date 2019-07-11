@@ -49,6 +49,8 @@ public class UserController {
         res = userService.login(loginRequest);
         if (res.isSuccess()) {
             result = new ResultVO<UserVO>(HttpCodeEnum.REQUEST_SUCCESS.getCode(), res.getUserVO(), "登陆成功");
+        }else if("用户已被禁用".equals(res.getMsg())) {
+            result = new ResultVO<UserVO>(HttpCodeEnum.REQUEST_FAIL.getCode(), null, "用户已被禁用");
         } else {
             result = new ResultVO<UserVO>(HttpCodeEnum.REQUEST_FAIL.getCode(), null, "账户或密码错误");
         }
