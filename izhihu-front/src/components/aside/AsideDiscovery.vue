@@ -5,7 +5,7 @@
     <el-card class="hot-topic" :body-style="{ padding: '0px' }">
       <div slot="header" class="topHeader">
           <span class="topicLeft">热门话题</span>
-          <el-button type="text" class="topicRight" @click="toTopic()">
+          <el-button type="text" class="topicRight" @click="toTopicMain()">
             更多话题
             <i class="el-icon-d-arrow-right"></i>
           </el-button>
@@ -82,7 +82,7 @@ export default {
     toFavorite (id) {
       this.$router.push({ path: '/home/favoriteDetail/' + id })
     },
-    toTopic(){ //跳转话题页
+    toTopicMain(){ //跳转话题页
       this.$router.push({ path: '/home/topic' })
     },
     getRandom () {
