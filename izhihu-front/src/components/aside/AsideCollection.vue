@@ -121,8 +121,8 @@ export default {
             type: 'success',
             message: res.resultMessage
           })
-          this.name = ''
-          this.describes = ''
+          this.collection.name = ''
+          this.collection.describes = ''
           this.dialogFormVisible = false
           this.$emit('loadData')
         }
