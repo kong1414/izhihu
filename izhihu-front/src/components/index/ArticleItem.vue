@@ -101,14 +101,15 @@ export default {
     }
     .excerpt{
       color: #444;
-      line-height: 25px;
+      // line-height: 25px;
       margin-top: 0px;
       min-height: 25px;
-      display: -webkit-box;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
+      max-height: 500px;
+      // display: -webkit-box;
+      // text-overflow: ellipsis;
+      overflow: auto;
+      // -webkit-line-clamp: 2;
+      // -webkit-box-orient: vertical;
       cursor:pointer;
     }
     .button-content{

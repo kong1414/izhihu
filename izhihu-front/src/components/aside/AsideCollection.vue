@@ -112,6 +112,13 @@ export default {
   },
   methods: {
     handleCreate () {
+      if (this.collection.name == '' || this.collection.name == null) {
+        this.$message({
+            type: 'info',
+            message: '名称不能为空'
+          })
+        return
+      }
       let params = {
         userId: this.userId,
         name: this.collection.name,
