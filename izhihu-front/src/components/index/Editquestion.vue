@@ -165,6 +165,7 @@ export default {
       reqCreateQuestion(params).then(res => {
         if (res.resultCode == 200) {
           this.$message('发布成功')
+          this.$router.go(-1)
           // this.$router.push({ path: '/home/question/' + res.data })
         }
       })
