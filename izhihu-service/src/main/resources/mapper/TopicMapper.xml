@@ -15,33 +15,29 @@
 
     <select id="getTopicArticle" resultType="java.util.HashMap">
         SELECT
-            article.article_id,
-            article.author_id,
-            article.content,
-            users.photo_url,
-            article.anonymity,
-            users.`name`,
-            article.comment_num,
-            article.report_num,
-            article.create_time,
-            article.type,
-            article.ques_id,
-            question.ques_name
-            FROM
-            topic
-            JOIN topic_content
-            ON topic.topic_id = topic_content.topic_id
-            JOIN article
-            ON topic_content.content_id = article.article_id
-            AND topic_content.type = article.type
-            JOIN users
-            ON article.author_id = users.user_id
-            JOIN question
-            ON question.ques_id = article.ques_id
-            WHERE
-            topic.topic_id = #{topicId}
-            ORDER BY
-            article.update_time DESC
+	topic_content.topic_id,
+	users.`name`,
+	users.photo_url,
+	article.article_id,
+	article.type,
+	article.ques_id,
+	article.title,
+	article.photo_url AS photo_url_0,
+	article.content,
+	article.author_id,
+	article.anonymity,
+	article.comment_num,
+	article.report_num,
+	article.create_time,
+	article.update_time
+FROM
+	topic_content
+	JOIN article ON topic_content.content_id = article.ques_id
+	JOIN users ON article.author_id = users.user_id
+WHERE
+	topic_content.topic_id = #{topicId}
+ORDER BY
+	article.update_time DESC
     </select>
 
     <select id="getAttedTopic" resultMap="BaseResultMap">

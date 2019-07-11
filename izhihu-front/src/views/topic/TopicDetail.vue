@@ -36,15 +36,15 @@
           <span class="dis">讨论</span>
           <el-button class="moreCon" type="text">更多内容</el-button>
         </div>
-        <div v-if="disDetCon==false">暂无数据</div>
-        <div v-if="disDetCon==true">
+        <div v-if="disDets.length<=0">暂无数据</div>
+        <div v-else>
           <div v-for="disDet in disDets" :key="disDet.topicId" class="text item">
             <!-- 给answerItem传值   :topicid="topicId"-->
             <!-- {{disDets}} -->
             <answer-item
               :apprN="disDet.report_num"
               :evalN="disDet.comment_num"
-              :queName="disDet.ques_name"
+              :queName="disDet.title"
               :author="disDet.name"
               :queDet="disDet.content"
               :articleId="disDet.article_id"
@@ -98,12 +98,11 @@ export default {
       //话题详细内容弹窗、用户话题关注情况、问题详细内容
       dialogVisible: false,
       topicFollow: false,
-      disDets: [
-      ]
+      disDets: []
     };
   },
   mounted() {
-    this._loadData();
+    this._loadData()
   },
   methods: {
     _loadData() {
@@ -111,32 +110,33 @@ export default {
       let followparams = {
         additionalProp1: this.userId,
         additionalProp2: this.topicId
-      };
+      }
       //检查关注状态
       reqCheckFollow(followparams).then(res => {
         if (res.resultCode === 200) {
-          this.topicFollow = res.data;
+          this.topicFollow = res.data
         }
       });
       //获取话题简介详情
       reqGetTopicDet(params).then(res => {
         if (res.resultCode === 200) {
-          this.topDet = res.data;
+          this.topDet = res.data
         }
       });
       //获取话题下文章、问题详情
       reqGetTopicArticle(params).then(res => {
         if (res.resultCode === 200) {
           this.disDets = res.data;
-          this.disDetCon = false;
-          this.queNumber = 0;
-          this.disDets.forEach(element => {
-            // 给答案数据创一些新的值(点赞状态、评论数、点赞数)
-            if (element.ques_name != null) this.disDetCon = true;
-            this.queNumber++;
-          });
+          this.queNumber = res.data.length
+          // this.disDetCon = false;
+          // this.queNumber = 0;
+          // this.disDets.forEach(element => {
+          //   // 给答案数据创一些新的值(点赞状态、评论数、点赞数)
+          //   if (element.ques_name != null) this.disDetCon = true;
+          //   this.queNumber++;
+          // });
         }
-      });
+      })
     },
     //取关话题
     topunfollow() {
