@@ -19,6 +19,8 @@
                     :articleId="item.article_id"
                     :queId="item.ques_id"
                     :type="item.type"
+                    :authorId="item.author_id"
+                    :photoUrl="item.photo_url"
               />
               </li>
             </ul>
@@ -39,6 +41,8 @@
                     :articleId="item.article_id"
                     :queId="item.ques_id"
                     :type="item.type"
+                    :authorId="item.author_id"
+                    :photoUrl="item.photo_url"
               />
               </div>
             </div>

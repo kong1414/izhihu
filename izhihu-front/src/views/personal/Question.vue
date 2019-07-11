@@ -5,7 +5,7 @@
         <div class="quesTopic">
           <span class="title">相关话题：</span>
           <span v-if="topicList.length <= 0"> 暂无关联话题</span>
-          <el-tag v-else v-for="i in topicList" :key="i.topic_id" @click="toTopic">
+          <el-tag v-else v-for="i in topicList" :key="i.topic_id" @click="toTopic(i.topic_id)">
             <el-button size="mini" type="text">{{i.topic_name}}</el-button>
           </el-tag>
         </div>
@@ -46,6 +46,8 @@
                       :articleId="item.article_id"
                       :queId="item.ques_id"
                       :type="item.type"
+                      :authorId="item.author_id"
+                      :photoUrl="item.photo_url"
                     />
                 </div>
         </el-card>
@@ -183,7 +185,7 @@ export default {
           this.content = ''
         }
       })
-
+      toQue()
     },
     attQues () {
       if (!this.attQuesType) { // 关注
@@ -220,6 +222,10 @@ export default {
     },
     toTopic (id) {
       this.$router.push({ path: '/home/topicDetail/' + id})
+    },
+    toQue(){
+      this._loadData()
+      this.$router.push({ path: '/home/question/' + this.quesId})
     },
     invite () {
       this.$message("暂未实现")

@@ -103,9 +103,6 @@ export default {
           { required: true, message: '请输入收藏夹名' }
           // { validator: validaePass }
         ],
-        describes: [
-          { required: true, message: '请输入描述' }
-        ]
       },
       isPublic: '1'
     };
@@ -131,8 +128,8 @@ export default {
             type: 'success',
             message: res.resultMessage
           })
-          this.name = ''
-          this.describes = ''
+          this.collection.name = ''
+          this.collection.describes = ''
           this.dialogFormVisible = false
           this.$emit('loadData')
         }

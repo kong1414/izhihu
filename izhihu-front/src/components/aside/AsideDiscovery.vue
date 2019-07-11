@@ -5,7 +5,7 @@
     <el-card class="hot-topic" :body-style="{ padding: '0px' }">
       <div slot="header" class="topHeader">
           <span class="topicLeft">热门话题</span>
-          <el-button type="text" class="topicRight">
+          <el-button type="text" class="topicRight" @click="toTopicMain()">
             更多话题
             <i class="el-icon-d-arrow-right"></i>
           </el-button>
@@ -69,7 +69,6 @@ export default {
       })
     },
     _loadCollectData () {
-      this.getRandom()
       reqHotFavorite().then(res => {
         if (res.resultCode === 200) {
           console.info(res.data)
@@ -82,6 +81,9 @@ export default {
     },
     toFavorite (id) {
       this.$router.push({ path: '/home/favoriteDetail/' + id })
+    },
+    toTopicMain(){ //跳转话题页
+      this.$router.push({ path: '/home/topic' })
     },
     getRandom () {
       var num = Math.floor(Math.random() * 10 + 1)

@@ -5,7 +5,7 @@
       <div slot="header"><span>“ {{$route.params.input}} ”</span> 的搜索结果 <el-button size="mini" @click="_loadData()">再次搜索</el-button></div>
 
       <div class="search-content" v-loading="loading">
-        <div v-if="list.length <= 0">非常抱歉，未能搜索到您想要的结果</div>
+        <div v-if="list.length <= 0" class="nonSearch">非常抱歉，未能搜索到您想要的结果</div>
         <!-- <div v-else v-for="(item,index) in list" :key="index">
           {{item}}
         </div> -->
@@ -67,6 +67,7 @@ export default {
   .search-card {
     .search-content {
       min-height: 300px;
+      padding: 0px 10px;
       .recommend{
         padding:  0 20px;
         .title{
@@ -82,6 +83,9 @@ export default {
           margin: 10px -50px 10px -20px;
           background-color: #ebeef5;
         }
+      }
+      .nonSearch{
+        margin: 20px 20px;
       }
     }
   }

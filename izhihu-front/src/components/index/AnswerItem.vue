@@ -9,8 +9,8 @@
     <el-tag type="success" size="mini" v-else-if="type==2">文章</el-tag>
     <el-tag type="warning" size="mini" v-else>想法</el-tag>
     
-    <div style="margin:5px 0;" v-if="author!=null">
-      <el-avatar shape="square" :size="20" :src="url"></el-avatar>    
+    <div style="margin:5px 0;" v-if="author!=null" @click="toUser(authorId)">
+      <el-avatar shape="square" :size="20" :src="photoUrl"></el-avatar>    
       <span class="disDetAuthor">{{author}}</span>
     </div>
     <div class="disDetque" @click=" dialogVisible = true" v-html="queDet"></div>
@@ -211,7 +211,9 @@ export default {
     queDet: String,
     articleId: String,
     queId: String,
-    type: Number
+    type: Number,
+    authorId: String,
+    photoUrl: String
   },
   data() {
     return {
@@ -290,8 +292,12 @@ export default {
     },
     toQueDetail() {
       // 跳转到问题主页
-      if (this.type == 1)
+      if (this.type == 1){
         this.$router.push({ path: "/home/question/" + this.queId });
+      }
+    },
+    toUser(authorId){//跳转个人页
+      this.$router.push({ path: "/home/people/" + authorId });
     },
     collArt(v) {  //收藏弹窗
       let params = {
