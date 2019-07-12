@@ -23,13 +23,22 @@
         </div>
         <div v-else
              class="topic-detail">
-          <div class="topic-name">
-            <el-button type="text"
-                       @click="toTopicDetail">{{topicObj.topicName}}</el-button>
-          </div>
-          <div>
-            {{topicObj.topicDesc}}
-          </div>
+          <el-row>
+            <el-col :span="4">
+              <el-image :src="topicObj.photoUrl"
+                        style="width: 100px; height: 100px"></el-image>
+            </el-col>
+            <el-col :span="20">
+              <div class="topic-name">
+                <el-button type="text"
+                           @click="toTopicDetail">{{topicObj.topicName}}</el-button>
+              </div>
+              <div>
+                {{topicObj.topicDesc}}
+              </div>
+            </el-col>
+          </el-row>
+
           <el-button icon="el-icon-plus"
                      class="attButton"
                      size="mini"
@@ -155,7 +164,7 @@ export default {
     .el-radio.is-bordered + .el-radio.is-bordered {
       margin-top: 10px;
     }
-    .el-radio.is-bordered{
+    .el-radio.is-bordered {
       margin-left: 10px;
     }
   }
@@ -175,7 +184,6 @@ export default {
           font-weight: 600;
         }
       }
-
     }
     .introduction-head {
       margin-right: 28px;

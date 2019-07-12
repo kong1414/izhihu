@@ -37,7 +37,7 @@
         </div>
         <div class="more">
           <span>
-            <el-popover placement="bottom"
+            <!-- <el-popover placement="bottom"
                         width="300"
                         trigger="hover">
               <el-tabs style="margin-left:15px; margin-right:15px;">
@@ -56,7 +56,7 @@
                  type="text"
                  style="margin-right: 30px; cursor: pointer;"
                  slot="reference"></i>
-            </el-popover>
+            </el-popover> -->
 
             <i class="el-icon-chat-line-round"
                style="margin-right: 30px;" @click="showMessageVisible= true"></i>
