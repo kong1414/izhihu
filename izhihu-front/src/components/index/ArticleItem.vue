@@ -100,9 +100,11 @@ export default {
       cursor:pointer;
     }
     .excerpt{
+
       color: #444;
       // line-height: 25px;
-      margin-top: 0px;
+      margin-top: 5px;
+      margin-bottom: 5px;
       min-height: 25px;
       max-height: 500px;
       // display: -webkit-box;

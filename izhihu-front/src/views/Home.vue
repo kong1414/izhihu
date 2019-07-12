@@ -82,7 +82,9 @@
     </el-header>
 
     <el-container class="main">
+      
       <router-view />
+
       <!-- <el-main>
         Main
         </el-main>

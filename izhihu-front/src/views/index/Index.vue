@@ -89,7 +89,7 @@ export default {
     return {
       activeName: 'first',
       remList: [],
-      attList: []
+      attList: [],
     }
   },
   mounted () {

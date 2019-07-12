@@ -17,7 +17,7 @@
           <div class="hl-line"></div>
         </div>
       </el-card>
-      <el-card class="recommend">
+      <el-card class="recommend" style="margin-top:20px;">
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="七日最热" name="today">
             <!-- {{todayList}} -->
