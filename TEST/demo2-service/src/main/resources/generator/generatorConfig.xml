@@ -41,9 +41,9 @@
 
         <!-- jdbc连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://120.78.136.84:3306/demo?useSSL=false"
-                        userId="demo"
-                        password="ABCabc-123"/>
+                        connectionURL="jdbc:mysql://:3306/demo?useSSL=false"
+                        userId=""
+                        password=""/>
 
         <!-- 类型转换 -->
         <!--<javaTypeResolver>-->
